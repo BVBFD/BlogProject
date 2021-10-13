@@ -1,0 +1,66 @@
+@value makerWhite, makerDarkWhite, makerBlack, makerGreen, makerWheat,  makerLightGrey, makerLightPink, makerblue from '../../common/colors.css';
+
+.navbarBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.navbarLeftBox {
+  display: flex;
+  flex-direction: row;
+}
+
+.leftSmallBox {
+  border: 1px solid makerBlack;
+  width: 10em;
+  height: 2em;
+  text-align: center;
+  line-height: 2em;
+  border-radius: 1rem;
+  margin: 0 0.2em;
+}
+
+.date {
+  background-color: makerWheat;
+}
+
+.time {
+  background-color: makerLightGrey;
+}
+
+.weatherArea {
+  background-color: makerLightPink;
+}
+
+.exchangeRate {
+  background-color: makerblue;
+}
+
+.navbarRightBox {
+  display: flex;
+  flex-direction: row;
+}
+
+.searchForm {
+  margin: 0 1em;
+}
+
+.searchFormInput {
+  height: 2em;
+  font-size: 1rem;
+}
+
+.searchFormBtn {
+  height: 2em;
+  font-size: 1rem;
+}
+
+.loginBtn {
+  font-size: 1rem;
+  border-radius: 50%;
+  border: 1px solid makerDarkWhite;
+  background-color: makerWheat;
+  color: makerWhite;
+  font-weight: bolder;
+}
