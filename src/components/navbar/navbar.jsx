@@ -17,17 +17,17 @@ const Navbar = ({ weatherTime, exchangeRate }) => {
     });
   }, [weatherTime]);
 
-  useEffect(() => {
-    exchangeRate.getExchangeRate().then(
-      (data) => {
-        console.log(data);
-        setUSD_KRW_value(data.REC[0].BrgnBsrt);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }, [exchangeRate]);
+  // useEffect(() => {
+  //   exchangeRate.getExchangeRate().then(
+  //     (data) => {
+  //       console.log(data);
+  //       setUSD_KRW_value(data.REC[0].BrgnBsrt);
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }, [exchangeRate]);
   // useEffect안에서 네트워크 통신을 안하거나, 옵션에 [] 추가 안해주면
   // 여러번 네트워크와 통신하게 된다. 왜 그런지는 생각을 해보자.
 

@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./app";
 import WeatherTime from "./service/weatherTime";
 import ExchangeRate from "./service/exchangeRate";
+import "@fortawesome/fontawesome-free/js/all.js";
 
 const weatherTime = new WeatherTime(process.env.REACT_APP_WEATHER_TIME_API_KEY);
 const exchangeRate = new ExchangeRate();

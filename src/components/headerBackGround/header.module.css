@@ -1,0 +1,69 @@
+.headerBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.imgBox {
+  width: 500vw;
+  height: 10rem;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin: 0;
+}
+
+/* 왜 인지는 모르겠지만 img태근 상위 부모 요소 크기에 전혀 영향 받지 않는 것 같다. */
+/* 부모 요소 크기가 변한다고 img크기가 정확하게 변화하지는 않는다. */
+/* 따라서 이미지 태그 크기를 직접 변화시켜야 정확한 값을 얻을 수 있다. */
+
+.headerBoxImg {
+  width: 100vw;
+  height: 36rem;
+}
+
+.headerBoxBtn {
+  position: absolute;
+  z-index: 99;
+  font-size: 2rem;
+  width: 1.5em;
+  height: 1.5em;
+  border: none;
+  background-color: transparent;
+  color: whitesmoke;
+  border-radius: 50%;
+}
+
+.headerLeftBoxBtn {
+  top: 18rem;
+  left: 1rem;
+}
+
+.headerRightBoxBtn {
+  top: 18rem;
+  right: 1rem;
+}
+
+.clickCircleBox {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  left: 50vw;
+  top: 70vh;
+}
+
+.circle {
+  margin: 0 0.1rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  background-color: transparent;
+  border: 1px solid white;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 50%;
+}
+
+.circleBg {
+  background-color: whitesmoke;
+}
