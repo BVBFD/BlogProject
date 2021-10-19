@@ -34,7 +34,13 @@ class ExchangeRate {
         Iscd: "001136",
         FintechApsno: `001`,
         ApiSvcCd: "DrawingTransferA",
-        IsTuno: `-${this.randomNum(9, 1)}3210${this.randomNum(9, 1)}`,
+        IsTuno: `-${this.randomNum(9, 1)}${this.randomNum(
+          9,
+          1
+        )}${this.randomNum(9, 1)}${this.randomNum(9, 1)}${this.randomNum(
+          9,
+          1
+        )}${this.randomNum(9, 1)}`,
         // 1에서 9까지 정수 난수 뽑아주기.
         // 양수에서는 사람들 간에 중복된 값이 너무 많으니 음수를 써주자 ㅋㅋ\
         // 난 너무 똑똑해..
@@ -55,9 +61,10 @@ class ExchangeRate {
 
   async getExchangeRate() {
     const response = await fetch(
-      "https://cors-anywhere.herokuapp.com/https://developers.nonghyup.com/InquireExchangeRate.nh",
-      // Cors 에러 생겨서 https://cors-anywhere.herokuapp.com/ 이거 앞에 추가해서 우회 서버 데모 만들어서 접속하면
-      // Cors 에러 피할수 있음 더 공부가 필요.
+      `/InquireExchangeRate.nh`,
+      // package.json에 "proxy": "https://developers.nonghyup.com", 추가
+      // 그리고 `/InquireExchangeRate.nh` 만 남겨두고..
+      // yarn start or npm start 실행하면 바로 된다..!!! 대박!!
       this.requestOptions
     );
     const result = await response.json();
