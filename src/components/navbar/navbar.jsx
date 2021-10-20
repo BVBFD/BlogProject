@@ -11,11 +11,12 @@ const Navbar = ({ weatherTime, exchangeRate }) => {
     // 네트워크 통신할 때 useEffect없이 하면 두번 통신하고 호출한다.
     // 그 이유에 대해서 한번 곰곰히 생각해보자..
     weatherTime.getTimeWeather().then((result) => {
+      console.log(result);
       const newWeather = result.weather[0].main;
       setWeather(newWeather);
       setCityCountry(`${result.name} ${result.sys.country}`);
     });
-  }, [weatherTime, weather]);
+  }, [weatherTime]);
 
   useEffect(() => {
     exchangeRate.getExchangeRate().then(
@@ -46,10 +47,11 @@ const Navbar = ({ weatherTime, exchangeRate }) => {
           <Clock format={"HH:mm:ss a"} ticking={true} timezone={"Asia/Seoul"} />
         </div>
         <div className={`${styles.weatherArea} ${styles.leftSmallBox}`}>
-          {weather} / {cityCountry}
+          {weather ? weather : "새로고침 클릭!"} /{" "}
+          {cityCountry ? cityCountry : "새로고침 클릭!"}
         </div>
         <div className={`${styles.exchangeRate} ${styles.leftSmallBox}`}>
-          {USD_KRW_value}
+          {USD_KRW_value ? USD_KRW_value : "새로고침 클릭!"}
         </div>
       </section>
       <section className={styles.navbarRightBox}>

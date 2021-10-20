@@ -24,12 +24,17 @@ class WeatherTime {
   }
 
   async getTimeWeather() {
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=${this.key}`,
-      this.requestOptions
-    );
-    const result = await response.json();
-    return result;
+    try {
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=${this.key}`,
+        this.requestOptions
+      );
+
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

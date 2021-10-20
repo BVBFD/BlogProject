@@ -34,25 +34,22 @@ class ExchangeRate {
         Iscd: "001136",
         FintechApsno: `001`,
         ApiSvcCd: "DrawingTransferA",
-        IsTuno: `-${this.randomNum(9, 1)}${this.randomNum(
-          9,
-          1
-        )}${this.randomNum(9, 1)}${this.randomNum(9, 1)}${this.randomNum(
-          9,
-          1
-        )}${this.randomNum(9, 1)}${this.randomNum(9, 1)}${this.randomNum(
-          9,
-          1
-        )}${this.randomNum(9, 1)}${this.randomNum(9, 1)}${this.randomNum(
-          9,
-          1
-        )}${this.randomNum(9, 1)}${this.randomNum(9, 1)}${this.randomNum(
-          9,
-          1
-        )}${this.randomNum(9, 1)}${this.randomNum(9, 1)}${this.randomNum(
-          9,
-          1
-        )}`,
+        IsTuno: `-${this.randomNum(0, 9)}${this.randomNum(
+          0,
+          9
+        )}${this.randomNum(0, 9)}${this.randomNum(0, 9)}${this.randomNum(
+          0,
+          9
+        )}${this.randomNum(0, 9)}${this.randomNum(0, 9)}${this.randomNum(
+          0,
+          9
+        )}${this.randomNum(0, 9)}${this.randomNum(0, 9)}${this.randomNum(
+          0,
+          9
+        )}${this.randomNum(0, 9)}}${this.randomNum(0, 9)}${this.randomNum(
+          0,
+          9
+        )}${this.randomNum(0, 9)}${this.randomNum(0, 9)}`,
         // 1에서 9까지 정수 난수 뽑아주기.
         // 양수에서는 사람들 간에 중복된 값이 너무 많으니 음수를 써주자 ㅋㅋ\
         // 난 너무 똑똑해..
@@ -82,8 +79,8 @@ class ExchangeRate {
       );
       const result = await response.json();
       return result;
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   }
 }
