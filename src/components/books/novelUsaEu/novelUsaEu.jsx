@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Link, Switch, Route } from "react-router-dom";
 import styles from "./novelUsaEu.module.css";
 
@@ -8,15 +8,23 @@ const NovelUsaEu = ({ novelUsaEuData }) => {
       {Object.keys(novelUsaEuData)
         .reverse()
         .map((key) => {
+          const testStr = novelUsaEuData[key].contents.props.children.map(
+            (str) => {
+              if (str.type !== "br") {
+                return str;
+              }
+              if (str.type === "br") {
+                return "<br></br>";
+              }
+            }
+          );
+          // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
               <div>
                 <h1>${novelUsaEuData[key].type}</h1>
                 <h2>${novelUsaEuData[key].title}</h2>
                 <div>
-                  ${novelUsaEuData[key].contents.props.children[0]}
-                  <${novelUsaEuData[key].contents.props.children[1].type}>
-                  <${novelUsaEuData[key].contents.props.children[2].type}>
-                  ${novelUsaEuData[key].contents.props.children[3]}
+                  ${testStr.join("")}
                 </div>
               </div>`;
           return (
