@@ -22,7 +22,10 @@ const Navbar = ({ weatherTime, exchangeRate }) => {
     exchangeRate.getExchangeRate().then(
       (data) => {
         console.log(data);
-        setUSD_KRW_value(data.REC[0].BrgnBsrt);
+        if (data && data.REC && data.REC.length > 0) {
+          // Cannot read properties of undefined (reading '0') 오류 예방하기 위해서
+          setUSD_KRW_value(data.REC[0].BrgnBsrt);
+        }
       },
       (err) => {
         console.log(err);
