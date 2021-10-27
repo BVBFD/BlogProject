@@ -12,8 +12,9 @@ const Navbar = ({ weatherTime, exchangeRate }) => {
     // 그 이유에 대해서 한번 곰곰히 생각해보자..
     weatherTime.getTimeWeather().then((result) => {
       console.log(result);
-      const newWeather = result.weather[0].main;
-      setWeather(newWeather);
+      if (result && result.weather.length > 0) {
+        setWeather(result.weather[0].main);
+      }
       setCityCountry(`${result.name} ${result.sys.country}`);
     });
   }, [weatherTime]);

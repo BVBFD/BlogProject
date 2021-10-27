@@ -1,11 +1,95 @@
 import React from "react";
+import { Link, Switch, Route, useParams } from "react-router-dom";
 import styles from "./novelAsia.module.css";
+import { useRef } from "react/cjs/react.development";
 
-const NovelAsia = (props) => {
+const NovelAsia = ({ novelAsiaData }) => {
+  const initialBoxRef = useRef();
+  const { keyValue } = useParams();
+
   return (
-    <div className={styles.novelAsia}>
-      <h1>NovelAsia</h1>
-    </div>
+    <>
+      {!keyValue && (
+        <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
+          <div>
+            <h1>{novelAsiaData[Object.keys(novelAsiaData).length].type}</h1>
+            <h2>{novelAsiaData[Object.keys(novelAsiaData).length].title}</h2>
+            <div>
+              {novelAsiaData[
+                Object.keys(novelAsiaData).length
+              ].contents.props.children.map((str) => {
+                if (str.type !== "br") {
+                  return str;
+                }
+                if (str.type === "br") {
+                  return (
+                    <>
+                      <br></br>
+                      <br></br>
+                    </>
+                  );
+                }
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+      {Object.keys(novelAsiaData)
+        .reverse()
+        .map((key) => {
+          const testStr = novelAsiaData[key].contents.props.children.map(
+            (str) => {
+              if (str.type !== "br") {
+                return str;
+              }
+              if (str.type === "br") {
+                return "<br></br>";
+              }
+            }
+          );
+          // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
+          let codes = `
+              <div>
+                <h1>${novelAsiaData[key].type}</h1>
+                <h2>${novelAsiaData[key].title}</h2>
+                <div>
+                  ${testStr.join("")}
+                </div>
+              </div>`;
+          return (
+            <>
+              <div className={styles.switchBox}>
+                <Switch>
+                  <Route path={`/novelAsia/${key}`}>
+                    <div
+                      className={styles.novelUsaEuBox}
+                      dangerouslySetInnerHTML={{ __html: codes }}
+                    ></div>
+                  </Route>
+                </Switch>
+              </div>
+            </>
+          );
+        })}
+      <ul className={styles.novelUsaEuDataUlBox}>
+        {Object.keys(novelAsiaData)
+          .reverse()
+          .map((key) => {
+            return (
+              <li>
+                <Link
+                  className={styles.novelUsaEuDataList}
+                  to={`/novelAsia/${key}`}
+                >
+                  <h4>{key}.&emsp;</h4>
+                  <h4>{novelAsiaData[key].type}&nbsp;-&nbsp;</h4>
+                  <h4>{novelAsiaData[key].title}</h4>
+                </Link>
+              </li>
+            );
+          })}
+      </ul>
+    </>
   );
 };
 

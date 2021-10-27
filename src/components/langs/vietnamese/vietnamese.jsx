@@ -1,9 +1,9 @@
 import React from "react";
 import { Link, Switch, Route, useParams } from "react-router-dom";
-import styles from "./classicHistoryEastern.module.css";
+import styles from "./vietnamese.module.css";
 import { useRef } from "react/cjs/react.development";
 
-const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
+const Vietnamese = ({ vietnameses }) => {
   const initialBoxRef = useRef();
   const { keyValue } = useParams();
 
@@ -12,21 +12,11 @@ const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>
-              {
-                classicHistoryEastern[Object.keys(classicHistoryEastern).length]
-                  .type
-              }
-            </h1>
-            <h2>
-              {
-                classicHistoryEastern[Object.keys(classicHistoryEastern).length]
-                  .title
-              }
-            </h2>
+            <h1>{vietnameses[Object.keys(vietnameses).length].type}</h1>
+            <h2>{vietnameses[Object.keys(vietnameses).length].title}</h2>
             <div>
-              {classicHistoryEastern[
-                Object.keys(classicHistoryEastern).length
+              {vietnameses[
+                Object.keys(vietnameses).length
               ].contents.props.children.map((str) => {
                 if (str.type !== "br") {
                   return str;
@@ -44,24 +34,24 @@ const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
           </div>
         </div>
       )}
-      {Object.keys(classicHistoryEastern)
+      {Object.keys(vietnameses)
         .reverse()
         .map((key) => {
-          const testStr = classicHistoryEastern[
-            key
-          ].contents.props.children.map((str) => {
-            if (str.type !== "br") {
-              return str;
+          const testStr = vietnameses[key].contents.props.children.map(
+            (str) => {
+              if (str.type !== "br") {
+                return str;
+              }
+              if (str.type === "br") {
+                return "<br></br>";
+              }
             }
-            if (str.type === "br") {
-              return "<br></br>";
-            }
-          });
+          );
           // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
               <div>
-                <h1>${classicHistoryEastern[key].type}</h1>
-                <h2>${classicHistoryEastern[key].title}</h2>
+                <h1>${vietnameses[key].type}</h1>
+                <h2>${vietnameses[key].title}</h2>
                 <div>
                   ${testStr.join("")}
                 </div>
@@ -70,7 +60,7 @@ const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/classicHistoryEastern/${key}`}>
+                  <Route path={`/vietnamese/${key}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -82,18 +72,18 @@ const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
           );
         })}
       <ul className={styles.novelUsaEuDataUlBox}>
-        {Object.keys(classicHistoryEastern)
+        {Object.keys(vietnameses)
           .reverse()
           .map((key) => {
             return (
               <li>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/classicHistoryEastern/${key}`}
+                  to={`/vietnamese/${key}`}
                 >
                   <h4>{key}.&emsp;</h4>
-                  <h4>{classicHistoryEastern[key].type}&nbsp;-&nbsp;</h4>
-                  <h4>{classicHistoryEastern[key].title}</h4>
+                  <h4>{vietnameses[key].type}&nbsp;-&nbsp;</h4>
+                  <h4>{vietnameses[key].title}</h4>
                 </Link>
               </li>
             );
@@ -103,4 +93,4 @@ const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
   );
 };
 
-export default ClassicHistoryEastern;
+export default Vietnamese;

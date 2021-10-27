@@ -1,9 +1,9 @@
 import React from "react";
 import { Link, Switch, Route, useParams } from "react-router-dom";
-import styles from "./classicHistoryEastern.module.css";
+import styles from "./korean.module.css";
 import { useRef } from "react/cjs/react.development";
 
-const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
+const Korean = ({ koreans }) => {
   const initialBoxRef = useRef();
   const { keyValue } = useParams();
 
@@ -12,44 +12,32 @@ const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>
-              {
-                classicHistoryEastern[Object.keys(classicHistoryEastern).length]
-                  .type
-              }
-            </h1>
-            <h2>
-              {
-                classicHistoryEastern[Object.keys(classicHistoryEastern).length]
-                  .title
-              }
-            </h2>
+            <h1>{koreans[Object.keys(koreans).length].type}</h1>
+            <h2>{koreans[Object.keys(koreans).length].title}</h2>
             <div>
-              {classicHistoryEastern[
-                Object.keys(classicHistoryEastern).length
-              ].contents.props.children.map((str) => {
-                if (str.type !== "br") {
-                  return str;
+              {koreans[Object.keys(koreans).length].contents.props.children.map(
+                (str) => {
+                  if (str.type !== "br") {
+                    return str;
+                  }
+                  if (str.type === "br") {
+                    return (
+                      <>
+                        <br></br>
+                        <br></br>
+                      </>
+                    );
+                  }
                 }
-                if (str.type === "br") {
-                  return (
-                    <>
-                      <br></br>
-                      <br></br>
-                    </>
-                  );
-                }
-              })}
+              )}
             </div>
           </div>
         </div>
       )}
-      {Object.keys(classicHistoryEastern)
+      {Object.keys(koreans)
         .reverse()
         .map((key) => {
-          const testStr = classicHistoryEastern[
-            key
-          ].contents.props.children.map((str) => {
+          const testStr = koreans[key].contents.props.children.map((str) => {
             if (str.type !== "br") {
               return str;
             }
@@ -60,8 +48,8 @@ const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
           // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
               <div>
-                <h1>${classicHistoryEastern[key].type}</h1>
-                <h2>${classicHistoryEastern[key].title}</h2>
+                <h1>${koreans[key].type}</h1>
+                <h2>${koreans[key].title}</h2>
                 <div>
                   ${testStr.join("")}
                 </div>
@@ -70,7 +58,7 @@ const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/classicHistoryEastern/${key}`}>
+                  <Route path={`/korean/${key}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -82,18 +70,18 @@ const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
           );
         })}
       <ul className={styles.novelUsaEuDataUlBox}>
-        {Object.keys(classicHistoryEastern)
+        {Object.keys(koreans)
           .reverse()
           .map((key) => {
             return (
               <li>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/classicHistoryEastern/${key}`}
+                  to={`/korean/${key}`}
                 >
                   <h4>{key}.&emsp;</h4>
-                  <h4>{classicHistoryEastern[key].type}&nbsp;-&nbsp;</h4>
-                  <h4>{classicHistoryEastern[key].title}</h4>
+                  <h4>{koreans[key].type}&nbsp;-&nbsp;</h4>
+                  <h4>{koreans[key].title}</h4>
                 </Link>
               </li>
             );
@@ -103,4 +91,4 @@ const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
   );
 };
 
-export default ClassicHistoryEastern;
+export default Korean;

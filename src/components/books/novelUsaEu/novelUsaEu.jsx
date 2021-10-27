@@ -1,10 +1,40 @@
 import React from "react";
-import { Link, Switch, Route } from "react-router-dom";
+import { Link, Switch, Route, useParams } from "react-router-dom";
 import styles from "./novelUsaEu.module.css";
+import { useRef } from "react/cjs/react.development";
 
 const NovelUsaEu = ({ novelUsaEuData }) => {
+  const initialBoxRef = useRef();
+  const { keyValue } = useParams();
+  console.log(Boolean(keyValue));
+
   return (
     <>
+      {!keyValue && (
+        <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
+          <div>
+            <h1>{novelUsaEuData[Object.keys(novelUsaEuData).length].type}</h1>
+            <h2>{novelUsaEuData[Object.keys(novelUsaEuData).length].title}</h2>
+            <div>
+              {novelUsaEuData[
+                Object.keys(novelUsaEuData).length
+              ].contents.props.children.map((str) => {
+                if (str.type !== "br") {
+                  return str;
+                }
+                if (str.type === "br") {
+                  return (
+                    <>
+                      <br></br>
+                      <br></br>
+                    </>
+                  );
+                }
+              })}
+            </div>
+          </div>
+        </div>
+      )}
       {Object.keys(novelUsaEuData)
         .reverse()
         .map((key) => {

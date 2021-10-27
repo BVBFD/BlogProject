@@ -48,6 +48,12 @@
   padding-left: 1rem;
 }
 
+.langsBox {
+  display: none;
+  flex-direction: column;
+  padding-left: 1rem;
+}
+
 .listShow {
   display: flex;
 }
