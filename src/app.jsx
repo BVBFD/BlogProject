@@ -1586,6 +1586,13 @@ const App = ({ weatherTime, exchangeRate }) => {
     korean: koreans,
   });
 
+  const [loginData, setLoginData] = useState({
+    1: { id: "lse126", pwd: "@securities126" },
+    2: { id: "giopf47", pwd: "@securities626" },
+    3: { id: "parkGB", pwd: "@securities526" },
+    4: { id: "LeeJT", pwd: "@securities926" },
+  });
+
   const booksBoxRef = useRef();
   const codingsBoxRef = useRef();
   const tripsBoxRef = useRef();
@@ -1637,7 +1644,11 @@ const App = ({ weatherTime, exchangeRate }) => {
 
   return (
     <>
-      <Navbar weatherTime={weatherTime} exchangeRate={exchangeRate} />
+      <Navbar
+        loginData={loginData}
+        weatherTime={weatherTime}
+        exchangeRate={exchangeRate}
+      />
       <Header />
       <ul className={styles.listBodyBox}>
         <li className={styles.listBox}>

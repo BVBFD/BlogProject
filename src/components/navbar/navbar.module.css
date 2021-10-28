@@ -40,25 +40,31 @@
 .navbarRightBox {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .searchForm {
   margin: 0 1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.searchFormInput {
-  height: 2em;
+.loginForm {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.navbarInput {
+  height: 1.5em;
   font-size: 1rem;
 }
 
-.searchFormBtn {
-  height: 2em;
-  font-size: 1rem;
-}
-
-.loginBtn {
-  font-size: 1rem;
-  border-radius: 50%;
+.navbarBtn {
+  font-size: 0.8rem;
+  height: 1.5em;
+  border-radius: 10%;
   border: 1px solid makerDarkWhite;
   background-color: makerWheat;
   color: makerWhite;

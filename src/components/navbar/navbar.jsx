@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import styles from "./navbar.module.css";
 import Clock from "react-live-clock";
+import { useRef } from "react/cjs/react.development";
 
-const Navbar = ({ weatherTime, exchangeRate }) => {
+const Navbar = ({ loginData, weatherTime, exchangeRate }) => {
   const [weather, setWeather] = useState();
   const [cityCountry, setCityCountry] = useState();
   const [USD_KRW_value, setUSD_KRW_value] = useState();
+
+  const idInputRef = useRef();
+  const pwdInputRef = useRef();
 
   useEffect(() => {
     // 네트워크 통신할 때 useEffect없이 하면 두번 통신하고 호출한다.
     // 그 이유에 대해서 한번 곰곰히 생각해보자..
     weatherTime.getTimeWeather().then((result) => {
-      console.log(result);
       if (result && result.weather.length > 0) {
         setWeather(result.weather[0].main);
       }
@@ -22,7 +25,6 @@ const Navbar = ({ weatherTime, exchangeRate }) => {
   useEffect(() => {
     exchangeRate.getExchangeRate().then(
       (data) => {
-        console.log(data);
         if (data && data.REC && data.REC.length > 0) {
           // Cannot read properties of undefined (reading '0') 오류 예방하기 위해서
           setUSD_KRW_value(data.REC[0].BrgnBsrt);
@@ -35,6 +37,29 @@ const Navbar = ({ weatherTime, exchangeRate }) => {
   }, [exchangeRate]);
   // useEffect안에서 네트워크 통신을 안하거나, 옵션에 [] 추가 안해주면
   // 여러번 네트워크와 통신하게 된다. 왜 그런지는 생각을 해보자.
+
+  const onLogin = (event) => {
+    event.preventDefault();
+    const endIndex = Object.keys(loginData).length;
+    console.log(idInputRef.current.value, pwdInputRef.current.value);
+    for (let i = 1; i < endIndex + 1; i++) {
+      console.log(loginData[i].id, loginData[i].pwd);
+      if (
+        loginData[i].id === idInputRef.current.value &&
+        loginData[i].pwd === pwdInputRef.current.value
+      ) {
+        console.log("로그인 성공");
+        break;
+      }
+      if (loginData[i].id !== idInputRef.current.value) {
+        console.log("아이디 불일치");
+      }
+      if (loginData[i].pwd !== pwdInputRef.current.value) {
+        console.log("비밀번호 불일치");
+      }
+      break;
+    }
+  };
 
   return (
     <nav className={styles.navbarBox}>
@@ -61,13 +86,29 @@ const Navbar = ({ weatherTime, exchangeRate }) => {
       <section className={styles.navbarRightBox}>
         <form className={styles.searchForm}>
           <input
-            className={styles.searchFormInput}
+            className={styles.navbarInput}
             type="text"
             placeholder="전체 검색 기능"
           />
-          <button className={styles.searchFormBtn}>Click!</button>
+          <button className={styles.navbarBtn}>Click!</button>
         </form>
-        <button className={styles.loginBtn}>로그인</button>
+
+        <form className={styles.loginForm} onSubmit={(event) => onLogin(event)}>
+          <input
+            ref={idInputRef}
+            className={styles.navbarInput}
+            type="text"
+            placeholder="ID"
+          />
+          <input
+            ref={pwdInputRef}
+            className={styles.navbarInput}
+            type="text"
+            placeholder="PassWord"
+          />
+          <button className={styles.navbarBtn}>로그인</button>
+        </form>
+        <button className={styles.navbarBtn}>회원가입</button>
       </section>
     </nav>
   );
