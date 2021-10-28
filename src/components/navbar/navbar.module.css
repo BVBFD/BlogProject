@@ -3,6 +3,7 @@
 .navbarBox {
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -69,4 +70,24 @@
   background-color: makerWheat;
   color: makerWhite;
   font-weight: bolder;
+}
+
+.loginFormOff {
+  display: none;
+}
+
+.logoutBtn {
+  display: none;
+}
+
+.welcomeSentBox {
+  display: none;
+  height: 2rem;
+  padding: 0 0.5rem;
+  border-radius: 2rem;
+  background-color: blueviolet;
+  color: whitesmoke;
+  font-weight: bolder;
+  align-items: center;
+  margin-left: 1rem;
 }

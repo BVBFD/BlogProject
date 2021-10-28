@@ -10,6 +10,10 @@ const Navbar = ({ loginData, weatherTime, exchangeRate }) => {
 
   const idInputRef = useRef();
   const pwdInputRef = useRef();
+  const loginFormRef = useRef();
+  const registerBtnRef = useRef();
+  const welcomeSentRef = useRef();
+  const logoutBtnRef = useRef();
 
   useEffect(() => {
     // 네트워크 통신할 때 useEffect없이 하면 두번 통신하고 호출한다.
@@ -49,16 +53,30 @@ const Navbar = ({ loginData, weatherTime, exchangeRate }) => {
         loginData[i].pwd === pwdInputRef.current.value
       ) {
         console.log("로그인 성공");
+        welcomeSentRef.current.innerHTML = `안녕하세요! ${loginData[i].id}님`;
+        loginFormRef.current.classList.add(`${styles.logoutBtn}`);
+        registerBtnRef.current.classList.add(`${styles.logoutBtn}`);
+        welcomeSentRef.current.style.display = "flex";
+        logoutBtnRef.current.style.display = "flex";
         break;
       }
       if (loginData[i].id !== idInputRef.current.value) {
-        console.log("아이디 불일치");
+        alert("아이디 불일치! 다시 입력해주세요!");
+        break;
       }
       if (loginData[i].pwd !== pwdInputRef.current.value) {
-        console.log("비밀번호 불일치");
+        alert("비밀번호 불일치! 다시 입력해주세요!");
       }
       break;
     }
+  };
+
+  const onLogout = () => {
+    welcomeSentRef.current.innerHTML = ``;
+    loginFormRef.current.classList.remove(`${styles.logoutBtn}`);
+    registerBtnRef.current.classList.remove(`${styles.logoutBtn}`);
+    welcomeSentRef.current.style.display = "none";
+    logoutBtnRef.current.style.display = "none";
   };
 
   return (
@@ -93,7 +111,11 @@ const Navbar = ({ loginData, weatherTime, exchangeRate }) => {
           <button className={styles.navbarBtn}>Click!</button>
         </form>
 
-        <form className={styles.loginForm} onSubmit={(event) => onLogin(event)}>
+        <form
+          ref={loginFormRef}
+          className={styles.loginForm}
+          onSubmit={(event) => onLogin(event)}
+        >
           <input
             ref={idInputRef}
             className={styles.navbarInput}
@@ -108,7 +130,17 @@ const Navbar = ({ loginData, weatherTime, exchangeRate }) => {
           />
           <button className={styles.navbarBtn}>로그인</button>
         </form>
-        <button className={styles.navbarBtn}>회원가입</button>
+        <button ref={registerBtnRef} className={styles.navbarBtn}>
+          회원가입
+        </button>
+        <p ref={welcomeSentRef} className={styles.welcomeSentBox}></p>
+        <button
+          onClick={() => onLogout()}
+          ref={logoutBtnRef}
+          className={`${styles.navbarBtn} ${styles.logoutBtn}`}
+        >
+          로그아웃
+        </button>
       </section>
     </nav>
   );
