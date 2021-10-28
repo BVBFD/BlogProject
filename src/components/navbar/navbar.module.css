@@ -85,9 +85,9 @@
   height: 2rem;
   padding: 0 0.5rem;
   border-radius: 2rem;
-  background-color: blueviolet;
+  background-color: darkred;
   color: whitesmoke;
-  font-weight: bolder;
+  font-weight: normal;
   align-items: center;
   margin-left: 1rem;
 }

@@ -44,30 +44,36 @@ const Navbar = ({ loginData, weatherTime, exchangeRate }) => {
 
   const onLogin = (event) => {
     event.preventDefault();
-    const endIndex = Object.keys(loginData).length;
-    console.log(idInputRef.current.value, pwdInputRef.current.value);
-    for (let i = 1; i < endIndex + 1; i++) {
-      console.log(loginData[i].id, loginData[i].pwd);
-      if (
-        loginData[i].id === idInputRef.current.value &&
-        loginData[i].pwd === pwdInputRef.current.value
-      ) {
-        console.log("로그인 성공");
-        welcomeSentRef.current.innerHTML = `안녕하세요! ${loginData[i].id}님`;
-        loginFormRef.current.classList.add(`${styles.logoutBtn}`);
-        registerBtnRef.current.classList.add(`${styles.logoutBtn}`);
-        welcomeSentRef.current.style.display = "flex";
-        logoutBtnRef.current.style.display = "flex";
-        break;
-      }
-      if (loginData[i].id !== idInputRef.current.value) {
-        alert("아이디 불일치! 다시 입력해주세요!");
-        break;
-      }
-      if (loginData[i].pwd !== pwdInputRef.current.value) {
-        alert("비밀번호 불일치! 다시 입력해주세요!");
-      }
-      break;
+    const idArray = Object.keys(loginData).map((key) => {
+      return loginData[key].id;
+    });
+    const pwdArray = Object.keys(loginData).map((key) => {
+      return loginData[key].pwd;
+    });
+    if (
+      idArray.includes(idInputRef.current.value) &&
+      pwdArray.includes(pwdInputRef.current.value)
+    ) {
+      welcomeSentRef.current.innerHTML = `안녕하세요! ${idInputRef.current.value}님`;
+      loginFormRef.current.classList.add(`${styles.logoutBtn}`);
+      registerBtnRef.current.classList.add(`${styles.logoutBtn}`);
+      welcomeSentRef.current.style.display = "flex";
+      logoutBtnRef.current.style.display = "flex";
+    } else if (
+      idArray.includes(idInputRef.current.value) === false &&
+      pwdArray.includes(pwdInputRef.current.value) === true
+    ) {
+      alert("아이디가 불일치합니다. 다시 입력해주세요");
+    } else if (
+      pwdArray.includes(pwdInputRef.current.value) === false &&
+      idArray.includes(idInputRef.current.value) === true
+    ) {
+      alert("비밀번호가 불일치합니다. 다시 입력해주세요");
+    } else if (
+      idArray.includes(idInputRef.current.value) === false &&
+      pwdArray.includes(pwdInputRef.current.value) === false
+    ) {
+      alert("회원정보가 존재하지 않습니다. 회원가입을 해주세요");
     }
   };
 
