@@ -24,7 +24,7 @@ import Korean from "./components/langs/korean/korean";
 import Vietnamese from "./components/langs/vietnamese/vietnamese";
 import InitialPageData from "./components/initialPageData/initialPageData";
 
-const App = ({ weatherTime, exchangeRate }) => {
+const App = ({ authMobileService, weatherTime, exchangeRate }) => {
   const [novelUsaEuData, setNovelUsaEuData] = useState({
     1: {
       type: "소설(북미, 유럽)",
@@ -1591,6 +1591,7 @@ const App = ({ weatherTime, exchangeRate }) => {
     2: { id: "giopf47", pwd: "@securities626" },
     3: { id: "parkGB", pwd: "@securities526" },
     4: { id: "LeeJT", pwd: "@securities926" },
+    5: { id: undefined, pwd: undefined },
   });
 
   const booksBoxRef = useRef();
@@ -1645,6 +1646,8 @@ const App = ({ weatherTime, exchangeRate }) => {
   return (
     <>
       <Navbar
+        authMobileService={authMobileService}
+        setLoginData={setLoginData}
         loginData={loginData}
         weatherTime={weatherTime}
         exchangeRate={exchangeRate}

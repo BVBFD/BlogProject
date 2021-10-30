@@ -42,6 +42,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
 }
 
 .searchForm {
@@ -58,18 +59,21 @@
 }
 
 .navbarInput {
-  height: 1.5em;
+  height: 1.8em;
   font-size: 1rem;
+  width: 80%;
 }
 
 .navbarBtn {
-  font-size: 0.8rem;
-  height: 1.5em;
+  font-size: 0.6rem;
+  width: 20%;
+  padding: 0;
+  height: 1.8rem;
   border-radius: 10%;
   border: 1px solid makerDarkWhite;
   background-color: makerWheat;
   color: makerWhite;
-  font-weight: bolder;
+  font-weight: normal;
 }
 
 .loginFormOff {
@@ -90,4 +94,37 @@
   font-weight: normal;
   align-items: center;
   margin-left: 1rem;
+}
+
+/* signUp mobile authentication form */
+.mobileAuthBox {
+  display: none;
+  position: absolute;
+  top: 2rem;
+  right: 0;
+  z-index: 999;
+  background-color: bisque;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.mobileAuthH3 {
+  margin: 0;
+}
+
+.mobileAuthForm {
+  display: flex;
+  flex-direction: column;
+}
+
+/* signUp form */
+.signUpBox {
+  display: none;
+  position: absolute;
+  top: 2rem;
+  right: 0;
+  z-index: 999;
+  background-color: bisque;
+  padding: 0.5rem;
+  text-align: center;
 }

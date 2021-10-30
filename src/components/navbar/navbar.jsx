@@ -3,10 +3,18 @@ import styles from "./navbar.module.css";
 import Clock from "react-live-clock";
 import { useRef } from "react/cjs/react.development";
 
-const Navbar = ({ loginData, weatherTime, exchangeRate }) => {
+const Navbar = ({
+  loginData,
+  weatherTime,
+  exchangeRate,
+  authMobileService,
+  setLoginData,
+}) => {
   const [weather, setWeather] = useState();
   const [cityCountry, setCityCountry] = useState();
   const [USD_KRW_value, setUSD_KRW_value] = useState();
+  const [number, setNumber] = useState(undefined);
+  const [otp, setOtp] = useState(undefined);
 
   const idInputRef = useRef();
   const pwdInputRef = useRef();
@@ -14,6 +22,12 @@ const Navbar = ({ loginData, weatherTime, exchangeRate }) => {
   const registerBtnRef = useRef();
   const welcomeSentRef = useRef();
   const logoutBtnRef = useRef();
+  const numRef = useRef();
+  const otpRef = useRef();
+  const mobileAuthRef = useRef();
+  const signUpBoxIdInputRef = useRef();
+  const signUpBoxPwdInputRef = useRef();
+  const signUpBoxRef = useRef();
 
   useEffect(() => {
     // 네트워크 통신할 때 useEffect없이 하면 두번 통신하고 호출한다.
@@ -85,6 +99,52 @@ const Navbar = ({ loginData, weatherTime, exchangeRate }) => {
     logoutBtnRef.current.style.display = "none";
   };
 
+  const signUpFormBtn = () => {
+    if (mobileAuthRef.current.style.display === "none") {
+      mobileAuthRef.current.style.display = "block";
+    } else {
+      mobileAuthRef.current.style.display = "none";
+    }
+  };
+
+  const handleNumChange = (event) => {
+    setNumber(event.target.value);
+    console.log(number);
+  };
+
+  const handleOtpChange = (event) => {
+    setOtp(event.target.value);
+    console.log(otp);
+  };
+
+  const numberSubmit = (event) => {
+    event.preventDefault();
+    authMobileService.onSignInSubmit(number);
+  };
+
+  const otpSubmit = (event) => {
+    event.preventDefault();
+    authMobileService.onSubmitOTP(otp, getOnSignUpPage);
+  };
+
+  const getOnSignUpPage = () => {
+    mobileAuthRef.current.style.display = "none";
+    signUpBoxRef.current.style.display = "block";
+  };
+
+  const signUpIdPwd = (event) => {
+    event.preventDefault();
+    console.log(Object.keys(loginData).length);
+    const newIndex = Object.keys(loginData).length;
+    const id = signUpBoxIdInputRef.current.value;
+    const pwd = signUpBoxPwdInputRef.current.value;
+    console.log(newIndex);
+    loginData[newIndex] = { id: id, pwd: pwd };
+    setLoginData({ ...loginData, newIndex: loginData[newIndex] });
+    console.log(loginData);
+    signUpBoxRef.current.style.display = "none";
+  };
+
   return (
     <nav className={styles.navbarBox}>
       <section className={styles.navbarLeftBox}>
@@ -136,9 +196,69 @@ const Navbar = ({ loginData, weatherTime, exchangeRate }) => {
           />
           <button className={styles.navbarBtn}>로그인</button>
         </form>
-        <button ref={registerBtnRef} className={styles.navbarBtn}>
+        <button
+          onClick={() => signUpFormBtn()}
+          ref={registerBtnRef}
+          className={styles.navbarBtn}
+        >
           회원가입
         </button>
+
+        <div ref={mobileAuthRef} className={styles.mobileAuthBox}>
+          <h3 className={styles.mobileAuthH3}>회원가입 본인인증</h3>
+          <form onSubmit={numberSubmit} className={styles.mobileAuthForm}>
+            <div id="sign-in-button"></div>
+            <input
+              className={styles.mobileAuthBoxNumInput}
+              ref={numRef}
+              type="number"
+              name="mobile"
+              placeholder="Mobile Number"
+              onChange={handleNumChange}
+              required
+            />
+            <button className={styles.mobileAuthBoxNumBtn} type="submit">
+              Submit
+            </button>
+          </form>
+
+          <form onSubmit={otpSubmit} className={styles.mobileAuthForm}>
+            <input
+              className={styles.mobileAuthBoxOtpInput}
+              ref={otpRef}
+              type="number"
+              name="otp"
+              placeholder="OTP number"
+              onChange={handleOtpChange}
+              required
+            />
+            <button className={styles.mobileAuthBoxOtpBtn} type="submit">
+              Submit
+            </button>
+          </form>
+        </div>
+
+        <div ref={signUpBoxRef} className={styles.signUpBox}>
+          <h3 className={styles.mobileAuthH3}>회원가입</h3>
+          <form onSubmit={signUpIdPwd} className={styles.mobileAuthForm}>
+            <input
+              ref={signUpBoxIdInputRef}
+              type="text"
+              name="id"
+              placeholder="ID"
+              required
+            />
+            <input
+              ref={signUpBoxPwdInputRef}
+              type="text"
+              name="pwd"
+              placeholder="Password"
+              required
+            />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+
         <p ref={welcomeSentRef} className={styles.welcomeSentBox}></p>
         <button
           onClick={() => onLogout()}
