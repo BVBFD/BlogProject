@@ -6,6 +6,10 @@ import { useRef } from "react/cjs/react.development";
 const NodeJs = ({ nodeJSs }) => {
   const initialBoxRef = useRef();
   const { keyValue } = useParams();
+  const initialCodes = `
+  <div>
+    ${nodeJSs[Object.keys(nodeJSs).length].contents}
+  </div>`;
 
   return (
     <>
@@ -14,46 +18,23 @@ const NodeJs = ({ nodeJSs }) => {
           <div>
             <h1>{nodeJSs[Object.keys(nodeJSs).length].type}</h1>
             <h2>{nodeJSs[Object.keys(nodeJSs).length].title}</h2>
-            <div>
-              {nodeJSs[Object.keys(nodeJSs).length].contents.props.children.map(
-                (str) => {
-                  if (str.type !== "br") {
-                    return str;
-                  }
-                  if (str.type === "br") {
-                    return (
-                      <>
-                        <br></br>
-                        <br></br>
-                      </>
-                    );
-                  }
-                }
-              )}
-            </div>
+            <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
       )}
       {Object.keys(nodeJSs)
         .reverse()
         .map((key) => {
-          const testStr = nodeJSs[key].contents.props.children.map((str) => {
-            if (str.type !== "br") {
-              return str;
-            }
-            if (str.type === "br") {
-              return "<br></br>";
-            }
-          });
+          const testStr = nodeJSs[key].contents;
           // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
+            <div>
+              <h1>${nodeJSs[key].type}</h1>
+              <h2>${nodeJSs[key].title}</h2>
               <div>
-                <h1>${nodeJSs[key].type}</h1>
-                <h2>${nodeJSs[key].title}</h2>
-                <div>
-                  ${testStr.join("")}
-                </div>
-              </div>`;
+                ${testStr}
+              </div>
+            </div>`;
           return (
             <>
               <div className={styles.switchBox}>

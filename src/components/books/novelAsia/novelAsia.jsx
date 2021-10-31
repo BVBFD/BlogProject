@@ -6,6 +6,10 @@ import { useRef } from "react/cjs/react.development";
 const NovelAsia = ({ novelAsiaData }) => {
   const initialBoxRef = useRef();
   const { keyValue } = useParams();
+  const initialCodes = `
+    <div>
+      ${novelAsiaData[Object.keys(novelAsiaData).length].contents}
+    </div>`;
 
   return (
     <>
@@ -14,46 +18,21 @@ const NovelAsia = ({ novelAsiaData }) => {
           <div>
             <h1>{novelAsiaData[Object.keys(novelAsiaData).length].type}</h1>
             <h2>{novelAsiaData[Object.keys(novelAsiaData).length].title}</h2>
-            <div>
-              {novelAsiaData[
-                Object.keys(novelAsiaData).length
-              ].contents.props.children.map((str) => {
-                if (str.type !== "br") {
-                  return str;
-                }
-                if (str.type === "br") {
-                  return (
-                    <>
-                      <br></br>
-                      <br></br>
-                    </>
-                  );
-                }
-              })}
-            </div>
+            <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
       )}
       {Object.keys(novelAsiaData)
         .reverse()
         .map((key) => {
-          const testStr = novelAsiaData[key].contents.props.children.map(
-            (str) => {
-              if (str.type !== "br") {
-                return str;
-              }
-              if (str.type === "br") {
-                return "<br></br>";
-              }
-            }
-          );
+          const testStr = novelAsiaData[key].contents;
           // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
               <div>
                 <h1>${novelAsiaData[key].type}</h1>
                 <h2>${novelAsiaData[key].title}</h2>
                 <div>
-                  ${testStr.join("")}
+                  ${testStr}
                 </div>
               </div>`;
           return (

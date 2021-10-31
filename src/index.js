@@ -8,7 +8,9 @@ import "@fortawesome/fontawesome-free/js/all.js";
 import { BrowserRouter } from "react-router-dom";
 import AuthMobileService from "./service/authMobileService";
 import { firebaseApp } from "./service/firebase";
+import DataRepository from "./service/dataRepository";
 
+const dataRepository = new DataRepository(firebaseApp);
 const weatherTime = new WeatherTime(process.env.REACT_APP_WEATHER_TIME_API_KEY);
 const exchangeRate = new ExchangeRate();
 const authMobileService = new AuthMobileService(firebaseApp);
@@ -17,6 +19,7 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <App
+        dataRepository={dataRepository}
         authMobileService={authMobileService}
         weatherTime={weatherTime}
         exchangeRate={exchangeRate}

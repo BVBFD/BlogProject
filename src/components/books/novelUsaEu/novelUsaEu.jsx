@@ -7,6 +7,10 @@ const NovelUsaEu = ({ novelUsaEuData }) => {
   const initialBoxRef = useRef();
   const { keyValue } = useParams();
   console.log(Boolean(keyValue));
+  const initialCodes = `
+    <div>
+      ${novelUsaEuData[Object.keys(novelUsaEuData).length].contents}
+    </div>`;
 
   return (
     <>
@@ -15,46 +19,21 @@ const NovelUsaEu = ({ novelUsaEuData }) => {
           <div>
             <h1>{novelUsaEuData[Object.keys(novelUsaEuData).length].type}</h1>
             <h2>{novelUsaEuData[Object.keys(novelUsaEuData).length].title}</h2>
-            <div>
-              {novelUsaEuData[
-                Object.keys(novelUsaEuData).length
-              ].contents.props.children.map((str) => {
-                if (str.type !== "br") {
-                  return str;
-                }
-                if (str.type === "br") {
-                  return (
-                    <>
-                      <br></br>
-                      <br></br>
-                    </>
-                  );
-                }
-              })}
-            </div>
+            <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
       )}
       {Object.keys(novelUsaEuData)
         .reverse()
         .map((key) => {
-          const testStr = novelUsaEuData[key].contents.props.children.map(
-            (str) => {
-              if (str.type !== "br") {
-                return str;
-              }
-              if (str.type === "br") {
-                return "<br></br>";
-              }
-            }
-          );
+          const testStr = novelUsaEuData[key].contents;
           // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
               <div>
                 <h1>${novelUsaEuData[key].type}</h1>
                 <h2>${novelUsaEuData[key].title}</h2>
                 <div>
-                  ${testStr.join("")}
+                  ${testStr}
                 </div>
               </div>`;
           return (

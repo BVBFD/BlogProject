@@ -6,6 +6,13 @@ import { useRef } from "react/cjs/react.development";
 const ClassicHistoryWestern = ({ classicHistoryWestern }) => {
   const initialBoxRef = useRef();
   const { keyValue } = useParams();
+  const initialCodes = `
+    <div>
+      ${
+        classicHistoryWestern[Object.keys(classicHistoryWestern).length]
+          .contents
+      }
+    </div>`;
 
   return (
     <>
@@ -24,46 +31,21 @@ const ClassicHistoryWestern = ({ classicHistoryWestern }) => {
                   .title
               }
             </h2>
-            <div>
-              {classicHistoryWestern[
-                Object.keys(classicHistoryWestern).length
-              ].contents.props.children.map((str) => {
-                if (str.type !== "br") {
-                  return str;
-                }
-                if (str.type === "br") {
-                  return (
-                    <>
-                      <br></br>
-                      <br></br>
-                    </>
-                  );
-                }
-              })}
-            </div>
+            <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
       )}
       {Object.keys(classicHistoryWestern)
         .reverse()
         .map((key) => {
-          const testStr = classicHistoryWestern[
-            key
-          ].contents.props.children.map((str) => {
-            if (str.type !== "br") {
-              return str;
-            }
-            if (str.type === "br") {
-              return "<br></br>";
-            }
-          });
+          const testStr = classicHistoryWestern[key].contents;
           // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
               <div>
                 <h1>${classicHistoryWestern[key].type}</h1>
                 <h2>${classicHistoryWestern[key].title}</h2>
                 <div>
-                  ${testStr.join("")}
+                  ${testStr}
                 </div>
               </div>`;
           return (

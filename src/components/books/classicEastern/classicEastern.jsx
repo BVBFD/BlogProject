@@ -6,6 +6,10 @@ import { useRef } from "react/cjs/react.development";
 const ClassicEastern = ({ classicEastern }) => {
   const initialBoxRef = useRef();
   const { keyValue } = useParams();
+  const initialCodes = `
+    <div>
+      ${classicEastern[Object.keys(classicEastern).length].contents}
+    </div>`;
 
   return (
     <>
@@ -14,46 +18,21 @@ const ClassicEastern = ({ classicEastern }) => {
           <div>
             <h1>{classicEastern[Object.keys(classicEastern).length].type}</h1>
             <h2>{classicEastern[Object.keys(classicEastern).length].title}</h2>
-            <div>
-              {classicEastern[
-                Object.keys(classicEastern).length
-              ].contents.props.children.map((str) => {
-                if (str.type !== "br") {
-                  return str;
-                }
-                if (str.type === "br") {
-                  return (
-                    <>
-                      <br></br>
-                      <br></br>
-                    </>
-                  );
-                }
-              })}
-            </div>
+            <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
       )}
       {Object.keys(classicEastern)
         .reverse()
         .map((key) => {
-          const testStr = classicEastern[key].contents.props.children.map(
-            (str) => {
-              if (str.type !== "br") {
-                return str;
-              }
-              if (str.type === "br") {
-                return "<br></br>";
-              }
-            }
-          );
+          const testStr = classicEastern[key].contents;
           // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
               <div>
                 <h1>${classicEastern[key].type}</h1>
                 <h2>${classicEastern[key].title}</h2>
                 <div>
-                  ${testStr.join("")}
+                  ${testStr}
                 </div>
               </div>`;
           return (

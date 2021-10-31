@@ -23,14 +23,19 @@ import Chinese from "./components/langs/chinese/chinese";
 import Korean from "./components/langs/korean/korean";
 import Vietnamese from "./components/langs/vietnamese/vietnamese";
 import InitialPageData from "./components/initialPageData/initialPageData";
+import { useEffect } from "react";
 
-const App = ({ authMobileService, weatherTime, exchangeRate }) => {
+const App = ({
+  dataRepository,
+  authMobileService,
+  weatherTime,
+  exchangeRate,
+}) => {
   const [novelUsaEuData, setNovelUsaEuData] = useState({
     1: {
       type: "소설(북미, 유럽)",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -49,14 +54,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "소설(북미, 유럽)",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -80,14 +83,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "소설(북미, 유럽)",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -101,8 +102,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -110,8 +110,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "소설(아시아)",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -130,14 +129,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "소설(아시아)",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -161,14 +158,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "소설(아시아)",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -182,8 +177,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -191,8 +185,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "서양고전",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -211,14 +204,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "서양고전",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -242,14 +233,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "서양고전",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -263,8 +252,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -272,8 +260,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "동양고전",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -292,14 +279,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "동양고전",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -323,14 +308,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "동양고전",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -344,8 +327,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -353,8 +335,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "역사(서양)",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -373,14 +354,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "역사(서양)",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -404,14 +383,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "역사(서양)",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -425,8 +402,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -434,8 +410,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "역사(동양)",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -454,14 +429,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "역사(동양)",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -485,14 +458,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "역사(동양)",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -506,8 +477,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -515,8 +485,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "HTML",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -535,14 +504,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "HTML",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -566,14 +533,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "HTML",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -587,8 +552,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -596,8 +560,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "CSS",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -616,14 +579,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "CSS",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -647,14 +608,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "CSS",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -668,8 +627,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -677,8 +635,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "JavaScript",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -697,14 +654,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "JavaScript",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -728,14 +683,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "JavaScript",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -749,8 +702,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -758,8 +710,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "React",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -778,14 +729,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "React",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -809,14 +758,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "React",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -830,8 +777,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -839,8 +785,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "NodeJS",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -859,14 +804,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "NodeJS",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -890,14 +833,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "NodeJS",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -911,8 +852,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -920,8 +860,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "Fiji",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -940,14 +879,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "Fiji",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -971,14 +908,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "Fiji",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -992,8 +927,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -1001,8 +935,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "Iceland",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -1021,14 +954,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "Iceland",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -1052,14 +983,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "Iceland",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -1073,8 +1002,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -1082,8 +1010,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "China",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -1102,14 +1029,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "China",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -1133,14 +1058,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "China",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -1154,8 +1077,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -1163,8 +1085,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "Vietnam",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -1183,14 +1104,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "Vietnam",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -1214,14 +1133,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "Vietnam",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -1235,8 +1152,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -1244,8 +1160,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "English",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -1264,14 +1179,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "English",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -1295,14 +1208,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "English",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -1316,8 +1227,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -1325,8 +1235,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "Chinese",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -1345,14 +1254,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "Chinese",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -1376,14 +1283,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "Chinese",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -1397,8 +1302,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -1406,8 +1310,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "Vietnamese",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -1426,14 +1329,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "Vietnamese",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -1457,14 +1358,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "Vietnamese",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -1478,8 +1377,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -1487,8 +1385,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     1: {
       type: "Korean",
       title: "내겐 너무 좋은 세상, 황혼의 반란",
-      contents: (
-        <p>
+      contents: `<p>
           어느날 두노인에게 찾아온 휴식, 평화, 안락센터를 피해 산으로 간다.
           이들이 사는 사회는 70세 이상의 노인들을 배척하는 곳이다. 두노인은
           센터의 차를 훔쳐타고, 차에 타고 있던 노인들과 산으로 가서 현 사회에
@@ -1507,14 +1404,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           어쩌면 어릴때 부터 프로그래밍 당하면서 살아오지 않았을 까?결혼은
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
-        </p>
-      ),
+        </p>`,
     },
     2: {
       type: "Korean",
       title: "바캉스, 투명피부",
-      contents: (
-        <p>
+      contents: `<p>
           ​ ​6월 바캉스를 떠나려는 피에르 뤼브롱은 시간전문여행사로 가 늘
           꿈꿔오던 곳인 '루이 14세 시대'로 가고 싶어한다. 피에르는 우아하고
           고상한 시대인 그때로 가서 프랑스 파리의 오염되지 않는 공기도 마시고,
@@ -1538,14 +1433,12 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           있을까? 생각해본다. ​ ​그리고 투명피부가되 주인공을 보면서 이토준지의
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
-        </p>
-      ),
+        </p>`,
     },
     3: {
       type: "Korean",
       title: "수의 비밀, 완전한 은둔자",
-      contents: (
-        <p>
+      contents: `<p>
           ​1+1=2, 4+4=8, 8+9=...우리가 너무나 쉽게 풀고 있는 이 숫자들은 뱅상이
           사는 사회에선 쉽지 않은 일이다. ​숫자 15까지 셀줄 아는 사람은 드물며
           학교에서는 숫자 9까지만 가르친다. 숫자로 계급과 계층이 나누어지는
@@ -1559,8 +1452,7 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
           애초에 자기안에 있다고 생각한 ​루블레 박사는 혼자 깨우침을 얻기 위해
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
-        </p>
-      ),
+        </p>`,
     },
   });
 
@@ -1585,6 +1477,36 @@ const App = ({ authMobileService, weatherTime, exchangeRate }) => {
     vietnamese: vietnameses,
     korean: koreans,
   });
+
+  const [datas, setDatas] = useState([
+    { id: "novelUsaEuData", data: novelUsaEuData },
+    { id: "novelAsiaData", data: novelAsiaData },
+    { id: "classicWestern", data: classicWestern },
+    { id: "classicEastern", data: classicEastern },
+    { id: "classicHistoryWestern", data: classicHistoryWestern },
+    { id: "classicHistoryEastern", data: classicHistoryEastern },
+    { id: "htmls", data: htmls },
+    { id: "csss", data: csss },
+    { id: "javascripts", data: javascripts },
+    { id: "reacts", data: reacts },
+    { id: "nodeJSs", data: nodeJSs },
+    { id: "fijis", data: fijis },
+    { id: "icelands", data: icelands },
+    { id: "chinas", data: chinas },
+    { id: "vietnams", data: vietnams },
+    { id: "englishs", data: englishs },
+    { id: "chineses", data: chineses },
+    { id: "vietnameses", data: vietnameses },
+    { id: "koreans", data: koreans },
+    { id: "totalData", data: totalData },
+  ]);
+
+  // useEffect(() => {
+  //   console.log(datas[0], datas[0].id);
+  //   datas.forEach((data) => {
+  //     dataRepository.saveData(data);
+  //   });
+  // });
 
   const [loginData, setLoginData] = useState({
     1: { id: "lse126", pwd: "@securities126" },
