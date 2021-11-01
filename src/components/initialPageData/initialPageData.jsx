@@ -13,14 +13,14 @@ const InitialPageData = ({ totalData }) => {
                 <>
                   <Link
                     className={styles.novelUsaEuDataList}
-                    to={`/${key}/${key2}`}
+                    to={`/${key}/${totalData[key][key2].id}`}
                   >
-                    <h4>{key2}.&emsp;</h4>
+                    <h4>{totalData[key][key2].id}.&emsp;</h4>
                     <h4>{totalData[key][key2].type}&nbsp;-&nbsp;</h4>
                     <h4>{totalData[key][key2].title}</h4>
                   </Link>
                   <Switch>
-                    <Route path={`/${key}/${key2}`}></Route>
+                    <Route path={`/${key}/${totalData[key][key2].id}`}></Route>
                   </Switch>
                 </>
               );

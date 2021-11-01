@@ -8,7 +8,7 @@ const ClassicWestern = ({ classicWestern }) => {
   const { keyValue } = useParams();
   const initialCodes = `
     <div>
-      ${classicWestern[Object.keys(classicWestern).length].contents}
+      ${classicWestern[classicWestern.length - 1].contents}
     </div>`;
 
   return (
@@ -16,8 +16,8 @@ const ClassicWestern = ({ classicWestern }) => {
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>{classicWestern[Object.keys(classicWestern).length].type}</h1>
-            <h2>{classicWestern[Object.keys(classicWestern).length].title}</h2>
+            <h1>{classicWestern[classicWestern.length - 1].type}</h1>
+            <h2>{classicWestern[classicWestern.length - 1].title}</h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
@@ -39,7 +39,7 @@ const ClassicWestern = ({ classicWestern }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/classicWestern/${key}`}>
+                  <Route path={`/classicWestern/${classicWestern[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -58,9 +58,9 @@ const ClassicWestern = ({ classicWestern }) => {
               <li>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/classicWestern/${key}`}
+                  to={`/classicWestern/${classicWestern[key].id}`}
                 >
-                  <h4>{key}.&emsp;</h4>
+                  <h4>{classicWestern[key].id}.&emsp;</h4>
                   <h4>{classicWestern[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{classicWestern[key].title}</h4>
                 </Link>

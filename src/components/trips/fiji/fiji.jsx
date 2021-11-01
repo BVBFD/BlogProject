@@ -7,17 +7,17 @@ const Fiji = ({ fijis }) => {
   const initialBoxRef = useRef();
   const { keyValue } = useParams();
   const initialCodes = `
-  <div>
-    ${fijis[Object.keys(fijis).length].contents}
-  </div>`;
+    <div>
+      ${fijis[fijis.length - 1].contents}
+    </div>`;
 
   return (
     <>
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>{fijis[Object.keys(fijis).length].type}</h1>
-            <h2>{fijis[Object.keys(fijis).length].title}</h2>
+            <h1>{fijis[fijis.length - 1].type}</h1>
+            <h2>{fijis[fijis.length - 1].title}</h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
@@ -39,7 +39,7 @@ const Fiji = ({ fijis }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/fiji/${key}`}>
+                  <Route path={`/fiji/${fijis[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -56,8 +56,11 @@ const Fiji = ({ fijis }) => {
           .map((key) => {
             return (
               <li>
-                <Link className={styles.novelUsaEuDataList} to={`/fiji/${key}`}>
-                  <h4>{key}.&emsp;</h4>
+                <Link
+                  className={styles.novelUsaEuDataList}
+                  to={`/fiji/${fijis[key].id}`}
+                >
+                  <h4>{fijis[key].id}.&emsp;</h4>
                   <h4>{fijis[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{fijis[key].title}</h4>
                 </Link>

@@ -8,7 +8,7 @@ const NovelAsia = ({ novelAsiaData }) => {
   const { keyValue } = useParams();
   const initialCodes = `
     <div>
-      ${novelAsiaData[Object.keys(novelAsiaData).length].contents}
+      ${novelAsiaData[novelAsiaData.length - 1].contents}
     </div>`;
 
   return (
@@ -16,8 +16,8 @@ const NovelAsia = ({ novelAsiaData }) => {
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>{novelAsiaData[Object.keys(novelAsiaData).length].type}</h1>
-            <h2>{novelAsiaData[Object.keys(novelAsiaData).length].title}</h2>
+            <h1>{novelAsiaData[novelAsiaData.length - 1].type}</h1>
+            <h2>{novelAsiaData[novelAsiaData.length - 1].title}</h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
@@ -39,7 +39,7 @@ const NovelAsia = ({ novelAsiaData }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/novelAsia/${key}`}>
+                  <Route path={`/novelAsia/${novelAsiaData[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -58,9 +58,9 @@ const NovelAsia = ({ novelAsiaData }) => {
               <li>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/novelAsia/${key}`}
+                  to={`/novelAsia/${novelAsiaData[key].id}`}
                 >
-                  <h4>{key}.&emsp;</h4>
+                  <h4>{novelAsiaData[key].id}.&emsp;</h4>
                   <h4>{novelAsiaData[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{novelAsiaData[key].title}</h4>
                 </Link>

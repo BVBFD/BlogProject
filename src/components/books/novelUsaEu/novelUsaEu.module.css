@@ -20,3 +20,24 @@
 .switchBox {
   order: 1;
 }
+
+/* newWriting part */
+.newWritingLi {
+  display: none;
+}
+
+.writeForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.writeFormSubTitleInput {
+  height: 2rem;
+}
+
+.writeFormContentsTextarea {
+  height: 5rem;
+  min-height: 5rem;
+  max-width: 85vw;
+  min-width: 85vw;
+}

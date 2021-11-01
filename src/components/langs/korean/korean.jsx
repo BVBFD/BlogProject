@@ -8,7 +8,7 @@ const Korean = ({ koreans }) => {
   const { keyValue } = useParams();
   const initialCodes = `
     <div>
-      ${koreans[Object.keys(koreans).length].contents}
+      ${koreans[koreans.length - 1].contents}
     </div>`;
 
   return (
@@ -16,8 +16,8 @@ const Korean = ({ koreans }) => {
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>{koreans[Object.keys(koreans).length].type}</h1>
-            <h2>{koreans[Object.keys(koreans).length].title}</h2>
+            <h1>{koreans[koreans.length - 1].type}</h1>
+            <h2>{koreans[koreans.length - 1].title}</h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
@@ -39,7 +39,7 @@ const Korean = ({ koreans }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/korean/${key}`}>
+                  <Route path={`/korean/${koreans[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -58,9 +58,9 @@ const Korean = ({ koreans }) => {
               <li>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/korean/${key}`}
+                  to={`/korean/${koreans[key].id}`}
                 >
-                  <h4>{key}.&emsp;</h4>
+                  <h4>{koreans[key].id}.&emsp;</h4>
                   <h4>{koreans[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{koreans[key].title}</h4>
                 </Link>

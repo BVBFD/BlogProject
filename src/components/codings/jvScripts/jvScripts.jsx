@@ -7,17 +7,17 @@ const JvScripts = ({ javascripts }) => {
   const initialBoxRef = useRef();
   const { keyValue } = useParams();
   const initialCodes = `
-  <div>
-    ${javascripts[Object.keys(javascripts).length].contents}
-  </div>`;
+    <div>
+      ${javascripts[javascripts.length - 1].contents}
+    </div>`;
 
   return (
     <>
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>{javascripts[Object.keys(javascripts).length].type}</h1>
-            <h2>{javascripts[Object.keys(javascripts).length].title}</h2>
+            <h1>{javascripts[javascripts.length - 1].type}</h1>
+            <h2>{javascripts[javascripts.length - 1].title}</h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
@@ -39,7 +39,7 @@ const JvScripts = ({ javascripts }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/javascript/${key}`}>
+                  <Route path={`/javascript/${javascripts[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -58,9 +58,9 @@ const JvScripts = ({ javascripts }) => {
               <li>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/javascript/${key}`}
+                  to={`/javascript/${javascripts[key].id}`}
                 >
-                  <h4>{key}.&emsp;</h4>
+                  <h4>{javascripts[key].id}.&emsp;</h4>
                   <h4>{javascripts[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{javascripts[key].title}</h4>
                 </Link>

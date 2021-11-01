@@ -7,17 +7,17 @@ const Iceland = ({ icelands }) => {
   const initialBoxRef = useRef();
   const { keyValue } = useParams();
   const initialCodes = `
-  <div>
-    ${icelands[Object.keys(icelands).length].contents}
-  </div>`;
+    <div>
+      ${icelands[icelands.length - 1].contents}
+    </div>`;
 
   return (
     <>
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>{icelands[Object.keys(icelands).length].type}</h1>
-            <h2>{icelands[Object.keys(icelands).length].title}</h2>
+            <h1>{icelands[icelands.length - 1].type}</h1>
+            <h2>{icelands[icelands.length - 1].title}</h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
@@ -39,7 +39,7 @@ const Iceland = ({ icelands }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/iceland/${key}`}>
+                  <Route path={`/iceland/${icelands[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -58,9 +58,9 @@ const Iceland = ({ icelands }) => {
               <li>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/iceland/${key}`}
+                  to={`/iceland/${icelands[key].id}`}
                 >
-                  <h4>{key}.&emsp;</h4>
+                  <h4>{icelands[key].id}.&emsp;</h4>
                   <h4>{icelands[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{icelands[key].title}</h4>
                 </Link>

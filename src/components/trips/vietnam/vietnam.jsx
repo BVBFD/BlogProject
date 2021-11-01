@@ -7,17 +7,17 @@ const Vietnam = ({ vietnams }) => {
   const initialBoxRef = useRef();
   const { keyValue } = useParams();
   const initialCodes = `
-  <div>
-    ${vietnams[Object.keys(vietnams).length].contents}
-  </div>`;
+    <div>
+      ${vietnams[vietnams.length - 1].contents}
+    </div>`;
 
   return (
     <>
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>{vietnams[Object.keys(vietnams).length].type}</h1>
-            <h2>{vietnams[Object.keys(vietnams).length].title}</h2>
+            <h1>{vietnams[vietnams.length - 1].type}</h1>
+            <h2>{vietnams[vietnams.length - 1].title}</h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
@@ -39,7 +39,7 @@ const Vietnam = ({ vietnams }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/vietnam/${key}`}>
+                  <Route path={`/vietnam/${vietnams[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -58,9 +58,9 @@ const Vietnam = ({ vietnams }) => {
               <li>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/vietnam/${key}`}
+                  to={`/vietnam/${vietnams[key].id}`}
                 >
-                  <h4>{key}.&emsp;</h4>
+                  <h4>{vietnams[key].id}.&emsp;</h4>
                   <h4>{vietnams[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{vietnams[key].title}</h4>
                 </Link>

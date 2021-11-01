@@ -33,17 +33,17 @@ const Navbar = ({
     // 네트워크 통신할 때 useEffect없이 하면 두번 통신하고 호출한다.
     // 그 이유에 대해서 한번 곰곰히 생각해보자..
     weatherTime.getTimeWeather().then((result) => {
-      if (result && result.weather && result.weather.length > 0) {
-        setWeather(result.weather[0].main);
+      if (result?.weather?.length > 0) {
+        setWeather(result?.weather[0]?.main);
       }
-      setCityCountry(`${result.name} ${result.sys.country}`);
+      setCityCountry(`${result.name} ${result.sys?.country}`);
     });
   }, [weatherTime]);
 
   useEffect(() => {
     exchangeRate.getExchangeRate().then(
       (data) => {
-        if (data && data.REC && data.REC.length > 0) {
+        if (data?.REC?.length > 0) {
           // Cannot read properties of undefined (reading '0') 오류 예방하기 위해서
           setUSD_KRW_value(data.REC[0].BrgnBsrt);
         }

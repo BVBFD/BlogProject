@@ -8,7 +8,7 @@ const Vietnamese = ({ vietnameses }) => {
   const { keyValue } = useParams();
   const initialCodes = `
     <div>
-      ${vietnameses[Object.keys(vietnameses).length].contents}
+      ${vietnameses[vietnameses.length - 1].contents}
     </div>`;
 
   return (
@@ -16,8 +16,8 @@ const Vietnamese = ({ vietnameses }) => {
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>{vietnameses[Object.keys(vietnameses).length].type}</h1>
-            <h2>{vietnameses[Object.keys(vietnameses).length].title}</h2>
+            <h1>{vietnameses[vietnameses.length - 1].type}</h1>
+            <h2>{vietnameses[vietnameses.length - 1].title}</h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
@@ -28,18 +28,18 @@ const Vietnamese = ({ vietnameses }) => {
           const testStr = vietnameses[key].contents;
           // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
-            <div>
-              <h1>${vietnameses[key].type}</h1>
-              <h2>${vietnameses[key].title}</h2>
               <div>
-                ${testStr}
-              </div>
-            </div>`;
+                <h1>${vietnameses[key].type}</h1>
+                <h2>${vietnameses[key].title}</h2>
+                <div>
+                  ${testStr}
+                </div>
+              </div>`;
           return (
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/vietnamese/${key}`}>
+                  <Route path={`/vietnamese/${vietnameses[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -58,9 +58,9 @@ const Vietnamese = ({ vietnameses }) => {
               <li>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/vietnamese/${key}`}
+                  to={`/vietnamese/${vietnameses[key].id}`}
                 >
-                  <h4>{key}.&emsp;</h4>
+                  <h4>{vietnameses[key].id}.&emsp;</h4>
                   <h4>{vietnameses[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{vietnameses[key].title}</h4>
                 </Link>

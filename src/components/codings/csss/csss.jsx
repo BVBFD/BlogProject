@@ -8,7 +8,7 @@ const Csss = ({ csss }) => {
   const { keyValue } = useParams();
   const initialCodes = `
     <div>
-      ${csss[Object.keys(csss).length].contents}
+      ${csss[csss.length - 1].contents}
     </div>`;
 
   return (
@@ -16,8 +16,8 @@ const Csss = ({ csss }) => {
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>{csss[Object.keys(csss).length].type}</h1>
-            <h2>{csss[Object.keys(csss).length].title}</h2>
+            <h1>{csss[csss.length - 1].type}</h1>
+            <h2>{csss[csss.length - 1].title}</h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
@@ -39,7 +39,7 @@ const Csss = ({ csss }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/css/${key}`}>
+                  <Route path={`/css/${csss[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -56,8 +56,11 @@ const Csss = ({ csss }) => {
           .map((key) => {
             return (
               <li>
-                <Link className={styles.novelUsaEuDataList} to={`/css/${key}`}>
-                  <h4>{key}.&emsp;</h4>
+                <Link
+                  className={styles.novelUsaEuDataList}
+                  to={`/css/${csss[key].id}`}
+                >
+                  <h4>{csss[key].id}.&emsp;</h4>
                   <h4>{csss[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{csss[key].title}</h4>
                 </Link>

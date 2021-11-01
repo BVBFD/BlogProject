@@ -7,17 +7,17 @@ const NodeJs = ({ nodeJSs }) => {
   const initialBoxRef = useRef();
   const { keyValue } = useParams();
   const initialCodes = `
-  <div>
-    ${nodeJSs[Object.keys(nodeJSs).length].contents}
-  </div>`;
+    <div>
+      ${nodeJSs[nodeJSs.length - 1].contents}
+    </div>`;
 
   return (
     <>
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>{nodeJSs[Object.keys(nodeJSs).length].type}</h1>
-            <h2>{nodeJSs[Object.keys(nodeJSs).length].title}</h2>
+            <h1>{nodeJSs[nodeJSs.length - 1].type}</h1>
+            <h2>{nodeJSs[nodeJSs.length - 1].title}</h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
@@ -28,18 +28,18 @@ const NodeJs = ({ nodeJSs }) => {
           const testStr = nodeJSs[key].contents;
           // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
-            <div>
-              <h1>${nodeJSs[key].type}</h1>
-              <h2>${nodeJSs[key].title}</h2>
               <div>
-                ${testStr}
-              </div>
-            </div>`;
+                <h1>${nodeJSs[key].type}</h1>
+                <h2>${nodeJSs[key].title}</h2>
+                <div>
+                  ${testStr}
+                </div>
+              </div>`;
           return (
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/nodejs/${key}`}>
+                  <Route path={`/nodeJS/${nodeJSs[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -58,9 +58,9 @@ const NodeJs = ({ nodeJSs }) => {
               <li>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/nodejs/${key}`}
+                  to={`/nodeJS/${nodeJSs[key].id}`}
                 >
-                  <h4>{key}.&emsp;</h4>
+                  <h4>{nodeJSs[key].id}.&emsp;</h4>
                   <h4>{nodeJSs[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{nodeJSs[key].title}</h4>
                 </Link>

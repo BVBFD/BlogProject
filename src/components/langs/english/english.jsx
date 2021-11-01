@@ -8,7 +8,7 @@ const English = ({ englishs }) => {
   const { keyValue } = useParams();
   const initialCodes = `
     <div>
-      ${englishs[Object.keys(englishs).length].contents}
+      ${englishs[englishs.length - 1].contents}
     </div>`;
 
   return (
@@ -16,8 +16,8 @@ const English = ({ englishs }) => {
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>{englishs[Object.keys(englishs).length].type}</h1>
-            <h2>{englishs[Object.keys(englishs).length].title}</h2>
+            <h1>{englishs[englishs.length - 1].type}</h1>
+            <h2>{englishs[englishs.length - 1].title}</h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
@@ -39,7 +39,7 @@ const English = ({ englishs }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/english/${key}`}>
+                  <Route path={`/english/${englishs[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -58,9 +58,9 @@ const English = ({ englishs }) => {
               <li>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/english/${key}`}
+                  to={`/english/${englishs[key].id}`}
                 >
-                  <h4>{key}.&emsp;</h4>
+                  <h4>{englishs[key].id}.&emsp;</h4>
                   <h4>{englishs[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{englishs[key].title}</h4>
                 </Link>

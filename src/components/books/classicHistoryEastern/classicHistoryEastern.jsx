@@ -8,10 +8,7 @@ const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
   const { keyValue } = useParams();
   const initialCodes = `
     <div>
-      ${
-        classicHistoryEastern[Object.keys(classicHistoryEastern).length]
-          .contents
-      }
+      ${classicHistoryEastern[classicHistoryEastern.length - 1].contents}
     </div>`;
 
   return (
@@ -20,16 +17,10 @@ const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
             <h1>
-              {
-                classicHistoryEastern[Object.keys(classicHistoryEastern).length]
-                  .type
-              }
+              {classicHistoryEastern[classicHistoryEastern.length - 1].type}
             </h1>
             <h2>
-              {
-                classicHistoryEastern[Object.keys(classicHistoryEastern).length]
-                  .title
-              }
+              {classicHistoryEastern[classicHistoryEastern.length - 1].title}
             </h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
@@ -52,7 +43,9 @@ const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/classicHistoryEastern/${key}`}>
+                  <Route
+                    path={`/classicHistoryEastern/${classicHistoryEastern[key].id}`}
+                  >
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -71,9 +64,9 @@ const ClassicHistoryEastern = ({ classicHistoryEastern }) => {
               <li>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/classicHistoryEastern/${key}`}
+                  to={`/classicHistoryEastern/${classicHistoryEastern[key].id}`}
                 >
-                  <h4>{key}.&emsp;</h4>
+                  <h4>{classicHistoryEastern[key].id}.&emsp;</h4>
                   <h4>{classicHistoryEastern[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{classicHistoryEastern[key].title}</h4>
                 </Link>

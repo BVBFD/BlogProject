@@ -8,7 +8,7 @@ const Chinese = ({ chineses }) => {
   const { keyValue } = useParams();
   const initialCodes = `
     <div>
-      ${chineses[Object.keys(chineses).length].contents}
+      ${chineses[chineses.length - 1].contents}
     </div>`;
 
   return (
@@ -16,8 +16,8 @@ const Chinese = ({ chineses }) => {
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>{chineses[Object.keys(chineses).length].type}</h1>
-            <h2>{chineses[Object.keys(chineses).length].title}</h2>
+            <h1>{chineses[chineses.length - 1].type}</h1>
+            <h2>{chineses[chineses.length - 1].title}</h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
@@ -39,7 +39,7 @@ const Chinese = ({ chineses }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/chinese/${key}`}>
+                  <Route path={`/chinese/${chineses[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -58,9 +58,9 @@ const Chinese = ({ chineses }) => {
               <li>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/chinese/${key}`}
+                  to={`/chinese/${chineses[key].id}`}
                 >
-                  <h4>{key}.&emsp;</h4>
+                  <h4>{chineses[key].id}.&emsp;</h4>
                   <h4>{chineses[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{chineses[key].title}</h4>
                 </Link>

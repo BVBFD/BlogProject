@@ -21,8 +21,9 @@ class ExchangeRate {
       const year = dateObj.getFullYear();
       const month = dateObj.getMonth() + 1;
       const date = dateObj.getDate();
-      const query = `${year}${month > 9 ? month : `0${month}`}${date}`;
-      console.log(query);
+      const query = `${year}${month > 9 ? month : `0${month}`}${
+        date > 9 ? date : `0${date}`
+      }`;
       return query;
     };
 

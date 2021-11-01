@@ -7,17 +7,17 @@ const Reacts = ({ reacts }) => {
   const initialBoxRef = useRef();
   const { keyValue } = useParams();
   const initialCodes = `
-  <div>
-    ${reacts[Object.keys(reacts).length].contents}
-  </div>`;
+    <div>
+      ${reacts[reacts.length - 1].contents}
+    </div>`;
 
   return (
     <>
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>{reacts[Object.keys(reacts).length].type}</h1>
-            <h2>{reacts[Object.keys(reacts).length].title}</h2>
+            <h1>{reacts[reacts.length - 1].type}</h1>
+            <h2>{reacts[reacts.length - 1].title}</h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
@@ -39,7 +39,7 @@ const Reacts = ({ reacts }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/react/${key}`}>
+                  <Route path={`/react/${reacts[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -58,9 +58,9 @@ const Reacts = ({ reacts }) => {
               <li>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/react/${key}`}
+                  to={`/react/${reacts[key].id}`}
                 >
-                  <h4>{key}.&emsp;</h4>
+                  <h4>{reacts[key].id}.&emsp;</h4>
                   <h4>{reacts[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{reacts[key].title}</h4>
                 </Link>

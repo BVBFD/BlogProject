@@ -8,7 +8,7 @@ const Htmls = ({ htmls }) => {
   const { keyValue } = useParams();
   const initialCodes = `
     <div>
-      ${htmls[Object.keys(htmls).length].contents}
+      ${htmls[htmls.length - 1].contents}
     </div>`;
 
   return (
@@ -16,8 +16,8 @@ const Htmls = ({ htmls }) => {
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>{htmls[Object.keys(htmls).length].type}</h1>
-            <h2>{htmls[Object.keys(htmls).length].title}</h2>
+            <h1>{htmls[htmls.length - 1].type}</h1>
+            <h2>{htmls[htmls.length - 1].title}</h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
@@ -39,7 +39,7 @@ const Htmls = ({ htmls }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/html/${key}`}>
+                  <Route path={`/html/${htmls[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -56,8 +56,11 @@ const Htmls = ({ htmls }) => {
           .map((key) => {
             return (
               <li>
-                <Link className={styles.novelUsaEuDataList} to={`/html/${key}`}>
-                  <h4>{key}.&emsp;</h4>
+                <Link
+                  className={styles.novelUsaEuDataList}
+                  to={`/html/${htmls[key].id}`}
+                >
+                  <h4>{htmls[key].id}.&emsp;</h4>
                   <h4>{htmls[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{htmls[key].title}</h4>
                 </Link>
