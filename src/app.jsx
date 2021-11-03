@@ -1514,7 +1514,7 @@ const App = ({
   ]);
 
   const [totalData, setTotalData] = useState({
-    novelUsaEU: novelUsaEuData,
+    novelUsaEu: novelUsaEuData,
     novelAsia: novelAsiaData,
     classicWestern: classicWestern,
     classicEastern: classicEastern,
@@ -1647,7 +1647,7 @@ const App = ({
               독서
             </button>
             <div ref={booksBoxRef} className={styles.booksBox}>
-              <Link to="/novelUsaEU" className={styles.linkBtn}>
+              <Link to="/novelUsaEu" className={styles.linkBtn}>
                 소설(북미, 유럽)
               </Link>
               <Link to="/novelAsia" className={styles.linkBtn}>
@@ -1739,11 +1739,13 @@ const App = ({
             </Route>
 
             {/* books */}
-            <Route path={["/novelUsaEU", "/novelUsaEU/:keyValue"]} exact>
+            <Route path={["/novelUsaEu", "/novelUsaEu/:keyValue"]} exact>
               {/* exact를 안해주면 /novelUsaEU/:keyValue URL 주소에서  /novelUsaEU 중복(/novelUsaEU, /novelUsaEU/:keyValue) 호출되게 된다.*/}
               <NovelUsaEu
                 novelUsaEuData={novelUsaEuData}
                 setNovelUsaEuData={setNovelUsaEuData}
+                totalData={totalData}
+                setTotalData={setTotalData}
               />
             </Route>
 

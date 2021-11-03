@@ -3,6 +3,7 @@ import styles from "./initialPageData.module.css";
 import { Link, Switch, Route } from "react-router-dom";
 
 const InitialPageData = ({ totalData }) => {
+  console.log(totalData);
   return (
     <ul className={styles.novelUsaEuDataUlBox}>
       {Object.keys(totalData).map((key) => {
