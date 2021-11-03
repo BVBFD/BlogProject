@@ -449,7 +449,7 @@ const App = ({
         </p>`,
     },
     {
-      id: 1,
+      id: 2,
       type: "역사(동양)",
       title: "바캉스, 투명피부",
       contents: `<p>
@@ -479,7 +479,7 @@ const App = ({
         </p>`,
     },
     {
-      id: 1,
+      id: 3,
       type: "역사(동양)",
       title: "수의 비밀, 완전한 은둔자",
       contents: `<p>
@@ -1651,22 +1651,40 @@ const App = ({
               독서
             </button>
             <div ref={booksBoxRef} className={styles.booksBox}>
-              <Link to="/novelUsaEu" className={styles.linkBtn}>
+              <Link
+                to={`/novelUsaEu/${novelUsaEuData.length}`}
+                className={styles.linkBtn}
+              >
                 소설(북미, 유럽)
               </Link>
-              <Link to="/novelAsia" className={styles.linkBtn}>
+              <Link
+                to={`/novelAsia/${novelAsiaData.length}`}
+                className={styles.linkBtn}
+              >
                 소설(아시아)
               </Link>
-              <Link to="/classicWestern" className={styles.linkBtn}>
+              <Link
+                to={`/classicWestern/${classicWestern.length}`}
+                className={styles.linkBtn}
+              >
                 서양고전
               </Link>
-              <Link to="/classicEastern" className={styles.linkBtn}>
+              <Link
+                to={`/classicEastern/${classicEastern.length}`}
+                className={styles.linkBtn}
+              >
                 동양고전
               </Link>
-              <Link to="/classicHistoryWestern" className={styles.linkBtn}>
+              <Link
+                to={`/classicHistoryWestern/${classicHistoryWestern.length}`}
+                className={styles.linkBtn}
+              >
                 역사(서양)
               </Link>
-              <Link to="/classicHistoryEastern" className={styles.linkBtn}>
+              <Link
+                to={`/classicHistoryEastern/${classicHistoryEastern.length}`}
+                className={styles.linkBtn}
+              >
                 역사(동양)
               </Link>
             </div>
@@ -1677,19 +1695,22 @@ const App = ({
               코딩
             </button>
             <div ref={codingsBoxRef} className={styles.codingsBox}>
-              <Link to="/html" className={styles.linkBtn}>
+              <Link to={`/html/${htmls.length}`} className={styles.linkBtn}>
                 HTML
               </Link>
-              <Link to="/css" className={styles.linkBtn}>
+              <Link to={`/css/${csss.length}`} className={styles.linkBtn}>
                 CSS
               </Link>
-              <Link to="/javascript" className={styles.linkBtn}>
+              <Link
+                to={`/javascript/${javascripts.length}`}
+                className={styles.linkBtn}
+              >
                 JavaScript
               </Link>
-              <Link to="/react" className={styles.linkBtn}>
+              <Link to={`/react/${reacts.length}`} className={styles.linkBtn}>
                 React
               </Link>
-              <Link to="/nodejs" className={styles.linkBtn}>
+              <Link to={`/nodejs/${nodeJSs.length}`} className={styles.linkBtn}>
                 Node JS
               </Link>
             </div>
@@ -1700,16 +1721,22 @@ const App = ({
               여행
             </button>
             <div ref={tripsBoxRef} className={styles.tripsBox}>
-              <Link to="/fiji" className={styles.linkBtn}>
+              <Link to={`/fiji/${fijis.length}`} className={styles.linkBtn}>
                 피지
               </Link>
-              <Link to="/iceland" className={styles.linkBtn}>
+              <Link
+                to={`/iceland/${icelands.length}`}
+                className={styles.linkBtn}
+              >
                 아이슬란드
               </Link>
-              <Link to="/china" className={styles.linkBtn}>
+              <Link to={`/china/${chinas.length}`} className={styles.linkBtn}>
                 중국
               </Link>
-              <Link to="/vietnam" className={styles.linkBtn}>
+              <Link
+                to={`/vietnam/${vietnams.length}`}
+                className={styles.linkBtn}
+              >
                 베트남
               </Link>
             </div>
@@ -1720,16 +1747,25 @@ const App = ({
               언어
             </button>
             <div ref={langsBoxRef} className={styles.langsBox}>
-              <Link to="/english" className={styles.linkBtn}>
+              <Link
+                to={`/english/${englishs.length}`}
+                className={styles.linkBtn}
+              >
                 영어
               </Link>
-              <Link to="/chinese" className={styles.linkBtn}>
+              <Link
+                to={`/chinese/${chineses.length}`}
+                className={styles.linkBtn}
+              >
                 중국어
               </Link>
-              <Link to="/vietnamese" className={styles.linkBtn}>
+              <Link
+                to={`/vietnamese/${vietnameses.length}`}
+                className={styles.linkBtn}
+              >
                 베트남어
               </Link>
-              <Link to="/korean" className={styles.linkBtn}>
+              <Link to={`/korean/${koreans.length}`} className={styles.linkBtn}>
                 한국어
               </Link>
             </div>

@@ -8,7 +8,7 @@ const ClassicEastern = ({ classicEastern }) => {
   const { keyValue } = useParams();
   const initialCodes = `
     <div>
-      ${classicEastern[Object.keys(classicEastern).length].contents}
+      ${classicEastern[classicEastern.length - 1].contents}
     </div>`;
 
   return (
@@ -16,8 +16,8 @@ const ClassicEastern = ({ classicEastern }) => {
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
-            <h1>{classicEastern[Object.keys(classicEastern).length].type}</h1>
-            <h2>{classicEastern[Object.keys(classicEastern).length].title}</h2>
+            <h1>{classicEastern[classicEastern.length - 1].type}</h1>
+            <h2>{classicEastern[classicEastern.length - 1].title}</h2>
             <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
           </div>
         </div>
@@ -39,7 +39,7 @@ const ClassicEastern = ({ classicEastern }) => {
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/classicEastern/${key}`}>
+                  <Route path={`/classicEastern/${classicEastern[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -58,9 +58,9 @@ const ClassicEastern = ({ classicEastern }) => {
               <li>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/classicEastern/${key}`}
+                  to={`/classicEastern/${classicEastern[key].id}`}
                 >
-                  <h4>{key}.&emsp;</h4>
+                  <h4>{classicEastern[key].id}.&emsp;</h4>
                   <h4>{classicEastern[key].type}&nbsp;-&nbsp;</h4>
                   <h4>{classicEastern[key].title}</h4>
                 </Link>
