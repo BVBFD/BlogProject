@@ -6,16 +6,23 @@ import { useRef, useState } from "react/cjs/react.development";
 const NovelUsaEu = ({
   novelUsaEuData,
   setNovelUsaEuData,
+  loginData,
+  history,
+  historyState,
   totalData,
   setTotalData,
 }) => {
-  const history = useHistory();
   const [newWritingDefaultIndex, setNewWritingDefaultIndex] = useState(false);
   const initialBoxRef = useRef();
   const newWritingLiRef = useRef();
   const newWritingLiRouteRef = useRef();
   const writeFormSubTitleInputRef = useRef();
   const writeFormContentsTextareaRef = useRef();
+
+  const editPermissionIndex = Object.keys(loginData).filter(
+    (key) => loginData[key].id === historyState
+  );
+  const editPermission = loginData[editPermissionIndex];
 
   const { keyValue } = useParams();
   const initialCodes = `
@@ -51,52 +58,60 @@ const NovelUsaEu = ({
 
   const saveNewWritingData = (event) => {
     event.preventDefault();
-    const addUpdated = [...novelUsaEuData];
-    addUpdated[newKey - 1] = {
-      id: newKey,
-      type: novelUsaEuData[1].type,
-      title: newSubTitle,
-      contents: `<p>\n${newTestStr}\n</p>`,
-    };
-    console.log(addUpdated);
-    setNovelUsaEuData(addUpdated);
+    if (editPermission.admin) {
+      const addUpdated = [...novelUsaEuData];
+      addUpdated[newKey - 1] = {
+        id: newKey,
+        type: novelUsaEuData[1].type,
+        title: newSubTitle,
+        contents: `<p>\n${newTestStr}\n</p>`,
+      };
+      console.log(addUpdated);
+      setNovelUsaEuData(addUpdated);
 
-    // initial page list update
-    const totalDataCopy = { ...totalData };
-    totalDataCopy["novelUsaEu"] = addUpdated;
-    setTotalData(totalDataCopy);
+      // initial page list update
+      const totalDataCopy = { ...totalData };
+      totalDataCopy["novelUsaEu"] = addUpdated;
+      setTotalData(totalDataCopy);
 
-    // 작성란 초기화
-    setNewSubTitle("");
-    setNewTestStr("");
-    writeFormSubTitleInputRef.current.value = "";
-    writeFormContentsTextareaRef.current.value = "";
-    newWritingDefaultUpdata();
-    history.push(`/novelUsaEu/${novelUsaEuData.length + 1}`);
+      // 작성란 초기화
+      setNewSubTitle("");
+      setNewTestStr("");
+      writeFormSubTitleInputRef.current.value = "";
+      writeFormContentsTextareaRef.current.value = "";
+      newWritingDefaultUpdata();
+      history.push(`/novelUsaEu/${novelUsaEuData.length + 1}`);
+    } else {
+      alert("블로그 편집 권한이 없습니다. 관리자한테 문의 부탁드립니다");
+    }
   };
 
   const dataRemove = (event) => {
     event.preventDefault();
-    const removeUpdated = [...novelUsaEuData];
-    const filtered = removeUpdated.filter(
-      (data) => data.id.toString() !== keyValue
-    );
-    setNovelUsaEuData(filtered);
+    if (editPermission.admin) {
+      const removeUpdated = [...novelUsaEuData];
+      const filtered = removeUpdated.filter(
+        (data) => data.id.toString() !== keyValue
+      );
+      setNovelUsaEuData(filtered);
 
-    // initial page list update
-    const totalDataCopy = { ...totalData };
-    totalDataCopy["novelUsaEu"] = filtered;
-    setTotalData(totalDataCopy);
-    // useState 여러개 관리하면 따로 값을 내려서 받아서 처리해야함
-    // 객체 오브젝트의 키값 string인지 아닌지 확인하고 처리할 것
-    // "6", 6 이 두 개의 값은 틀린 것임을 명심할 것!
+      // initial page list update
+      const totalDataCopy = { ...totalData };
+      totalDataCopy["novelUsaEu"] = filtered;
+      setTotalData(totalDataCopy);
+      // useState 여러개 관리하면 따로 값을 내려서 받아서 처리해야함
+      // 객체 오브젝트의 키값 string인지 아닌지 확인하고 처리할 것
+      // "6", 6 이 두 개의 값은 틀린 것임을 명심할 것!
 
-    // 작성란 초기화
-    setNewSubTitle("");
-    setNewTestStr("");
-    writeFormSubTitleInputRef.current.value = "";
-    writeFormContentsTextareaRef.current.value = "";
-    history.push(`/novelUsaEu/${keyValue - 1}`);
+      // 작성란 초기화
+      setNewSubTitle("");
+      setNewTestStr("");
+      writeFormSubTitleInputRef.current.value = "";
+      writeFormContentsTextareaRef.current.value = "";
+      history.push(`/novelUsaEu/${keyValue - 1}`);
+    } else {
+      alert("블로그 편집 권한이 없습니다. 관리자한테 문의 부탁드립니다");
+    }
   };
 
   return (

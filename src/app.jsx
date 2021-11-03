@@ -24,6 +24,7 @@ import Korean from "./components/langs/korean/korean";
 import Vietnamese from "./components/langs/vietnamese/vietnamese";
 import InitialPageData from "./components/initialPageData/initialPageData";
 import { useEffect } from "react";
+import { useHistory } from "react-router";
 
 const App = ({
   dataRepository,
@@ -1566,13 +1567,14 @@ const App = ({
   // });
 
   const [loginData, setLoginData] = useState({
-    1: { id: "lse126", pwd: "@securities126" },
+    1: { id: "lse126", pwd: "@securities126", admin: true },
     2: { id: "giopf47", pwd: "@securities626" },
     3: { id: "parkGB", pwd: "@securities526" },
     4: { id: "LeeJT", pwd: "@securities926" },
     5: { id: undefined, pwd: undefined },
   });
-
+  const history = useHistory();
+  const [historyState, setHistoryState] = useState();
   const booksBoxRef = useRef();
   const codingsBoxRef = useRef();
   const tripsBoxRef = useRef();
@@ -1625,6 +1627,8 @@ const App = ({
   return (
     <>
       <Navbar
+        history={history}
+        setHistoryState={setHistoryState}
         authMobileService={authMobileService}
         setLoginData={setLoginData}
         loginData={loginData}
@@ -1742,8 +1746,11 @@ const App = ({
             <Route path={["/novelUsaEu", "/novelUsaEu/:keyValue"]} exact>
               {/* exact를 안해주면 /novelUsaEU/:keyValue URL 주소에서  /novelUsaEU 중복(/novelUsaEU, /novelUsaEU/:keyValue) 호출되게 된다.*/}
               <NovelUsaEu
+                history={history}
+                historyState={historyState}
                 novelUsaEuData={novelUsaEuData}
                 setNovelUsaEuData={setNovelUsaEuData}
+                loginData={loginData}
                 totalData={totalData}
                 setTotalData={setTotalData}
               />

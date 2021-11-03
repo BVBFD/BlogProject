@@ -9,6 +9,8 @@ const Navbar = ({
   exchangeRate,
   authMobileService,
   setLoginData,
+  history,
+  setHistoryState,
 }) => {
   const [weather, setWeather] = useState();
   const [cityCountry, setCityCountry] = useState();
@@ -73,6 +75,10 @@ const Navbar = ({
       registerBtnRef.current.classList.add(`${styles.logoutBtn}`);
       welcomeSentRef.current.style.display = "flex";
       logoutBtnRef.current.style.display = "flex";
+      history.push({
+        state: idInputRef.current.value,
+      });
+      setHistoryState(history?.location?.state);
     } else if (
       idArray.includes(idInputRef.current.value) === false &&
       pwdArray.includes(pwdInputRef.current.value) === true
@@ -97,6 +103,12 @@ const Navbar = ({
     registerBtnRef.current.classList.remove(`${styles.logoutBtn}`);
     welcomeSentRef.current.style.display = "none";
     logoutBtnRef.current.style.display = "none";
+    history.push({
+      state: undefined,
+    });
+    setHistoryState(history?.location?.state);
+    // history location 안에 있는 state에 push()함수로 값을 밀어주고
+    // 따로 useState를 만들어서 바뀌는 값을 setState로 관리를 해주어야 한다.
   };
 
   const signUpFormBtn = () => {
