@@ -57,6 +57,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -87,6 +95,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -107,6 +123,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -135,6 +159,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -165,6 +197,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -185,6 +225,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -213,6 +261,14 @@ const App = ({
             사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
             맞는 배우자를 찾도록 말이다.
           </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -243,6 +299,14 @@ const App = ({
             공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
             이야기가 생각이 났다.
           </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -263,6 +327,14 @@ const App = ({
             은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
             않으면 그 지식은 공상에 불과하다고 생각한다.
           </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -291,6 +363,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -321,6 +401,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -341,6 +429,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -369,6 +465,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -399,6 +503,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -419,6 +531,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -447,6 +567,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -477,6 +605,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -497,6 +633,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -525,6 +669,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -555,6 +707,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -575,6 +735,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -603,6 +771,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -633,6 +809,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -653,6 +837,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -681,6 +873,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -711,6 +911,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -731,6 +939,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -759,6 +975,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -789,6 +1013,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -809,6 +1041,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -837,6 +1077,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -867,6 +1115,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -887,6 +1143,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -915,6 +1179,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -945,6 +1217,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -965,6 +1245,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -993,6 +1281,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -1023,6 +1319,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -1043,6 +1347,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -1071,6 +1383,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -1101,6 +1421,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -1121,6 +1449,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -1149,6 +1485,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -1179,6 +1523,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -1199,6 +1551,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -1227,6 +1587,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -1257,6 +1625,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -1277,6 +1653,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -1305,6 +1689,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -1335,6 +1727,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -1355,6 +1755,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -1383,6 +1791,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -1413,6 +1829,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -1433,6 +1857,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -1461,6 +1893,14 @@ const App = ({
           사랑이 아니라 현실이라고 프로그래밍되어, 결혼정보회사를 찾고, 조건에
           맞는 배우자를 찾도록 말이다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 2,
@@ -1491,6 +1931,14 @@ const App = ({
           공포만화중에서 자신의 근육을 사랑해서 피부를 모두 벗겨낸 여인의
           이야기가 생각이 났다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
     {
       id: 3,
@@ -1511,6 +1959,14 @@ const App = ({
           은둔하게 된다. 아무리 많은 지식을 얻는다고 해도 사람들과 부딪혀서 살지
           않으면 그 지식은 공상에 불과하다고 생각한다.
         </p>`,
+      image: `<img style="width: 42vw; height: 20%;" src='../images/1.jpg'></img>`,
+      video: `<video
+      controls
+      style="width: 42vw; height: 20%;"
+      src="../videos/stayWithMe.mp4"
+      type="video/*"
+      controls
+    ></video>`,
     },
   ]);
 
@@ -1793,21 +2249,45 @@ const App = ({
             </Route>
 
             <Route path={["/novelAsia", "/novelAsia/:keyValue"]} exact>
-              <NovelAsia novelAsiaData={novelAsiaData} />
+              <NovelAsia
+                history={history}
+                historyState={historyState}
+                setNovelAsiaData={setNovelAsiaData}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                novelAsiaData={novelAsiaData}
+              />
             </Route>
 
             <Route
               path={["/classicWestern", "/classicWestern/:keyValue"]}
               exact
             >
-              <ClassicWestern classicWestern={classicWestern} />
+              <ClassicWestern
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setClassicWestern={setClassicWestern}
+                classicWestern={classicWestern}
+              />
             </Route>
 
             <Route
               path={["/classicEastern", "/classicEastern/:keyValue"]}
               exact
             >
-              <ClassicEastern classicEastern={classicEastern} />
+              <ClassicEastern
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setClassicEastern={setClassicEastern}
+                classicEastern={classicEastern}
+              />
             </Route>
 
             <Route
@@ -1818,6 +2298,12 @@ const App = ({
               exact
             >
               <ClassicHistoryWestern
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setClassicHistoryWestern={setClassicHistoryWestern}
                 classicHistoryWestern={classicHistoryWestern}
               />
             </Route>
@@ -1830,63 +2316,173 @@ const App = ({
               exact
             >
               <ClassicHistoryEastern
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setClassicHistoryEastern={setClassicHistoryEastern}
                 classicHistoryEastern={classicHistoryEastern}
               />
             </Route>
 
             {/* codings */}
             <Route path={["/html", "/html/:keyValue"]} exact>
-              <Htmls htmls={htmls} />
+              <Htmls
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setHtmls={setHtmls}
+                htmls={htmls}
+              />
             </Route>
 
             <Route path={["/css", "/css/:keyValue"]} exact>
-              <Csss csss={csss} />
+              <Csss
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setCsss={setCsss}
+                csss={csss}
+              />
             </Route>
 
             <Route path={["/javascript", "/javascript/:keyValue"]} exact>
-              <JvScripts javascripts={javascripts} />
+              <JvScripts
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setJavascripts={setJavascripts}
+                javascripts={javascripts}
+              />
             </Route>
 
             <Route path={["/react", "/react/:keyValue"]} exact>
-              <Reacts reacts={reacts} />
+              <Reacts
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setReacts={setReacts}
+                reacts={reacts}
+              />
             </Route>
 
             <Route path={["/nodejs", "/nodejs/:keyValue"]} exact>
-              <NodeJs nodeJSs={nodeJSs} />
+              <NodeJs
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setNodeJSs={setNodeJSs}
+                nodeJSs={nodeJSs}
+              />
             </Route>
 
             {/* trips */}
             <Route path={["/fiji", "/fiji/:keyValue"]} exact>
-              <Fiji fijis={fijis} />
+              <Fiji
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setFijis={setFijis}
+                fijis={fijis}
+              />
             </Route>
 
             <Route path={["/iceland", "/iceland/:keyValue"]} exact>
-              <Iceland icelands={icelands} />
+              <Iceland
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setIcelands={setIcelands}
+                icelands={icelands}
+              />
             </Route>
 
             <Route path={["/china", "/china/:keyValue"]} exact>
-              <China chinas={chinas} />
+              <China
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setChinas={setChinas}
+                chinas={chinas}
+              />
             </Route>
 
             <Route path={["/vietnam", "/vietnam/:keyValue"]} exact>
-              <Vietnam vietnams={vietnams} />
+              <Vietnam
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setVietnams={setVietnams}
+                vietnams={vietnams}
+              />
             </Route>
 
             {/* languages */}
             <Route path={["/english", "/english/:keyValue"]} exact>
-              <English englishs={englishs} />
+              <English
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setEnglishs={setEnglishs}
+                englishs={englishs}
+              />
             </Route>
 
             <Route path={["/chinese", "/chinese/:keyValue"]} exact>
-              <Chinese chineses={chineses} />
+              <Chinese
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setChineses={setChineses}
+                chineses={chineses}
+              />
             </Route>
 
             <Route path={["/vietnamese", "/vietnamese/:keyValue"]} exact>
-              <Vietnamese vietnameses={vietnameses} />
+              <Vietnamese
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setVietnameses={setVietnameses}
+                vietnameses={vietnameses}
+              />
             </Route>
 
             <Route path={["/korean", "/korean/:keyValue"]} exact>
-              <Korean koreans={koreans} />
+              <Korean
+                history={history}
+                historyState={historyState}
+                loginData={loginData}
+                totalData={totalData}
+                setTotalData={setTotalData}
+                setKoreans={setKoreans}
+                koreans={koreans}
+              />
             </Route>
           </Switch>
         </li>

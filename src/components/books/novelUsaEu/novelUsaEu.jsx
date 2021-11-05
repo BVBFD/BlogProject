@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Switch, Route, useParams, useHistory } from "react-router-dom";
+import { Link, Switch, Route, useParams } from "react-router-dom";
 import styles from "./novelUsaEu.module.css";
 import { useRef, useState } from "react/cjs/react.development";
 
@@ -18,6 +18,13 @@ const NovelUsaEu = ({
   const newWritingLiRouteRef = useRef();
   const writeFormSubTitleInputRef = useRef();
   const writeFormContentsTextareaRef = useRef();
+  const imgUploadBoxInputRef = useRef();
+  const videoUploadBoxInputRef = useRef();
+
+  let [newSubTitle, setNewSubTitle] = useState();
+  let [newTestStr, setNewTestStr] = useState();
+  const [selectedImg, setSelectedImg] = useState("");
+  const [selectedVideo, setSelectedVideo] = useState("");
 
   const editPermissionIndex = Object.keys(loginData).filter(
     (key) => loginData[key].id === historyState
@@ -43,9 +50,6 @@ const NovelUsaEu = ({
     }
   };
 
-  let [newSubTitle, setNewSubTitle] = useState();
-  let [newTestStr, setNewTestStr] = useState();
-
   // 항상 리액트처럼 생각을 하자!!
   const writeFormSubTitleInputOnChange = (event) => {
     newSubTitle = `${event.target.value}`;
@@ -65,8 +69,9 @@ const NovelUsaEu = ({
         type: novelUsaEuData[1].type,
         title: newSubTitle,
         contents: `<p>\n${newTestStr}\n</p>`,
+        image: selectedImg,
+        video: selectedVideo,
       };
-      console.log(addUpdated);
       setNovelUsaEuData(addUpdated);
 
       // initial page list update
@@ -114,6 +119,43 @@ const NovelUsaEu = ({
     }
   };
 
+  const onImgUpBtnClick = (event) => {
+    event.preventDefault();
+    imgUploadBoxInputRef.current.click();
+  };
+
+  const onVideoUpBtnClick = (event) => {
+    event.preventDefault();
+    videoUploadBoxInputRef.current.click();
+  };
+
+  const onImgUpChange = (event) => {
+    event.preventDefault();
+    console.log(event.target.files[0]);
+    setSelectedImg(
+      '<img style="width: 42vw; height: 20%;" src="../images/4.jpg"></img>'
+    );
+  };
+
+  const onVideoUpChange = (event) => {
+    event.preventDefault();
+    console.log(event.target.files[0]);
+    setSelectedVideo(
+      `<video
+          controls
+          style="width: 42vw; height: 20%;"
+          src="../videos/stayWithMe.mp4"
+          type="video/*"
+          controls
+        ></video>`
+    );
+  };
+
+  const codeImgVideoTag = `
+    ${selectedImg}
+    ${selectedVideo}
+  `;
+
   return (
     <>
       <li ref={newWritingLiRef} className={styles.newWritingLi}>
@@ -122,9 +164,8 @@ const NovelUsaEu = ({
             <div>
               <h1>{novelUsaEuData[0].type}</h1>
               <h2>{newSubTitle}</h2>
-              <div>
-                <p>{newTestStr}</p>
-              </div>
+              <div dangerouslySetInnerHTML={{ __html: codeImgVideoTag }}></div>
+              <div>{newTestStr}</div>
             </div>
           </div>
         </Route>
@@ -146,6 +187,41 @@ const NovelUsaEu = ({
             onChange={writeFormContentsTextareaOnChange}
           ></textarea>
           <button onClick={saveNewWritingData}>작성</button>
+          <div className={styles.imgVideoUploadBox}>
+            <div className={styles.imgUploadBox}>
+              <input
+                ref={imgUploadBoxInputRef}
+                type="file"
+                accept="image/*"
+                name="image"
+                className={styles.imgUploadBoxInput}
+                onChange={onImgUpChange}
+              ></input>
+              <button
+                onClick={onImgUpBtnClick}
+                className={styles.imgUploadBoxBtn}
+              >
+                이미지
+              </button>
+            </div>
+
+            <div className={styles.videoUploadBox}>
+              <input
+                ref={videoUploadBoxInputRef}
+                type="file"
+                accept="video/*"
+                name="video"
+                className={styles.imgUploadBoxInput}
+                onChange={onVideoUpChange}
+              ></input>
+              <button
+                onClick={onVideoUpBtnClick}
+                className={styles.videoUploadBoxBtn}
+              >
+                동영상
+              </button>
+            </div>
+          </div>
         </form>
       </li>
 
@@ -163,11 +239,17 @@ const NovelUsaEu = ({
         .reverse()
         .map((key) => {
           const testStr = novelUsaEuData[key].contents;
+          const dbImg = novelUsaEuData[key].image;
+          const dbVideo = novelUsaEuData[key].video;
           // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
               <div>
                 <h1>${novelUsaEuData[key].type}</h1>
                 <h2>${novelUsaEuData[key].title}</h2>
+                <div>
+                  ${dbImg}
+                  ${dbVideo}
+                </div>
                 <div>
                   ${testStr}
                 </div>

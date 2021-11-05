@@ -20,3 +20,67 @@
 .switchBox {
   order: 1;
 }
+
+/* newWriting part */
+.newWritingLi {
+  display: none;
+}
+
+.writeForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.writeFormSubTitleInput {
+  height: 2rem;
+}
+
+.writeFormContentsTextarea {
+  height: 5rem;
+  min-height: 5rem;
+  max-width: 85vw;
+  min-width: 85vw;
+}
+
+/* img, video upload input btn CSS */
+.imgVideoUploadBox {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 50%;
+}
+
+.imgUploadBox {
+  width: 100%;
+}
+
+.imgUploadBoxInput {
+  display: none;
+  padding: 0;
+  margin: 0;
+  height: 2rem;
+}
+
+.imgUploadBoxBtn {
+  padding: 0;
+  margin: 0;
+  height: 2rem;
+  width: 100%;
+}
+
+.videoUploadBox {
+  width: 100%;
+}
+
+.imgUploadBoxInput {
+  display: none;
+  padding: 0;
+  margin: 0;
+  height: 2rem;
+}
+
+.videoUploadBoxBtn {
+  padding: 0;
+  margin: 0;
+  height: 2rem;
+  width: 100%;
+}
