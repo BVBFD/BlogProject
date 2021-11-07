@@ -6,12 +6,12 @@
 
 .listBox {
   flex: 1 1 10%;
-  background-color: thistle;
+  background-color: lightyellow;
 }
 
 .bodyBox {
   flex: 1 1 90%;
-  background-color: tomato;
+  background-color: whitesmoke;
 }
 
 /* Navbar Code */

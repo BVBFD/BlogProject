@@ -2,6 +2,7 @@
 
 .navbarBox {
   display: flex;
+  height: 3rem;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -41,12 +42,13 @@
 .navbarRightBox {
   display: flex;
   flex-direction: row;
+  width: 50%;
+  justify-content: flex-end;
   align-items: center;
   position: relative;
 }
 
 .searchForm {
-  margin: 0 1em;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -65,9 +67,11 @@
 }
 
 .navbarBtn {
-  font-size: 0.6rem;
-  width: 20%;
-  padding: 0;
+  font-size: 0.8rem;
+  width: 25%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   height: 1.8rem;
   border-radius: 10%;
   border: 1px solid makerDarkWhite;
@@ -89,9 +93,9 @@
   height: 2rem;
   padding: 0 0.5rem;
   border-radius: 2rem;
-  background-color: darkred;
-  color: whitesmoke;
-  font-weight: normal;
+  background-color: lightyellow;
+  color: black;
+  font-weight: bolder;
   align-items: center;
   margin-left: 1rem;
 }
