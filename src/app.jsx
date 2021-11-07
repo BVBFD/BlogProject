@@ -1982,57 +1982,40 @@ const App = ({
 
   const [imgsObjCount, setImgsObjCount] = useState(Object.keys(images).length);
 
-  const [totalData, setTotalData] = useState({
-    novelUsaEu: novelUsaEuData,
-    novelAsia: novelAsiaData,
-    classicWestern: classicWestern,
-    classicEastern: classicEastern,
-    classicHistoryWestern: classicHistoryWestern,
-    classicHistoryEastern: classicHistoryEastern,
-    html: htmls,
-    css: csss,
-    javascript: javascripts,
-    react: reacts,
-    nodejs: nodeJSs,
-    fiji: fijis,
-    iceland: icelands,
-    china: chinas,
-    vietnam: vietnams,
-    english: englishs,
-    chinese: chineses,
-    vietnamese: vietnameses,
-    korean: koreans,
-  });
-
   const [datas, setDatas] = useState([
-    { id: "novelUsaEuData", data: novelUsaEuData },
-    { id: "novelAsiaData", data: novelAsiaData },
-    { id: "classicWestern", data: classicWestern },
-    { id: "classicEastern", data: classicEastern },
-    { id: "classicHistoryWestern", data: classicHistoryWestern },
-    { id: "classicHistoryEastern", data: classicHistoryEastern },
-    { id: "htmls", data: htmls },
-    { id: "csss", data: csss },
-    { id: "javascripts", data: javascripts },
-    { id: "reacts", data: reacts },
-    { id: "nodeJSs", data: nodeJSs },
-    { id: "fijis", data: fijis },
-    { id: "icelands", data: icelands },
-    { id: "chinas", data: chinas },
-    { id: "vietnams", data: vietnams },
-    { id: "englishs", data: englishs },
-    { id: "chineses", data: chineses },
-    { id: "vietnameses", data: vietnameses },
-    { id: "koreans", data: koreans },
-    { id: "totalData", data: totalData },
+    // { id: "novelUsaEuData", data: novelUsaEuData },
+    // { id: "novelAsiaData", data: novelAsiaData },
+    // { id: "classicWestern", data: classicWestern },
+    // { id: "classicEastern", data: classicEastern },
+    // { id: "classicHistoryWestern", data: classicHistoryWestern },
+    // { id: "classicHistoryEastern", data: classicHistoryEastern },
+    // { id: "htmls", data: htmls },
+    // { id: "csss", data: csss },
+    // { id: "javascripts", data: javascripts },
+    // { id: "reacts", data: reacts },
+    // { id: "nodeJSs", data: nodeJSs },
+    // { id: "fijis", data: fijis },
+    // { id: "icelands", data: icelands },
+    // { id: "chinas", data: chinas },
+    // { id: "vietnams", data: vietnams },
+    // { id: "englishs", data: englishs },
+    // { id: "chineses", data: chineses },
+    // { id: "vietnameses", data: vietnameses },
+    // { id: "koreans", data: koreans },
   ]);
 
+  // useEffect(() => {
+  //   dataRepository.saveData(datas);
+  // });
+
   useEffect(() => {
-    console.log(datas[0], datas[0].id);
-    datas.forEach((data) => {
-      dataRepository.saveData(data);
+    const stopSync = dataRepository.syncDatas((vals) => {
+      const datasCopy = [...datas];
+      datasCopy.push(Object.keys(vals).map((key) => vals[key]));
+      setDatas(datasCopy[0]);
     });
-  });
+    return () => stopSync();
+  }, [dataRepository]);
 
   const [loginData, setLoginData] = useState({
     1: { id: "lse126", pwd: "@securities126", admin: true },
@@ -2129,7 +2112,7 @@ const App = ({
             </button>
             <div ref={booksBoxRef} className={styles.booksBox}>
               <Link
-                to={`/novelUsaEu/${novelUsaEuData.length}`}
+                to={`/novelUsaEu/${novelUsaEuData?.length}`}
                 className={styles.linkBtn}
               >
                 소설(북미, 유럽)
@@ -2252,7 +2235,7 @@ const App = ({
           <Switch>
             {/* initial page */}
             <Route path={["/", "/home"]} exact>
-              <InitialPageData totalData={totalData} />
+              <InitialPageData />
             </Route>
 
             {/* books */}
@@ -2264,8 +2247,6 @@ const App = ({
                 novelUsaEuData={novelUsaEuData}
                 setNovelUsaEuData={setNovelUsaEuData}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 dataRepository={dataRepository}
                 datas={datas}
                 setDatas={setDatas}
@@ -2278,8 +2259,6 @@ const App = ({
                 historyState={historyState}
                 setNovelAsiaData={setNovelAsiaData}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 novelAsiaData={novelAsiaData}
               />
             </Route>
@@ -2292,8 +2271,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setClassicWestern={setClassicWestern}
                 classicWestern={classicWestern}
               />
@@ -2307,8 +2284,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setClassicEastern={setClassicEastern}
                 classicEastern={classicEastern}
               />
@@ -2325,8 +2300,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setClassicHistoryWestern={setClassicHistoryWestern}
                 classicHistoryWestern={classicHistoryWestern}
               />
@@ -2343,8 +2316,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setClassicHistoryEastern={setClassicHistoryEastern}
                 classicHistoryEastern={classicHistoryEastern}
               />
@@ -2356,8 +2327,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setHtmls={setHtmls}
                 htmls={htmls}
               />
@@ -2368,8 +2337,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setCsss={setCsss}
                 csss={csss}
               />
@@ -2380,8 +2347,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setJavascripts={setJavascripts}
                 javascripts={javascripts}
               />
@@ -2392,8 +2357,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setReacts={setReacts}
                 reacts={reacts}
               />
@@ -2404,8 +2367,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setNodeJSs={setNodeJSs}
                 nodeJSs={nodeJSs}
               />
@@ -2417,8 +2378,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setFijis={setFijis}
                 fijis={fijis}
               />
@@ -2429,8 +2388,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setIcelands={setIcelands}
                 icelands={icelands}
               />
@@ -2441,8 +2398,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setChinas={setChinas}
                 chinas={chinas}
               />
@@ -2453,8 +2408,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setVietnams={setVietnams}
                 vietnams={vietnams}
               />
@@ -2466,8 +2419,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setEnglishs={setEnglishs}
                 englishs={englishs}
               />
@@ -2478,8 +2429,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setChineses={setChineses}
                 chineses={chineses}
               />
@@ -2490,8 +2439,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setVietnameses={setVietnameses}
                 vietnameses={vietnameses}
               />
@@ -2502,8 +2449,6 @@ const App = ({
                 history={history}
                 historyState={historyState}
                 loginData={loginData}
-                totalData={totalData}
-                setTotalData={setTotalData}
                 setKoreans={setKoreans}
                 koreans={koreans}
               />

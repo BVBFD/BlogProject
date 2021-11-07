@@ -5,22 +5,22 @@ class DataRepository {
     this.db = getDatabase(app);
   }
 
-  syncDatas() {
+  syncDatas(onUpdate) {
     const query = ref(this.db, `lse126/datas`);
     onValue(query, (snapshot) => {
       const value = snapshot.val();
       console.log(value);
+      onUpdate(value);
     });
     return () => off(query);
   }
 
   removeData(data) {
-    remove(ref(this.db, `lse126/datas/${data.id}`));
+    remove(ref(this.db, `lse126/datas`));
   }
 
-  saveData(data) {
-    console.log(data.id);
-    set(ref(this.db, `lse126/datas/${data.id}`), data);
+  saveData(datas) {
+    set(ref(this.db, `lse126/datas`), datas);
   }
 }
 

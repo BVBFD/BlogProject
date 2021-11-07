@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Switch, Route, useParams } from "react-router-dom";
 import styles from "./novelUsaEu.module.css";
-import { useRef, useState } from "react/cjs/react.development";
+import { useEffect, useRef, useState } from "react/cjs/react.development";
 
 const NovelUsaEu = ({
   novelUsaEuData,
@@ -9,8 +9,6 @@ const NovelUsaEu = ({
   loginData,
   history,
   historyState,
-  totalData,
-  setTotalData,
   dataRepository,
   datas,
   setDatas,
@@ -29,15 +27,20 @@ const NovelUsaEu = ({
   const [selectedImg, setSelectedImg] = useState("");
   const [selectedVideo, setSelectedVideo] = useState("");
 
+  useEffect(() => {
+    setNovelUsaEuData(datas[0]?.data);
+  }, [novelUsaEuData]);
+
   const editPermissionIndex = Object.keys(loginData).filter(
     (key) => loginData[key].id === historyState
   );
   const editPermission = loginData[editPermissionIndex];
 
   const { keyValue } = useParams();
+
   const initialCodes = `
     <div>
-      ${novelUsaEuData[novelUsaEuData.length - 1]?.contents}
+      ${novelUsaEuData[novelUsaEuData.length - 1].contents}
     </div>`;
 
   let newKey = novelUsaEuData.length + 1;
@@ -92,13 +95,9 @@ const NovelUsaEu = ({
         return data;
       });
       setDatas(datasUpdate);
+
       // firebase server update
       dataRepository.saveData(datasUpdate);
-
-      // initial page list update
-      const totalDataCopy = { ...totalData };
-      totalDataCopy["novelUsaEu"] = addUpdated;
-      setTotalData(totalDataCopy);
 
       // 작성란 초기화
       setNewSubTitle("");
@@ -121,7 +120,7 @@ const NovelUsaEu = ({
       );
       setNovelUsaEuData(filtered);
 
-      // datas update 하기
+      // // datas update 하기
       const datasCopy = [...datas];
       const datasUpdate = datasCopy.map((data) => {
         if (data.id === "novelUsaEuData") {
@@ -134,10 +133,6 @@ const NovelUsaEu = ({
       // firebase server update
       dataRepository.saveData(datasUpdate);
 
-      // initial page list update
-      const totalDataCopy = { ...totalData };
-      totalDataCopy["novelUsaEu"] = filtered;
-      setTotalData(totalDataCopy);
       // useState 여러개 관리하면 따로 값을 내려서 받아서 처리해야함
       // 객체 오브젝트의 키값 string인지 아닌지 확인하고 처리할 것
       // "6", 6 이 두 개의 값은 틀린 것임을 명심할 것!
@@ -199,6 +194,7 @@ const NovelUsaEu = ({
   const dataBoxForFixContentRef = useRef();
   const [fixUpdateIndex, setFixUpdateIndex] = useState(true);
   const fixUpdate = (event) => {
+    writeFixFormBtnRef.current.style.display = "block";
     if (editPermission.admin) {
       dataRemoveRef.current.style.display = "none";
       newTextWriting.current.style.display = "none";
@@ -269,19 +265,6 @@ const NovelUsaEu = ({
     novelUsaEuDataCopy[keyValue - 1].title = event.target.value;
     console.log(novelUsaEuDataCopy);
     setNovelUsaEuData(novelUsaEuDataCopy);
-
-    // datas update 하기
-    const datasCopy = [...datas];
-    const datasUpdate = datasCopy.map((data) => {
-      if (data.id === "novelUsaEuData") {
-        data.data = novelUsaEuDataCopy;
-        return data;
-      }
-      return data;
-    });
-    setDatas(datasUpdate);
-    // firebase server update
-    dataRepository.saveData(datasUpdate);
   };
 
   const realTimeFixContentAreaChange = (event) => {
@@ -289,12 +272,16 @@ const NovelUsaEu = ({
     let novelUsaEuDataCopy = [...novelUsaEuData];
     novelUsaEuDataCopy[keyValue - 1].contents = event.target.value;
     setNovelUsaEuData(novelUsaEuDataCopy);
+  };
 
+  const writeFixFormBtnRef = useRef();
+  const writeFixFormBtn = (event) => {
+    event.preventDefault();
     // datas update 하기
     const datasCopy = [...datas];
     const datasUpdate = datasCopy.map((data) => {
       if (data.id === "novelUsaEuData") {
-        data.data = novelUsaEuDataCopy;
+        data.data = novelUsaEuData;
         return data;
       }
       return data;
@@ -302,6 +289,7 @@ const NovelUsaEu = ({
     setDatas(datasUpdate);
     // firebase server update
     dataRepository.saveData(datasUpdate);
+    writeFixFormBtnRef.current.style.display = "none";
   };
 
   const fixImgChange = (event) => {
@@ -404,6 +392,9 @@ const NovelUsaEu = ({
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}
               value={novelUsaEuData[keyValue - 1].contents}
             ></textarea>
+            <button ref={writeFixFormBtnRef} onClick={writeFixFormBtn}>
+              작성
+            </button>
             <div className={styles.imgVideoInputBtnBox}>
               <div className={styles.imgInputBtnBox}>
                 <input
