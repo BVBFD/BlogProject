@@ -2027,12 +2027,12 @@ const App = ({
     { id: "totalData", data: totalData },
   ]);
 
-  // useEffect(() => {
-  //   console.log(datas[0], datas[0].id);
-  //   datas.forEach((data) => {
-  //     dataRepository.saveData(data);
-  //   });
-  // });
+  useEffect(() => {
+    console.log(datas[0], datas[0].id);
+    datas.forEach((data) => {
+      dataRepository.saveData(data);
+    });
+  });
 
   const [loginData, setLoginData] = useState({
     1: { id: "lse126", pwd: "@securities126", admin: true },
@@ -2041,6 +2041,7 @@ const App = ({
     4: { id: "LeeJT", pwd: "@securities926" },
     5: { id: undefined, pwd: undefined },
   });
+
   const history = useHistory();
   const [historyState, setHistoryState] = useState();
   const booksBoxRef = useRef();
@@ -2265,6 +2266,9 @@ const App = ({
                 loginData={loginData}
                 totalData={totalData}
                 setTotalData={setTotalData}
+                dataRepository={dataRepository}
+                datas={datas}
+                setDatas={setDatas}
               />
             </Route>
 

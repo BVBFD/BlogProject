@@ -11,6 +11,9 @@ const NovelUsaEu = ({
   historyState,
   totalData,
   setTotalData,
+  dataRepository,
+  datas,
+  setDatas,
 }) => {
   const [newWritingDefaultIndex, setNewWritingDefaultIndex] = useState(false);
   const initialBoxRef = useRef();
@@ -79,6 +82,19 @@ const NovelUsaEu = ({
       };
       setNovelUsaEuData(addUpdated);
 
+      // datas state 업데이트 하기.
+      const datasCopy = [...datas];
+      const datasUpdate = datasCopy.map((data) => {
+        if (data.id === "novelUsaEuData") {
+          data.data = addUpdated;
+          return data;
+        }
+        return data;
+      });
+      setDatas(datasUpdate);
+      // firebase server update
+      dataRepository.saveData(datasUpdate);
+
       // initial page list update
       const totalDataCopy = { ...totalData };
       totalDataCopy["novelUsaEu"] = addUpdated;
@@ -104,6 +120,19 @@ const NovelUsaEu = ({
         (data) => data.id.toString() !== keyValue
       );
       setNovelUsaEuData(filtered);
+
+      // datas update 하기
+      const datasCopy = [...datas];
+      const datasUpdate = datasCopy.map((data) => {
+        if (data.id === "novelUsaEuData") {
+          data.data = filtered;
+          return data;
+        }
+        return data;
+      });
+      setDatas(datasUpdate);
+      // firebase server update
+      dataRepository.saveData(datasUpdate);
 
       // initial page list update
       const totalDataCopy = { ...totalData };
@@ -136,7 +165,7 @@ const NovelUsaEu = ({
 
   const onImgUpChange = (event) => {
     event.preventDefault();
-    console.log(event.target.files[0]);
+    console.log(event.target.files[0].name);
     setSelectedImg(
       '<img style="width: 42vw; height: 20%;" src="../images/4.jpg"></img>'
     );
@@ -240,6 +269,19 @@ const NovelUsaEu = ({
     novelUsaEuDataCopy[keyValue - 1].title = event.target.value;
     console.log(novelUsaEuDataCopy);
     setNovelUsaEuData(novelUsaEuDataCopy);
+
+    // datas update 하기
+    const datasCopy = [...datas];
+    const datasUpdate = datasCopy.map((data) => {
+      if (data.id === "novelUsaEuData") {
+        data.data = novelUsaEuDataCopy;
+        return data;
+      }
+      return data;
+    });
+    setDatas(datasUpdate);
+    // firebase server update
+    dataRepository.saveData(datasUpdate);
   };
 
   const realTimeFixContentAreaChange = (event) => {
@@ -247,6 +289,19 @@ const NovelUsaEu = ({
     let novelUsaEuDataCopy = [...novelUsaEuData];
     novelUsaEuDataCopy[keyValue - 1].contents = event.target.value;
     setNovelUsaEuData(novelUsaEuDataCopy);
+
+    // datas update 하기
+    const datasCopy = [...datas];
+    const datasUpdate = datasCopy.map((data) => {
+      if (data.id === "novelUsaEuData") {
+        data.data = novelUsaEuDataCopy;
+        return data;
+      }
+      return data;
+    });
+    setDatas(datasUpdate);
+    // firebase server update
+    dataRepository.saveData(datasUpdate);
   };
 
   const fixImgChange = (event) => {
@@ -256,6 +311,19 @@ const NovelUsaEu = ({
       keyValue - 1
     ].image = `<img style="width: 42vw; height: 20%;" src='../images/4.jpg'></img>`;
     setNovelUsaEuData(novelUsaEuDataCopy);
+
+    // datas update 하기
+    const datasCopy = [...datas];
+    const datasUpdate = datasCopy.map((data) => {
+      if (data.id === "novelUsaEuData") {
+        data.data = novelUsaEuDataCopy;
+        return data;
+      }
+      return data;
+    });
+    setDatas(datasUpdate);
+    // firebase server update
+    dataRepository.saveData(datasUpdate);
   };
   const fixVideoChange = (event) => {
     console.log(event.target.files[0]);
@@ -264,6 +332,19 @@ const NovelUsaEu = ({
       keyValue - 1
     ].video = `<video controls style="width: 42vw; height: 20%;" src="../videos/stayWithMe.mp4" type="video/*" controls></video>`;
     setNovelUsaEuData(novelUsaEuDataCopy);
+
+    // datas update 하기
+    const datasCopy = [...datas];
+    const datasUpdate = datasCopy.map((data) => {
+      if (data.id === "novelUsaEuData") {
+        data.data = novelUsaEuDataCopy;
+        return data;
+      }
+      return data;
+    });
+    setDatas(datasUpdate);
+    // firebase server update
+    dataRepository.saveData(datasUpdate);
   };
 
   const fixTxtAreaRef = useRef();
