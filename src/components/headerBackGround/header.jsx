@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import styles from "./header.module.css";
 
-const Header = (props) => {
-  const [slideIndex, setSlideIndex] = useState(1);
-  const [imgs, setImgs] = useState({
-    1: "images/1.jpg",
-    2: "images/2.jpg",
-    3: "images/3.jpg",
-    4: "images/4.jpg",
-    5: "images/5.jpg",
-  });
-  const [imgsObjCount, setImgsObjCount] = useState(Object.keys(imgs).length);
-
+const Header = ({
+  slideIndex,
+  setSlideIndex,
+  imgs,
+  setImages,
+  imgsObjCount,
+  setImgsObjCount,
+}) => {
   const nextSlide = () => {
     if (slideIndex !== imgsObjCount) {
       setSlideIndex(slideIndex + 1);

@@ -60,6 +60,7 @@ const Navbar = ({
 
   const onLogin = (event) => {
     event.preventDefault();
+    console.log(event);
     const idArray = Object.keys(loginData).map((key) => {
       return loginData[key].id;
     });

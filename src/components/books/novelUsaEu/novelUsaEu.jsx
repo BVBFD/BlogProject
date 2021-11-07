@@ -34,16 +34,21 @@ const NovelUsaEu = ({
   const { keyValue } = useParams();
   const initialCodes = `
     <div>
-      ${novelUsaEuData[novelUsaEuData.length - 1].contents}
+      ${novelUsaEuData[novelUsaEuData.length - 1]?.contents}
     </div>`;
 
   let newKey = novelUsaEuData.length + 1;
   const newWritingDefaultUpdata = () => {
+    setNewWritingDefaultIndex(true);
     if (!newWritingDefaultIndex) {
+      fixUpdateRef.current.style.display = "none";
+      dataRemoveRef.current.style.display = "none";
       newWritingLiRef.current.style.display = "block";
       history.push(`/novelUsaEu/practice`);
       setNewWritingDefaultIndex(true);
     } else {
+      fixUpdateRef.current.style.display = "";
+      dataRemoveRef.current.style.display = "";
       newWritingLiRef.current.style.display = "none";
       history.push(`/novelUsaEu/${novelUsaEuData.length}`);
       setNewWritingDefaultIndex(false);
@@ -156,8 +161,191 @@ const NovelUsaEu = ({
     ${selectedVideo}
   `;
 
+  const dataBoxForFixRef = useRef();
+  const fixImgRef = useRef();
+  const fixVideoRef = useRef();
+  const fixUpdateRef = useRef();
+  const dataRemoveRef = useRef();
+  const newTextWriting = useRef();
+  const dataBoxForFixContentRef = useRef();
+  const [fixUpdateIndex, setFixUpdateIndex] = useState(true);
+  const fixUpdate = (event) => {
+    dataRemoveRef.current.style.display = "none";
+    newTextWriting.current.style.display = "none";
+    const prevContents = document.querySelectorAll(
+      ".novelUsaEu_switchBox__15YRR"
+    );
+    // post css는 각 모듈별로 따로 꾸며주기 때문에 왠만하면 ref로 전달해야 되지만
+    // 이번 건의 경우 예외. 절대 post css는 querySelector는 지역이 아니라 전역으로 적요됨.
+    if (keyValue === "practice") {
+      history.push(`/novelUsaEu/${novelUsaEuData.length}`);
+      newWritingDefaultUpdata();
+      return;
+    }
+    event.preventDefault();
+    setFixUpdateIndex(false);
+    prevContents.forEach((val) => (val.style.display = "none"));
+    dataBoxForFixRef.current.style.display = "block";
+  };
+
+  const backFixUpdate = (event) => {
+    event.preventDefault();
+    dataRemoveRef.current.style.display = "";
+    newTextWriting.current.style.display = "";
+    const prevContents = document.querySelectorAll(
+      ".novelUsaEu_switchBox__15YRR"
+    );
+    setFixUpdateIndex(true);
+    prevContents.forEach((val) => (val.style.display = "block"));
+    dataBoxForFixRef.current.style.display = "none";
+  };
+
+  const fixDataTitle =
+    keyValue !== "practice" &&
+    `
+    <h1>${novelUsaEuData[keyValue - 1].type}</h1>
+    <h2>${novelUsaEuData[keyValue - 1].title}</h2>
+  `;
+
+  const fixImgVid =
+    keyValue !== "practice" &&
+    `
+  ${novelUsaEuData[keyValue - 1].image}
+  ${novelUsaEuData[keyValue - 1].video}
+`;
+
+  const fixContent =
+    keyValue !== "practice" &&
+    `
+    ${novelUsaEuData[keyValue - 1].contents}
+  `;
+
+  const fixImgBtn = (event) => {
+    event.preventDefault();
+    fixImgRef.current.click();
+  };
+
+  const fixVidBtn = (event) => {
+    event.preventDefault();
+    fixVideoRef.current.click();
+  };
+
+  const realTimeFixLinkInputChange = (event) => {
+    console.log(event.target.value);
+    let novelUsaEuDataCopy = [...novelUsaEuData];
+    novelUsaEuDataCopy[keyValue - 1].title = event.target.value;
+    console.log(novelUsaEuDataCopy);
+    setNovelUsaEuData(novelUsaEuDataCopy);
+  };
+
+  const realTimeFixContentAreaChange = (event) => {
+    event.preventDefault();
+    let novelUsaEuDataCopy = [...novelUsaEuData];
+    novelUsaEuDataCopy[keyValue - 1].contents = event.target.value;
+    setNovelUsaEuData(novelUsaEuDataCopy);
+  };
+
+  const fixImgChange = (event) => {
+    console.log(event.target.files[0]);
+    let novelUsaEuDataCopy = [...novelUsaEuData];
+    novelUsaEuDataCopy[
+      keyValue - 1
+    ].image = `<img style="width: 42vw; height: 20%;" src='../images/4.jpg'></img>`;
+    setNovelUsaEuData(novelUsaEuDataCopy);
+  };
+  const fixVideoChange = (event) => {
+    console.log(event.target.files[0]);
+    let novelUsaEuDataCopy = [...novelUsaEuData];
+    novelUsaEuDataCopy[
+      keyValue - 1
+    ].video = `<video controls style="width: 42vw; height: 20%;" src="../videos/stayWithMe.mp4" type="video/*" controls></video>`;
+    setNovelUsaEuData(novelUsaEuDataCopy);
+  };
+
+  const fixTxtAreaRef = useRef();
+  const dataBoxForFixTitleRef = useRef();
+  const onTestFixChange = () => {
+    let key = window.event.keyCode;
+    if (key === 13) {
+      fixTxtAreaRef.current.value = fixTxtAreaRef.current.value + "</br>";
+      return false;
+    } else {
+      return true;
+    }
+  };
+  // testArea Tag에서 띄어쓰기 안되던 문제 해결.
+
+  const onTestChange = () => {
+    let key = window.event.keyCode;
+    if (key === 13) {
+      writeFormContentsTextareaRef.current.value =
+        writeFormContentsTextareaRef.current.value + "</br>";
+      setNewTestStr(writeFormContentsTextareaRef.current.value);
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   return (
     <>
+      {keyValue !== "practice" && (
+        <div ref={dataBoxForFixRef} className={styles.dataBoxForFix}>
+          <div
+            ref={dataBoxForFixTitleRef}
+            className={styles.dataBoxForFixTitle}
+            dangerouslySetInnerHTML={{ __html: fixDataTitle }}
+          ></div>
+          <div
+            className={styles.dataBoxForFixImgVideoBox}
+            dangerouslySetInnerHTML={{ __html: fixImgVid }}
+          ></div>
+          <div
+            ref={dataBoxForFixContentRef}
+            className={styles.dataBoxForFixContent}
+            dangerouslySetInnerHTML={{ __html: fixContent }}
+          ></div>
+
+          <form className={styles.writeForm}>
+            <input
+              onChange={realTimeFixLinkInputChange}
+              className={`${styles.realTimeFixLinkInput} ${styles.writeFormSubTitleInput}`}
+              value={novelUsaEuData[keyValue - 1].title}
+            ></input>
+            <textarea
+              ref={fixTxtAreaRef}
+              onKeyPress={onTestFixChange}
+              onChange={realTimeFixContentAreaChange}
+              className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}
+              value={novelUsaEuData[keyValue - 1].contents}
+            ></textarea>
+            <div className={styles.imgVideoInputBtnBox}>
+              <div className={styles.imgInputBtnBox}>
+                <input
+                  ref={fixImgRef}
+                  type="file"
+                  name="image"
+                  accept="image/*"
+                  onChange={fixImgChange}
+                ></input>
+                <button onClick={fixImgBtn}>이미지</button>
+              </div>
+
+              <div className={styles.videoInputBtnBox}>
+                <input
+                  ref={fixVideoRef}
+                  type="file"
+                  name="video"
+                  accept="video/*"
+                  onChange={fixVideoChange}
+                ></input>
+                <button onClick={fixVidBtn}>동영상</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      )}
+
       <li ref={newWritingLiRef} className={styles.newWritingLi}>
         <Route ref={newWritingLiRouteRef} path={`/novelUsaEu/practice`}>
           <div className={styles.novelUsaEuBox}>
@@ -165,7 +353,7 @@ const NovelUsaEu = ({
               <h1>{novelUsaEuData[0].type}</h1>
               <h2>{newSubTitle}</h2>
               <div dangerouslySetInnerHTML={{ __html: codeImgVideoTag }}></div>
-              <div>{newTestStr}</div>
+              <div dangerouslySetInnerHTML={{ __html: newTestStr }}></div>
             </div>
           </div>
         </Route>
@@ -183,6 +371,7 @@ const NovelUsaEu = ({
           />
           <textarea
             ref={writeFormContentsTextareaRef}
+            onKeyPress={onTestChange}
             className={styles.writeFormContentsTextarea}
             onChange={writeFormContentsTextareaOnChange}
           ></textarea>
@@ -224,7 +413,6 @@ const NovelUsaEu = ({
           </div>
         </form>
       </li>
-
       {!keyValue && (
         <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
           <div>
@@ -234,7 +422,6 @@ const NovelUsaEu = ({
           </div>
         </div>
       )}
-
       {Object.keys(novelUsaEuData)
         .reverse()
         .map((key) => {
@@ -274,7 +461,7 @@ const NovelUsaEu = ({
           .reverse()
           .map((key) => {
             return (
-              <li>
+              <li onClick={backFixUpdate}>
                 <Link
                   className={styles.novelUsaEuDataList}
                   to={`/novelUsaEu/${novelUsaEuData[key].id}`}
@@ -288,8 +475,20 @@ const NovelUsaEu = ({
           })}
       </ul>
 
-      <button onClick={newWritingDefaultUpdata}>글쓰기</button>
-      <button onClick={dataRemove}>삭제</button>
+      <button ref={newTextWriting} onClick={newWritingDefaultUpdata}>
+        글쓰기
+      </button>
+
+      {fixUpdateIndex ? (
+        <button ref={fixUpdateRef} onClick={fixUpdate}>
+          수정
+        </button>
+      ) : (
+        <button onClick={backFixUpdate}>뒤로</button>
+      )}
+      <button ref={dataRemoveRef} onClick={dataRemove}>
+        삭제
+      </button>
     </>
   );
 };
