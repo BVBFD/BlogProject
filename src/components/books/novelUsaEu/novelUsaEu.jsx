@@ -12,6 +12,7 @@ const NovelUsaEu = ({
   dataRepository,
   datas,
   setDatas,
+  imageUploader,
 }) => {
   const [newWritingDefaultIndex, setNewWritingDefaultIndex] = useState(false);
   const initialBoxRef = useRef();
@@ -79,7 +80,7 @@ const NovelUsaEu = ({
         id: newKey,
         type: novelUsaEuData[1].type,
         title: newSubTitle,
-        contents: `<p>\n${newTestStr}\n</p>`,
+        contents: `${newTestStr}`,
         image: selectedImg,
         video: selectedVideo,
       };
@@ -158,22 +159,26 @@ const NovelUsaEu = ({
     videoUploadBoxInputRef.current.click();
   };
 
-  const onImgUpChange = (event) => {
+  const onImgUpChange = async (event) => {
     event.preventDefault();
     console.log(event.target.files[0].name);
+    let uploaded = await imageUploader.upload(event.target.files[0]);
+    console.log(uploaded.url);
     setSelectedImg(
-      '<img style="width: 42vw; height: 20%;" src="../images/4.jpg"></img>'
+      `<img style="width: 42vw; height: 20%;" src="${uploaded.url}"></img>`
     );
   };
 
-  const onVideoUpChange = (event) => {
+  const onVideoUpChange = async (event) => {
     event.preventDefault();
     console.log(event.target.files[0]);
+    let uploaded = await imageUploader.videoUpload(event.target.files[0]);
+    console.log(uploaded);
     setSelectedVideo(
       `<video
           controls
           style="width: 42vw; height: 20%;"
-          src="../videos/stayWithMe.mp4"
+          src="${uploaded.url}"
           type="video/*"
           controls
         ></video>`
@@ -292,38 +297,49 @@ const NovelUsaEu = ({
     writeFixFormBtnRef.current.style.display = "none";
   };
 
-  const fixImgChange = (event) => {
+  const fixImgChange = async (event) => {
     console.log(event.target.files[0]);
     let novelUsaEuDataCopy = [...novelUsaEuData];
+    let uploaded = await imageUploader.upload(event.target.files[0]);
+    console.log(uploaded.url);
+    console.log(novelUsaEuDataCopy[keyValue - 1]);
     novelUsaEuDataCopy[
       keyValue - 1
-    ].image = `<img style="width: 42vw; height: 20%;" src='../images/4.jpg'></img>`;
+    ].image = `<img style="width: 42vw; height: 20%;" src="${uploaded.url}"></img>`;
     setNovelUsaEuData(novelUsaEuDataCopy);
 
     // datas update 하기
-    const datasCopy = [...datas];
-    const datasUpdate = datasCopy.map((data) => {
+    let datasCopy = [...datas];
+    let datasUpdate = datasCopy.map((data) => {
       if (data.id === "novelUsaEuData") {
         data.data = novelUsaEuDataCopy;
         return data;
       }
       return data;
     });
+    console.log(datasUpdate);
     setDatas(datasUpdate);
     // firebase server update
     dataRepository.saveData(datasUpdate);
   };
-  const fixVideoChange = (event) => {
+
+  const fixVideoChange = async (event) => {
     console.log(event.target.files[0]);
     let novelUsaEuDataCopy = [...novelUsaEuData];
-    novelUsaEuDataCopy[
-      keyValue - 1
-    ].video = `<video controls style="width: 42vw; height: 20%;" src="../videos/stayWithMe.mp4" type="video/*" controls></video>`;
+    let uploaded = await imageUploader.videoUpload(event.target.files[0]);
+    console.log(uploaded);
+    novelUsaEuDataCopy[keyValue - 1].video = `<video
+    controls
+    style="width: 42vw; height: 20%;"
+    src="${uploaded.url}"
+    type="video/*"
+    controls
+  ></video>`;
     setNovelUsaEuData(novelUsaEuDataCopy);
 
     // datas update 하기
-    const datasCopy = [...datas];
-    const datasUpdate = datasCopy.map((data) => {
+    let datasCopy = [...datas];
+    let datasUpdate = datasCopy.map((data) => {
       if (data.id === "novelUsaEuData") {
         data.data = novelUsaEuDataCopy;
         return data;

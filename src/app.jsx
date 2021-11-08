@@ -31,6 +31,7 @@ const App = ({
   authMobileService,
   weatherTime,
   exchangeRate,
+  imageUploader,
 }) => {
   const [novelUsaEuData, setNovelUsaEuData] = useState([
     {
@@ -2250,6 +2251,7 @@ const App = ({
                 dataRepository={dataRepository}
                 datas={datas}
                 setDatas={setDatas}
+                imageUploader={imageUploader}
               />
             </Route>
 
