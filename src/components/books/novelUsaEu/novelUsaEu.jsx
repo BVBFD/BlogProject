@@ -22,6 +22,7 @@ const NovelUsaEu = ({
   const writeFormContentsTextareaRef = useRef();
   const imgUploadBoxInputRef = useRef();
   const videoUploadBoxInputRef = useRef();
+  const writeFormRef = useRef();
 
   let [newSubTitle, setNewSubTitle] = useState();
   let [newTestStr, setNewTestStr] = useState();
@@ -74,7 +75,7 @@ const NovelUsaEu = ({
 
   const saveNewWritingData = (event) => {
     event.preventDefault();
-    if (editPermission.admin || loginData) {
+    if (editPermission === undefined ? false : editPermission.admin) {
       const addUpdated = [...novelUsaEuData];
       addUpdated[newKey - 1] = {
         id: newKey,
@@ -114,7 +115,7 @@ const NovelUsaEu = ({
 
   const dataRemove = (event) => {
     event.preventDefault();
-    if (editPermission.admin) {
+    if (editPermission === undefined ? false : editPermission.admin) {
       const removeUpdated = [...novelUsaEuData];
       const filtered = removeUpdated.filter(
         (data) => data.id.toString() !== keyValue
@@ -200,7 +201,7 @@ const NovelUsaEu = ({
   const [fixUpdateIndex, setFixUpdateIndex] = useState(true);
   const fixUpdate = (event) => {
     writeFixFormBtnRef.current.style.display = "block";
-    if (editPermission.admin) {
+    if (editPermission === undefined ? false : editPermission.admin) {
       dataRemoveRef.current.style.display = "none";
       newTextWriting.current.style.display = "none";
       const prevContents = document.querySelectorAll(
@@ -231,7 +232,12 @@ const NovelUsaEu = ({
     );
     setFixUpdateIndex(true);
     prevContents.forEach((val) => (val.style.display = "block"));
-    dataBoxForFixRef.current.style.display = "none";
+    if (dataBoxForFixRef.current === null) {
+      newWritingLiRef.current.style.display = "none";
+      return;
+    } else {
+      dataBoxForFixRef.current.style.display = "none";
+    }
   };
 
   const fixDataTitle =
@@ -455,7 +461,7 @@ const NovelUsaEu = ({
           <h4>{newSubTitle}</h4>
         </Link>
 
-        <form className={styles.writeForm}>
+        <form ref={writeFormRef} className={styles.writeForm}>
           <input
             ref={writeFormSubTitleInputRef}
             className={styles.writeFormSubTitleInput}
