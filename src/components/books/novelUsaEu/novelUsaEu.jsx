@@ -74,7 +74,7 @@ const NovelUsaEu = ({
 
   const saveNewWritingData = (event) => {
     event.preventDefault();
-    if (editPermission.admin) {
+    if (editPermission.admin || loginData) {
       const addUpdated = [...novelUsaEuData];
       addUpdated[newKey - 1] = {
         id: newKey,

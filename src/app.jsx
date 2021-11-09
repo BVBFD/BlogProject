@@ -2259,7 +2259,7 @@ const App = ({
           <Switch>
             {/* initial page */}
             <Route path={["/", "/home"]} exact>
-              <InitialPageData />
+              <InitialPageData datas={datas} />
             </Route>
 
             {/* books */}
