@@ -2019,12 +2019,34 @@ const App = ({
   }, [dataRepository]);
 
   const [loginData, setLoginData] = useState({
-    1: { id: "lse126", pwd: "@securities126", admin: true },
-    2: { id: "giopf47", pwd: "@securities626" },
-    3: { id: "parkGB", pwd: "@securities526" },
-    4: { id: "LeeJT", pwd: "@securities926" },
-    5: { id: undefined, pwd: undefined },
+    // 1: {
+    //   id: process.env.React_APP_idInfo1,
+    //   pwd: process.env.React_APP_pwdInfo1,
+    //   admin: true,
+    // },
+    // 2: {
+    //   id: process.env.React_APP_idInfo2,
+    //   pwd: process.env.React_APP_pwdInfo2,
+    // },
+    // 3: {
+    //   id: process.env.React_APP_idInfo3,
+    //   pwd: process.env.React_APP_pwdInfo3,
+    // },
+    // 4: {
+    //   id: process.env.React_APP_idInfo4,
+    //   pwd: process.env.React_APP_pwdInfo4,
+    // },
   });
+
+  // useEffect(() => {
+  //   dataRepository.saveIdData(loginData);
+  // }, [dataRepository]);
+
+  useEffect(() => {
+    dataRepository.syncIdData((vals) => {
+      setLoginData(vals);
+    });
+  }, [dataRepository]);
 
   const history = useHistory();
   const [historyState, setHistoryState] = useState();
@@ -2087,6 +2109,7 @@ const App = ({
         loginData={loginData}
         weatherTime={weatherTime}
         exchangeRate={exchangeRate}
+        dataRepository={dataRepository}
       />
       <Header
         slideIndex={slideIndex}

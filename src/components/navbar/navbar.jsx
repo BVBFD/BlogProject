@@ -11,6 +11,7 @@ const Navbar = ({
   setLoginData,
   history,
   setHistoryState,
+  dataRepository,
 }) => {
   const [weather, setWeather] = useState();
   const [cityCountry, setCityCountry] = useState();
@@ -148,14 +149,21 @@ const Navbar = ({
   const signUpIdPwd = (event) => {
     event.preventDefault();
     console.log(Object.keys(loginData).length);
-    const newIndex = Object.keys(loginData).length;
+    let newIndex = Object.keys(loginData).length;
     const id = signUpBoxIdInputRef.current.value;
     const pwd = signUpBoxPwdInputRef.current.value;
-    console.log(newIndex);
+    newIndex = newIndex + 1;
     loginData[newIndex] = { id: id, pwd: pwd };
     setLoginData({ ...loginData, newIndex: loginData[newIndex] });
+    let loginDataCopy = { ...loginData };
+    loginDataCopy[newIndex] = loginData[newIndex];
+    dataRepository.saveIdData(loginDataCopy);
     console.log(loginData);
     signUpBoxRef.current.style.display = "none";
+  };
+
+  let searchClick = (event) => {
+    event.preventDefault();
   };
 
   return (
@@ -185,6 +193,7 @@ const Navbar = ({
           <input
             className={styles.navbarInput}
             type="text"
+            onClick={searchClick}
             placeholder="전체 검색 기능"
           />
           <button className={styles.navbarBtn}>Click!</button>
