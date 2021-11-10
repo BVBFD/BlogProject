@@ -20,7 +20,7 @@ const InitialPageData = ({ datas }) => {
                   >
                     <h4>{dt.id}.&emsp;</h4>
                     <h4>{dt.type}&nbsp;-&nbsp;</h4>
-                    <h4>{dt.title}</h4>
+                    <h4 className={styles.searchDatasList}>{dt.title}</h4>
                   </Link>
                 );
               })}
@@ -46,7 +46,7 @@ const InitialPageData = ({ datas }) => {
                   >
                     <h4>{dt.id}.&emsp;</h4>
                     <h4>{dt.type}&nbsp;-&nbsp;</h4>
-                    <h4>{dt.title}</h4>
+                    <h4 className={styles.searchDatasList}>{dt.title}</h4>
                   </Link>
                 );
               })}

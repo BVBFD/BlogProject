@@ -20,3 +20,7 @@
   height: 2rem;
   margin: 0;
 }
+
+.searchDatasList {
+  position: relative;
+}

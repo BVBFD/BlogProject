@@ -162,8 +162,19 @@ const Navbar = ({
     signUpBoxRef.current.style.display = "none";
   };
 
-  let searchClick = (event) => {
-    event.preventDefault();
+  const searchTotalData = (event) => {
+    history.push(`/`);
+    const listDatas = document.querySelectorAll(
+      ".initialPageData_searchDatasList__3SeJ3"
+    );
+    listDatas.forEach((name) => {
+      console.log(name);
+      if (name.innerText.search(event.target.value) !== -1) {
+        name.parentNode.style.display = "flex";
+      } else {
+        name.parentNode.style.display = "none";
+      }
+    });
   };
 
   return (
@@ -191,9 +202,9 @@ const Navbar = ({
       <section className={styles.navbarRightBox}>
         <form className={styles.searchForm}>
           <input
+            onChange={searchTotalData}
             className={styles.navbarInput}
             type="text"
-            onClick={searchClick}
             placeholder="전체 검색 기능"
           />
           <button className={styles.navbarBtn}>Click!</button>
@@ -213,7 +224,7 @@ const Navbar = ({
           <input
             ref={pwdInputRef}
             className={styles.navbarInput}
-            type="text"
+            type="password"
             placeholder="PassWord"
           />
           <button className={styles.navbarBtn}>로그인</button>
@@ -235,7 +246,7 @@ const Navbar = ({
               ref={numRef}
               type="number"
               name="mobile"
-              placeholder="Mobile Number"
+              placeholder="전화번호 입력, 클릭!!"
               onChange={handleNumChange}
               required
             />
@@ -250,7 +261,7 @@ const Navbar = ({
               ref={otpRef}
               type="number"
               name="otp"
-              placeholder="OTP number"
+              placeholder="인증번호 입력, 클릭!!"
               onChange={handleOtpChange}
               required
             />
@@ -272,8 +283,8 @@ const Navbar = ({
             />
             <input
               ref={signUpBoxPwdInputRef}
-              type="text"
               name="pwd"
+              type="text"
               placeholder="Password"
               required
             />
