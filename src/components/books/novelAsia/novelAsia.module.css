@@ -84,3 +84,28 @@
   height: 2rem;
   width: 100%;
 }
+
+/* fix update part */
+.dataBoxForFix {
+  display: none;
+  width: 100%;
+}
+
+.imgVideoInputBtnBox {
+  display: flex;
+  flex-direction: row;
+}
+
+.imgVideoInputBtnBox div {
+  flex: 1 1 50%;
+  width: 50%;
+}
+
+.imgVideoInputBtnBox input {
+  display: none;
+  width: 100%;
+}
+
+.imgVideoInputBtnBox button {
+  width: 100%;
+}

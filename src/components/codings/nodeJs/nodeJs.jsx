@@ -9,8 +9,10 @@ const NodeJs = ({
   loginData,
   history,
   historyState,
-  totalData,
-  setTotalData,
+  dataRepository,
+  datas,
+  setDatas,
+  imageUploader,
 }) => {
   const [newWritingDefaultIndex, setNewWritingDefaultIndex] = useState(false);
   const initialBoxRef = useRef();
@@ -20,6 +22,7 @@ const NodeJs = ({
   const writeFormContentsTextareaRef = useRef();
   const imgUploadBoxInputRef = useRef();
   const videoUploadBoxInputRef = useRef();
+  const writeFormRef = useRef();
 
   let [newSubTitle, setNewSubTitle] = useState();
   let [newTestStr, setNewTestStr] = useState();
@@ -32,6 +35,7 @@ const NodeJs = ({
   const editPermission = loginData[editPermissionIndex];
 
   const { keyValue } = useParams();
+
   const initialCodes = `
     <div>
       ${nodeJSs[nodeJSs.length - 1].contents}
@@ -39,13 +43,18 @@ const NodeJs = ({
 
   let newKey = nodeJSs.length + 1;
   const newWritingDefaultUpdata = () => {
+    setNewWritingDefaultIndex(true);
     if (!newWritingDefaultIndex) {
+      fixUpdateRef.current.style.display = "none";
+      dataRemoveRef.current.style.display = "none";
       newWritingLiRef.current.style.display = "block";
-      history.push(`/nodejs/practice`);
+      history.push(`/nodeJS/practice`);
       setNewWritingDefaultIndex(true);
     } else {
+      fixUpdateRef.current.style.display = "";
+      dataRemoveRef.current.style.display = "";
       newWritingLiRef.current.style.display = "none";
-      history.push(`/nodejs/${nodeJSs.length}`);
+      history.push(`/nodeJS/${nodeJSs.length}`);
       setNewWritingDefaultIndex(false);
     }
   };
@@ -62,22 +71,31 @@ const NodeJs = ({
 
   const saveNewWritingData = (event) => {
     event.preventDefault();
-    if (editPermission.admin) {
+    if (editPermission === undefined ? false : editPermission.admin) {
       const addUpdated = [...nodeJSs];
       addUpdated[newKey - 1] = {
         id: newKey,
         type: nodeJSs[1].type,
         title: newSubTitle,
-        contents: `<p>\n${newTestStr}\n</p>`,
+        contents: `${newTestStr}`,
         image: selectedImg,
         video: selectedVideo,
       };
       setNodeJSs(addUpdated);
 
-      // initial page list update
-      const totalDataCopy = { ...totalData };
-      totalDataCopy["nodejs"] = addUpdated;
-      setTotalData(totalDataCopy);
+      // datas state 업데이트 하기.
+      const datasCopy = [...datas];
+      const datasUpdate = datasCopy.map((data) => {
+        if (data.id === "nodeJSs") {
+          data.data = addUpdated;
+          return data;
+        }
+        return data;
+      });
+      setDatas(datasUpdate);
+
+      // firebase server update
+      dataRepository.saveData(datasUpdate);
 
       // 작성란 초기화
       setNewSubTitle("");
@@ -85,7 +103,7 @@ const NodeJs = ({
       writeFormSubTitleInputRef.current.value = "";
       writeFormContentsTextareaRef.current.value = "";
       newWritingDefaultUpdata();
-      history.push(`/nodejs/${nodeJSs.length + 1}`);
+      history.push(`/nodeJS/${nodeJSs.length + 1}`);
     } else {
       alert("블로그 편집 권한이 없습니다. 관리자한테 문의 부탁드립니다");
     }
@@ -93,17 +111,26 @@ const NodeJs = ({
 
   const dataRemove = (event) => {
     event.preventDefault();
-    if (editPermission.admin) {
+    if (editPermission === undefined ? false : editPermission.admin) {
       const removeUpdated = [...nodeJSs];
       const filtered = removeUpdated.filter(
         (data) => data.id.toString() !== keyValue
       );
       setNodeJSs(filtered);
 
-      // initial page list update
-      const totalDataCopy = { ...totalData };
-      totalDataCopy["nodejs"] = filtered;
-      setTotalData(totalDataCopy);
+      // // datas update 하기
+      const datasCopy = [...datas];
+      const datasUpdate = datasCopy.map((data) => {
+        if (data.id === "nodeJSs") {
+          data.data = filtered;
+          return data;
+        }
+        return data;
+      });
+      setDatas(datasUpdate);
+      // firebase server update
+      dataRepository.saveData(datasUpdate);
+
       // useState 여러개 관리하면 따로 값을 내려서 받아서 처리해야함
       // 객체 오브젝트의 키값 string인지 아닌지 확인하고 처리할 것
       // "6", 6 이 두 개의 값은 틀린 것임을 명심할 것!
@@ -113,7 +140,7 @@ const NodeJs = ({
       setNewTestStr("");
       writeFormSubTitleInputRef.current.value = "";
       writeFormContentsTextareaRef.current.value = "";
-      history.push(`/nodejs/${keyValue - 1}`);
+      history.push(`/nodeJS/${keyValue - 1}`);
     } else {
       alert("블로그 편집 권한이 없습니다. 관리자한테 문의 부탁드립니다");
     }
@@ -129,22 +156,26 @@ const NodeJs = ({
     videoUploadBoxInputRef.current.click();
   };
 
-  const onImgUpChange = (event) => {
+  const onImgUpChange = async (event) => {
     event.preventDefault();
-    console.log(event.target.files[0]);
+    console.log(event.target.files[0].name);
+    let uploaded = await imageUploader.upload(event.target.files[0]);
+    console.log(uploaded.url);
     setSelectedImg(
-      '<img style="width: 42vw; height: 20%;" src="../images/4.jpg"></img>'
+      `<img style="width: 42vw; height: 20%;" src="${uploaded.url}"></img>`
     );
   };
 
-  const onVideoUpChange = (event) => {
+  const onVideoUpChange = async (event) => {
     event.preventDefault();
     console.log(event.target.files[0]);
+    let uploaded = await imageUploader.videoUpload(event.target.files[0]);
+    console.log(uploaded);
     setSelectedVideo(
       `<video
           controls
           style="width: 42vw; height: 20%;"
-          src="../videos/stayWithMe.mp4"
+          src="${uploaded.url}"
           type="video/*"
           controls
         ></video>`
@@ -156,26 +187,277 @@ const NodeJs = ({
     ${selectedVideo}
   `;
 
+  const dataBoxForFixRef = useRef();
+  const fixImgRef = useRef();
+  const fixVideoRef = useRef();
+  const fixUpdateRef = useRef();
+  const dataRemoveRef = useRef();
+  const newTextWriting = useRef();
+  const dataBoxForFixContentRef = useRef();
+  const [fixUpdateIndex, setFixUpdateIndex] = useState(true);
+  const fixUpdate = (event) => {
+    writeFixFormBtnRef.current.style.display = "block";
+    if (editPermission === undefined ? false : editPermission.admin) {
+      dataRemoveRef.current.style.display = "none";
+      newTextWriting.current.style.display = "none";
+      const prevContents = document.querySelectorAll(
+        ".novelUsaEu_switchBox__15YRR"
+      );
+      // post css는 각 모듈별로 따로 꾸며주기 때문에 왠만하면 ref로 전달해야 되지만
+      // 이번 건의 경우 예외. 절대 post css는 querySelector는 지역이 아니라 전역으로 적요됨.
+      if (keyValue === "practice") {
+        history.push(`/nodeJS/${nodeJSs.length}`);
+        newWritingDefaultUpdata();
+        return;
+      }
+      event.preventDefault();
+      setFixUpdateIndex(false);
+      prevContents.forEach((val) => (val.style.display = "none"));
+      dataBoxForFixRef.current.style.display = "block";
+    } else {
+      alert("블로그 편집 권한이 없습니다. 관리자한테 문의 부탁드립니다");
+    }
+  };
+
+  const backFixUpdate = (event) => {
+    event.preventDefault();
+    dataRemoveRef.current.style.display = "";
+    newTextWriting.current.style.display = "";
+    const prevContents = document.querySelectorAll(
+      ".novelUsaEu_switchBox__15YRR"
+    );
+    setFixUpdateIndex(true);
+    prevContents.forEach((val) => (val.style.display = "block"));
+    if (dataBoxForFixRef.current === null) {
+      newWritingLiRef.current.style.display = "none";
+      return;
+    } else {
+      dataBoxForFixRef.current.style.display = "none";
+    }
+  };
+
+  const fixDataTitle =
+    keyValue !== "practice" &&
+    `
+    <h1>${nodeJSs[keyValue - 1]?.type}</h1>
+    <h2>${nodeJSs[keyValue - 1]?.title}</h2>
+  `;
+
+  const fixImgVid =
+    keyValue !== "practice" &&
+    `
+  ${nodeJSs[keyValue - 1]?.image}
+  ${nodeJSs[keyValue - 1]?.video}
+`;
+
+  const fixContent =
+    keyValue !== "practice" &&
+    `
+    ${nodeJSs[keyValue - 1]?.contents}
+  `;
+
+  const fixImgBtn = (event) => {
+    event.preventDefault();
+    fixImgRef.current.click();
+  };
+
+  const fixVidBtn = (event) => {
+    event.preventDefault();
+    fixVideoRef.current.click();
+  };
+
+  const realTimeFixLinkInputChange = (event) => {
+    console.log(event.target.value);
+    let novelUsaEuDataCopy = [...nodeJSs];
+    novelUsaEuDataCopy[keyValue - 1].title = event.target.value;
+    console.log(novelUsaEuDataCopy);
+    setNodeJSs(novelUsaEuDataCopy);
+  };
+
+  const realTimeFixContentAreaChange = (event) => {
+    event.preventDefault();
+    let novelUsaEuDataCopy = [...nodeJSs];
+    novelUsaEuDataCopy[keyValue - 1].contents = event.target.value;
+    setNodeJSs(novelUsaEuDataCopy);
+  };
+
+  const writeFixFormBtnRef = useRef();
+  const writeFixFormBtn = (event) => {
+    event.preventDefault();
+    // datas update 하기
+    const datasCopy = [...datas];
+    const datasUpdate = datasCopy.map((data) => {
+      if (data.id === "nodeJSs") {
+        data.data = nodeJSs;
+        return data;
+      }
+      return data;
+    });
+    setDatas(datasUpdate);
+    // firebase server update
+    dataRepository.saveData(datasUpdate);
+    writeFixFormBtnRef.current.style.display = "none";
+  };
+
+  const fixImgChange = async (event) => {
+    console.log(event.target.files[0]);
+    let novelUsaEuDataCopy = [...nodeJSs];
+    let uploaded = await imageUploader.upload(event.target.files[0]);
+    console.log(uploaded.url);
+    console.log(novelUsaEuDataCopy[keyValue - 1]);
+    novelUsaEuDataCopy[
+      keyValue - 1
+    ].image = `<img style="width: 42vw; height: 20%;" src="${uploaded.url}"></img>`;
+    setNodeJSs(novelUsaEuDataCopy);
+
+    // datas update 하기
+    let datasCopy = [...datas];
+    let datasUpdate = datasCopy.map((data) => {
+      if (data.id === "nodeJSs") {
+        data.data = novelUsaEuDataCopy;
+        return data;
+      }
+      return data;
+    });
+    console.log(datasUpdate);
+    setDatas(datasUpdate);
+    // firebase server update
+    dataRepository.saveData(datasUpdate);
+  };
+
+  const fixVideoChange = async (event) => {
+    console.log(event.target.files[0]);
+    let novelUsaEuDataCopy = [...nodeJSs];
+    let uploaded = await imageUploader.videoUpload(event.target.files[0]);
+    console.log(uploaded);
+    novelUsaEuDataCopy[keyValue - 1].video = `<video
+    controls
+    style="width: 42vw; height: 20%;"
+    src="${uploaded.url}"
+    type="video/*"
+    controls
+  ></video>`;
+    setNodeJSs(novelUsaEuDataCopy);
+
+    // datas update 하기
+    let datasCopy = [...datas];
+    let datasUpdate = datasCopy.map((data) => {
+      if (data.id === "nodeJSs") {
+        data.data = novelUsaEuDataCopy;
+        return data;
+      }
+      return data;
+    });
+    setDatas(datasUpdate);
+    // firebase server update
+    dataRepository.saveData(datasUpdate);
+  };
+
+  const fixTxtAreaRef = useRef();
+  const dataBoxForFixTitleRef = useRef();
+  const onTestFixChange = () => {
+    let key = window.event.keyCode;
+    if (key === 13) {
+      fixTxtAreaRef.current.value = fixTxtAreaRef.current.value + "</br>";
+      return false;
+    } else {
+      return true;
+    }
+  };
+  // testArea Tag에서 띄어쓰기 안되던 문제 해결.
+
+  const onTestChange = () => {
+    let key = window.event.keyCode;
+    if (key === 13) {
+      writeFormContentsTextareaRef.current.value =
+        writeFormContentsTextareaRef.current.value + "</br>";
+      setNewTestStr(writeFormContentsTextareaRef.current.value);
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   return (
     <>
+      {keyValue !== "practice" && (
+        <div ref={dataBoxForFixRef} className={styles.dataBoxForFix}>
+          <div
+            ref={dataBoxForFixTitleRef}
+            className={styles.dataBoxForFixTitle}
+            dangerouslySetInnerHTML={{ __html: fixDataTitle }}
+          ></div>
+          <div
+            className={styles.dataBoxForFixImgVideoBox}
+            dangerouslySetInnerHTML={{ __html: fixImgVid }}
+          ></div>
+          <div
+            ref={dataBoxForFixContentRef}
+            className={styles.dataBoxForFixContent}
+            dangerouslySetInnerHTML={{ __html: fixContent }}
+          ></div>
+
+          <form className={styles.writeForm}>
+            <input
+              onChange={realTimeFixLinkInputChange}
+              className={`${styles.realTimeFixLinkInput} ${styles.writeFormSubTitleInput}`}
+              value={nodeJSs[keyValue - 1]?.title}
+            ></input>
+            <textarea
+              ref={fixTxtAreaRef}
+              onKeyPress={onTestFixChange}
+              onChange={realTimeFixContentAreaChange}
+              className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}
+              value={nodeJSs[keyValue - 1]?.contents}
+            ></textarea>
+            <button ref={writeFixFormBtnRef} onClick={writeFixFormBtn}>
+              작성
+            </button>
+            <div className={styles.imgVideoInputBtnBox}>
+              <div className={styles.imgInputBtnBox}>
+                <input
+                  ref={fixImgRef}
+                  type="file"
+                  name="image"
+                  accept="image/*"
+                  onChange={fixImgChange}
+                ></input>
+                <button onClick={fixImgBtn}>이미지</button>
+              </div>
+
+              <div className={styles.videoInputBtnBox}>
+                <input
+                  ref={fixVideoRef}
+                  type="file"
+                  name="video"
+                  accept="video/*"
+                  onChange={fixVideoChange}
+                ></input>
+                <button onClick={fixVidBtn}>동영상</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      )}
+
       <li ref={newWritingLiRef} className={styles.newWritingLi}>
-        <Route ref={newWritingLiRouteRef} path={`/nodejs/practice`}>
+        <Route ref={newWritingLiRouteRef} path={`/nodeJS/practice`}>
           <div className={styles.novelUsaEuBox}>
             <div>
               <h1>{nodeJSs[0].type}</h1>
               <h2>{newSubTitle}</h2>
               <div dangerouslySetInnerHTML={{ __html: codeImgVideoTag }}></div>
-              <div>{newTestStr}</div>
+              <div dangerouslySetInnerHTML={{ __html: newTestStr }}></div>
             </div>
           </div>
         </Route>
-        <Link className={styles.novelUsaEuDataList} to={`/nodejs/practice`}>
+        <Link className={styles.novelUsaEuDataList} to={`/nodeJS/practice`}>
           <h4>{newKey}.&emsp;</h4>
           <h4>{nodeJSs[0].type}&nbsp;-&nbsp;</h4>
           <h4>{newSubTitle}</h4>
         </Link>
 
-        <form className={styles.writeForm}>
+        <form ref={writeFormRef} className={styles.writeForm}>
           <input
             ref={writeFormSubTitleInputRef}
             className={styles.writeFormSubTitleInput}
@@ -183,6 +465,7 @@ const NodeJs = ({
           />
           <textarea
             ref={writeFormContentsTextareaRef}
+            onKeyPress={onTestChange}
             className={styles.writeFormContentsTextarea}
             onChange={writeFormContentsTextareaOnChange}
           ></textarea>
@@ -224,17 +507,16 @@ const NodeJs = ({
           </div>
         </form>
       </li>
-
-      {!keyValue && (
-        <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
-          <div>
-            <h1>{nodeJSs[nodeJSs.length - 1].type}</h1>
-            <h2>{nodeJSs[nodeJSs.length - 1].title}</h2>
-            <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
+      {!keyValue ||
+        (keyValue === undefined && (
+          <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
+            <div>
+              <h1>{nodeJSs[nodeJSs.length - 1].type}</h1>
+              <h2>{nodeJSs[nodeJSs.length - 1].title}</h2>
+              <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
+            </div>
           </div>
-        </div>
-      )}
-
+        ))}
       {Object.keys(nodeJSs)
         .reverse()
         .map((key) => {
@@ -258,7 +540,7 @@ const NodeJs = ({
             <>
               <div className={styles.switchBox}>
                 <Switch>
-                  <Route path={`/nodejs/${nodeJSs[key].id}`}>
+                  <Route path={`/nodeJS/${nodeJSs[key].id}`}>
                     <div
                       className={styles.novelUsaEuBox}
                       dangerouslySetInnerHTML={{ __html: codes }}
@@ -274,10 +556,10 @@ const NodeJs = ({
           .reverse()
           .map((key) => {
             return (
-              <li>
+              <li onClick={backFixUpdate}>
                 <Link
                   className={styles.novelUsaEuDataList}
-                  to={`/nodejs/${nodeJSs[key].id}`}
+                  to={`/nodeJS/${nodeJSs[key].id}`}
                 >
                   <h4>{nodeJSs[key].id}.&emsp;</h4>
                   <h4>{nodeJSs[key].type}&nbsp;-&nbsp;</h4>
@@ -288,8 +570,20 @@ const NodeJs = ({
           })}
       </ul>
 
-      <button onClick={newWritingDefaultUpdata}>글쓰기</button>
-      <button onClick={dataRemove}>삭제</button>
+      <button ref={newTextWriting} onClick={newWritingDefaultUpdata}>
+        글쓰기
+      </button>
+
+      {fixUpdateIndex ? (
+        <button ref={fixUpdateRef} onClick={fixUpdate}>
+          수정
+        </button>
+      ) : (
+        <button onClick={backFixUpdate}>뒤로</button>
+      )}
+      <button ref={dataRemoveRef} onClick={dataRemove}>
+        삭제
+      </button>
     </>
   );
 };

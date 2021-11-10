@@ -29,20 +29,6 @@ const NovelUsaEu = ({
   const [selectedImg, setSelectedImg] = useState("");
   const [selectedVideo, setSelectedVideo] = useState("");
 
-  // useEffect(() => {
-  //   setNovelUsaEuData(datas[0].data);
-  // }, [novelUsaEuData]);
-
-  // useEffect(() => {
-  //   const stopSync = dataRepository.syncDatas((vals) => {
-  //     const datasCopy = [...datas];
-  //     datasCopy.push(Object.keys(vals).map((key) => vals[key]));
-  //     setNovelUsaEuData(datasCopy[0][0].data);
-  //     setDatas(datasCopy[0]);
-  //   });
-  //   return () => stopSync();
-  // }, [dataRepository]);
-
   const editPermissionIndex = Object.keys(loginData).filter(
     (key) => loginData[key].id === historyState
   );
