@@ -7,7 +7,7 @@ const InitialPageData = ({ datas }) => {
     if (val.id.slice(-1) === "a") {
       return (
         <>
-          <h2>{val.id}</h2>
+          <h2>{val.id.slice(0, 1).toUpperCase() + val.id.slice(1)}</h2>
           <li className={styles.novelUsaEuDataList}>
             {val.data
               .slice(0)
@@ -31,7 +31,9 @@ const InitialPageData = ({ datas }) => {
     if (val.id.slice(-1) === "s") {
       return (
         <>
-          <h2>{val.id}</h2>
+          <h2>
+            {(val.id.slice(0, 1).toUpperCase() + val.id.slice(1)).slice(0, -1)}
+          </h2>
           <li className={styles.novelUsaEuDataList}>
             {val.data
               .slice(0)

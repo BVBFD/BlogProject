@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Switch, Route, useParams } from "react-router-dom";
 import styles from "./novelUsaEu.module.css";
-import { useEffect, useRef, useState } from "react/cjs/react.development";
+import { useRef, useState } from "react/cjs/react.development";
 
 const NovelUsaEu = ({
   novelUsaEuData,
@@ -29,9 +29,19 @@ const NovelUsaEu = ({
   const [selectedImg, setSelectedImg] = useState("");
   const [selectedVideo, setSelectedVideo] = useState("");
 
-  useEffect(() => {
-    setNovelUsaEuData(datas[0]?.data);
-  }, [novelUsaEuData]);
+  // useEffect(() => {
+  //   setNovelUsaEuData(datas[0].data);
+  // }, [novelUsaEuData]);
+
+  // useEffect(() => {
+  //   const stopSync = dataRepository.syncDatas((vals) => {
+  //     const datasCopy = [...datas];
+  //     datasCopy.push(Object.keys(vals).map((key) => vals[key]));
+  //     setNovelUsaEuData(datasCopy[0][0].data);
+  //     setDatas(datasCopy[0]);
+  //   });
+  //   return () => stopSync();
+  // }, [dataRepository]);
 
   const editPermissionIndex = Object.keys(loginData).filter(
     (key) => loginData[key].id === historyState
@@ -243,21 +253,21 @@ const NovelUsaEu = ({
   const fixDataTitle =
     keyValue !== "practice" &&
     `
-    <h1>${novelUsaEuData[keyValue - 1].type}</h1>
-    <h2>${novelUsaEuData[keyValue - 1].title}</h2>
+    <h1>${novelUsaEuData[keyValue - 1]?.type}</h1>
+    <h2>${novelUsaEuData[keyValue - 1]?.title}</h2>
   `;
 
   const fixImgVid =
     keyValue !== "practice" &&
     `
-  ${novelUsaEuData[keyValue - 1].image}
-  ${novelUsaEuData[keyValue - 1].video}
+  ${novelUsaEuData[keyValue - 1]?.image}
+  ${novelUsaEuData[keyValue - 1]?.video}
 `;
 
   const fixContent =
     keyValue !== "practice" &&
     `
-    ${novelUsaEuData[keyValue - 1].contents}
+    ${novelUsaEuData[keyValue - 1]?.contents}
   `;
 
   const fixImgBtn = (event) => {
@@ -405,14 +415,14 @@ const NovelUsaEu = ({
             <input
               onChange={realTimeFixLinkInputChange}
               className={`${styles.realTimeFixLinkInput} ${styles.writeFormSubTitleInput}`}
-              value={novelUsaEuData[keyValue - 1].title}
+              value={novelUsaEuData[keyValue - 1]?.title}
             ></input>
             <textarea
               ref={fixTxtAreaRef}
               onKeyPress={onTestFixChange}
               onChange={realTimeFixContentAreaChange}
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}
-              value={novelUsaEuData[keyValue - 1].contents}
+              value={novelUsaEuData[keyValue - 1]?.contents}
             ></textarea>
             <button ref={writeFixFormBtnRef} onClick={writeFixFormBtn}>
               작성
@@ -511,15 +521,16 @@ const NovelUsaEu = ({
           </div>
         </form>
       </li>
-      {!keyValue && (
-        <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
-          <div>
-            <h1>{novelUsaEuData[novelUsaEuData.length - 1].type}</h1>
-            <h2>{novelUsaEuData[novelUsaEuData.length - 1].title}</h2>
-            <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
+      {!keyValue ||
+        (keyValue === undefined && (
+          <div ref={initialBoxRef} className={styles.novelUsaEuInitialBox}>
+            <div>
+              <h1>{novelUsaEuData[novelUsaEuData.length - 1].type}</h1>
+              <h2>{novelUsaEuData[novelUsaEuData.length - 1].title}</h2>
+              <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
+            </div>
           </div>
-        </div>
-      )}
+        ))}
       {Object.keys(novelUsaEuData)
         .reverse()
         .map((key) => {
