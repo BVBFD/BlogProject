@@ -1,12 +1,30 @@
 /* code image slider */
 .containerSlider {
   overflow: hidden;
+  position: relative;
+}
+
+.startAutoSlideBtn {
+  position: absolute;
+  right: 10rem;
+  background-color: whitesmoke;
+  font-weight: bolder;
+  color: darkred;
+}
+
+.stopAutoSlideBtn {
+  position: absolute;
+  right: 2rem;
+  background-color: whitesmoke;
+  font-weight: bolder;
+  color: darkred;
 }
 
 .bgImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: all ease-in-out 3s;
 }
 
 .slide {
