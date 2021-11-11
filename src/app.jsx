@@ -242,18 +242,6 @@ const App = ({
     },
   ]);
 
-  const [slideIndex, setSlideIndex] = useState(1);
-
-  const [images, setImages] = useState({
-    1: "../images/1.jpg",
-    2: "../images/2.jpg",
-    3: "../images/3.jpg",
-    4: "../images/4.jpg",
-    5: "../images/5.jpg",
-  });
-
-  const [imgsObjCount, setImgsObjCount] = useState(Object.keys(images).length);
-
   const [datas, setDatas] = useState([
     // { id: "novelUsaEuData", data: novelUsaEuData },
     // { id: "novelAsiaData", data: novelAsiaData },
@@ -401,14 +389,7 @@ const App = ({
         exchangeRate={exchangeRate}
         dataRepository={dataRepository}
       />
-      <Header
-        slideIndex={slideIndex}
-        setSlideIndex={setSlideIndex}
-        imgs={images}
-        setImages={setImages}
-        imgsObjCount={imgsObjCount}
-        setImgsObjCount={setImgsObjCount}
-      />
+      <Header />
 
       <ul className={styles.listBodyBox}>
         <li className={styles.listBox}>

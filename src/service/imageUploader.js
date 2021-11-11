@@ -3,9 +3,9 @@ class ImageUploader {
     const data = new FormData();
     data.append("file", file);
     data.append("folder", "reBlogProject/images");
-    data.append("upload_preset", "ltyevxil");
+    data.append("upload_preset", `${process.env.REACT_APP_upload_preset}`);
     const result = await fetch(
-      "https://api.cloudinary.com/v1_1/dewa3t2gi/upload",
+      `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_url_id}/upload`,
       {
         method: "POST",
         body: data,

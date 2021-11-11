@@ -9,7 +9,6 @@ class DataRepository {
     const query = ref(this.db, `lse126/datas`);
     onValue(query, (snapshot) => {
       const value = snapshot.val();
-      console.log(value);
       onUpdate(value);
     });
     return () => off(query);
@@ -31,7 +30,6 @@ class DataRepository {
     const query = ref(this.db, `id`);
     onValue(query, (snapshot) => {
       const value = snapshot.val();
-      console.log(value);
       onUpdate(value);
     });
     return () => off(query);

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./initialPageData.module.css";
 import { Link } from "react-router-dom";
 
-const InitialPageData = ({ datas }) => {
+const InitialPageData = memo(({ datas }) => {
   return datas.map((val) => {
     if (val.id.slice(-1) === "a") {
       return (
@@ -55,6 +55,6 @@ const InitialPageData = ({ datas }) => {
       );
     }
   });
-};
+});
 
 export default InitialPageData;

@@ -33,6 +33,7 @@
   align-items: center;
   border: 1px solid transparent;
   color: darkorange;
+  opacity: 0.4;
   background: transparent;
   cursor: pointer;
 }
@@ -62,6 +63,7 @@
   border: 3px solid #f1f1f1;
   margin: 0 5px;
   background: #f1f1f1;
+  opacity: 0.4;
   cursor: pointer;
 }
 .dot.active {
