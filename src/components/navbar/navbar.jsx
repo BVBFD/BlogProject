@@ -39,7 +39,11 @@ const Navbar = memo(
       // 그 이유에 대해서 한번 곰곰히 생각해보자..
       weatherTime.getTimeWeather().then((result) => {
         if (result?.weather?.length > 0) {
-          if (result?.weather[0]?.icon === "01d" || "01n") {
+          console.log(result?.weather[0]?.icon);
+          if (
+            result?.weather[0]?.icon === "01d" ||
+            result?.weather[0]?.icon === "01n"
+          ) {
             setWeatherIcon(`../images/NB01.png`);
           } else {
             setWeatherIcon(

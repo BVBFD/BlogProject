@@ -37,7 +37,6 @@ const Header = memo(() => {
   const startAutoSlide = useCallback(() => {
     interval = setInterval(() => {
       if (slideIndex < 5) {
-        console.log(slideIndex);
         setSlideIndex(slideIndex + 1);
         return () => clearInterval(interval);
       } else {
