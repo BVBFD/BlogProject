@@ -157,3 +157,92 @@
   padding: 0.5rem;
   text-align: center;
 }
+
+.mobileScreenNavBarBtn {
+  display: none;
+  background-color: transparent;
+  color: darkorange;
+  font-size: x-large;
+}
+
+.mobileScreenNavBarInfoBtn {
+  display: none;
+  background-color: transparent;
+  color: darkorange;
+  font-size: x-large;
+}
+
+.mobileScreenNavBarLoginBtn {
+  display: none;
+  background-color: transparent;
+  color: darkorange;
+  font-size: x-large;
+}
+
+@media screen and (max-width: 768px) {
+  .navbarBox {
+    height: 0;
+  }
+
+  .navbarLeftBox {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    top: 6vh;
+    left: 32vw;
+    flex-direction: column;
+  }
+
+  .navbarRightBox {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    width: fit-content;
+    z-index: 999;
+    top: 8.5vh;
+    right: 0;
+  }
+
+  .searchForm {
+    flex-direction: column;
+  }
+
+  .loginForm {
+    flex-direction: column;
+  }
+
+  .navbarBtn {
+    width: 10rem;
+  }
+
+  .open {
+    display: flex;
+  }
+
+  .mobileScreenNavBarBtn {
+    display: block;
+    position: absolute;
+    top: 2vh;
+    left: 2vw;
+    z-index: 999;
+    width: fit-content;
+  }
+
+  .mobileScreenNavBarInfoBtn {
+    display: block;
+    position: absolute;
+    top: 2vh;
+    right: 45%;
+    z-index: 999;
+    width: fit-content;
+  }
+
+  .mobileScreenNavBarLoginBtn {
+    display: block;
+    position: absolute;
+    top: 2vh;
+    right: 2vw;
+    z-index: 999;
+    width: fit-content;
+  }
+}

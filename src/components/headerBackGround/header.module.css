@@ -106,3 +106,30 @@
 .dot.active {
   background: rgb(32, 32, 32);
 }
+
+@media screen and (max-width: 768px) {
+  .moveLeftBtn {
+    top: 15vh;
+  }
+  .moveRightBtn {
+    right: 0;
+    top: 15vh;
+  }
+  .startAutoSlideBtn {
+    font-size: x-small;
+    right: 6.3rem;
+    top: 40vh;
+  }
+  .stopAutoSlideBtn {
+    font-size: x-small;
+    top: 40vh;
+  }
+
+  .containerDots {
+    top: 36vh;
+  }
+
+  .slide {
+    height: 42.5vh;
+  }
+}

@@ -75,3 +75,21 @@
   margin: 0.4rem 0;
   border: 1px solid black;
 }
+
+@media screen and (max-width: 768px) {
+  .listBodyBox {
+    top: 42.5vh;
+  }
+
+  .listBox {
+    display: none;
+    position: absolute;
+    top: -42.5vh;
+    padding: 3rem 1rem 1rem 0;
+    background-color: whitesmoke;
+  }
+
+  .open {
+    display: flex;
+  }
+}

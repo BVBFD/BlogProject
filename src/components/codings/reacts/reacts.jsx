@@ -201,7 +201,7 @@ const Reacts = ({
       dataRemoveRef.current.style.display = "none";
       newTextWriting.current.style.display = "none";
       const prevContents = document.querySelectorAll(
-        ".novelUsaEu_switchBox__15YRR"
+        ".reacts_switchBox__22ZsK"
       );
       // post css는 각 모듈별로 따로 꾸며주기 때문에 왠만하면 ref로 전달해야 되지만
       // 이번 건의 경우 예외. 절대 post css는 querySelector는 지역이 아니라 전역으로 적요됨.
@@ -223,9 +223,7 @@ const Reacts = ({
     event.preventDefault();
     dataRemoveRef.current.style.display = "";
     newTextWriting.current.style.display = "";
-    const prevContents = document.querySelectorAll(
-      ".novelUsaEu_switchBox__15YRR"
-    );
+    const prevContents = document.querySelectorAll(".reacts_switchBox__22ZsK");
     setFixUpdateIndex(true);
     prevContents.forEach((val) => (val.style.display = "block"));
     if (dataBoxForFixRef.current === null) {

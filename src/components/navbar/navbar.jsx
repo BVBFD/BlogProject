@@ -193,9 +193,44 @@ const Navbar = memo(
       });
     });
 
+    const appList = document.querySelector(".app_listBox__QR-O3");
+    const mobileScreenBtnToggle = () => {
+      appList.classList.toggle("app_open__Swfx2");
+    };
+
+    const navbarLeftBoxRef = useRef();
+    const mobileScreenNavBarInfoOpen = () => {
+      navbarLeftBoxRef.current.classList.toggle(`${styles.open}`);
+    };
+
+    const navbarRightBoxRef = useRef();
+    const mobileScreenNavBarLoginOpen = () => {
+      navbarRightBoxRef.current.classList.toggle(`${styles.open}`);
+    };
+    // classList의 toggle 함수 잘 활용하자 굉장히 유용하다!!
+
     return (
       <nav className={styles.navbarBox}>
-        <section className={styles.navbarLeftBox}>
+        <button
+          onClick={mobileScreenBtnToggle}
+          className={styles.mobileScreenNavBarBtn}
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+        <button
+          onClick={mobileScreenNavBarInfoOpen}
+          className={styles.mobileScreenNavBarInfoBtn}
+        >
+          <i class="fas fa-briefcase"></i>
+        </button>
+        <button
+          onClick={mobileScreenNavBarLoginOpen}
+          className={styles.mobileScreenNavBarLoginBtn}
+        >
+          <i class="fas fa-sign-in-alt"></i>
+        </button>
+
+        <section ref={navbarLeftBoxRef} className={styles.navbarLeftBox}>
           <div className={`${styles.date} ${styles.leftSmallBox}`}>
             <Clock
               format={`ddd, MMM DD, YYYY`}
@@ -223,7 +258,7 @@ const Navbar = memo(
             {USD_KRW_value ? USD_KRW_value : "새로고침 클릭!"} (KRW/USD)
           </div>
         </section>
-        <section className={styles.navbarRightBox}>
+        <section ref={navbarRightBoxRef} className={styles.navbarRightBox}>
           <form className={styles.searchForm}>
             <input
               onChange={searchTotalData}

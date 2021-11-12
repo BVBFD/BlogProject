@@ -200,9 +200,7 @@ const Htmls = ({
     if (editPermission === undefined ? false : editPermission.admin) {
       dataRemoveRef.current.style.display = "none";
       newTextWriting.current.style.display = "none";
-      const prevContents = document.querySelectorAll(
-        ".novelUsaEu_switchBox__15YRR"
-      );
+      const prevContents = document.querySelectorAll(".htmls_switchBox__2cTM8");
       // post css는 각 모듈별로 따로 꾸며주기 때문에 왠만하면 ref로 전달해야 되지만
       // 이번 건의 경우 예외. 절대 post css는 querySelector는 지역이 아니라 전역으로 적요됨.
       if (keyValue === "practice") {
@@ -223,9 +221,7 @@ const Htmls = ({
     event.preventDefault();
     dataRemoveRef.current.style.display = "";
     newTextWriting.current.style.display = "";
-    const prevContents = document.querySelectorAll(
-      ".novelUsaEu_switchBox__15YRR"
-    );
+    const prevContents = document.querySelectorAll(".htmls_switchBox__2cTM8");
     setFixUpdateIndex(true);
     prevContents.forEach((val) => (val.style.display = "block"));
     if (dataBoxForFixRef.current === null) {

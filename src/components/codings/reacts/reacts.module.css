@@ -109,3 +109,16 @@
 .imgVideoInputBtnBox button {
   width: 100%;
 }
+
+@media screen and (max-width: 768px) {
+  .writeFormContentsTextarea {
+    height: 5rem;
+    min-height: 5rem;
+    max-width: 95vw;
+    min-width: 95vw;
+  }
+
+  .novelUsaEuDataList {
+    font-size: 0.8rem;
+  }
+}
