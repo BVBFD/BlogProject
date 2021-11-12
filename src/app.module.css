@@ -1,7 +1,13 @@
+.appBody {
+  position: relative;
+}
+
 .listBodyBox {
   display: flex;
   flex-direction: row;
   width: 100%;
+  position: absolute;
+  top: 66vh;
 }
 
 .listBox {
@@ -12,6 +18,7 @@
 .bodyBox {
   flex: 1 1 90%;
   background-color: whitesmoke;
+  padding: 0.5rem;
 }
 
 /* Navbar Code */

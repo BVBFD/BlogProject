@@ -378,7 +378,7 @@ const App = ({
   };
 
   return (
-    <>
+    <div className={styles.appBody}>
       <Navbar
         history={history}
         setHistoryState={setHistoryState}
@@ -824,7 +824,7 @@ const App = ({
           </Switch>
         </li>
       </ul>
-    </>
+    </div>
   );
 };
 

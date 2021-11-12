@@ -213,8 +213,10 @@ const Navbar = memo(
           </div>
           <div className={`${styles.weatherArea} ${styles.leftSmallBox}`}>
             <img className={styles.weatherLogo} src={weatherIcon} />
-            {weather ? weather : "새로고침 클릭!"} /{" "}
-            {cityCountry ? cityCountry : "새로고침 클릭!"}
+            {
+              (weather,
+              cityCountry ? `${weather} / ${cityCountry}` : "새로고침 클릭!")
+            }
           </div>
           <div className={`${styles.exchangeRate} ${styles.leftSmallBox}`}>
             <img className={styles.flagImg} src="../images/USA.png" />

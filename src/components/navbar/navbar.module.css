@@ -28,11 +28,15 @@
 }
 
 .time {
-  background-color: lightgoldenrodyellow;
+  background-color: ivory;
 }
 
 .weatherArea {
-  background-color: ivory;
+  background-color: lightskyblue;
+  font-size: 0.7rem;
+  align-items: center;
+  justify-content: center;
+  color: whitesmoke;
   display: flex;
   flex-direction: row;
 }

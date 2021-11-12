@@ -63,11 +63,13 @@ const Header = memo(() => {
   // 그리고 setInerval은 끝까지 돌아가는 범위까지 돌리고 반드시 clearInerval 선언을 해주어야 함
   // 그렇지 않으면 setInterval 여러개가 쌓여서 결국 메모리 누수가 발생함.
 
-  const startAutoSlideBtnFun = () => {
+  const startAutoSlideBtnFun = (event) => {
+    console.log(event.target);
     startAutoSlide();
   };
 
-  const stopAutoSlideBtnFun = () => {
+  const stopAutoSlideBtnFun = (event) => {
+    console.log(event.target);
     clearInterval(interval);
   };
 
@@ -99,7 +101,6 @@ const Header = memo(() => {
       >
         <i class="fas fa-chevron-right"></i>
       </button>
-
       <div className={styles.containerDots}>
         {Array.from({ length: imgsObjCount }).map((item, index) => {
           return (
