@@ -162,7 +162,7 @@ const Korean = ({
     let uploaded = await imageUploader.upload(event.target.files[0]);
     console.log(uploaded.url);
     setSelectedImg(
-      `<img style="width: 42vw; height: 20%;" src="${uploaded.url}"></img>`
+      `<img class="dbImgAndDbVideoBoxImg" src="${uploaded.url}"></img>`
     );
   };
 
@@ -174,7 +174,7 @@ const Korean = ({
     setSelectedVideo(
       `<video
           controls
-          style="width: 42vw; height: 20%;"
+          class="dbImgAndDbVideoBoxVideo"
           src="${uploaded.url}"
           type="video/*"
           controls
@@ -305,7 +305,7 @@ const Korean = ({
     console.log(novelUsaEuDataCopy[keyValue - 1]);
     novelUsaEuDataCopy[
       keyValue - 1
-    ].image = `<img style="width: 42vw; height: 20%;" src="${uploaded.url}"></img>`;
+    ].image = `<img class="dbImgAndDbVideoBoxImg" src="${uploaded.url}"></img>`;
     setKoreans(novelUsaEuDataCopy);
 
     // datas update 하기
@@ -330,7 +330,7 @@ const Korean = ({
     console.log(uploaded);
     novelUsaEuDataCopy[keyValue - 1].video = `<video
     controls
-    style="width: 42vw; height: 20%;"
+    class="dbImgAndDbVideoBoxVideo"
     src="${uploaded.url}"
     type="video/*"
     controls
@@ -526,7 +526,7 @@ const Korean = ({
               <div>
                 <h1>${koreans[key].type}</h1>
                 <h2>${koreans[key].title}</h2>
-                <div>
+                <div class="dbImgAndDbVideoBox">
                   ${dbImg}
                   ${dbVideo}
                 </div>

@@ -42,6 +42,12 @@
   min-width: 85vw;
 }
 
+/* .imgVideoBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+} */
+
 /* img, video upload input btn CSS */
 .imgVideoUploadBox {
   display: flex;

@@ -162,7 +162,7 @@ const ClassicEastern = ({
     let uploaded = await imageUploader.upload(event.target.files[0]);
     console.log(uploaded.url);
     setSelectedImg(
-      `<img style="width: 42vw; height: 20%;" src="${uploaded.url}"></img>`
+      `<img class="dbImgAndDbVideoBoxImg" src="${uploaded.url}"></img>`
     );
   };
 
@@ -174,7 +174,7 @@ const ClassicEastern = ({
     setSelectedVideo(
       `<video
           controls
-          style="width: 42vw; height: 20%;"
+          class="dbImgAndDbVideoBoxVideo"
           src="${uploaded.url}"
           type="video/*"
           controls
@@ -307,7 +307,7 @@ const ClassicEastern = ({
     console.log(novelUsaEuDataCopy[keyValue - 1]);
     novelUsaEuDataCopy[
       keyValue - 1
-    ].image = `<img style="width: 42vw; height: 20%;" src="${uploaded.url}"></img>`;
+    ].image = `<img class="dbImgAndDbVideoBoxImg" src="${uploaded.url}"></img>`;
     setClassicEastern(novelUsaEuDataCopy);
 
     // datas update 하기
@@ -332,7 +332,7 @@ const ClassicEastern = ({
     console.log(uploaded);
     novelUsaEuDataCopy[keyValue - 1].video = `<video
     controls
-    style="width: 42vw; height: 20%;"
+    class="dbImgAndDbVideoBoxVideo"
     src="${uploaded.url}"
     type="video/*"
     controls
@@ -531,7 +531,7 @@ const ClassicEastern = ({
               <div>
                 <h1>${classicEastern[key].type}</h1>
                 <h2>${classicEastern[key].title}</h2>
-                <div>
+                <div class="dbImgAndDbVideoBox">
                   ${dbImg}
                   ${dbVideo}
                 </div>

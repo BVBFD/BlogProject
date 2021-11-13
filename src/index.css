@@ -22,8 +22,40 @@ ul {
   margin: 0;
 }
 
+.dbImgAndDbVideoBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.dbImgAndDbVideoBoxImg {
+  width: 42vw;
+  height: 20%;
+}
+
+.dbImgAndDbVideoBoxVideo {
+  width: 42vw;
+  height: 20%;
+}
+
 @media screen and (max-width: 768px) {
   body {
     margin: 0;
+  }
+
+  .dbImgAndDbVideoBox {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dbImgAndDbVideoBoxImg {
+    width: 95vw;
+    height: 30%;
+    margin-bottom: 0.5rem;
+  }
+
+  .dbImgAndDbVideoBoxVideo {
+    width: 95vw;
+    height: 30%;
   }
 }

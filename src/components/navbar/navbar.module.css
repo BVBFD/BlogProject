@@ -196,7 +196,7 @@
   .navbarRightBox {
     display: none;
     flex-direction: column;
-    position: fixed;
+    position: absolute;
     width: fit-content;
     z-index: 999;
     top: 8.5vh;
@@ -244,5 +244,11 @@
     right: 2vw;
     z-index: 999;
     width: fit-content;
+  }
+
+  .mobileAuthBox {
+    position: absolute;
+    top: 0;
+    right: 1vw;
   }
 }
