@@ -5,7 +5,7 @@ import App from "./app";
 import WeatherTime from "./service/weatherTime";
 import ExchangeRate from "./service/exchangeRate";
 import "@fortawesome/fontawesome-free/js/all.js";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import AuthMobileService from "./service/authMobileService";
 import { firebaseApp } from "./service/firebase";
 import DataRepository from "./service/dataRepository";
@@ -19,7 +19,7 @@ const imageUploader = new ImageUploader();
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter basename="/BlogProject">
+    <HashRouter>
       <App
         dataRepository={dataRepository}
         authMobileService={authMobileService}
@@ -27,7 +27,7 @@ ReactDOM.render(
         exchangeRate={exchangeRate}
         imageUploader={imageUploader}
       />
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

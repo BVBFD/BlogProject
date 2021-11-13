@@ -529,7 +529,7 @@ const App = ({
         <li className={styles.bodyBox}>
           <Switch>
             {/* initial page */}
-            <Route path={["/", "/home"]} exact>
+            <Route path="/" exact>
               <InitialPageData datas={datas} />
             </Route>
 
