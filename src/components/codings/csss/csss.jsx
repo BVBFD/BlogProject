@@ -519,7 +519,6 @@ const Csss = ({
           const testStr = csss[key].contents;
           const dbImg = csss[key].image;
           const dbVideo = csss[key].video;
-          // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
               <div>
                 <h1>${csss[key].type}</h1>

@@ -521,7 +521,6 @@ const Reacts = ({
           const testStr = reacts[key].contents;
           const dbImg = reacts[key].image;
           const dbVideo = reacts[key].video;
-          // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
               <div>
                 <h1>${reacts[key].type}</h1>

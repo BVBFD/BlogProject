@@ -519,7 +519,6 @@ const China = ({
           const testStr = chinas[key].contents;
           const dbImg = chinas[key].image;
           const dbVideo = chinas[key].video;
-          // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
               <div>
                 <h1>${chinas[key].type}</h1>

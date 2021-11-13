@@ -829,6 +829,3 @@ const App = ({
 };
 
 export default App;
-
-// react-router-dom 쓸때 반드시 BrowserRouter 는 자식 1개 요소만 가질 수 있다.
-// link, path 주소에 특수문자 쓰면 오류 남 ex) "()"

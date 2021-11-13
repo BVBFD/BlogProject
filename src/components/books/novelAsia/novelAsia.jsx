@@ -284,7 +284,7 @@ const NovelAsia = ({
   const writeFixFormBtnRef = useRef();
   const writeFixFormBtn = (event) => {
     event.preventDefault();
-    // datas update 하기
+
     const datasCopy = [...datas];
     const datasUpdate = datasCopy.map((data) => {
       if (data.id === "novelAsiaData") {
@@ -294,7 +294,7 @@ const NovelAsia = ({
       return data;
     });
     setDatas(datasUpdate);
-    // firebase server update
+
     dataRepository.saveData(datasUpdate);
     writeFixFormBtnRef.current.style.display = "none";
   };
@@ -310,7 +310,6 @@ const NovelAsia = ({
     ].image = `<img class="dbImgAndDbVideoBoxImg" src="${uploaded.url}"></img>`;
     setNovelAsiaData(novelUsaEuDataCopy);
 
-    // datas update 하기
     let datasCopy = [...datas];
     let datasUpdate = datasCopy.map((data) => {
       if (data.id === "novelAsiaData") {
@@ -321,7 +320,7 @@ const NovelAsia = ({
     });
     console.log(datasUpdate);
     setDatas(datasUpdate);
-    // firebase server update
+
     dataRepository.saveData(datasUpdate);
   };
 
@@ -339,7 +338,6 @@ const NovelAsia = ({
   ></video>`;
     setNovelAsiaData(novelUsaEuDataCopy);
 
-    // datas update 하기
     let datasCopy = [...datas];
     let datasUpdate = datasCopy.map((data) => {
       if (data.id === "novelAsiaData") {
@@ -349,7 +347,7 @@ const NovelAsia = ({
       return data;
     });
     setDatas(datasUpdate);
-    // firebase server update
+
     dataRepository.saveData(datasUpdate);
   };
 
@@ -364,7 +362,6 @@ const NovelAsia = ({
       return true;
     }
   };
-  // testArea Tag에서 띄어쓰기 안되던 문제 해결.
 
   const onTestChange = () => {
     let key = window.event.keyCode;
@@ -523,7 +520,6 @@ const NovelAsia = ({
           const testStr = novelAsiaData[key].contents;
           const dbImg = novelAsiaData[key].image;
           const dbVideo = novelAsiaData[key].video;
-          // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
               <div>
                 <h1>${novelAsiaData[key].type}</h1>

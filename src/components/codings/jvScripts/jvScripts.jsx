@@ -523,7 +523,6 @@ const JvScripts = ({
           const testStr = javascripts[key].contents;
           const dbImg = javascripts[key].image;
           const dbVideo = javascripts[key].video;
-          // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
               <div>
                 <h1>${javascripts[key].type}</h1>

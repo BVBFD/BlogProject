@@ -535,7 +535,6 @@ const ClassicHistoryEastern = ({
           const testStr = classicHistoryEastern[key].contents;
           const dbImg = classicHistoryEastern[key].image;
           const dbVideo = classicHistoryEastern[key].video;
-          // testStr.join("") 배열을 하나로 연결된 문자열로 바꾼다.
           let codes = `
               <div>
                 <h1>${classicHistoryEastern[key].type}</h1>
