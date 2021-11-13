@@ -407,7 +407,7 @@ const App = ({
             </button>
             <div ref={booksBoxRef} className={styles.booksBox}>
               <Link
-                to={`/novelUsaEu/${novelUsaEuData.length}`}
+                to={`novelUsaEu/${novelUsaEuData.length}`}
                 className={styles.linkBtn}
               >
                 소설(북미, 유럽)
