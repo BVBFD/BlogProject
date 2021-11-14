@@ -65,9 +65,11 @@ class ExchangeRate {
   }
 
   async getExchangeRate() {
+    const PROXY = window.location.hostname === "localhost" ? "" : "/proxy";
+
     try {
       const response = await fetch(
-        `/InquireExchangeRate.nh`,
+        `${PROXY}/InquireExchangeRate.nh`,
         this.requestOptions
       );
       const result = await response.json();

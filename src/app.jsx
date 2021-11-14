@@ -407,7 +407,7 @@ const App = ({
             </button>
             <div ref={booksBoxRef} className={styles.booksBox}>
               <Link
-                to={`novelUsaEu/${novelUsaEuData.length}`}
+                to={`/novelUsaEu/${novelUsaEuData.length}`}
                 className={styles.linkBtn}
               >
                 소설(북미, 유럽)
@@ -528,14 +528,11 @@ const App = ({
         </li>
         <li className={styles.bodyBox}>
           <Switch>
-            {/* initial page */}
             <Route path="/" exact>
               <InitialPageData datas={datas} />
             </Route>
 
-            {/* books */}
             <Route path={["/novelUsaEu", "/novelUsaEu/:keyValue"]} exact>
-              {/* exact를 안해주면 /novelUsaEU/:keyValue URL 주소에서  /novelUsaEU 중복(/novelUsaEU, /novelUsaEU/:keyValue) 호출되게 된다.*/}
               <NovelUsaEu
                 history={history}
                 historyState={historyState}
@@ -637,7 +634,6 @@ const App = ({
               />
             </Route>
 
-            {/* codings */}
             <Route path={["/html", "/html/:keyValue"]} exact>
               <Htmls
                 history={history}
