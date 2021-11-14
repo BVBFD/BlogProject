@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Switch, Route, useParams } from "react-router-dom";
 import styles from "./vietnam.module.css";
-import { useRef, useState } from "react/cjs/react.development";
+import { useRef, useState } from "react";
 
 const Vietnam = ({
   vietnams,

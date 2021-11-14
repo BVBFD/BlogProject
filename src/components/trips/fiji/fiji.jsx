@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Switch, Route, useParams } from "react-router-dom";
 import styles from "./fiji.module.css";
-import { useRef, useState } from "react/cjs/react.development";
+import { useRef, useState } from "react";
 
 const Fiji = ({
   fijis,

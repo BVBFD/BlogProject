@@ -1,7 +1,7 @@
 import React, { useCallback, memo, useEffect, useState } from "react";
 import styles from "./navbar.module.css";
 import Clock from "react-live-clock";
-import { useRef } from "react/cjs/react.development";
+import { useRef } from "react";
 
 const Navbar = memo(
   ({
