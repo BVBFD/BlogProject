@@ -377,6 +377,10 @@ const App = ({
     }
   };
 
+  const homeBtn = () => {
+    history.push("/?");
+  };
+
   return (
     <div className={styles.appBody}>
       <Navbar
@@ -396,6 +400,7 @@ const App = ({
           <nav className={styles.blogNavBar}>
             <button className={`${styles.blogBtn} ${styles.homeBtn}`}>
               <Link
+                onClick={homeBtn}
                 to={["/", "/?"]}
                 style={{ textDecoration: "none", color: "black" }}
               >
