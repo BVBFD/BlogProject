@@ -24,3 +24,6 @@ yarn-error.log*
 
 #APIs or Access Tokens
 .env
+
+# state json site-id netlify
+state.json
