@@ -395,7 +395,10 @@ const App = ({
         <li className={styles.listBox}>
           <nav className={styles.blogNavBar}>
             <button className={`${styles.blogBtn} ${styles.homeBtn}`}>
-              <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+              <Link
+                to={["/", "/?"]}
+                style={{ textDecoration: "none", color: "black" }}
+              >
                 Home
               </Link>
             </button>
@@ -528,7 +531,7 @@ const App = ({
         </li>
         <li className={styles.bodyBox}>
           <Switch>
-            <Route path="/" exact>
+            <Route path={["/", "/?"]} exact>
               <InitialPageData datas={datas} />
             </Route>
 

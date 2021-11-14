@@ -209,6 +209,10 @@ const Navbar = memo(
     };
     // classList의 toggle 함수 잘 활용하자 굉장히 유용하다!!
 
+    const refreshBtn = () => {
+      history.push("/");
+    };
+
     return (
       <nav className={styles.navbarBox}>
         <button
@@ -265,7 +269,9 @@ const Navbar = memo(
               type="text"
               placeholder="전체 검색 기능"
             />
-            <button className={styles.navbarBtn}>새로고침</button>
+            <button onClick={refreshBtn} className={styles.navbarBtn}>
+              새로고침
+            </button>
           </form>
 
           <form
