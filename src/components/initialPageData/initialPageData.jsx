@@ -3,8 +3,9 @@ import styles from "./initialPageData.module.css";
 import { Link } from "react-router-dom";
 
 const InitialPageData = memo(({ datas }) => {
+  console.log(datas);
   return datas.map((val) => {
-    if (val.id.slice(-1) === "a") {
+    if (val.id.slice(-1) === "a" || val.id.slice(-1) === "n") {
       return (
         <>
           <h2>{val.id.slice(0, 1).toUpperCase() + val.id.slice(1)}</h2>
