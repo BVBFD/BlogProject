@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const InitialPageData = memo(({ datas }) => {
   console.log(datas);
   return datas.map((val) => {
-    if (val.id.slice(-1) === "a" || val.id.slice(-1) === "n") {
+    if (val.id.slice(-1) === "a") {
       return (
         <>
           <h2>{val.id.slice(0, 1).toUpperCase() + val.id.slice(1)}</h2>
@@ -18,6 +18,30 @@ const InitialPageData = memo(({ datas }) => {
                   <Link
                     className={styles.novelUsaEuDataLink}
                     to={`/${val.id.slice(0, -4)}/${dt.id}`}
+                  >
+                    <h4>{dt.id}.&emsp;</h4>
+                    <h4>{dt.type}&nbsp;-&nbsp;</h4>
+                    <h4 className={styles.searchDatasList}>{dt.title}</h4>
+                  </Link>
+                );
+              })}
+          </li>
+        </>
+      );
+    }
+    if (val.id.slice(-1) === "n") {
+      return (
+        <>
+          <h2>{val.id.slice(0, 1).toUpperCase() + val.id.slice(1)}</h2>
+          <li className={styles.novelUsaEuDataList}>
+            {val.data
+              .slice(0)
+              .reverse()
+              .map((dt) => {
+                return (
+                  <Link
+                    className={styles.novelUsaEuDataLink}
+                    to={`/${val.id.slice(0)}/${dt.id}`}
                   >
                     <h4>{dt.id}.&emsp;</h4>
                     <h4>{dt.type}&nbsp;-&nbsp;</h4>
