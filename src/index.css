@@ -58,4 +58,8 @@ ul {
     width: 95vw;
     height: 30%;
   }
+
+  form {
+    width: 99.5%;
+  }
 }
