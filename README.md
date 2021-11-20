@@ -9,4 +9,4 @@
 
   *ver 1.1.0 - 2021년 11월 20일
    1. 기존 글쓰기 상자(HTML : textarea) 전면 CKEditor API로 교체 -> 글쓰기 목록, 폰트 굵기 등등 다양하게 수정 가능
-   2. 기존 실시간 글쓰기 확인 박스 (dangerouslySetInnerHTML={{ __html: "~" }}) react-html-parser API로 전면 교체 -> 보안성 강화
+   2. 기존 실시간 글쓰기 확인 박스 (dangerouslySetInnerHTML={{ __html: "~" }})에서 react-html-parser API로 전면 교체 -> 보안성 강화
