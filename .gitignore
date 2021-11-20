@@ -27,3 +27,5 @@ yarn-error.log*
 
 # state json site-id netlify
 state.json
+# Local Netlify folder
+.netlify

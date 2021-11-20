@@ -2,6 +2,9 @@ import React from "react";
 import { Link, Switch, Route, useParams } from "react-router-dom";
 import styles from "./iceland.module.css";
 import { useRef, useState } from "react";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ReactHtmlParser from "react-html-parser";
 
 const Iceland = ({
   icelands,
@@ -64,9 +67,9 @@ const Iceland = ({
     newSubTitle = `${event.target.value}`;
     setNewSubTitle(newSubTitle);
   };
-  const writeFormContentsTextareaOnChange = (event) => {
-    newTestStr = `${event.target.value}`;
-    setNewTestStr(newTestStr);
+  const writeFormContentsTextareaOnChange = (event, editor) => {
+    const data = editor.getData();
+    setNewTestStr(data);
   };
 
   const saveNewWritingData = (event) => {
@@ -272,10 +275,10 @@ const Iceland = ({
     setIcelands(novelUsaEuDataCopy);
   };
 
-  const realTimeFixContentAreaChange = (event) => {
-    event.preventDefault();
+  const realTimeFixContentAreaChange = (event, editor) => {
+    const data = editor.getData();
     let novelUsaEuDataCopy = [...icelands];
-    novelUsaEuDataCopy[keyValue - 1].contents = event.target.value;
+    novelUsaEuDataCopy[keyValue - 1].contents = data;
     setIcelands(novelUsaEuDataCopy);
   };
 
@@ -383,17 +386,18 @@ const Iceland = ({
           <div
             ref={dataBoxForFixTitleRef}
             className={styles.dataBoxForFixTitle}
-            dangerouslySetInnerHTML={{ __html: fixDataTitle }}
-          ></div>
-          <div
-            className={styles.dataBoxForFixImgVideoBox}
-            dangerouslySetInnerHTML={{ __html: fixImgVid }}
-          ></div>
+          >
+            {ReactHtmlParser(fixDataTitle)}
+          </div>
+          <div className={styles.dataBoxForFixImgVideoBox}>
+            {ReactHtmlParser(fixImgVid)}
+          </div>
           <div
             ref={dataBoxForFixContentRef}
             className={styles.dataBoxForFixContent}
-            dangerouslySetInnerHTML={{ __html: fixContent }}
-          ></div>
+          >
+            {ReactHtmlParser(fixContent)}
+          </div>
 
           <form className={styles.writeForm}>
             <input
@@ -401,13 +405,16 @@ const Iceland = ({
               className={`${styles.realTimeFixLinkInput} ${styles.writeFormSubTitleInput}`}
               value={icelands[keyValue - 1]?.title}
             ></input>
-            <textarea
+            <CKEditor
+              editor={ClassicEditor}
               ref={fixTxtAreaRef}
+              data={icelands[keyValue - 1]?.contents}
               onKeyPress={onTestFixChange}
               onChange={realTimeFixContentAreaChange}
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}
-              value={icelands[keyValue - 1]?.contents}
-            ></textarea>
+            >
+              {icelands[keyValue - 1]?.contents}
+            </CKEditor>
             <button ref={writeFixFormBtnRef} onClick={writeFixFormBtn}>
               작성
             </button>
@@ -444,8 +451,8 @@ const Iceland = ({
             <div>
               <h1>{icelands[0].type}</h1>
               <h2>{newSubTitle}</h2>
-              <div dangerouslySetInnerHTML={{ __html: codeImgVideoTag }}></div>
-              <div dangerouslySetInnerHTML={{ __html: newTestStr }}></div>
+              <div>{ReactHtmlParser(codeImgVideoTag)}</div>
+              <div>{ReactHtmlParser(newTestStr)}</div>
             </div>
           </div>
         </Route>
@@ -461,12 +468,13 @@ const Iceland = ({
             className={styles.writeFormSubTitleInput}
             onChange={writeFormSubTitleInputOnChange}
           />
-          <textarea
+          <CKEditor
+            editor={ClassicEditor}
             ref={writeFormContentsTextareaRef}
             onKeyPress={onTestChange}
             className={styles.writeFormContentsTextarea}
             onChange={writeFormContentsTextareaOnChange}
-          ></textarea>
+          ></CKEditor>
           <button onClick={saveNewWritingData}>작성</button>
           <div className={styles.imgVideoUploadBox}>
             <div className={styles.imgUploadBox}>
@@ -511,7 +519,7 @@ const Iceland = ({
             <div>
               <h1>{icelands[icelands.length - 1].type}</h1>
               <h2>{icelands[icelands.length - 1].title}</h2>
-              <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
+              <div>{ReactHtmlParser(initialCodes)}</div>
             </div>
           </div>
         ))}
@@ -538,10 +546,9 @@ const Iceland = ({
               <div className={styles.switchBox}>
                 <Switch>
                   <Route path={`/iceland/${icelands[key].id}`}>
-                    <div
-                      className={styles.novelUsaEuBox}
-                      dangerouslySetInnerHTML={{ __html: codes }}
-                    ></div>
+                    <div className={styles.novelUsaEuBox}>
+                      {ReactHtmlParser(codes)}
+                    </div>
                   </Route>
                 </Switch>
               </div>

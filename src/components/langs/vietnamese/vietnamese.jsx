@@ -2,6 +2,9 @@ import React from "react";
 import { Link, Switch, Route, useParams } from "react-router-dom";
 import styles from "./vietnamese.module.css";
 import { useRef, useState } from "react";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ReactHtmlParser from "react-html-parser";
 
 const Vietnamese = ({
   vietnameses,
@@ -64,9 +67,9 @@ const Vietnamese = ({
     newSubTitle = `${event.target.value}`;
     setNewSubTitle(newSubTitle);
   };
-  const writeFormContentsTextareaOnChange = (event) => {
-    newTestStr = `${event.target.value}`;
-    setNewTestStr(newTestStr);
+  const writeFormContentsTextareaOnChange = (event, editor) => {
+    const data = editor.getData();
+    setNewTestStr(data);
   };
 
   const saveNewWritingData = (event) => {
@@ -274,10 +277,10 @@ const Vietnamese = ({
     setVietnameses(novelUsaEuDataCopy);
   };
 
-  const realTimeFixContentAreaChange = (event) => {
-    event.preventDefault();
+  const realTimeFixContentAreaChange = (event, editor) => {
+    const data = editor.getData();
     let novelUsaEuDataCopy = [...vietnameses];
-    novelUsaEuDataCopy[keyValue - 1].contents = event.target.value;
+    novelUsaEuDataCopy[keyValue - 1].contents = data;
     setVietnameses(novelUsaEuDataCopy);
   };
 
@@ -385,17 +388,18 @@ const Vietnamese = ({
           <div
             ref={dataBoxForFixTitleRef}
             className={styles.dataBoxForFixTitle}
-            dangerouslySetInnerHTML={{ __html: fixDataTitle }}
-          ></div>
-          <div
-            className={styles.dataBoxForFixImgVideoBox}
-            dangerouslySetInnerHTML={{ __html: fixImgVid }}
-          ></div>
+          >
+            {ReactHtmlParser(fixDataTitle)}
+          </div>
+          <div className={styles.dataBoxForFixImgVideoBox}>
+            {ReactHtmlParser(fixImgVid)}
+          </div>
           <div
             ref={dataBoxForFixContentRef}
             className={styles.dataBoxForFixContent}
-            dangerouslySetInnerHTML={{ __html: fixContent }}
-          ></div>
+          >
+            {ReactHtmlParser(fixContent)}
+          </div>
 
           <form className={styles.writeForm}>
             <input
@@ -403,13 +407,16 @@ const Vietnamese = ({
               className={`${styles.realTimeFixLinkInput} ${styles.writeFormSubTitleInput}`}
               value={vietnameses[keyValue - 1]?.title}
             ></input>
-            <textarea
+            <CKEditor
+              editor={ClassicEditor}
               ref={fixTxtAreaRef}
+              data={vietnameses[keyValue - 1]?.contents}
               onKeyPress={onTestFixChange}
               onChange={realTimeFixContentAreaChange}
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}
-              value={vietnameses[keyValue - 1]?.contents}
-            ></textarea>
+            >
+              {vietnameses[keyValue - 1]?.contents}
+            </CKEditor>
             <button ref={writeFixFormBtnRef} onClick={writeFixFormBtn}>
               작성
             </button>
@@ -446,8 +453,8 @@ const Vietnamese = ({
             <div>
               <h1>{vietnameses[0].type}</h1>
               <h2>{newSubTitle}</h2>
-              <div dangerouslySetInnerHTML={{ __html: codeImgVideoTag }}></div>
-              <div dangerouslySetInnerHTML={{ __html: newTestStr }}></div>
+              <div>{ReactHtmlParser(codeImgVideoTag)}</div>
+              <div>{ReactHtmlParser(newTestStr)}</div>
             </div>
           </div>
         </Route>
@@ -463,12 +470,13 @@ const Vietnamese = ({
             className={styles.writeFormSubTitleInput}
             onChange={writeFormSubTitleInputOnChange}
           />
-          <textarea
+          <CKEditor
+            editor={ClassicEditor}
             ref={writeFormContentsTextareaRef}
             onKeyPress={onTestChange}
             className={styles.writeFormContentsTextarea}
             onChange={writeFormContentsTextareaOnChange}
-          ></textarea>
+          ></CKEditor>
           <button onClick={saveNewWritingData}>작성</button>
           <div className={styles.imgVideoUploadBox}>
             <div className={styles.imgUploadBox}>
@@ -513,7 +521,7 @@ const Vietnamese = ({
             <div>
               <h1>{vietnameses[vietnameses.length - 1].type}</h1>
               <h2>{vietnameses[vietnameses.length - 1].title}</h2>
-              <div dangerouslySetInnerHTML={{ __html: initialCodes }}></div>
+              <div>{ReactHtmlParser(initialCodes)}</div>
             </div>
           </div>
         ))}
@@ -540,10 +548,9 @@ const Vietnamese = ({
               <div className={styles.switchBox}>
                 <Switch>
                   <Route path={`/vietnamese/${vietnameses[key].id}`}>
-                    <div
-                      className={styles.novelUsaEuBox}
-                      dangerouslySetInnerHTML={{ __html: codes }}
-                    ></div>
+                    <div className={styles.novelUsaEuBox}>
+                      {ReactHtmlParser(codes)}
+                    </div>
                   </Route>
                 </Switch>
               </div>
