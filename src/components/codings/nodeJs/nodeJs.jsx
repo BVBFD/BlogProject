@@ -408,7 +408,6 @@ const NodeJs = ({
             <CKEditor
               editor={ClassicEditor}
               ref={fixTxtAreaRef}
-              data={nodeJSs[keyValue - 1]?.contents}
               onKeyPress={onTestFixChange}
               onChange={realTimeFixContentAreaChange}
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}

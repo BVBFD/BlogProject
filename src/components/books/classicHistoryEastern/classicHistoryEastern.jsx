@@ -412,7 +412,6 @@ const ClassicHistoryEastern = ({
             <CKEditor
               editor={ClassicEditor}
               ref={fixTxtAreaRef}
-              data={classicHistoryEastern[keyValue - 1]?.contents}
               onKeyPress={onTestFixChange}
               onChange={realTimeFixContentAreaChange}
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}

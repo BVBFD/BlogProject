@@ -410,13 +410,10 @@ const JvScripts = ({
             <CKEditor
               editor={ClassicEditor}
               ref={fixTxtAreaRef}
-              data={javascripts[keyValue - 1]?.contents}
               onKeyPress={onTestFixChange}
               onChange={realTimeFixContentAreaChange}
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}
-            >
-              {javascripts[keyValue - 1]?.contents}
-            </CKEditor>
+            ></CKEditor>
             <button ref={writeFixFormBtnRef} onClick={writeFixFormBtn}>
               작성
             </button>

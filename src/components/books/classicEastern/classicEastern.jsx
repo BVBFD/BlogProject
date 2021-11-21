@@ -411,7 +411,6 @@ const ClassicEastern = ({
               editor={ClassicEditor}
               ref={fixTxtAreaRef}
               onKeyPress={onTestFixChange}
-              data={classicEastern[keyValue - 1]?.contents}
               onChange={realTimeFixContentAreaChange}
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}
             >

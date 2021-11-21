@@ -408,7 +408,6 @@ const Korean = ({
             <CKEditor
               editor={ClassicEditor}
               ref={fixTxtAreaRef}
-              data={koreans[keyValue - 1]?.contents}
               onKeyPress={onTestFixChange}
               onChange={realTimeFixContentAreaChange}
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}

@@ -408,7 +408,6 @@ const NovelAsia = ({
               editor={ClassicEditor}
               ref={fixTxtAreaRef}
               onKeyPress={onTestFixChange}
-              data={novelAsiaData[keyValue - 1]?.contents}
               onChange={realTimeFixContentAreaChange}
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}
             >

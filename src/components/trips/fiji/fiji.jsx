@@ -406,7 +406,6 @@ const Fiji = ({
             <CKEditor
               editor={ClassicEditor}
               ref={fixTxtAreaRef}
-              data={fijis[keyValue - 1]?.contents}
               onKeyPress={onTestFixChange}
               onChange={realTimeFixContentAreaChange}
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}

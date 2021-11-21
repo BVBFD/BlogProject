@@ -31,6 +31,7 @@ const NovelUsaEu = ({
   let [newTestStr, setNewTestStr] = useState();
   const [selectedImg, setSelectedImg] = useState("");
   const [selectedVideo, setSelectedVideo] = useState("");
+  const [codes, setCodes] = useState("");
 
   const editPermissionIndex = Object.keys(loginData).filter(
     (key) => loginData[key].id === historyState
@@ -408,7 +409,6 @@ const NovelUsaEu = ({
               editor={ClassicEditor}
               ref={fixTxtAreaRef}
               onKeyPress={onTestFixChange}
-              data={novelUsaEuData[keyValue - 1]?.contents}
               onChange={realTimeFixContentAreaChange}
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}
             ></CKEditor>
