@@ -1,5 +1,10 @@
 [[redirects]]
    from = "/proxy/*"
    to = "https://developers.nonghyup.com/:splat"
-   status = 301
+   status = 200
    force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
