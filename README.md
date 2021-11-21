@@ -16,3 +16,30 @@
 
   *ver 1.1.2 - 2021년 11월 21일
    1. 목록에 있는 Link 버튼을 누르면 엉뚱한 곳으로 이동하고 엉뚱한 내용이 뜨던 에러 수정 -> CKEditor 속성 data 삭제해서 수정 완료.
+   
+  *ver 1.1.3 - 2021년 11월 21일
+   1. 브라우저 상 주소 표시줄로 페이지 접근시, 404 Not Found Error 수정 -> _redirect 파일 내용 참고  (Netlify 배포 관련 에러)
+   2. 외부 API 프록시 서버 redirect, 404 Not Found Error 수정 redirect 주소 충돌 관련 에러 수정  (Netlify 배포 관련 에러)
+    
+    *_redirects(in public)
+      
+      /proxy/* https://developers.nonghyup.com/:splat 200
+      /*  /index.html 200
+     
+      or (아니면...)
+      
+    *netlify.toml(root 경로 안에 (.env와 같은 경로))
+     [[redirects]]
+      from = "/proxy/*"
+      to = "https://developers.nonghyup.com/:splat"
+      status = 200
+      force = true
+
+    [[redirects]]
+      from = "/*"
+      to = "/index.html"
+      status = 200
+      
+   한 파일에 2개 이상의 redirects를 적용할 수 없다. 만약에 위의 순서와 반대로 배치하여 코드를 해서 작동시키면 에러가 난다.
+   why?? 만약에 환율 api 받아오기 위해 매칭되는 redirects를 찾는다면, 만약 반대로 배치되어 있다면 "/*" 여기에서 매치가 되어버려서
+   다음 진짜 proxy서버 redirects는 무시당하게 될 것.. 그래서 순서를 proxy 외부 API 받아오는 것을 먼저 배치함. (Netlify 배포 관련 중복 redirects 에러 해결책)
