@@ -20,7 +20,9 @@
   *ver 1.1.3 - 2021년 11월 21일
    1. 브라우저 상 주소 표시줄로 페이지 접근시, 404 Not Found Error 수정 -> _redirect 파일 내용 참고
    2. 외부 API 프록시 서버 redirect, 404 Not Found Error 수정 redirect 주소 충돌 관련 에러 수정
+    
     *_redirects(in public)
+      
       /proxy/* https://developers.nonghyup.com/:splat 200
       /*  /index.html 200
      
