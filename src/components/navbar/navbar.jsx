@@ -256,10 +256,10 @@ const Navbar = memo(
               ? `${weather} / ${cityCountry}`
               : "새로고침 클릭!"}
           </div>
-          <div className={`${styles.exchangeRate} ${styles.leftSmallBox}`}>
+          {/* <div className={`${styles.exchangeRate} ${styles.leftSmallBox}`}>
             <img className={styles.flagImg} src="../images/USA.png" />
             {USD_KRW_value ? USD_KRW_value : "새로고침 클릭!"} (KRW/USD)
-          </div>
+          </div> */}
         </section>
         <section ref={navbarRightBoxRef} className={styles.navbarRightBox}>
           <form className={styles.searchForm}>
