@@ -2,8 +2,13 @@ import React from "react";
 import { Link, Switch, Route, useParams } from "react-router-dom";
 import styles from "./csss.module.css";
 import { useRef, useState } from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { Editor } from "@toast-ui/react-editor";
+import "tui-color-picker/dist/tui-color-picker.css";
+import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
+import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
+
+// import innerText from "react-innertext";
 import ReactHtmlParser from "react-html-parser";
 
 const Csss = ({
@@ -23,7 +28,7 @@ const Csss = ({
   const newWritingLiRouteRef = useRef();
   const writeFormSubTitleInputRef = useRef();
   const writeFormContentsTextareaRef = useRef();
-  const imgUploadBoxInputRef = useRef();
+  // const imgUploadBoxInputRef = useRef();
   const videoUploadBoxInputRef = useRef();
   const writeFormRef = useRef();
 
@@ -67,9 +72,11 @@ const Csss = ({
     newSubTitle = `${event.target.value}`;
     setNewSubTitle(newSubTitle);
   };
-  const writeFormContentsTextareaOnChange = (event, editor) => {
-    const data = editor.getData();
-    setNewTestStr(data);
+  const writeFormContentsTextareaOnChange = () => {
+    const contentChanged = writeFormContentsTextareaRef.current
+      .getInstance()
+      .getHTML();
+    setNewTestStr(contentChanged);
   };
 
   const saveNewWritingData = (event) => {
@@ -149,25 +156,25 @@ const Csss = ({
     }
   };
 
-  const onImgUpBtnClick = (event) => {
-    event.preventDefault();
-    imgUploadBoxInputRef.current.click();
-  };
+  // const onImgUpBtnClick = (event) => {
+  //   event.preventDefault();
+  //   imgUploadBoxInputRef.current.click();
+  // };
 
   const onVideoUpBtnClick = (event) => {
     event.preventDefault();
     videoUploadBoxInputRef.current.click();
   };
 
-  const onImgUpChange = async (event) => {
-    event.preventDefault();
-    console.log(event.target.files[0].name);
-    let uploaded = await imageUploader.upload(event.target.files[0]);
-    console.log(uploaded.url);
-    setSelectedImg(
-      `<img class="dbImgAndDbVideoBoxImg" src="${uploaded.url}"></img>`
-    );
-  };
+  // const onImgUpChange = async (event) => {
+  //   event.preventDefault();
+  //   console.log(event.target.files[0].name);
+  //   let uploaded = await imageUploader.upload(event.target.files[0]);
+  //   console.log(uploaded.url);
+  //   setSelectedImg(
+  //     `<img class="dbImgAndDbVideoBoxImg" src="${uploaded.url}"></img>`
+  //   );
+  // };
 
   const onVideoUpChange = async (event) => {
     event.preventDefault();
@@ -191,7 +198,7 @@ const Csss = ({
   `;
 
   const dataBoxForFixRef = useRef();
-  const fixImgRef = useRef();
+  // const fixImgRef = useRef();
   const fixVideoRef = useRef();
   const fixUpdateRef = useRef();
   const dataRemoveRef = useRef();
@@ -255,10 +262,10 @@ const Csss = ({
     ${csss[keyValue - 1]?.contents}
   `;
 
-  const fixImgBtn = (event) => {
-    event.preventDefault();
-    fixImgRef.current.click();
-  };
+  // const fixImgBtn = (event) => {
+  //   event.preventDefault();
+  //   fixImgRef.current.click();
+  // };
 
   const fixVidBtn = (event) => {
     event.preventDefault();
@@ -273,10 +280,10 @@ const Csss = ({
     setCsss(novelUsaEuDataCopy);
   };
 
-  const realTimeFixContentAreaChange = (event, editor) => {
-    const data = editor.getData();
+  const realTimeFixContentAreaChange = () => {
+    const contentChanged = fixTxtAreaRef.current.getInstance().getHTML();
     let novelUsaEuDataCopy = [...csss];
-    novelUsaEuDataCopy[keyValue - 1].contents = data;
+    novelUsaEuDataCopy[keyValue - 1].contents = contentChanged;
     setCsss(novelUsaEuDataCopy);
   };
 
@@ -298,31 +305,31 @@ const Csss = ({
     writeFixFormBtnRef.current.style.display = "none";
   };
 
-  const fixImgChange = async (event) => {
-    console.log(event.target.files[0]);
-    let novelUsaEuDataCopy = [...csss];
-    let uploaded = await imageUploader.upload(event.target.files[0]);
-    console.log(uploaded.url);
-    console.log(novelUsaEuDataCopy[keyValue - 1]);
-    novelUsaEuDataCopy[
-      keyValue - 1
-    ].image = `<img class="dbImgAndDbVideoBoxImg" src="${uploaded.url}"></img>`;
-    setCsss(novelUsaEuDataCopy);
+  // const fixImgChange = async (event) => {
+  //   console.log(event.target.files[0]);
+  //   let novelUsaEuDataCopy = [...csss];
+  //   let uploaded = await imageUploader.upload(event.target.files[0]);
+  //   console.log(uploaded.url);
+  //   console.log(novelUsaEuDataCopy[keyValue - 1]);
+  //   novelUsaEuDataCopy[
+  //     keyValue - 1
+  //   ].image = `<img class="dbImgAndDbVideoBoxImg" src="${uploaded.url}"></img>`;
+  //   setCsss(novelUsaEuDataCopy);
 
-    // datas update 하기
-    let datasCopy = [...datas];
-    let datasUpdate = datasCopy.map((data) => {
-      if (data.id === "csss") {
-        data.data = novelUsaEuDataCopy;
-        return data;
-      }
-      return data;
-    });
-    console.log(datasUpdate);
-    setDatas(datasUpdate);
-    // firebase server update
-    dataRepository.saveData(datasUpdate);
-  };
+  //   // datas update 하기
+  //   let datasCopy = [...datas];
+  //   let datasUpdate = datasCopy.map((data) => {
+  //     if (data.id === "csss") {
+  //       data.data = novelUsaEuDataCopy;
+  //       return data;
+  //     }
+  //     return data;
+  //   });
+  //   console.log(datasUpdate);
+  //   setDatas(datasUpdate);
+  //   // firebase server update
+  //   dataRepository.saveData(datasUpdate);
+  // };
 
   const fixVideoChange = async (event) => {
     console.log(event.target.files[0]);
@@ -354,28 +361,6 @@ const Csss = ({
 
   const fixTxtAreaRef = useRef();
   const dataBoxForFixTitleRef = useRef();
-  const onTestFixChange = () => {
-    let key = window.event.keyCode;
-    if (key === 13) {
-      fixTxtAreaRef.current.value = fixTxtAreaRef.current.value + "</br>";
-      return false;
-    } else {
-      return true;
-    }
-  };
-  // testArea Tag에서 띄어쓰기 안되던 문제 해결.
-
-  const onTestChange = () => {
-    let key = window.event.keyCode;
-    if (key === 13) {
-      writeFormContentsTextareaRef.current.value =
-        writeFormContentsTextareaRef.current.value + "</br>";
-      setNewTestStr(writeFormContentsTextareaRef.current.value);
-      return false;
-    } else {
-      return true;
-    }
-  };
 
   return (
     <>
@@ -403,20 +388,26 @@ const Csss = ({
               className={`${styles.realTimeFixLinkInput} ${styles.writeFormSubTitleInput}`}
               value={csss[keyValue - 1]?.title}
             ></input>
-            <CKEditor
-              editor={ClassicEditor}
+            <Editor
+              previewStyle="vertical"
+              initialEditType="markdown"
+              initialValue="밑에 있는 텍스트를 복사해서 원본을 유지하세요"
               ref={fixTxtAreaRef}
-              onKeyPress={onTestFixChange}
-              onChange={realTimeFixContentAreaChange}
+              toolbarItems={[["heading", "bold", "italic"], ["image"]]}
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}
-            >
-              {csss[keyValue - 1]?.contents}
-            </CKEditor>
+              onChange={realTimeFixContentAreaChange}
+              plugins={[colorSyntax]}
+            />
+            <textarea
+              className={styles.writeFormContentsTextarea}
+              value={csss[keyValue - 1]?.contents}
+              readOnly="readOnly"
+            ></textarea>
             <button ref={writeFixFormBtnRef} onClick={writeFixFormBtn}>
               작성
             </button>
             <div className={styles.imgVideoInputBtnBox}>
-              <div className={styles.imgInputBtnBox}>
+              {/* <div className={styles.imgInputBtnBox}>
                 <input
                   ref={fixImgRef}
                   type="file"
@@ -425,7 +416,7 @@ const Csss = ({
                   onChange={fixImgChange}
                 ></input>
                 <button onClick={fixImgBtn}>이미지</button>
-              </div>
+              </div> */}
 
               <div className={styles.videoInputBtnBox}>
                 <input
@@ -465,16 +456,19 @@ const Csss = ({
             className={styles.writeFormSubTitleInput}
             onChange={writeFormSubTitleInputOnChange}
           />
-          <CKEditor
-            editor={ClassicEditor}
+          <Editor
+            previewStyle="vertical"
+            initialEditType="markdown"
+            initialValue="hello"
             ref={writeFormContentsTextareaRef}
-            onKeyPress={onTestChange}
+            toolbarItems={[["heading", "bold", "italic"], ["image"]]}
             className={styles.writeFormContentsTextarea}
             onChange={writeFormContentsTextareaOnChange}
-          ></CKEditor>
+            plugins={[colorSyntax]}
+          />
           <button onClick={saveNewWritingData}>작성</button>
           <div className={styles.imgVideoUploadBox}>
-            <div className={styles.imgUploadBox}>
+            {/* <div className={styles.imgUploadBox}>
               <input
                 ref={imgUploadBoxInputRef}
                 type="file"
@@ -489,7 +483,7 @@ const Csss = ({
               >
                 이미지
               </button>
-            </div>
+            </div> */}
 
             <div className={styles.videoUploadBox}>
               <input

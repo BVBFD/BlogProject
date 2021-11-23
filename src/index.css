@@ -60,6 +60,26 @@ ul {
   }
 
   form {
-    width: 99.5%;
+    width: 93vw;
+    display: flex;
+    flex-direction: column;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .toastui-editor-toolbar {
+    position: relative;
+    width: 92.5vw;
+    display: flex;
+    flex-direction: column;
+    padding: none;
+  }
+
+  .toastui-editor-defaultUI-toolbar {
+    z-index: 999;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
   }
 }
