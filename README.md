@@ -43,3 +43,9 @@
    한 파일에 2개 이상의 redirects를 적용할 수 없다. 만약에 위의 순서와 반대로 배치하여 코드를 해서 작동시키면 에러가 난다.
    why?? 만약에 환율 api 받아오기 위해 매칭되는 redirects를 찾는다면, 만약 반대로 배치되어 있다면 "/*" 여기에서 매치가 되어버려서
    다음 진짜 proxy서버 redirects는 무시당하게 될 것.. 그래서 순서를 proxy 외부 API 받아오는 것을 먼저 배치함. (Netlify 배포 관련 중복 redirects 에러 해결책)
+   
+   *ver 1.2.0 - 2021년 11월 23일
+   1. 기존 CKEditor 기본 게시글 에디터에서 NHN 개발의 Toast UI Editor 전면 도입.
+   2. Toast UI Editor를 도입함으로써 Cloudinary 서버 이미지 저장 없이 여러개의 이미지 게시 가능 -> 효율성 Up!!
+   3. Cloudinary 서버를 이용하는 것이 아닌 HTML DOM 형식 문자열로 파이어베이스 서버에 문자열로 멀티 이미지 태그 저장.  
+   4. Toast UI Editor node module 안의 APIs 자체 css 파일 조정하여 휴대폰 스크린화면에 최적화 완료!
