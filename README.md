@@ -51,6 +51,6 @@
    4. Toast UI Editor node module 안의 APIs 자체 css 파일 조정하여 휴대폰 스크린화면에 최적화 완료!
 
    *ver 1.2.1 - 2021년 11월 23일
-   1. 기존 쓰고 있는 Toasi UI Editor에 Code, Code Box 추가할 수 있는 기능 플러그인 추가.
+   1. 기존 쓰고 있는 Toast UI Editor에 Code, Code Box 추가할 수 있는 기능 플러그인 추가.
    2. 이에 맞게 모바일 화면에 에디터 막대바 CSS 최적화.
    
