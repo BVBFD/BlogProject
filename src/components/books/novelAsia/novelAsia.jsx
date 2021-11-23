@@ -395,7 +395,11 @@ const NovelAsia = ({
               initialEditType="markdown"
               initialValue="밑에 있는 텍스트를 복사해서 원본을 유지하세요"
               ref={fixTxtAreaRef}
-              toolbarItems={[["heading", "bold", "italic"], ["image"]]}
+              toolbarItems={[
+                ["heading", "bold", "italic"],
+                ["image"],
+                ["code", "codeblock"],
+              ]}
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}
               onChange={realTimeFixContentAreaChange}
               plugins={[colorSyntax]}
@@ -464,7 +468,11 @@ const NovelAsia = ({
             initialValue="hello"
             ref={writeFormContentsTextareaRef}
             className={styles.writeFormContentsTextarea}
-            toolbarItems={[["heading", "bold", "italic"], ["image"]]}
+            toolbarItems={[
+              ["heading", "bold", "italic"],
+              ["image"],
+              ["code", "codeblock"],
+            ]}
             onChange={writeFormContentsTextareaOnChange}
             plugins={[colorSyntax]}
           />

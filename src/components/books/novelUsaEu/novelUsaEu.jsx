@@ -397,7 +397,11 @@ const NovelUsaEu = ({
               ref={fixTxtAreaRef}
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}
               onChange={realTimeFixContentAreaChange}
-              toolbarItems={[["heading", "bold", "italic"], ["image"]]}
+              toolbarItems={[
+                ["heading", "bold", "italic"],
+                ["image"],
+                ["code", "codeblock"],
+              ]}
               plugins={[colorSyntax]}
             />
             <textarea
@@ -465,7 +469,11 @@ const NovelUsaEu = ({
             ref={writeFormContentsTextareaRef}
             className={styles.writeFormContentsTextarea}
             onChange={writeFormContentsTextareaOnChange}
-            toolbarItems={[["heading", "bold", "italic"], ["image"]]}
+            toolbarItems={[
+              ["heading", "bold", "italic"],
+              ["image"],
+              ["code", "codeblock"],
+            ]}
             plugins={[colorSyntax]}
           />
           <button onClick={saveNewWritingData}>작성</button>
