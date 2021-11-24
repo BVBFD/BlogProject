@@ -49,3 +49,8 @@
    2. Toast UI Editor를 도입함으로써 Cloudinary 서버 이미지 저장 없이 여러개의 이미지 게시 가능 -> 효율성 Up!!
    3. Cloudinary 서버를 이용하는 것이 아닌 HTML DOM 형식 문자열로 파이어베이스 서버에 문자열로 멀티 이미지 태그 저장.  
    4. Toast UI Editor node module 안의 APIs 자체 css 파일 조정하여 휴대폰 스크린화면에 최적화 완료!
+
+   *ver 1.2.1 - 2021년 11월 23일
+   1. 기존 쓰고 있는 Toast UI Editor에 Code, Code Box 추가할 수 있는 기능 플러그인 추가.
+   2. 이에 맞게 모바일 화면에 에디터 막대바 CSS 최적화.
+   
