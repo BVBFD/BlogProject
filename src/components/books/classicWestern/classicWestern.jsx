@@ -34,7 +34,6 @@ const ClassicWestern = ({
 
   let [newSubTitle, setNewSubTitle] = useState();
   let [newTestStr, setNewTestStr] = useState();
-  const [selectedImg, setSelectedImg] = useState("");
   const [selectedVideo, setSelectedVideo] = useState("");
 
   const editPermissionIndex = Object.keys(loginData).filter(
@@ -88,7 +87,6 @@ const ClassicWestern = ({
         type: classicWestern[1].type,
         title: newSubTitle,
         contents: `${newTestStr}`,
-        image: selectedImg,
         video: selectedVideo,
       };
       setClassicWestern(addUpdated);
@@ -193,7 +191,6 @@ const ClassicWestern = ({
   };
 
   const codeImgVideoTag = `
-    ${selectedImg}
     ${selectedVideo}
   `;
 
@@ -256,7 +253,6 @@ const ClassicWestern = ({
   const fixImgVid =
     keyValue !== "practice" &&
     `
-  ${classicWestern[keyValue - 1]?.image}
   ${classicWestern[keyValue - 1]?.video}
 `;
 
@@ -533,14 +529,12 @@ const ClassicWestern = ({
         .reverse()
         .map((key) => {
           const testStr = classicWestern[key].contents;
-          const dbImg = classicWestern[key].image;
           const dbVideo = classicWestern[key].video;
           let codes = `
               <div>
                 <h1>${classicWestern[key].type}</h1>
                 <h2>${classicWestern[key].title}</h2>
                 <div class="dbImgAndDbVideoBox">
-                  ${dbImg}
                   ${dbVideo}
                 </div>
                 <div>

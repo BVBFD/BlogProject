@@ -39,7 +39,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -50,7 +49,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -61,7 +59,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -72,7 +69,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -83,7 +79,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -94,7 +89,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -105,7 +99,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -116,7 +109,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -127,7 +119,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -138,7 +129,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -149,7 +139,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -160,7 +149,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -171,7 +159,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -182,7 +169,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -193,7 +179,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -204,7 +189,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -215,7 +199,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -226,7 +209,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);
@@ -237,7 +219,6 @@ const App = ({
       type: "",
       title: "",
       contents: ``,
-      image: ``,
       video: ``,
     },
   ]);

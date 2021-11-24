@@ -34,7 +34,6 @@ const Iceland = ({
 
   let [newSubTitle, setNewSubTitle] = useState();
   let [newTestStr, setNewTestStr] = useState();
-  const [selectedImg, setSelectedImg] = useState("");
   const [selectedVideo, setSelectedVideo] = useState("");
 
   const editPermissionIndex = Object.keys(loginData).filter(
@@ -88,7 +87,6 @@ const Iceland = ({
         type: icelands[1].type,
         title: newSubTitle,
         contents: `${newTestStr}`,
-        image: selectedImg,
         video: selectedVideo,
       };
       setIcelands(addUpdated);
@@ -193,7 +191,6 @@ const Iceland = ({
   };
 
   const codeImgVideoTag = `
-    ${selectedImg}
     ${selectedVideo}
   `;
 
@@ -528,14 +525,12 @@ const Iceland = ({
         .reverse()
         .map((key) => {
           const testStr = icelands[key].contents;
-          const dbImg = icelands[key].image;
           const dbVideo = icelands[key].video;
           let codes = `
               <div>
                 <h1>${icelands[key].type}</h1>
                 <h2>${icelands[key].title}</h2>
                 <div class="dbImgAndDbVideoBox">
-                  ${dbImg}
                   ${dbVideo}
                 </div>
                 <div>

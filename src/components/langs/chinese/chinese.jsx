@@ -34,7 +34,6 @@ const Chinese = ({
 
   let [newSubTitle, setNewSubTitle] = useState();
   let [newTestStr, setNewTestStr] = useState();
-  const [selectedImg, setSelectedImg] = useState("");
   const [selectedVideo, setSelectedVideo] = useState("");
 
   const editPermissionIndex = Object.keys(loginData).filter(
@@ -88,7 +87,6 @@ const Chinese = ({
         type: chineses[1].type,
         title: newSubTitle,
         contents: `${newTestStr}`,
-        image: selectedImg,
         video: selectedVideo,
       };
       setChineses(addUpdated);
@@ -193,7 +191,6 @@ const Chinese = ({
   };
 
   const codeImgVideoTag = `
-    ${selectedImg}
     ${selectedVideo}
   `;
 
@@ -528,14 +525,12 @@ const Chinese = ({
         .reverse()
         .map((key) => {
           const testStr = chineses[key].contents;
-          const dbImg = chineses[key].image;
           const dbVideo = chineses[key].video;
           let codes = `
               <div>
                 <h1>${chineses[key].type}</h1>
                 <h2>${chineses[key].title}</h2>
                 <div class="dbImgAndDbVideoBox">
-                  ${dbImg}
                   ${dbVideo}
                 </div>
                 <div>

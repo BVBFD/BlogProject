@@ -34,7 +34,6 @@ const JvScripts = ({
 
   let [newSubTitle, setNewSubTitle] = useState();
   let [newTestStr, setNewTestStr] = useState();
-  const [selectedImg, setSelectedImg] = useState("");
   const [selectedVideo, setSelectedVideo] = useState("");
 
   const editPermissionIndex = Object.keys(loginData).filter(
@@ -88,7 +87,6 @@ const JvScripts = ({
         type: javascripts[1].type,
         title: newSubTitle,
         contents: `${newTestStr}`,
-        image: selectedImg,
         video: selectedVideo,
       };
       setJavascripts(addUpdated);
@@ -193,7 +191,6 @@ const JvScripts = ({
   };
 
   const codeImgVideoTag = `
-    ${selectedImg}
     ${selectedVideo}
   `;
 
@@ -530,14 +527,12 @@ const JvScripts = ({
         .reverse()
         .map((key) => {
           const testStr = javascripts[key].contents;
-          const dbImg = javascripts[key].image;
           const dbVideo = javascripts[key].video;
           let codes = `
               <div>
                 <h1>${javascripts[key].type}</h1>
                 <h2>${javascripts[key].title}</h2>
                 <div class="dbImgAndDbVideoBox">
-                  ${dbImg}
                   ${dbVideo}
                 </div>
                 <div>

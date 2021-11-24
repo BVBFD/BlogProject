@@ -35,7 +35,6 @@ const ClassicHistoryEastern = ({
 
   let [newSubTitle, setNewSubTitle] = useState();
   let [newTestStr, setNewTestStr] = useState();
-  const [selectedImg, setSelectedImg] = useState("");
   const [selectedVideo, setSelectedVideo] = useState("");
 
   const editPermissionIndex = Object.keys(loginData).filter(
@@ -89,7 +88,6 @@ const ClassicHistoryEastern = ({
         type: classicHistoryEastern[1].type,
         title: newSubTitle,
         contents: `${newTestStr}`,
-        image: selectedImg,
         video: selectedVideo,
       };
       setClassicHistoryEastern(addUpdated);
@@ -196,7 +194,6 @@ const ClassicHistoryEastern = ({
   };
 
   const codeImgVideoTag = `
-    ${selectedImg}
     ${selectedVideo}
   `;
 
@@ -543,14 +540,12 @@ const ClassicHistoryEastern = ({
         .reverse()
         .map((key) => {
           const testStr = classicHistoryEastern[key].contents;
-          const dbImg = classicHistoryEastern[key].image;
           const dbVideo = classicHistoryEastern[key].video;
           let codes = `
               <div>
                 <h1>${classicHistoryEastern[key].type}</h1>
                 <h2>${classicHistoryEastern[key].title}</h2>
                 <div class="dbImgAndDbVideoBox">
-                  ${dbImg}
                   ${dbVideo}
                 </div>
                 <div>

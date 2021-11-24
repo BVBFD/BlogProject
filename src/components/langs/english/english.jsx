@@ -34,7 +34,6 @@ const English = ({
 
   let [newSubTitle, setNewSubTitle] = useState();
   let [newTestStr, setNewTestStr] = useState();
-  const [selectedImg, setSelectedImg] = useState("");
   const [selectedVideo, setSelectedVideo] = useState("");
 
   const editPermissionIndex = Object.keys(loginData).filter(
@@ -88,7 +87,6 @@ const English = ({
         type: englishs[1].type,
         title: newSubTitle,
         contents: `${newTestStr}`,
-        image: selectedImg,
         video: selectedVideo,
       };
       setEnglishs(addUpdated);
@@ -193,7 +191,6 @@ const English = ({
   };
 
   const codeImgVideoTag = `
-    ${selectedImg}
     ${selectedVideo}
   `;
 
@@ -528,14 +525,12 @@ const English = ({
         .reverse()
         .map((key) => {
           const testStr = englishs[key].contents;
-          const dbImg = englishs[key].image;
           const dbVideo = englishs[key].video;
           let codes = `
               <div>
                 <h1>${englishs[key].type}</h1>
                 <h2>${englishs[key].title}</h2>
                 <div class="dbImgAndDbVideoBox">
-                  ${dbImg}
                   ${dbVideo}
                 </div>
                 <div>

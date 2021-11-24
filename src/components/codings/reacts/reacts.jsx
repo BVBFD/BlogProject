@@ -34,7 +34,6 @@ const Reacts = ({
 
   let [newSubTitle, setNewSubTitle] = useState();
   let [newTestStr, setNewTestStr] = useState();
-  const [selectedImg, setSelectedImg] = useState("");
   const [selectedVideo, setSelectedVideo] = useState("");
 
   const editPermissionIndex = Object.keys(loginData).filter(
@@ -88,7 +87,6 @@ const Reacts = ({
         type: reacts[1].type,
         title: newSubTitle,
         contents: `${newTestStr}`,
-        image: selectedImg,
         video: selectedVideo,
       };
       setReacts(addUpdated);
@@ -193,7 +191,6 @@ const Reacts = ({
   };
 
   const codeImgVideoTag = `
-    ${selectedImg}
     ${selectedVideo}
   `;
 
@@ -528,14 +525,12 @@ const Reacts = ({
         .reverse()
         .map((key) => {
           const testStr = reacts[key].contents;
-          const dbImg = reacts[key].image;
           const dbVideo = reacts[key].video;
           let codes = `
               <div>
                 <h1>${reacts[key].type}</h1>
                 <h2>${reacts[key].title}</h2>
                 <div class="dbImgAndDbVideoBox">
-                  ${dbImg}
                   ${dbVideo}
                 </div>
                 <div>

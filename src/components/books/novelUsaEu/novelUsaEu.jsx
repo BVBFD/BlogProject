@@ -35,7 +35,6 @@ const NovelUsaEu = ({
 
   let [newSubTitle, setNewSubTitle] = useState();
   let [newTestStr, setNewTestStr] = useState();
-  const [selectedImg, setSelectedImg] = useState("");
   const [selectedVideo, setSelectedVideo] = useState("");
 
   const editPermissionIndex = Object.keys(loginData).filter(
@@ -89,7 +88,6 @@ const NovelUsaEu = ({
         type: novelUsaEuData[1].type,
         title: newSubTitle,
         contents: `${newTestStr}`,
-        image: selectedImg,
         video: selectedVideo,
       };
       setNovelUsaEuData(addUpdated);
@@ -194,7 +192,6 @@ const NovelUsaEu = ({
   };
 
   const codeImgVideoTag = `
-    ${selectedImg}
     ${selectedVideo}
   `;
 
@@ -257,7 +254,6 @@ const NovelUsaEu = ({
   const fixImgVid =
     keyValue !== "practice" &&
     `
-  ${novelUsaEuData[keyValue - 1]?.image}
   ${novelUsaEuData[keyValue - 1]?.video}
 `;
 
@@ -529,14 +525,12 @@ const NovelUsaEu = ({
         .reverse()
         .map((key) => {
           const testStr = novelUsaEuData[key].contents;
-          const dbImg = novelUsaEuData[key].image;
           const dbVideo = novelUsaEuData[key].video;
           let codes = `
               <div>
                 <h1>${novelUsaEuData[key].type}</h1>
                 <h2>${novelUsaEuData[key].title}</h2>
                 <div class="dbImgAndDbVideoBox">
-                  ${dbImg}
                   ${dbVideo}
                 </div>
                 <div>

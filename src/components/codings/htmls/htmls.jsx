@@ -34,7 +34,6 @@ const Htmls = ({
 
   let [newSubTitle, setNewSubTitle] = useState();
   let [newTestStr, setNewTestStr] = useState();
-  const [selectedImg, setSelectedImg] = useState("");
   const [selectedVideo, setSelectedVideo] = useState("");
 
   const editPermissionIndex = Object.keys(loginData).filter(
@@ -88,7 +87,6 @@ const Htmls = ({
         type: htmls[1].type,
         title: newSubTitle,
         contents: `${newTestStr}`,
-        image: selectedImg,
         video: selectedVideo,
       };
       setHtmls(addUpdated);
@@ -193,7 +191,6 @@ const Htmls = ({
   };
 
   const codeImgVideoTag = `
-    ${selectedImg}
     ${selectedVideo}
   `;
 
@@ -526,14 +523,12 @@ const Htmls = ({
         .reverse()
         .map((key) => {
           const testStr = htmls[key].contents;
-          const dbImg = htmls[key].image;
           const dbVideo = htmls[key].video;
           let codes = `
               <div>
                 <h1>${htmls[key].type}</h1>
                 <h2>${htmls[key].title}</h2>
                 <div class="dbImgAndDbVideoBox">
-                  ${dbImg}
                   ${dbVideo}
                 </div>
                 <div>

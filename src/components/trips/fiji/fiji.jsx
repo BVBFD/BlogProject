@@ -34,7 +34,6 @@ const Fiji = ({
 
   let [newSubTitle, setNewSubTitle] = useState();
   let [newTestStr, setNewTestStr] = useState();
-  const [selectedImg, setSelectedImg] = useState("");
   const [selectedVideo, setSelectedVideo] = useState("");
 
   const editPermissionIndex = Object.keys(loginData).filter(
@@ -88,7 +87,6 @@ const Fiji = ({
         type: fijis[1].type,
         title: newSubTitle,
         contents: `${newTestStr}`,
-        image: selectedImg,
         video: selectedVideo,
       };
       setFijis(addUpdated);
@@ -193,7 +191,6 @@ const Fiji = ({
   };
 
   const codeImgVideoTag = `
-    ${selectedImg}
     ${selectedVideo}
   `;
 
@@ -526,14 +523,12 @@ const Fiji = ({
         .reverse()
         .map((key) => {
           const testStr = fijis[key].contents;
-          const dbImg = fijis[key].image;
           const dbVideo = fijis[key].video;
           let codes = `
               <div>
                 <h1>${fijis[key].type}</h1>
                 <h2>${fijis[key].title}</h2>
                 <div class="dbImgAndDbVideoBox">
-                  ${dbImg}
                   ${dbVideo}
                 </div>
                 <div>
