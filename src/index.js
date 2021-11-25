@@ -10,10 +10,11 @@ import AuthMobileService from "./service/authMobileService";
 import { firebaseApp } from "./service/firebase";
 import DataRepository from "./service/dataRepository";
 import ImageUploader from "./service/imageUploader";
+import ExchangeRateKoreaExim from "./service/exchangeRateKoreaExim";
 
 const dataRepository = new DataRepository(firebaseApp);
 const weatherTime = new WeatherTime(process.env.REACT_APP_WEATHER_TIME_API_KEY);
-const exchangeRate = new ExchangeRate();
+const exchangeRateKoreaExim = new ExchangeRateKoreaExim();
 const authMobileService = new AuthMobileService(firebaseApp);
 const imageUploader = new ImageUploader();
 
@@ -24,8 +25,8 @@ ReactDOM.render(
         dataRepository={dataRepository}
         authMobileService={authMobileService}
         weatherTime={weatherTime}
-        exchangeRate={exchangeRate}
         imageUploader={imageUploader}
+        exchangeRateKoreaExim={exchangeRateKoreaExim}
       />
     </BrowserRouter>
   </React.StrictMode>,

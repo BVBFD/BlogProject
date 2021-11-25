@@ -30,8 +30,8 @@ const App = ({
   dataRepository,
   authMobileService,
   weatherTime,
-  exchangeRate,
   imageUploader,
+  exchangeRateKoreaExim,
 }) => {
   const [novelUsaEuData, setNovelUsaEuData] = useState([
     {
@@ -371,8 +371,8 @@ const App = ({
         setLoginData={setLoginData}
         loginData={loginData}
         weatherTime={weatherTime}
-        exchangeRate={exchangeRate}
         dataRepository={dataRepository}
+        exchangeRateKoreaExim={exchangeRateKoreaExim}
       />
       <Header />
 

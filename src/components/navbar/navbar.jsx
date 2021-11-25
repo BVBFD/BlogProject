@@ -7,12 +7,12 @@ const Navbar = memo(
   ({
     loginData,
     weatherTime,
-    exchangeRate,
     authMobileService,
     setLoginData,
     history,
     setHistoryState,
     dataRepository,
+    exchangeRateKoreaExim,
   }) => {
     const [weather, setWeather] = useState();
     const [weatherIcon, setWeatherIcon] = useState();
@@ -39,7 +39,6 @@ const Navbar = memo(
       // 그 이유에 대해서 한번 곰곰히 생각해보자..
       weatherTime.getTimeWeather().then((result) => {
         if (result?.weather?.length > 0) {
-          console.log(result?.weather[0]?.icon);
           if (
             result?.weather[0]?.icon === "01d" ||
             result?.weather[0]?.icon === "01n"
@@ -56,21 +55,35 @@ const Navbar = memo(
       });
     }, [weatherTime]);
 
-    useEffect(() => {
-      exchangeRate.getExchangeRate().then(
-        (data) => {
-          if (data?.REC?.length > 0) {
-            // Cannot read properties of undefined (reading '0') 오류 예방하기 위해서
-            setUSD_KRW_value(data.REC[0].BrgnBsrt);
-          }
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    }, [exchangeRate]);
+    // useEffect(() => {
+    //   exchangeRate.getExchangeRate().then(
+    //     (data) => {
+    //       if (data?.REC?.length > 0) {
+    //         // Cannot read properties of undefined (reading '0') 오류 예방하기 위해서
+    //         setUSD_KRW_value(data.REC[0].BrgnBsrt);
+    //       }
+    //     },
+    //     (err) => {
+    //       console.log(err);
+    //     }
+    //   );
+    // }, [exchangeRate]);
     // useEffect안에서 네트워크 통신을 안하거나, 옵션에 [] 추가 안해주면
     // 여러번 네트워크와 통신하게 된다. 왜 그런지는 생각을 해보자.
+
+    useEffect(() => {
+      exchangeRateKoreaExim
+        .getExchangeRateKoreaExim()
+        .then((data) => {
+          if (data.length === 0) {
+            setUSD_KRW_value("금일 은행 비영업일");
+          }
+          setUSD_KRW_value(data[22].deal_bas_r + "(KRW/USD)");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, [exchangeRateKoreaExim]);
 
     const onLogin = (event) => {
       event.preventDefault();
@@ -258,7 +271,7 @@ const Navbar = memo(
           </div>
           <div className={`${styles.exchangeRate} ${styles.leftSmallBox}`}>
             <img className={styles.flagImg} src="../images/USA.png" />
-            {USD_KRW_value ? USD_KRW_value : "새로고침 클릭!"} (KRW/USD)
+            {USD_KRW_value ? USD_KRW_value : "새로고침 클릭!"}
           </div>
         </section>
         <section ref={navbarRightBoxRef} className={styles.navbarRightBox}>

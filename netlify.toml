@@ -1,6 +1,6 @@
 [[redirects]]
    from = "/proxy/*"
-   to = "https://developers.nonghyup.com/:splat"
+   to = "https://www.koreaexim.go.kr/site/program/financial/:splat"
    status = 200
    force = true
 
