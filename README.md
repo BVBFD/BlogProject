@@ -54,3 +54,6 @@
    1. 기존 쓰고 있는 Toast UI Editor에 Code, Code Box 추가할 수 있는 기능 플러그인 추가.
    2. 이에 맞게 모바일 화면에 에디터 막대바 CSS 최적화.
    
+   *ver 1.2.2 - 2021년 11월 25일
+   1. useState와 firebase server에서 image 값 제거. image 자료 contents로 통합. image 값 관련 불필요한 코드 삭제 및 제거.
+   2. 용량이 큰 default 비디오 동영상 제거 
