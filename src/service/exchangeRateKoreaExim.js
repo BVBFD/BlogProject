@@ -21,16 +21,16 @@ class ExchangeRateKoreaExim {
     this.year = this.dateObj.getFullYear();
     this.month = this.dateObj.getMonth() + 1;
     this.date = this.dateObj.getDate();
-    this.query = undefined;
-    if (this.time > "11:00:00 am") {
-      this.query = `${this.year}${
-        this.month > 9 ? this.month : `0${this.month}`
-      }${this.date > 9 ? this.date : `0${this.date}`}`;
-    } else {
-      this.query = `${this.year}${
-        this.month > 9 ? this.month : `0${this.month}`
-      }${this.date - 1 > 9 ? this.date - 1 : `0${this.date - 1}`}`;
-    }
+    this.query =
+      `${this.year}${this.month > 9 ? this.month : `0${this.month}`}${
+        this.date > 9 ? this.date : `0${this.date}`
+      }` > "11:00:00 am"
+        ? `${this.year}${this.month > 9 ? this.month : `0${this.month}`}${
+            this.date > 9 ? this.date : `0${this.date}`
+          }`
+        : `${this.year}${this.month > 9 ? this.month : `0${this.month}`}${
+            this.date - 1 > 9 ? this.date - 1 : `0${this.date - 1}`
+          }`;
   }
 
   async getExchangeRateKoreaExim() {
