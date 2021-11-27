@@ -25,7 +25,6 @@ ul {
 .dbImgAndDbVideoBox {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
 }
 
 .dbImgAndDbVideoBoxImg {
@@ -34,7 +33,7 @@ ul {
 }
 
 .dbImgAndDbVideoBoxVideo {
-  width: 42vw;
+  width: 50vw;
   height: 20%;
 }
 
