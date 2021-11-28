@@ -4,7 +4,7 @@ import ReactHtmlParser from "react-html-parser";
 
 import React, { useRef, useState } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from "@toast-ui/react-editor";
+import { Editor, Viewer } from "@toast-ui/react-editor";
 import "tui-color-picker/dist/tui-color-picker.css";
 import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
@@ -386,10 +386,11 @@ const NovelUsaEu = ({
               className={`${styles.realTimeFixLinkInput} ${styles.writeFormSubTitleInput}`}
               value={novelUsaEuData[keyValue - 1]?.title}
             ></input>
+            {console.log(novelUsaEuData[keyValue - 1]?.contents)}
             <Editor
               previewStyle="vertical"
-              initialEditType="markdown"
-              initialValue="밑에 있는 텍스트를 복사해서 원본을 유지하세요"
+              initialEditType="wysiwyg"
+              initialValue="원본 유지 위해 본문 내용 복사 붙여넣으세요"
               ref={fixTxtAreaRef}
               className={`${styles.realTimeFixContentArea} ${styles.writeFormContentsTextarea}`}
               onChange={realTimeFixContentAreaChange}
@@ -400,11 +401,6 @@ const NovelUsaEu = ({
               ]}
               plugins={[colorSyntax]}
             />
-            <textarea
-              className={styles.writeFormContentsTextarea}
-              value={novelUsaEuData[keyValue - 1]?.contents}
-              readOnly="readOnly"
-            ></textarea>
             <button ref={writeFixFormBtnRef} onClick={writeFixFormBtn}>
               작성
             </button>
@@ -461,7 +457,7 @@ const NovelUsaEu = ({
           />
           <Editor
             previewStyle="vertical"
-            initialEditType="markdown"
+            initialEditType="wysiwyg"
             ref={writeFormContentsTextareaRef}
             className={styles.writeFormContentsTextarea}
             onChange={writeFormContentsTextareaOnChange}

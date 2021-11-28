@@ -394,8 +394,8 @@ const ClassicHistoryEastern = ({
             ></input>
             <Editor
               previewStyle="vertical"
-              initialEditType="markdown"
-              initialValue="밑에 있는 텍스트를 복사해서 원본을 유지하세요"
+              initialEditType="wysiwyg"
+              initialValue="원본 유지 위해 본문 내용 복사 붙여넣으세요"
               ref={fixTxtAreaRef}
               toolbarItems={[
                 ["heading", "bold", "italic"],
@@ -406,11 +406,6 @@ const ClassicHistoryEastern = ({
               onChange={realTimeFixContentAreaChange}
               plugins={[colorSyntax]}
             />
-            <textarea
-              className={styles.writeFormContentsTextarea}
-              value={classicHistoryEastern[keyValue - 1]?.contents}
-              readOnly="readOnly"
-            ></textarea>
             <button ref={writeFixFormBtnRef} onClick={writeFixFormBtn}>
               작성
             </button>
@@ -472,7 +467,7 @@ const ClassicHistoryEastern = ({
           />
           <Editor
             previewStyle="vertical"
-            initialEditType="markdown"
+            initialEditType="wysiwyg"
             initialValue="hello"
             ref={writeFormContentsTextareaRef}
             toolbarItems={[

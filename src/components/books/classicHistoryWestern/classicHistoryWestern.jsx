@@ -10,7 +10,7 @@ import "tui-color-picker/dist/tui-color-picker.css";
 import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 
-// import innerText from "react-innertext";
+import innerText from "react-innertext";
 
 const ClassicHistoryWestern = ({
   classicHistoryWestern,
@@ -394,8 +394,8 @@ const ClassicHistoryWestern = ({
             ></input>
             <Editor
               previewStyle="vertical"
-              initialEditType="markdown"
-              initialValue="밑에 있는 텍스트를 복사해서 원본을 유지하세요"
+              initialEditType="wysiwyg"
+              initialValue="원본 유지 위해 본문 내용 복사 붙여넣으세요"
               ref={fixTxtAreaRef}
               toolbarItems={[
                 ["heading", "bold", "italic"],
@@ -406,11 +406,6 @@ const ClassicHistoryWestern = ({
               onChange={realTimeFixContentAreaChange}
               plugins={[colorSyntax]}
             />
-            <textarea
-              className={styles.writeFormContentsTextarea}
-              value={classicHistoryWestern[keyValue - 1]?.contents}
-              readOnly="readOnly"
-            ></textarea>
             <button ref={writeFixFormBtnRef} onClick={writeFixFormBtn}>
               작성
             </button>
@@ -472,8 +467,7 @@ const ClassicHistoryWestern = ({
           />
           <Editor
             previewStyle="vertical"
-            initialEditType="markdown"
-            initialValue="hello"
+            initialEditType="wysiwyg"
             ref={writeFormContentsTextareaRef}
             toolbarItems={[
               ["heading", "bold", "italic"],
