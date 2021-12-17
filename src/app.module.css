@@ -17,6 +17,7 @@
 
 .bodyBox {
   flex: 1 1 90%;
+  max-width: 100%;
   background-color: whitesmoke;
   padding: 0.5rem;
 }
