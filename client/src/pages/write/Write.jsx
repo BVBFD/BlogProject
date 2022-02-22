@@ -1,0 +1,58 @@
+import React, { useRef, useState } from "react";
+import Header from "../../components/header/Header.jsx";
+import styles from "./Write.module.css";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { Editor } from "@toast-ui/react-editor";
+import "tui-color-picker/dist/tui-color-picker.css";
+import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
+import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
+
+const Write = (props) => {
+  const [editorText, setEditorText] = useState("");
+  const editorRef = useRef();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(editorRef.current.getInstance().getMarkdown());
+    console.log(editorRef.current.getInstance().getHTML());
+  };
+
+  return (
+    <section className={styles.write}>
+      <Header />
+      <form onSubmit={handleSubmit} className={styles.titleImgAddBox}>
+        <div className={styles.titleInputBox}>
+          <label className={styles.imgFileLabel} htmlFor="imgFileInput">
+            <i class="fas fa-plus"></i>
+          </label>
+          <input id="imgFileInput" type="file" style={{ display: "none" }} />
+          <input
+            className={styles.titleInput}
+            type="text"
+            autoFocus={true}
+            placeholder="Title"
+          />
+          <button type="submit" className={styles.uploadBtn}>
+            Upload
+          </button>
+        </div>
+        <Editor
+          className={styles.editor}
+          ref={editorRef}
+          initialValue=""
+          previewStyle="vertical"
+          height="75vh"
+          initialEditType="wysiwyg"
+          useCommandShortcut={true}
+          toolbarItems={[
+            ["heading", "bold", "italic"],
+            ["image"],
+            ["code", "codeblock"],
+          ]}
+          plugins={[colorSyntax]}
+        />
+      </form>
+    </section>
+  );
+};
+
+export default Write;

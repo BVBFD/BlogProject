@@ -1,0 +1,34 @@
+.write .titleImgAddBox .titleInputBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.write .titleImgAddBox .titleInputBox .imgFileLabel {
+  width: 2rem;
+}
+
+.write .titleImgAddBox .titleInputBox .titleInput {
+  width: 80vw;
+  border: none;
+  font-size: 1.4rem;
+  margin: 2rem 0;
+}
+
+.write .titleImgAddBox .titleInputBox .titleInput:focus {
+  outline: none;
+}
+
+.write .titleImgAddBox .titleInputBox .uploadBtn {
+  width: 3.8rem;
+  height: 2.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: teal;
+  color: white;
+  font-weight: normal;
+  border-radius: 0.6rem;
+  outline: none;
+}

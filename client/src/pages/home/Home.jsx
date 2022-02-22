@@ -39,6 +39,7 @@ const Home = (props) => {
             <span>Node JS</span>
             <span>TypeScript</span>
             <span>Game</span>
+            <span>Book</span>
           </div>
           <header className={styles.catSNSBox}>FOLLOW US</header>
           <div className={styles.snsMarks}>
