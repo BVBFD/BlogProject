@@ -1,0 +1,33 @@
+.homePost .postCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.homePost .imgBox img {
+  width: 28rem;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.homePost .explains {
+  display: flex;
+  width: 28rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+.homePost .explains .title {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.homePost .explains .date {
+  color: #777;
+  margin: 0.3rem 0;
+}
+
+.homePost .explains p {
+  align-self: flex-start;
+}

@@ -3,7 +3,6 @@
 }
 
 .home .homeBgImg {
-  margin-top: 1rem;
   position: relative;
   user-select: none;
 }
@@ -52,4 +51,92 @@
 .home .title span:nth-child(2) {
   font-size: 9rem;
   font-weight: bolder;
+}
+
+.home .homeContentsPart {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  margin-left: 2.5rem;
+}
+
+.home .homeContentsPart .postsPart {
+  flex: 1 1 70%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 2.5rem;
+}
+
+.home .homeContentsPart .aboutMePart {
+  flex: 1 1 30%;
+}
+
+.home .homeContentsPart .aboutMePart .aboutMeImgBox {
+  width: 100%;
+}
+
+.home .homeContentsPart .aboutMePart .aboutMeImgBox img {
+  width: 23rem;
+  object-fit: cover;
+}
+
+.home .homeContentsPart .aboutMePart .aboutMeHeader {
+  font-size: x-large;
+  font-weight: bolder;
+  border-left: none;
+  border-right: none;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+  width: 23rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.home .homeContentsPart .aboutMePart p {
+  width: 23rem;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.home .homeContentsPart .aboutMePart .catHeader {
+  width: 23rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: bolder;
+  border-left: none;
+  border-right: none;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+  padding: 0.4rem;
+}
+
+.home .homeContentsPart .aboutMePart .catBox {
+  width: 23rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.6rem;
+  text-align: center;
+}
+
+.home .homeContentsPart .aboutMePart .catSNSBox {
+  width: 23rem;
+  text-align: center;
+  margin: 1rem 0;
+  font-weight: bolder;
+  border-left: none;
+  border-right: none;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+  padding: 0.4rem;
+}
+
+.home .homeContentsPart .aboutMePart .snsMarks {
+  display: flex;
+  width: 23rem;
+  justify-content: center;
+}
+
+.home .homeContentsPart .aboutMePart .snsMarks i {
+  margin: 0 0.5rem;
+  font-size: 1.6rem;
 }
