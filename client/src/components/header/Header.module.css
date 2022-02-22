@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 1.4rem;
+  margin-top: 0.6rem;
+  position: sticky;
+  top: 0.6rem;
+}
+
+.header i {
+  cursor: pointer;
+}
+
+.header .socialSNSs i {
+  margin: 0 0.4rem;
+}
+
+.header .pageLinks a {
+  margin: 0 0.8rem;
+}
+
+.header .settingsBox a,
+.header .settingsBox i {
+  margin: 0 0.8rem;
+}
+
+.header a:hover,
+.header i:hover {
+  color: #999;
+}
