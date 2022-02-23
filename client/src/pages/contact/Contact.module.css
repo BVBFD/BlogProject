@@ -1,0 +1,49 @@
+.contact {
+  background: linear-gradient(rgb(153, 153, 153, 0.5), rgb(153, 153, 153, 0.5)),
+    url("../../../public/images/chaos.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 93.5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.contact header {
+  position: absolute;
+  top: 1rem;
+  font-size: 5rem;
+  font-weight: bolder;
+  color: rgb(255, 233, 211, 0.9);
+}
+
+.contact .contactInfoBox {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid gainsboro;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  padding: 0.5rem;
+}
+
+.contact .contactInfoBox .infoBox {
+  display: flex;
+  flex: 1;
+  padding: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact .contactInfoBox .infoBox label {
+  margin-top: 1rem;
+  align-self: flex-start;
+  font-size: 1.3rem;
+}
+
+.contact .contactInfoBox .infoBox input {
+  margin-top: 1rem;
+  height: 2.2rem;
+  padding: 1rem;
+}

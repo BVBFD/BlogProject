@@ -6,7 +6,7 @@ const SidebarAboutMe = (props) => {
     <div className={styles.aboutMePart}>
       <header className={styles.aboutMeHeader}>About Me</header>
       <div className={styles.aboutMeImgBox}>
-        <img src="../images/empire.jpg" alt="" />
+        <img src="../images/charina.gif" alt="" />
       </div>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut distinctio

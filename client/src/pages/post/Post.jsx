@@ -28,10 +28,10 @@ const Post = (props) => {
             </div>
             <div className={styles.postContentText}>
               <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. A
-                laudantium fuga dicta tempora officiis iusto. Numquam obcaecati
-                est, modi ab corrupti officia ad debitis expedita temporibus
-                error ipsa, dolores eos?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Reiciendis nulla ipsum sapiente deserunt nisi, atque ab libero
+                porro repellat, similique rem cum, ipsa magnam facere voluptatem
+                quod iure enim excepturi.
               </p>
             </div>
           </div>

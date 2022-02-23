@@ -75,3 +75,14 @@
 .postPage .postBox .postImgTextBox .postTextBox .postContentText {
   font-size: 1.1rem;
 }
+
+.postPage
+  .postBox
+  .postImgTextBox
+  .postTextBox
+  .postContentText
+  p::first-letter {
+  font-size: 1.8rem;
+  font-weight: bolder;
+  color: #666;
+}
