@@ -7,13 +7,14 @@
 
 .write .titleImgAddBox .titleInputBox .imgFileLabel {
   width: 2rem;
+  cursor: pointer;
 }
 
 .write .titleImgAddBox .titleInputBox .titleInput {
   width: 80vw;
   border: none;
-  font-size: 1.4rem;
-  margin: 2rem 0;
+  font-size: 2rem;
+  margin: 3rem 0;
 }
 
 .write .titleImgAddBox .titleInputBox .titleInput:focus {
@@ -31,4 +32,18 @@
   font-weight: normal;
   border-radius: 0.6rem;
   outline: none;
+}
+
+.titleImgBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.titleImgBox img {
+  width: 90%;
+  height: 30rem;
+  object-fit: cover;
 }

@@ -1,3 +1,7 @@
+.homePost {
+  cursor: pointer;
+}
+
 .homePost .postCard {
   display: flex;
   flex-direction: column;

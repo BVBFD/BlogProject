@@ -8,6 +8,7 @@ import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 
 const Write = (props) => {
+  const [titleImg, setTitleImg] = useState("../images/empire.jpg");
   const [editorText, setEditorText] = useState("");
   const editorRef = useRef();
   const handleSubmit = (event) => {
@@ -19,6 +20,11 @@ const Write = (props) => {
   return (
     <section className={styles.write}>
       <Header />
+      {titleImg ? (
+        <div className={styles.titleImgBox}>
+          <img src={titleImg} alt="" />
+        </div>
+      ) : null}
       <form onSubmit={handleSubmit} className={styles.titleImgAddBox}>
         <div className={styles.titleInputBox}>
           <label className={styles.imgFileLabel} htmlFor="imgFileInput">
@@ -42,10 +48,11 @@ const Write = (props) => {
           previewStyle="vertical"
           height="75vh"
           initialEditType="wysiwyg"
-          useCommandShortcut={true}
           toolbarItems={[
-            ["heading", "bold", "italic"],
-            ["image"],
+            ["heading", "bold", "italic", "strike"],
+            ["hr", "quote"],
+            ["ul", "ol", "task", "indent", "outdent"],
+            ["table", "image", "link"],
             ["code", "codeblock"],
           ]}
           plugins={[colorSyntax]}

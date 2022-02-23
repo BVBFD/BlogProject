@@ -1,0 +1,77 @@
+.postPage .postBox {
+  display: flex;
+}
+
+.postPage .postBox {
+  margin: 2rem 2rem 0 2rem;
+}
+
+.postPage .postBox .postImgTextBox .postTitleImgBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+}
+
+.postPage .postBox .postImgTextBox .postTitleImgBox img {
+  width: 90%;
+  height: 18rem;
+  object-fit: cover;
+  border-radius: 0.4rem;
+}
+
+.postPage .postBox .postImgTextBox .postTextBox {
+  width: 90%;
+  margin-left: 4rem;
+  margin-top: 1.5rem;
+}
+
+.postPage .postBox .postImgTextBox .postTextBox .postHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.postPage .postBox .postImgTextBox .postTextBox .postHeader span {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.postPage .postBox .postImgTextBox .postTextBox .postHeader div {
+  position: absolute;
+  right: 0;
+}
+
+.postPage .postBox .postImgTextBox .postTextBox .postHeader div i {
+  font-size: 1.2rem;
+  margin: 0 0.5rem;
+  cursor: pointer;
+}
+
+.postPage .postBox .postImgTextBox .postTextBox .postHeader div i:nth-child(1) {
+  color: teal;
+}
+
+.postPage .postBox .postImgTextBox .postTextBox .postHeader div i:nth-child(2) {
+  color: lightcoral;
+}
+
+.postPage .postBox .postImgTextBox .postTextBox .authorAndDate {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+  color: darkgrey;
+}
+
+.postPage .postBox .postImgTextBox .postTextBox .authorAndDate p span {
+  font-weight: bolder;
+  text-transform: uppercase;
+  color: #000;
+  font-size: 1.2rem;
+}
+
+.postPage .postBox .postImgTextBox .postTextBox .postContentText {
+  font-size: 1.1rem;
+}
