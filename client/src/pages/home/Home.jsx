@@ -98,7 +98,10 @@ const Home = (props) => {
       setNum(num);
       return;
     }
-    setNum(paginationRowNum + 1);
+    Number.isInteger(endNum) === true
+      ? setNum(paginationRowNum + 1)
+      : setNum(paginationRowNum + 2);
+    // +2
     setPaginationRowNum(paginationRowNum + 5);
   };
 
@@ -108,7 +111,10 @@ const Home = (props) => {
       setPaginationRowNum(5);
       return;
     }
-    setNum(paginationRowNum - 9);
+    Number.isInteger(endNum) === true
+      ? setNum(paginationRowNum - 9)
+      : setNum(paginationRowNum - 8);
+    // -8
     setPaginationRowNum(paginationRowNum - 5);
   };
 
