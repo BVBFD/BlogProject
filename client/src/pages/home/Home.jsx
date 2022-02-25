@@ -66,25 +66,57 @@ const Home = (props) => {
     "고자냐?",
     "ㅈㄹ하지마",
     "미린넘",
-    "맛있다",
+    "아이어",
+    "프로도",
+    "배긴스",
+    "빌보",
+    "간달프",
+    "우리엘",
+    "나타샤",
+    "파드리엘",
+    "레옹",
+    "반지의",
+    "제왕",
+    "군나드",
+    "요실",
+    "궁등이",
+    "척부이",
+    "여희",
+    "여포",
+    "장비",
+    "유리",
+    "유영",
+    "유비",
+    "조조",
+    "손권",
+    "손책",
+    "아리",
+    "구리",
+    "하후돈",
+    "하후영",
+    "영포",
+    "하후리",
+    "후쿠리",
+    "여후리",
+    "막쿠리",
+    "후쿠리",
+    "야빠리",
+    "도쿠가와",
+    "야쿠자",
+    "야쿠부",
+    "축구",
+    "싸커",
+    "뉴요커",
+    "요커",
+    "유커",
+    "후커",
+    "잇커",
   ]);
   // category 클릭시 totalPosts값 변경예정!
 
   const [num, setNum] = useState(1);
   const [paginationRowNum, setPaginationRowNum] = useState(5);
-  const [endNum, setEndNum] = useState(
-    totalPosts.length % 4 === 0
-      ? totalPosts.length / 4
-      : totalPosts.length / 4 + 1
-  );
-
-  useEffect(() => {
-    setEndNum(
-      totalPosts.length % 4 === 0
-        ? totalPosts.length / 4
-        : totalPosts.length / 4 + 1
-    );
-  }, [totalPosts, endNum]);
+  const [endNum, setEndNum] = useState(totalPosts.length / 4 + 4);
 
   let selectedArray = [];
   for (let i = (num - 1) * 4; i < num * 4; i++) {
@@ -93,7 +125,6 @@ const Home = (props) => {
   selectedArray = selectedArray.filter((post) => post !== undefined);
 
   const nextPaginationNum = (e) => {
-    console.log(totalPosts.length / 4, paginationRowNum, endNum);
     if (paginationRowNum + 4 > endNum) {
       setNum(num);
       return;
@@ -101,7 +132,6 @@ const Home = (props) => {
     Number.isInteger(endNum) === true
       ? setNum(paginationRowNum + 1)
       : setNum(paginationRowNum + 2);
-    // +2
     setPaginationRowNum(paginationRowNum + 5);
   };
 
@@ -114,7 +144,6 @@ const Home = (props) => {
     Number.isInteger(endNum) === true
       ? setNum(paginationRowNum - 9)
       : setNum(paginationRowNum - 8);
-    // -8
     setPaginationRowNum(paginationRowNum - 5);
   };
 
