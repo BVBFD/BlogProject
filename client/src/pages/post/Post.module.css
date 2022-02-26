@@ -33,6 +33,20 @@
   position: relative;
 }
 
+.postPage .postBox .postImgTextBox .postTextBox .postHeader p {
+  font-size: 1rem;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.postPage .postBox .postImgTextBox .postTextBox .postHeader p span {
+  font-size: 1.2rem;
+  font-weight: bolder;
+  color: #ff3e68;
+  text-transform: capitalize;
+}
+
 .postPage .postBox .postImgTextBox .postTextBox .postHeader span {
   font-size: 2rem;
   font-weight: bold;

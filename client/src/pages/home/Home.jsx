@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "../../components/header/Header.jsx";
 import HomePost from "../../components/homePost/HomePost.jsx";
 import SidebarAboutMe from "../../components/sidebarAboutMe/SidebarAboutMe.jsx";
@@ -6,123 +7,78 @@ import styles from "./Home.module.css";
 
 const Home = (props) => {
   const [totalPosts, setTotalPosts] = useState([
-    "이거",
-    "저거",
-    "요거",
-    "??",
-    "토탈워",
-    "마리",
-    "협보",
-    "구달",
-    "소서노",
-    "유리",
-    "온조",
-    "비류",
-    "dfsaf",
-    "vcxzv",
-    "ytry",
-    "bvc",
-    "hlk",
-    "cxvn",
-    "ghgj",
-    "oiu",
-    "qpdf",
-    "nbvlk",
-    "fkdjgkf",
-    "bkcvbjlksgml",
-    "czxcsa",
-    "CVZXCV",
-    "가나",
-    "다라",
-    "조나단",
-    "병신",
-    "나는 올블랙이 좋아",
-    "까까머리",
-    "ㅍㄱㅈ",
-    "ㄻㄴㅇㄹ",
-    "ㅡㅠ푸",
-    "ㅣㅕㅑㅐㅕㅑ",
-    "ㄹㄴㅇㄹ",
-    "느끼해",
-    "사전",
-    "쿵쿵따",
-    "조심성을 모른다",
-    "그래",
-    "감히",
-    "진짜",
-    "왜",
-    "소녀시대",
-    "장난해",
-    "몰라",
-    "상표권",
-    "나다",
-    "리얼",
-    "지랄하지마",
-    "머 이병신아",
-    "이럴수가",
-    "이거 맞나",
-    "머라냐",
-    "지랄 맞네",
-    "고자냐?",
-    "ㅈㄹ하지마",
-    "미린넘",
-    "아이어",
-    "프로도",
-    "배긴스",
-    "빌보",
-    "간달프",
-    "우리엘",
-    "나타샤",
-    "파드리엘",
-    "레옹",
-    "반지의",
-    "제왕",
-    "군나드",
-    "요실",
-    "궁등이",
-    "척부이",
-    "여희",
-    "여포",
-    "장비",
-    "유리",
-    "유영",
-    "유비",
-    "조조",
-    "손권",
-    "손책",
-    "아리",
-    "구리",
-    "하후돈",
-    "하후영",
-    "영포",
-    "하후리",
-    "후쿠리",
-    "여후리",
-    "막쿠리",
-    "후쿠리",
-    "야빠리",
-    "도쿠가와",
-    "야쿠자",
-    "야쿠부",
-    "축구",
-    "싸커",
-    "뉴요커",
-    "요커",
-    "유커",
-    "후커",
-    "잇커",
+    {
+      id: 1,
+      imgUrl: "../images/kislev.jpg",
+      title: "키슬레프",
+      date: "2022 Feb 22th",
+      text: "키슬레프는 영원하다. 그렇다면 이건 어떠한가? 말이 되는가? 실험중인데 잘되길 빈다 왜 안되지? 그럼 이건 어때? 다시 한번 실험해보고 있어. 확실히 테스트 중 입니다.",
+      catName: "HTML",
+      author: "lse126",
+    },
+    {
+      id: 2,
+      imgUrl: "../images/empire.jpg",
+      title: "제국",
+      date: "2022 Feb 22th",
+      text: "제국은 영원하다. 그렇다면 이건 어떠한가? 말이 되는가? 실험중인데 잘되길 빈다 왜 안되지? 그럼 이건 어때? 다시 한번 실험해보고 있어. 확실히 테스트 중 입니다.",
+      catName: "CSS",
+      author: "lse126",
+    },
+    {
+      id: 3,
+      imgUrl: "../images/chaos.jpg",
+      title: "카오스",
+      date: "2022 Feb 22th",
+      text: "카오스는 영원하다. 그렇다면 이건 어떠한가? 말이 되는가? 실험중인데 잘되길 빈다 왜 안되지? 그럼 이건 어때? 다시 한번 실험해보고 있어. 확실히 테스트 중 입니다.",
+      catName: "JavaScript",
+      author: "lse126",
+    },
+    {
+      id: 4,
+      imgUrl: "../images/nurgle.jpeg",
+      title: "너글",
+      date: "2022 Feb 22th",
+      text: "너글은 영원하다. 그렇다면 이건 어떠한가? 말이 되는가? 실험중인데 잘되길 빈다 왜 안되지? 그럼 이건 어때? 다시 한번 실험해보고 있어. 확실히 테스트 중 입니다.",
+      catName: "React",
+      author: "lse126",
+    },
+    {
+      id: 5,
+      imgUrl: "../images/slaanesh.jpg",
+      title: "슬라네쉬",
+      date: "2022 Feb 22th",
+      text: "슬라네쉬는 영원하다. 그렇다면 이건 어떠한가? 말이 되는가? 실험중인데 잘되길 빈다 왜 안되지? 그럼 이건 어때? 다시 한번 실험해보고 있어. 확실히 테스트 중 입니다.",
+      catName: "Node JS",
+      author: "lse126",
+    },
   ]);
   // category 클릭시 totalPosts값 변경예정!
 
   const [num, setNum] = useState(1);
   const [paginationRowNum, setPaginationRowNum] = useState(5);
   const [endNum, setEndNum] = useState(totalPosts.length / 4 + 4);
+  const [sideBarAccessIndex, setSideBarAccessIndex] = useState("");
+  const [selectedPostsArray, setSelectedPostsArray] = useState([]);
+  const [homeBtnIndex, setHomeBtnIndex] = useState(false);
+
+  useEffect(() => {
+    const selectedPostsArray = totalPosts.filter(
+      (post) => post.catName === sideBarAccessIndex
+    );
+    setSelectedPostsArray(selectedPostsArray);
+    return () => setSelectedPostsArray([]);
+    // selectedPostsArray는 category 목록별 posts 글들 분류 화면에 표시
+  }, [sideBarAccessIndex, totalPosts]);
 
   let selectedArray = [];
   for (let i = (num - 1) * 4; i < num * 4; i++) {
-    selectedArray.push(totalPosts[i]);
+    !homeBtnIndex
+      ? selectedArray.push(totalPosts[i])
+      : selectedArray.push(selectedPostsArray[i]);
   }
   selectedArray = selectedArray.filter((post) => post !== undefined);
+  //selectedArray는 pagenation 번호당 화면에 보여지는 4개 포스트 글 선정
 
   const nextPaginationNum = (e) => {
     if (paginationRowNum + 4 > endNum) {
@@ -149,7 +105,7 @@ const Home = (props) => {
 
   return (
     <section className={styles.home}>
-      <Header />
+      <Header homeBtnIndex={homeBtnIndex} setHomeBtnIndex={setHomeBtnIndex} />
       <div className={styles.homeBgImg}>
         <img src="../images/cathay.jpg" alt="" />
       </div>
@@ -160,10 +116,17 @@ const Home = (props) => {
       <div className={styles.homeContentsPart}>
         <div className={styles.postsPart}>
           {selectedArray.map((post) => {
-            return <HomePost post={post} />;
+            return (
+              <Link className="link" to={`/post/${post.id}`}>
+                <HomePost post={post} />
+              </Link>
+            );
           })}
         </div>
-        <SidebarAboutMe />
+        <SidebarAboutMe
+          setSideBarAccessIndex={setSideBarAccessIndex}
+          setHomeBtnIndex={setHomeBtnIndex}
+        />
       </div>
       <ul>
         <i
@@ -179,27 +142,51 @@ const Home = (props) => {
           </li>
         ) : null}
 
-        {totalPosts.map((post) => {
-          if ((totalPosts.indexOf(post) + 1) % 4 === 0) {
-            if (
-              (totalPosts.indexOf(post) + 1) / 4 <= paginationRowNum &&
-              (totalPosts.indexOf(post) + 1) / 4 > paginationRowNum - 5
-            ) {
-              return (
-                <li
-                  className={styles.list}
-                  onClick={(e) => setNum(parseInt(e.target.innerText))}
-                >
-                  {Number.isInteger(endNum) === false
-                    ? (totalPosts.indexOf(post) + 1) / 4 + 1
-                    : (totalPosts.indexOf(post) + 1) / 4}
-                </li>
-              );
-            } else {
-              return null;
-            }
-          }
-        })}
+        {!homeBtnIndex
+          ? totalPosts.map((post) => {
+              if ((totalPosts.indexOf(post) + 1) % 4 === 0) {
+                if (
+                  (totalPosts.indexOf(post) + 1) / 4 <= paginationRowNum &&
+                  (totalPosts.indexOf(post) + 1) / 4 > paginationRowNum - 5
+                ) {
+                  return (
+                    <li
+                      className={styles.list}
+                      onClick={(e) => setNum(parseInt(e.target.innerText))}
+                    >
+                      {Number.isInteger(endNum) === false
+                        ? (totalPosts.indexOf(post) + 1) / 4 + 1
+                        : (totalPosts.indexOf(post) + 1) / 4}
+                    </li>
+                  );
+                } else {
+                  return null;
+                }
+              }
+            })
+          : selectedPostsArray.map((post) => {
+              if ((selectedPostsArray.indexOf(post) + 1) % 4 === 0) {
+                if (
+                  (selectedPostsArray.indexOf(post) + 1) / 4 <=
+                    paginationRowNum &&
+                  (selectedPostsArray.indexOf(post) + 1) / 4 >
+                    paginationRowNum - 5
+                ) {
+                  return (
+                    <li
+                      className={styles.list}
+                      onClick={(e) => setNum(parseInt(e.target.innerText))}
+                    >
+                      {Number.isInteger(endNum) === false
+                        ? (selectedPostsArray.indexOf(post) + 1) / 4 + 1
+                        : (selectedPostsArray.indexOf(post) + 1) / 4}
+                    </li>
+                  );
+                } else {
+                  return null;
+                }
+              }
+            })}
         <i
           class="fa-solid fa-circle-arrow-right"
           onClick={nextPaginationNum}

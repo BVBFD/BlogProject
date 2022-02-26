@@ -1,7 +1,14 @@
 import React from "react";
 import styles from "./SidebarAboutMe.module.css";
 
-const SidebarAboutMe = (props) => {
+const SidebarAboutMe = ({ setSideBarAccessIndex, setHomeBtnIndex }) => {
+  const setIndex = (e) => {
+    if (e.target.nodeName === "SPAN") {
+      setHomeBtnIndex(true);
+      setSideBarAccessIndex(e.target.innerText);
+    }
+  };
+
   return (
     <div className={styles.aboutMePart}>
       <header className={styles.aboutMeHeader}>About Me</header>
@@ -13,7 +20,7 @@ const SidebarAboutMe = (props) => {
         odit vitae ipsam harum!
       </p>
       <header className={styles.catHeader}>CATEGORIES</header>
-      <div className={styles.catBox}>
+      <div onClick={setIndex} className={styles.catBox}>
         <span>HTML</span>
         <span>CSS</span>
         <span>JavaScript</span>

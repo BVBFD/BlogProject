@@ -2,7 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 
-const Header = (props) => {
+const Header = ({ homeBtnIndex, setHomeBtnIndex }) => {
+  const setClickHomeBtn = () => {
+    if (!homeBtnIndex) {
+      setHomeBtnIndex(true);
+    } else {
+      setHomeBtnIndex(false);
+    }
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.socialSNSs}>
@@ -12,7 +20,7 @@ const Header = (props) => {
         <i class="fab fa-instagram-square"></i>
       </div>
       <div className={styles.pageLinks}>
-        <Link className="link" to={"/"}>
+        <Link onClick={setClickHomeBtn} className="link" to={"/"}>
           <span>HOME</span>
         </Link>
         <Link className="link" to={"/about"}>

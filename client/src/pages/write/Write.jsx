@@ -37,6 +37,16 @@ const Write = (props) => {
             autoFocus={true}
             placeholder="Title"
           />
+          <select name="Category" className={styles.selectCategory}>
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="React">React</option>
+            <option value="Node JS">Node JS</option>
+            <option value="TypeScript">TypeScript</option>
+            <option value="Game">Game</option>
+            <option value="Book">Book</option>
+          </select>
           <button type="submit" className={styles.uploadBtn}>
             Upload
           </button>

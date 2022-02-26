@@ -34,4 +34,11 @@
 
 .homePost .explains p {
   align-self: flex-start;
+  display: -webkit-box;
+  overflow: hidden;
+  line-height: 1.7;
+  max-height: 3.4em;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
 }
