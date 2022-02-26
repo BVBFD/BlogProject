@@ -1,24 +1,48 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Header from "../../components/header/Header";
+import { Context } from "../../context/context.js";
 import styles from "./Login.module.css";
 
 const Login = (props) => {
-  const [id, setId] = useState("");
-  const [pwd, setPwd] = useState("");
-
+  const { id, dispatch } = useContext(Context);
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  console.log(id);
   const idRef = useRef();
   const pwdRef = useRef();
 
   const onLogin = (event) => {
     event.preventDefault();
-    setId(idRef.current.value);
-    setPwd(pwdRef.current.value);
+    // 네트워크 통신해서 데이터 정보 받아 왔다고 가정 !!
+    dispatch({
+      type: "LOGIN_SUCCESS",
+      payload: idRef.current.value,
+    });
+    setLoginSuccess(true);
   };
+
+  loginSuccess && window.location.replace("/");
+
+  // event.preventDefault();
+  // console.log(event);
+  // dispatch({ type: "LOGIN_START" });
+  // try {
+  //   const res = await axios.post("/auth/login", {
+  //     username: userRef.current.value,
+  //     password: passwordRef.current.value,
+  //   });
+  //   dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+  //   // 괄호 () 안에 있는 {} 객체 자체가 action임, action 객체를 매개변수로 해서
+  //   // reducer에 콜백함수 전달.
+  //   // 기존 reducer에 있는 state를 변경하려면 setState격인 dispatch 콜백함수를 받고
+  //   // { type: "LOGIN_SUCCESS", payload: res.data } action 객체를 매개변수로 전달.
+  // } catch (err) {
+  //   dispatch({ type: "LOGIN_FAILURE" });
+  // }
+  // 백엔드 설립시 사용할 예제 코드
+
   // id 백엔드로 보내서 id를 비교하고, pwd bcrypt compare해서 일치하면
   // 백엔드에서 id jwt 토큰화 시켜서 전달하고 클라이언트에서는 local db에
   // 유효기간있는 토큰을 local db에 전달 저장한다.
-
-  console.log(id, pwd);
 
   return (
     <>

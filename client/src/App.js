@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
+import { Context } from "./context/context";
 import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
 import Home from "./pages/home/Home";
@@ -9,6 +10,9 @@ import Signup from "./pages/signup/Signup";
 import Write from "./pages/write/Write";
 
 const App = (props) => {
+  const { id } = useContext(Context);
+  console.log(id);
+
   return (
     <div>
       <Routes>
