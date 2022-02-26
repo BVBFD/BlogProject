@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Header from "../../components/header/Header.jsx";
 import styles from "./Write.module.css";
 import "@toast-ui/editor/dist/toastui-editor.css";
@@ -6,16 +6,27 @@ import { Editor } from "@toast-ui/react-editor";
 import "tui-color-picker/dist/tui-color-picker.css";
 import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
+import { Context } from "../../context/context.js";
 
 const Write = (props) => {
-  const [titleImg, setTitleImg] = useState("../images/empire.jpg");
+  const [title, setTitle] = useState("");
+  const [titleImg, setTitleImg] = useState();
+  const [catName, setCatName] = useState("");
+  const { id } = useContext(Context);
   const [editorText, setEditorText] = useState("");
   const editorRef = useRef();
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(editorRef.current.getInstance().getMarkdown());
-    console.log(editorRef.current.getInstance().getHTML());
+    console.log(titleImg);
+    console.log(title);
+    console.log(catName);
+    console.log(id);
+    setEditorText(editorRef.current?.getInstance().getMarkdown());
   };
+  // 백엔드에서 posts 테이블에 객체로 만들어서 post api method 이용해서 추가하기!
+
+  console.log(editorText);
+  console.log(editorRef.current?.getInstance().getHTML());
 
   return (
     <section className={styles.write}>
@@ -30,14 +41,24 @@ const Write = (props) => {
           <label className={styles.imgFileLabel} htmlFor="imgFileInput">
             <i class="fas fa-plus"></i>
           </label>
-          <input id="imgFileInput" type="file" style={{ display: "none" }} />
+          <input
+            onChange={(e) => setTitleImg(`../images/${e.target.files[0].name}`)}
+            id="imgFileInput"
+            type="file"
+            style={{ display: "none" }}
+          />
           <input
             className={styles.titleInput}
             type="text"
             autoFocus={true}
             placeholder="Title"
+            onChange={(e) => setTitle(e.target.value)}
           />
-          <select name="Category" className={styles.selectCategory}>
+          <select
+            onClick={(e) => setCatName(e.target.value)}
+            name="Category"
+            className={styles.selectCategory}
+          >
             <option value="HTML">HTML</option>
             <option value="CSS">CSS</option>
             <option value="JavaScript">JavaScript</option>

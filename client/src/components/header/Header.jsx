@@ -5,7 +5,6 @@ import styles from "./Header.module.css";
 
 const Header = ({ homeBtnIndex, setHomeBtnIndex }) => {
   const { id, dispatch } = useContext(Context);
-  console.log(id);
   const setClickHomeBtn = () => {
     if (!homeBtnIndex) {
       setHomeBtnIndex(true);

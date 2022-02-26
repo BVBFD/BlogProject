@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../components/header/Header";
 import styles from "./Contact.module.css";
 
 const Contact = (props) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
+  const [message, setMessage] = useState("");
+
+  const onSendEmail = (event) => {
+    event.preventDefault();
+    console.log(name);
+    console.log(email);
+    console.log(number);
+    console.log(message);
+  };
+  // email 테이블에 post 메서드 이용해서 백엔드에 추가하기!
+
   return (
     <>
       <Header />
@@ -18,17 +32,32 @@ const Contact = (props) => {
               loading="lazy"
             ></iframe>
           </div>
-          <div className={styles.infoBox}>
+          <form onSubmit={onSendEmail} className={styles.infoBox}>
             <label>Name</label>
-            <input type="text" placeholder="Enter your name..." />
+            <input
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+              placeholder="Enter your name..."
+            />
             <label>Email</label>
-            <input type="email" placeholder="Enter your Email..." />
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              placeholder="Enter your Email..."
+            />
             <label>Number</label>
-            <input type="number" placeholder="Enter your Number..." />
+            <input
+              onChange={(e) => setNumber(e.target.value)}
+              type="number"
+              placeholder="Enter your Number..."
+            />
             <label>Message</label>
-            <textarea placeholder="Type your message to me..."></textarea>
-            <button>Send Message</button>
-          </div>
+            <textarea
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Type your message to me..."
+            ></textarea>
+            <button type="submit">Send Message</button>
+          </form>
         </div>
       </section>
     </>
