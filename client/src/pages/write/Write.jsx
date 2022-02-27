@@ -22,9 +22,9 @@ const Write = (props) => {
     console.log(catName);
     console.log(id);
     setEditorText(editorRef.current?.getInstance().getMarkdown());
+    console.log(editorText);
   };
   // 백엔드에서 posts 테이블에 객체로 만들어서 post api method 이용해서 추가하기!
-
   console.log(editorText);
   console.log(editorRef.current?.getInstance().getHTML());
 
