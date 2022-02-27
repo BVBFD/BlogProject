@@ -6,6 +6,9 @@ import morgan from "morgan";
 import postsDataRouter from "./routes/postsDataRouter.js";
 import loginDatasRouter from "./routes/loginDatasRouter.js";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
@@ -31,10 +34,10 @@ app.use((error, req, res, next) => {
   res.sendStatus(500);
 });
 
-// mongoose
-//   .connect()
-//   .then(() => console.log("Mongo DB Start!"))
-//   .catch((err) => console.error(err));
+mongoose
+  .connect(process.env.MONGO_DB_URL)
+  .then(() => console.log("Mongo DB Start!"))
+  .catch((err) => console.error(err));
 
 app.listen("5000", () => {
   console.log("Backend is running check!");
