@@ -3,8 +3,7 @@ import Reducer from "./reducer.js";
 
 const initialLoginData = {
   id: JSON.parse(localStorage.getItem("id")) || null,
-  isFetching: false,
-  error: false,
+  token: JSON.parse(localStorage.getItem("token")) || null,
 };
 
 export const Context = createContext(initialLoginData);
@@ -14,14 +13,14 @@ export const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("id", JSON.stringify(state.id));
+    localStorage.setItem("token", JSON.stringify(state.token));
   }, [state.id]);
 
   return (
     <Context.Provider
       value={{
         id: state.id,
-        isFetching: state.isFetching,
-        error: state.error,
+        token: state.token,
         dispatch,
       }}
     >

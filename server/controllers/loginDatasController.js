@@ -36,9 +36,9 @@ export const signUp = async (req, res, next) => {
       userId: req.body.userId,
       password: hashedPwd,
       email: req.body.email,
+      profilePic: req.body.profilePic,
     });
     const savedNewLoginData = await newLoginData.save();
-    console.log(savedNewLoginData);
     const { password, ...data } = savedNewLoginData._doc;
     const token = createJwtToken(data);
     res.status(201).json({ data, token });

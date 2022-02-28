@@ -1,7 +1,8 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import Header from "../../components/header/Header";
 import styles from "./Signup.module.css";
 import { Context } from "../../context/context.js";
+import axios from "axios";
 
 const Signup = (props) => {
   const [id, setId] = useState("");
@@ -10,13 +11,52 @@ const Signup = (props) => {
   const { dispatch } = useContext(Context);
   const [loginSuccess, setLoginSuccess] = useState(false);
 
-  const onSignUp = (event) => {
+  const onSignUp = async (event) => {
     event.preventDefault();
-    console.log(id, email.pwd);
-    dispatch({
-      type: "LOGIN_SUCCESS",
-      payload: id,
-    });
+    // 기존 APIs request 문법!
+    // try {
+    //   const response = await fetch(`http://localhost:5000/loginDatas/signup`, {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({
+    //       userId: id,
+    //       password: pwd,
+    //       email: email,
+    //       profilePic: "",
+    //     }),
+    //   });
+    //   const data = await response.json();
+    //   console.log(data);
+    //   dispatch({
+    //     type: "LOGIN_SUCCESS",
+    //     payload: {
+    //       userId: data.data.userId,
+    //       token: data.token,
+    //     },
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    // }
+
+    // axios 라이브러리 사용!
+    try {
+      const res = await axios.post(`http://localhost:5000/loginDatas/signup`, {
+        userId: id,
+        password: pwd,
+        email: email,
+        profilePic: "",
+      });
+      console.log(res.data.data.userId, res.data.token);
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: {
+          userId: res.data.data.userId,
+          token: res.data.token,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
     setLoginSuccess(true);
   };
   // 서버 api로 validator 라이브러리 유효성 검사, 서버에서 비밀번호 bcrypt 암호화해서 검사,
@@ -44,18 +84,18 @@ const Signup = (props) => {
         <div className={styles.emailBox}>
           <span>Email</span>
           <input
-            type="text"
+            type="email"
             autoFocus
-            placeholder="Enter your ID"
+            placeholder="Enter your Email"
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className={styles.pwdBox}>
           <span>Password</span>
           <input
-            type="text"
+            type="password"
             onChange={(e) => setPwd(e.target.value)}
-            placeholder="Enter your password"
+            placeholder="Enter your Password"
           />
         </div>
         <button type="submit">Sign-up</button>
