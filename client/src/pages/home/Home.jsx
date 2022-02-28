@@ -8,8 +8,6 @@ import styles from "./Home.module.css";
 
 const Home = (props) => {
   const [totalPosts, setTotalPosts] = useState([]);
-  // category 클릭시 totalPosts값 변경예정!
-
   const [num, setNum] = useState(1);
   const [paginationRowNum, setPaginationRowNum] = useState(5);
   const [endNum, setEndNum] = useState(totalPosts.length / 4 + 4);
@@ -33,6 +31,7 @@ const Home = (props) => {
     // axios 라이브러리 사용!
     try {
       const res = await axios.get(`http://localhost:5000/posts`);
+      console.log(res.data);
       setTotalPosts(res.data);
     } catch (err) {
       console.log(err);
@@ -107,6 +106,7 @@ const Home = (props) => {
         <SidebarAboutMe
           setSideBarAccessIndex={setSideBarAccessIndex}
           setHomeBtnIndex={setHomeBtnIndex}
+          setNum={setNum}
         />
       </div>
       <ul>
@@ -114,7 +114,8 @@ const Home = (props) => {
           class="fa-solid fa-circle-arrow-left"
           onClick={previousPaginationNum}
         ></i>
-        {paginationRowNum === 5 && Number.isInteger(endNum) === false ? (
+        {paginationRowNum === 5 &&
+        Number.isInteger(endNum) === (homeBtnIndex ? false : true) ? (
           <li
             className={styles.list}
             onClick={(e) => setNum(parseInt(e.target.innerText))}
@@ -135,7 +136,8 @@ const Home = (props) => {
                       className={styles.list}
                       onClick={(e) => setNum(parseInt(e.target.innerText))}
                     >
-                      {Number.isInteger(endNum) === false
+                      {Number.isInteger(endNum) ===
+                      (homeBtnIndex ? false : true)
                         ? (totalPosts.indexOf(post) + 1) / 4 + 1
                         : (totalPosts.indexOf(post) + 1) / 4}
                     </li>

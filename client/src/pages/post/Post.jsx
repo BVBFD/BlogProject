@@ -10,6 +10,10 @@ const Post = (props) => {
   const location = useLocation();
   const param = useParams();
 
+  const inputText = () => {
+    return { __html: `${post.text}` };
+  };
+
   useEffect(async () => {
     console.log(location.pathname, param.id);
     // 기존 APIs request 문법!
@@ -21,8 +25,13 @@ const Post = (props) => {
     // setPost(data);
 
     // axios 라이브러리 사용!
-    const res = await axios.get(`http://localhost:5000/posts/${param.id}`);
-    setPost(res.data);
+
+    try {
+      const res = await axios.get(`http://localhost:5000/posts/${param.id}`);
+      setPost(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   }, [location, param]);
 
   return (
@@ -50,8 +59,11 @@ const Post = (props) => {
               </p>
               <span>{new Date(post.createdAt).toDateString()}</span>
             </div>
-            <div className={styles.postContentText}>
-              <p>{post.text}</p>
+            <div
+              className={styles.postContentText}
+              dangerouslySetInnerHTML={inputText()}
+            >
+              {/* <p>{post.text}</p> */}
             </div>
           </div>
         </div>

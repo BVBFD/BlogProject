@@ -7,33 +7,105 @@ import "tui-color-picker/dist/tui-color-picker.css";
 import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import { Context } from "../../context/context.js";
+import axios from "axios";
 
 const Write = (props) => {
   const [title, setTitle] = useState("");
   const [titleImg, setTitleImg] = useState();
-  const [catName, setCatName] = useState("");
+  const [writePageImgURL, setWritePageImgURL] = useState("");
+  const [catName, setCatName] = useState("HTML");
   const { id } = useContext(Context);
   const [editorText, setEditorText] = useState("");
   const editorRef = useRef();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(titleImg);
-    console.log(title);
-    console.log(catName);
-    console.log(id);
-    setEditorText(editorRef.current?.getInstance().getMarkdown());
-    console.log(editorText);
+
+  const selectImg = async (e) => {
+    // 기존 APIs request 문법!
+    // setTitleImg(e.target.files[0]);
+    // if (e.target.files[0]) {
+    //   const data = new FormData();
+    //   const filename = `${Date.now()}${e.target.files[0].name}`;
+    //   console.log(filename);
+    //   console.log(e.target.files[0]);
+    //   data.append("name", filename);
+    //   data.append("file", e.target.files[0]);
+    //   try {
+    //     const response = await fetch(`http://localhost:5000/pic/upload`, {
+    //       method: "POST",
+    //       body: data,
+    //     });
+    //     const updatedPicURL = await response.json();
+    //     setWritePageImgURL(updatedPicURL);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // }
+
+    // axios 라이브러리 사용!
+    setTitleImg(e.target.files[0]);
+    if (e.target.files[0]) {
+      const data = new FormData();
+      const filename = `${Date.now()}${e.target.files[0].name}`;
+      data.append("name", filename);
+      data.append("file", e.target.files[0]);
+      try {
+        const res = await axios.post(`http://localhost:5000/pic/upload`, data);
+        setWritePageImgURL(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
-  // 백엔드에서 posts 테이블에 객체로 만들어서 post api method 이용해서 추가하기!
-  console.log(editorText);
-  console.log(editorRef.current?.getInstance().getHTML());
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // 기존 APIs request 문법!
+    // try {
+    //   const response = await fetch(`http://localhost:5000/posts`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       imgUrl: writePageImgURL,
+    //       title: title,
+    //       text: editorText,
+    //       catName: catName,
+    //       author: id,
+    //     }),
+    //   });
+    //   const data = await response.json();
+    //   window.location.replace(
+    //     `http://localhost:3000/post/${data.savedNewPost._id}`
+    //   );
+    // } catch (err) {
+    //   console.log(err);
+    // }
+
+    // axios 라이브러리 사용!
+    try {
+      const res = await axios.post(`http://localhost:5000/posts`, {
+        imgUrl: writePageImgURL,
+        title: title,
+        text: editorText,
+        catName: catName,
+        author: id,
+      });
+      window.location.replace(
+        `http://localhost:3000/post/${res.data.savedNewPost?._id}`
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // console.log(editorRef.current?.getInstance().getHTML());
 
   return (
     <section className={styles.write}>
       <Header />
       {titleImg ? (
         <div className={styles.titleImgBox}>
-          <img src={titleImg} alt="" />
+          <img src={writePageImgURL} alt="" />
         </div>
       ) : null}
       <form onSubmit={handleSubmit} className={styles.titleImgAddBox}>
@@ -42,7 +114,7 @@ const Write = (props) => {
             <i class="fas fa-plus"></i>
           </label>
           <input
-            onChange={(e) => setTitleImg(`../images/${e.target.files[0].name}`)}
+            onChange={selectImg}
             id="imgFileInput"
             type="file"
             style={{ display: "none" }}
@@ -55,7 +127,7 @@ const Write = (props) => {
             onChange={(e) => setTitle(e.target.value)}
           />
           <select
-            onClick={(e) => setCatName(e.target.value)}
+            onChange={(e) => setCatName(e.target.value)}
             name="Category"
             className={styles.selectCategory}
           >
@@ -75,6 +147,9 @@ const Write = (props) => {
         <Editor
           className={styles.editor}
           ref={editorRef}
+          onChange={() =>
+            setEditorText(editorRef.current?.getInstance().getHTML())
+          }
           initialValue=""
           previewStyle="vertical"
           height="75vh"

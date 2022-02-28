@@ -7,12 +7,18 @@ import postsDataRouter from "./routes/postsDataRouter.js";
 import loginDatasRouter from "./routes/loginDatasRouter.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import multer from "multer";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
 const app = express();
-
 app.use(express.json());
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+app.use("/images", express.static(path.join(__dirname, "/image")));
+
 app.use(helmet());
 app.use(cors());
 app.use(morgan("tiny"));
@@ -20,6 +26,20 @@ app.use(morgan("tiny"));
 app.get("/lee", (req, res, next) => {
   console.log("Hey this is initial test code!");
   return res.status(200).send(console.log("Success!"));
+});
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "image");
+  },
+  filename: (req, file, cb) => {
+    cb(null, req.body.name);
+  },
+});
+
+const upload = multer({ storage: storage });
+app.post("/pic/upload", upload.single("file"), (req, res, next) => {
+  res.status(200).json(`http://localhost:5000/images/${req.body.name}`);
 });
 
 app.use("/posts", postsDataRouter);

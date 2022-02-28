@@ -32,8 +32,11 @@
   margin: 0.3rem 0;
 }
 
-.homePost .explains p {
+.homePost .explains div {
   align-self: flex-start;
+}
+
+.homePost .explains div p {
   display: -webkit-box;
   overflow: hidden;
   line-height: 1.7;

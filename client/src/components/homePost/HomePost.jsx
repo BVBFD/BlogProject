@@ -2,6 +2,10 @@ import React from "react";
 import styles from "./HomePost.module.css";
 
 const HomePost = ({ post }) => {
+  const inputText = () => {
+    return { __html: `${post.text}` };
+  };
+
   return (
     <div className={styles.homePost}>
       <div className={styles.imgBox}>
@@ -12,7 +16,7 @@ const HomePost = ({ post }) => {
         <span className={styles.date}>
           {new Date(post.updatedAt).toDateString()}
         </span>
-        <p>{post.text}</p>
+        <div dangerouslySetInnerHTML={inputText()}></div>
       </div>
     </div>
   );

@@ -7,10 +7,11 @@ const Header = ({ homeBtnIndex, setHomeBtnIndex }) => {
   const { id, dispatch } = useContext(Context);
   const setClickHomeBtn = () => {
     if (!homeBtnIndex) {
-      setHomeBtnIndex(true);
-    } else {
       setHomeBtnIndex(false);
+    } else {
+      setHomeBtnIndex(true);
     }
+    window.location.replace("/");
   };
 
   const onLogout = () => {
