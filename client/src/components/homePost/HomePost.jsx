@@ -9,7 +9,9 @@ const HomePost = ({ post }) => {
       </div>
       <div className={styles.explains}>
         <span className={styles.title}>{post.title}</span>
-        <span className={styles.date}>{post.date}</span>
+        <span className={styles.date}>
+          {new Date(post.updatedAt).toDateString()}
+        </span>
         <p>{post.text}</p>
       </div>
     </div>
