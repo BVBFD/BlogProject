@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import Header from "../../components/header/Header";
 import { Context } from "../../context/context.js";
 import styles from "./Login.module.css";
+import axios from "axios";
 
 const Login = (props) => {
   const { id, dispatch } = useContext(Context);
@@ -10,13 +11,44 @@ const Login = (props) => {
   const idRef = useRef();
   const pwdRef = useRef();
 
-  const onLogin = (event) => {
+  const onLogin = async (event) => {
     event.preventDefault();
-    // 네트워크 통신해서 데이터 정보 받아 왔다고 가정 !!
-    dispatch({
-      type: "LOGIN_SUCCESS",
-      payload: idRef.current.value,
-    });
+    try {
+      // 기존 APIs request 문법!
+      // const response = await fetch(`http://localhost:5000/loginDatas/login`, {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({
+      //     userId: idRef.current.value,
+      //     password: pwdRef.current.value,
+      //   }),
+      // });
+      // const data = await response.json();
+      // console.log(data.sendLoginData.userId, data.token);
+      // dispatch({
+      //   type: "LOGIN_SUCCESS",
+      //   payload: {
+      //     userId: data.sendLoginData.userId,
+      //     token: data.token,
+      //   },
+      // });
+
+      // axios 라이브러리 사용!
+      const res = await axios.post(`http://localhost:5000/loginDatas/login`, {
+        userId: idRef.current.value,
+        password: pwdRef.current.value,
+      });
+      console.log(res.data.sendLoginData.userId, res.data.token);
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: {
+          userId: res.data.sendLoginData.userId,
+          token: res.data.token,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
     setLoginSuccess(true);
   };
 
@@ -62,7 +94,11 @@ const Login = (props) => {
         </div>
         <div className={styles.pwdBox}>
           <span>Password</span>
-          <input ref={pwdRef} type="text" placeholder="Enter your password" />
+          <input
+            ref={pwdRef}
+            type="password"
+            placeholder="Enter your password"
+          />
         </div>
         <button type="submit">login</button>
       </form>
