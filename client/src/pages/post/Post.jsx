@@ -4,11 +4,14 @@ import styles from "./Post.module.css";
 import SidebarAboutMe from "../../components/sidebarAboutMe/SidebarAboutMe.jsx";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
+import Write from "../write/Write";
+import { Context } from "../../context/context";
 
 const Post = (props) => {
   const [post, setPost] = useState({});
   const location = useLocation();
   const param = useParams();
+  const [editBtnIndex, setEditBtnIndex] = useState(false);
 
   const inputText = () => {
     return { __html: `${post.text}` };
@@ -36,39 +39,53 @@ const Post = (props) => {
 
   return (
     <section className={styles.postPage}>
-      <Header />
-      <div className={styles.postBox}>
-        <div className={styles.postImgTextBox}>
-          <div className={styles.postTitleImgBox}>
-            <img src={post.imgUrl} alt="" />
-          </div>
-          <div className={styles.postTextBox}>
-            <header className={styles.postHeader}>
-              <p>
-                Category: <span>{post.catName}</span>
-              </p>
-              <span>{post.title}</span>
-              <div>
-                <i class="fa-solid fa-pen-to-square"></i>
-                <i class="fa-solid fa-trash"></i>
+      {!editBtnIndex ? (
+        <>
+          <Header />
+          <div className={styles.postBox}>
+            <div className={styles.postImgTextBox}>
+              <div className={styles.postTitleImgBox}>
+                <img src={post.imgUrl} alt="" />
               </div>
-            </header>
-            <div className={styles.authorAndDate}>
-              <p>
-                Author: <span>{post.author}</span>
-              </p>
-              <span>{new Date(post.createdAt).toDateString()}</span>
-            </div>
-            <div
-              className={styles.postContentText}
-              dangerouslySetInnerHTML={inputText()}
-            >
-              {/* <p>{post.text}</p> */}
+              <div className={styles.postTextBox}>
+                <header className={styles.postHeader}>
+                  <p>
+                    Category: <span>{post.catName}</span>
+                  </p>
+                  <span>{post.title}</span>
+                  <div>
+                    <i
+                      onClick={() => {
+                        if (!editBtnIndex) {
+                          setEditBtnIndex(true);
+                        } else {
+                          setEditBtnIndex(false);
+                        }
+                      }}
+                      class="fa-solid fa-pen-to-square"
+                    ></i>
+                    <i class="fa-solid fa-trash"></i>
+                  </div>
+                </header>
+                <div className={styles.authorAndDate}>
+                  <p>
+                    Author: <span>{post.author}</span>
+                  </p>
+                  <span>{new Date(post.createdAt).toDateString()}</span>
+                </div>
+                <div
+                  className={styles.postContentText}
+                  dangerouslySetInnerHTML={inputText()}
+                >
+                  {/* <p>{post.text}</p> */}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <SidebarAboutMe />
-      </div>
+        </>
+      ) : (
+        <Write />
+      )}
     </section>
   );
 };

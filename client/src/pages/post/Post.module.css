@@ -11,14 +11,13 @@
   justify-content: center;
   align-items: center;
   height: fit-content;
-  width: 70vw;
+  width: 95vw;
 }
 
 .postPage .postBox .postImgTextBox .postTitleImgBox img {
   width: 95%;
   height: 25rem;
-  object-fit: cover;
-  object-position: center;
+  object-fit: fill;
   border-radius: 0.4rem;
 }
 
@@ -90,6 +89,7 @@
 
 .postPage .postBox .postImgTextBox .postTextBox .postContentText {
   font-size: 1.1rem;
+  margin-bottom: 2rem;
 }
 
 .postPage .postBox .postImgTextBox .postTextBox .postContentText img {

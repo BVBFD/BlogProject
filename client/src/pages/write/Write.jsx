@@ -8,8 +8,9 @@ import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import { Context } from "../../context/context.js";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const Write = (props) => {
+const Write = () => {
   const [title, setTitle] = useState("");
   const [titleImg, setTitleImg] = useState();
   const [writePageImgURL, setWritePageImgURL] = useState("");
@@ -17,6 +18,28 @@ const Write = (props) => {
   const { id } = useContext(Context);
   const [editorText, setEditorText] = useState("");
   const editorRef = useRef();
+  const param = useParams();
+  const [postForEdit, setPostForEdit] = useState({});
+
+  console.log(param.id);
+
+  useEffect(async () => {
+    if (param.id) {
+      const response = await axios.get(
+        `http://localhost:5000/posts/${param.id}`
+      );
+      console.log(response.data);
+      setTitleImg(true);
+      setPostForEdit(response.data);
+      setTitle(response.data.title);
+      setWritePageImgURL(response.data.imgUrl);
+      setCatName(response.data.catName);
+      setEditorText(response.data.text);
+    }
+    return () => setTitleImg();
+  }, [param.id]);
+
+  console.log(title, writePageImgURL, catName, editorText);
 
   useEffect(() => {
     if (editorRef.current) {
@@ -146,17 +169,51 @@ const Write = (props) => {
     }
   };
 
-  // console.log(editorRef.current?.getInstance().getHTML());
+  const handleEdit = async (event) => {
+    event.preventDefault();
+    console.log(param.id, param.id === true);
+    console.log(postForEdit);
+    console.log({
+      imgUrl: writePageImgURL,
+      title: title,
+      text: editorText,
+      catName: catName,
+      author: id,
+    });
 
+    // 기존 APIs request 문법!
+    try {
+      await fetch(`http://localhost:5000/posts/${param.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          imgUrl: writePageImgURL,
+          title: title,
+          text: editorText,
+          catName: catName,
+          author: id,
+        }),
+      });
+      window.location.replace(`/post/${param.id}`);
+    } catch (err) {
+      console.log(err);
+    }
+    // axios 라이브러리 사용!
+  };
+
+  // console.log(editorRef.current?.getInstance().getHTML());
   return (
     <section className={styles.write}>
       <Header />
       {titleImg ? (
         <div className={styles.titleImgBox}>
-          <img src={writePageImgURL} alt="" />
+          <img src={param.id ? postForEdit.imgUrl : writePageImgURL} alt="" />
         </div>
       ) : null}
-      <form onSubmit={handleSubmit} className={styles.titleImgAddBox}>
+      <form
+        onSubmit={param.id === false ? handleSubmit : handleEdit}
+        className={styles.titleImgAddBox}
+      >
         <div className={styles.titleInputBox}>
           <label className={styles.imgFileLabel} htmlFor="imgFileInput">
             <i class="fas fa-plus"></i>
@@ -173,11 +230,13 @@ const Write = (props) => {
             autoFocus={true}
             placeholder="Title"
             onChange={(e) => setTitle(e.target.value)}
+            defaultValue={param.id ? postForEdit.title : ""}
           />
           <select
             onChange={(e) => setCatName(e.target.value)}
             name="Category"
             className={styles.selectCategory}
+            defaultValue={param.id ? postForEdit.catName : "HTML"}
           >
             <option value="HTML">HTML</option>
             <option value="CSS">CSS</option>
@@ -192,13 +251,15 @@ const Write = (props) => {
             Upload
           </button>
         </div>
+        {console.log(postForEdit.text)}
+        {console.log(postForEdit?.text)}
         <Editor
           className={styles.editor}
           ref={editorRef}
           onChange={() =>
             setEditorText(editorRef.current?.getInstance().getHTML())
           }
-          initialValue=""
+          initialValue="글 수정은 아래 원본 Markdown을 Markdown 편집기에 복사 붙여넣기 해주세요"
           previewStyle="vertical"
           height="75vh"
           initialEditType="wysiwyg"
@@ -211,6 +272,17 @@ const Write = (props) => {
           ]}
           plugins={[colorSyntax]}
         />
+        {param.id && (
+          <input
+            style={{
+              width: "100%",
+              padding: "1.2rem",
+              backgroundColor: "#999",
+              color: "#fff",
+            }}
+            value={postForEdit.text}
+          ></input>
+        )}
       </form>
     </section>
   );
