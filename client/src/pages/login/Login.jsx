@@ -38,12 +38,14 @@ const Login = (props) => {
         userId: idRef.current.value,
         password: pwdRef.current.value,
       });
-      console.log(res.data.sendLoginData.userId, res.data.token);
+      console.log(res.data);
       dispatch({
         type: "LOGIN_SUCCESS",
         payload: {
           userId: res.data.sendLoginData.userId,
           token: res.data.token,
+          profilePic: res.data.sendLoginData.profilePic,
+          email: res.data.sendLoginData.email,
         },
       });
     } catch (err) {

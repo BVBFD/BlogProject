@@ -46,3 +46,71 @@ export const signUp = async (req, res, next) => {
     res.status(409).json("This Id already existed!");
   }
 };
+
+export const update = async (req, res, next) => {
+  console.log(req.body.password === undefined);
+  if (req.body.password !== undefined) {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPwd = await bcrypt.hash(req.body.password, salt);
+    const foundOriginData = await LoginDatasModel.findOne({
+      userId: req.body.userId,
+    });
+    !foundOriginData && res.status(401).send("You can only set your own data!");
+    try {
+      const updatedLoginData = await LoginDatasModel.findByIdAndUpdate(
+        foundOriginData.id,
+        {
+          userId: req.body.updatedId,
+          password: hashedPwd,
+          email: req.body.email,
+          profilePic: req.body.profilePic,
+        },
+        { returnOriginal: false }
+      );
+      const { password, ...sendUpdatedLoginData } = updatedLoginData._doc;
+      const token = createJwtToken(sendUpdatedLoginData);
+      res.status(201).json({ sendUpdatedLoginData, token });
+    } catch (err) {
+      res.status(401).send(err);
+    }
+  } else {
+    const foundOriginData = await LoginDatasModel.findOne({
+      userId: req.body.userId,
+    });
+    !foundOriginData && res.status(401).send("You can only set your own data!");
+    try {
+      const updatedLoginData = await LoginDatasModel.findByIdAndUpdate(
+        foundOriginData.id,
+        {
+          userId: req.body.updatedId,
+          email: req.body.email,
+          profilePic: req.body.profilePic,
+        },
+        { returnOriginal: false }
+      );
+      const { password, ...sendUpdatedLoginData } = updatedLoginData._doc;
+      const token = createJwtToken(sendUpdatedLoginData);
+      res.status(201).json({ sendUpdatedLoginData, token });
+    } catch (err) {
+      res.status(401).send(err);
+    }
+  }
+};
+
+export const remove = async (req, res, next) => {
+  try {
+    console.log(req.body.userId);
+    const foundUserData = await LoginDatasModel.findOne({
+      userId: req.body.userId,
+    });
+    !foundUserData && res.status(400).json("Bad request!");
+    if (req.body.userId === foundUserData.userId) {
+      foundUserData.delete();
+      res.status(204).json("UserData has been deleted!");
+    } else {
+      res.status(401).json("You can delete own your login data!");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};

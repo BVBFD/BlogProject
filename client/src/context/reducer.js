@@ -4,12 +4,16 @@ const Reducer = (state, action) => {
       return {
         id: action.payload.userId,
         token: action.payload.token,
+        profilePic: action.payload.profilePic,
+        email: action.payload.email,
       };
 
     case "LOGOUT":
       return {
         id: null,
         token: null,
+        profilePic: null,
+        email: null,
       };
 
     default:
