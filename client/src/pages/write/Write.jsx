@@ -182,23 +182,36 @@ const Write = () => {
     });
 
     // 기존 APIs request 문법!
+    // try {
+    //   await fetch(`http://localhost:5000/posts/${param.id}`, {
+    //     method: "PUT",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({
+    //       imgUrl: writePageImgURL,
+    //       title: title,
+    //       text: editorText,
+    //       catName: catName,
+    //       author: id,
+    //     }),
+    //   });
+    //   window.location.replace(`/post/${param.id}`);
+    // } catch (err) {
+    //   console.log(err);
+    // }
+
+    // axios 라이브러리 사용!
     try {
-      await fetch(`http://localhost:5000/posts/${param.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          imgUrl: writePageImgURL,
-          title: title,
-          text: editorText,
-          catName: catName,
-          author: id,
-        }),
+      await axios.put(`http://localhost:5000/posts/${param.id}`, {
+        imgUrl: writePageImgURL,
+        title: title,
+        text: editorText,
+        catName: catName,
+        author: id,
       });
       window.location.replace(`/post/${param.id}`);
     } catch (err) {
       console.log(err);
     }
-    // axios 라이브러리 사용!
   };
 
   // console.log(editorRef.current?.getInstance().getHTML());
@@ -211,7 +224,7 @@ const Write = () => {
         </div>
       ) : null}
       <form
-        onSubmit={param.id === false ? handleSubmit : handleEdit}
+        onSubmit={param.id === undefined ? handleSubmit : handleEdit}
         className={styles.titleImgAddBox}
       >
         <div className={styles.titleInputBox}>

@@ -101,7 +101,7 @@
   .postImgTextBox
   .postTextBox
   .postContentText
-  p::first-letter {
+  p:nth-child(1)::first-letter {
   font-size: 1.8rem;
   font-weight: bolder;
   color: #666;

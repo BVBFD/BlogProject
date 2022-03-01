@@ -36,7 +36,12 @@
   align-self: flex-start;
 }
 
-.homePost .explains div img {
+.homePost .explains div img,
+.homePost .explains div br,
+.homePost .explains div strong,
+.homePost .explains div h1,
+.homePost .explains div h2,
+.homePost .explains div h3 {
   display: none;
 }
 
