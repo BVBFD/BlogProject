@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Header from "../../components/header/Header.jsx";
 import styles from "./Write.module.css";
 import "@toast-ui/editor/dist/toastui-editor.css";
@@ -17,6 +17,54 @@ const Write = (props) => {
   const { id } = useContext(Context);
   const [editorText, setEditorText] = useState("");
   const editorRef = useRef();
+
+  useEffect(() => {
+    if (editorRef.current) {
+      // 기존에 Image 를 Import 하는 Hook을 제거한다.
+      editorRef.current.getInstance().removeHook("addImageBlobHook");
+
+      // 새롭게 Image 를 Import 하는 Hook을 생성한다.
+      editorRef.current
+        .getInstance()
+        .addHook("addImageBlobHook", (blob, callback) => {
+          (async () => {
+            console.log(blob.name);
+            let formData = new FormData();
+            let fileName = `${Date.now()}${blob.name}`;
+            console.log(formData, fileName);
+            formData.append("name", fileName);
+            formData.append("file", blob);
+
+            console.log("이미지가 업로드 됐습니다.");
+
+            try {
+              // 기존 APIs request 문법!
+              // const response = await fetch(`http://localhost:5000/pic/upload`, {
+              //   method: "POST",
+              //   body: formData,
+              // });
+              // const updatedPicURL = await response.json();
+              // const imageUrl = updatedPicURL;
+
+              // axios 라이브러리 사용!
+              const res = await axios.post(
+                `http://localhost:5000/pic/upload`,
+                formData
+              );
+              const imageUrl = res.data;
+
+              callback(imageUrl, "image");
+            } catch (err) {
+              console.log(err);
+            }
+          })();
+
+          return false;
+        });
+    }
+
+    return () => {};
+  }, [editorRef]);
 
   const selectImg = async (e) => {
     // 기존 APIs request 문법!
