@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Header from "../../components/header/Header";
 import styles from "./Post.module.css";
-import SidebarAboutMe from "../../components/sidebarAboutMe/SidebarAboutMe.jsx";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import Write from "../write/Write";
@@ -30,7 +29,9 @@ const Post = (props) => {
 
     // axios 라이브러리 사용!
     try {
-      const res = await axios.get(`http://localhost:5000/posts/${param.id}`);
+      const res = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/posts/${param.id}`
+      );
       setPost(res.data);
     } catch (err) {
       console.log(err);
@@ -53,9 +54,12 @@ const Post = (props) => {
 
     // axios 라이브러리 사용!
     try {
-      await axios.delete(`http://localhost:5000/posts/${param.id}`, {
-        data: { author: id },
-      });
+      await axios.delete(
+        `${process.env.REACT_APP_BASE_URL}/posts/${param.id}`,
+        {
+          data: { author: id },
+        }
+      );
       window.location.replace("/");
     } catch (err) {
       console.log(err);

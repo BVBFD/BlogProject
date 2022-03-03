@@ -26,7 +26,7 @@ const Write = () => {
   useEffect(async () => {
     if (param.id) {
       const response = await axios.get(
-        `http://localhost:5000/posts/${param.id}`
+        `${process.env.REACT_APP_BASE_URL}/posts/${param.id}`
       );
       console.log(response.data);
       setTitleImg(true);
@@ -71,7 +71,7 @@ const Write = () => {
 
               // axios 라이브러리 사용!
               const res = await axios.post(
-                `http://localhost:5000/pic/upload`,
+                `${process.env.REACT_APP_BASE_URL}/pic/upload`,
                 formData
               );
               const imageUrl = res.data;
@@ -119,7 +119,10 @@ const Write = () => {
       data.append("name", filename);
       data.append("file", e.target.files[0]);
       try {
-        const res = await axios.post(`http://localhost:5000/pic/upload`, data);
+        const res = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/pic/upload`,
+          data
+        );
         setWritePageImgURL(res.data);
       } catch (err) {
         console.log(err);
@@ -154,16 +157,14 @@ const Write = () => {
 
     // axios 라이브러리 사용!
     try {
-      const res = await axios.post(`http://localhost:5000/posts`, {
+      const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts`, {
         imgUrl: writePageImgURL,
         title: title,
         text: editorText,
         catName: catName,
         author: id,
       });
-      window.location.replace(
-        `http://localhost:3000/post/${res.data.savedNewPost?._id}`
-      );
+      window.location.replace(`/post/${res.data.savedNewPost?._id}`);
     } catch (err) {
       console.log(err);
     }
@@ -201,7 +202,7 @@ const Write = () => {
 
     // axios 라이브러리 사용!
     try {
-      await axios.put(`http://localhost:5000/posts/${param.id}`, {
+      await axios.put(`${process.env.REACT_APP_BASE_URL}/posts/${param.id}`, {
         imgUrl: writePageImgURL,
         title: title,
         text: editorText,

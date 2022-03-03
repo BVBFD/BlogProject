@@ -20,7 +20,10 @@ const Setting = (props) => {
       data.append("name", filename);
       data.append("file", e.target.files[0]);
       try {
-        const res = await axios.post(`http://localhost:5000/pic/upload`, data);
+        const res = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/pic/upload`,
+          data
+        );
         setNewProfileImgURL(res.data);
       } catch (err) {
         console.log(err);
@@ -33,7 +36,7 @@ const Setting = (props) => {
     try {
       if (newPwd === "") {
         const response = await axios.put(
-          `http://localhost:5000/loginDatas/update`,
+          `${process.env.REACT_APP_BASE_URL}/loginDatas/update`,
           {
             userId: id,
             updatedId: newId === "" ? id : newId,
@@ -54,7 +57,7 @@ const Setting = (props) => {
         });
       } else {
         const response = await axios.put(
-          `http://localhost:5000/loginDatas/update`,
+          `${process.env.REACT_APP_BASE_URL}/loginDatas/update`,
           {
             userId: id,
             updatedId: newId === "" ? id : newId,
@@ -84,9 +87,12 @@ const Setting = (props) => {
   const deleteUserData = async (e) => {
     console.log(e.target.value);
     try {
-      await axios.delete(`http://localhost:5000/loginDatas/delete`, {
-        data: { userId: id },
-      });
+      await axios.delete(
+        `${process.env.REACT_APP_BASE_URL}/loginDatas/delete`,
+        {
+          data: { userId: id },
+        }
+      );
       dispatch({ type: "LOGOUT" });
       window.location.replace("/");
     } catch (err) {

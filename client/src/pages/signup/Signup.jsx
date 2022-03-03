@@ -40,12 +40,15 @@ const Signup = (props) => {
 
     // axios 라이브러리 사용!
     try {
-      const res = await axios.post(`http://localhost:5000/loginDatas/signup`, {
-        userId: id,
-        password: pwd,
-        email: email,
-        profilePic: "",
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/loginDatas/signup`,
+        {
+          userId: id,
+          password: pwd,
+          email: email,
+          profilePic: "",
+        }
+      );
       console.log(res.data.data.userId, res.data.token);
       dispatch({
         type: "LOGIN_SUCCESS",

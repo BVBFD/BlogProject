@@ -10,6 +10,7 @@ import dotenv from "dotenv";
 import multer from "multer";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
+import ContactDatasModel from "./models/contactDatasModel.js";
 
 dotenv.config();
 
@@ -44,6 +45,22 @@ app.post("/pic/upload", upload.single("file"), (req, res, next) => {
 
 app.use("/posts", postsDataRouter);
 app.use("/loginDatas", loginDatasRouter);
+app.post("/contacts", async (req, res, next) => {
+  try {
+    const newContact = new ContactDatasModel({
+      customerName: req.body.customerName,
+      email: req.body.email,
+      number: req.body.number,
+      message: req.body.message,
+    });
+    !newContact && res.status(400).json("Bad Request!");
+    const savedNewContact = await newContact.save();
+    console.log(savedNewContact);
+    res.status(201).json({ savedNewContact });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 app.use((req, res, next) => {
   res.sendStatus(404);
@@ -59,6 +76,6 @@ mongoose
   .then(() => console.log("Mongo DB Start!"))
   .catch((err) => console.error(err));
 
-app.listen("5000", () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log("Backend is running check!");
 });

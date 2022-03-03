@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Header from "../../components/header/Header";
 import { Context } from "../../context/context.js";
 import styles from "./Login.module.css";
@@ -34,10 +34,13 @@ const Login = (props) => {
       // });
 
       // axios 라이브러리 사용!
-      const res = await axios.post(`http://localhost:5000/loginDatas/login`, {
-        userId: idRef.current.value,
-        password: pwdRef.current.value,
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/loginDatas/login`,
+        {
+          userId: idRef.current.value,
+          password: pwdRef.current.value,
+        }
+      );
       console.log(res.data);
       dispatch({
         type: "LOGIN_SUCCESS",

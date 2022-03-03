@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/header/Header.jsx";
 import HomePost from "../../components/homePost/HomePost.jsx";
@@ -30,8 +30,7 @@ const Home = (props) => {
 
     // axios 라이브러리 사용!
     try {
-      const res = await axios.get(`http://localhost:5000/posts`);
-      console.log(res.data);
+      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts`);
       setTotalPosts(res.data);
     } catch (err) {
       console.log(err);
