@@ -1,0 +1,90 @@
+.home {
+  position: relative;
+}
+
+.home .homeBgImg {
+  position: relative;
+  user-select: none;
+}
+
+.home .homeBgImg::after {
+  content: "";
+  width: 100%;
+  height: 99%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(#999, #999);
+  opacity: 0.4;
+}
+
+.home .homeBgImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home .title {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  margin-top: 1rem;
+  top: 2.5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.home .title span {
+  color: #000;
+  mix-blend-mode: overlay;
+}
+
+.home .title span:nth-child(1) {
+  margin-top: 1rem;
+  font-size: 2.5rem;
+  font-weight: bolder;
+  font-style: italic;
+}
+
+.home .title span:nth-child(2) {
+  font-size: 9rem;
+  font-weight: bolder;
+}
+
+.home .homeContentsPart {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  margin-left: 2.5rem;
+}
+
+.home .homeContentsPart .postsPart {
+  flex: 1 1 70%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 2.5rem;
+}
+
+.home ul {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 1.4rem 0;
+}
+
+.home ul i {
+  margin-top: 0.2rem;
+  font-size: 1rem;
+  color: black;
+  cursor: pointer;
+}
+
+.home ul .list {
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin: 0 0.5rem;
+}

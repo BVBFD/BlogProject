@@ -45,7 +45,11 @@ app.post(
   isAuthLogin,
   upload.single("file"),
   (req, res, next) => {
-    res.status(200).json(`http://localhost:5000/images/${req.body.name}`);
+    res
+      .status(200)
+      .json(
+        `https://myportfolioblogproject.herokuapp.com/images/${req.body.name}`
+      );
   }
 );
 
@@ -66,6 +70,12 @@ app.post("/contacts", async (req, res, next) => {
   } catch (err) {
     res.status(500).json(err);
   }
+});
+
+app.use(express.static(path.join(__dirname, "/client/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build", "index.html"));
 });
 
 app.use((req, res, next) => {
