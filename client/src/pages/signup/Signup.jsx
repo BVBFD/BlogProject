@@ -49,7 +49,7 @@ const Signup = (props) => {
           profilePic: "",
         }
       );
-      console.log(res.data.data.userId, res.data.token);
+
       dispatch({
         type: "LOGIN_SUCCESS",
         payload: {
@@ -58,7 +58,9 @@ const Signup = (props) => {
         },
       });
     } catch (err) {
-      console.log(err);
+      window.alert(
+        "개인 블로그 입니다. Contact page에서 관리자한테 먼저 문의 주세요!"
+      );
     }
     setLoginSuccess(true);
   };
@@ -66,7 +68,7 @@ const Signup = (props) => {
   // 아이디는 jwt 토큰화 시켜서 유효기간 설정후 클라이언트, 서버 정보 교환
   // jwt 토큰은 클라이언트 로컬 db에 저장 로그아웃 실행시 삭제기능 백엔드, 클라이언트에서 구현할것
 
-  loginSuccess && window.location.replace("/");
+  // loginSuccess && window.location.replace("/");
 
   return (
     <>

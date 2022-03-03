@@ -11,14 +11,13 @@ const Post = (props) => {
   const location = useLocation();
   const param = useParams();
   const [editBtnIndex, setEditBtnIndex] = useState(false);
-  const { id } = useContext(Context);
+  const { id, token } = useContext(Context);
 
   const inputText = () => {
     return { __html: `${post.text}` };
   };
 
   useEffect(async () => {
-    console.log(location.pathname, param.id);
     // 기존 APIs request 문법!
     // const response = await fetch(`http://localhost:5000/posts/${param.id}`, {
     //   method: "GET",
@@ -34,36 +33,46 @@ const Post = (props) => {
       );
       setPost(res.data);
     } catch (err) {
-      console.log(err);
+      window.alert(err);
     }
   }, [location, param]);
 
   const deletePost = async () => {
     // 기존 APIs request 문법!
+    try {
+      const res = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/posts/${param.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            author: id,
+          }),
+        }
+      );
+
+      res.status === 401 &&
+        window.alert(`${res.statusText} 이 글 작성자만 편집할 수 있습니다!`);
+
+      res.status === 204 && window.location.replace("/");
+    } catch (err) {
+      window.alert(err);
+    }
+    // axios 라이브러리 사용!
     // try {
-    //   await fetch(`http://localhost:5000/posts/${param.id}`, {
-    //   method: "DELETE",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     author: id,
-    //   }),
-    // });
+    //   await axios.delete(
+    //     `${process.env.REACT_APP_BASE_URL}/posts/${param.id}`,
+    //     {
+    //       data: { author: id },
+    //     }
+    //   );
+    //   window.location.replace("/");
     // } catch (err) {
     //   console.log(err);
     // }
-
-    // axios 라이브러리 사용!
-    try {
-      await axios.delete(
-        `${process.env.REACT_APP_BASE_URL}/posts/${param.id}`,
-        {
-          data: { author: id },
-        }
-      );
-      window.location.replace("/");
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   return (
@@ -74,7 +83,7 @@ const Post = (props) => {
           <div className={styles.postBox}>
             <div className={styles.postImgTextBox}>
               <div className={styles.postTitleImgBox}>
-                <img src={post.imgUrl} alt="" />
+                {post.imgUrl === "" ? null : <img src={post.imgUrl} alt="" />}
               </div>
               <div className={styles.postTextBox}>
                 <header className={styles.postHeader}>

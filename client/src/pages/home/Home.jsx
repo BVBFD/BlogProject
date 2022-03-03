@@ -31,9 +31,9 @@ const Home = (props) => {
     // axios 라이브러리 사용!
     try {
       const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts`);
-      setTotalPosts(res.data);
+      setTotalPosts(res.data.reverse());
     } catch (err) {
-      console.log(err);
+      window.alert(err);
     }
   }, []);
 

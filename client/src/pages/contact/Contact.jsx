@@ -24,11 +24,11 @@ const Contact = (props) => {
           message: message,
         }
       );
-      console.log(
+      window.alert(
         `${res.data.savedNewContact.customerName} 님 메일 수신이 완료되었습니다!`
       );
     } catch (err) {
-      console.log(err);
+      window.alert(err);
     }
   };
   // email 테이블에 post 메서드 이용해서 백엔드에 추가하기!

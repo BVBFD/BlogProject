@@ -5,7 +5,7 @@ import { Context } from "../../context/context";
 import styles from "./Setting.module.css";
 
 const Setting = (props) => {
-  const { id, profilePic, dispatch } = useContext(Context);
+  const { id, profilePic, dispatch, token } = useContext(Context);
   const [email, setEmail] = useState(localStorage.getItem("email"));
   const [newProfileImgURL, setNewProfileImgURL] = useState("");
   const [newId, setNewId] = useState("");
@@ -20,13 +20,20 @@ const Setting = (props) => {
       data.append("name", filename);
       data.append("file", e.target.files[0]);
       try {
-        const res = await axios.post(
+        const response = await fetch(
           `${process.env.REACT_APP_BASE_URL}/pic/upload`,
-          data
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: data,
+          }
         );
-        setNewProfileImgURL(res.data);
+        const updatedPicURL = await response.json();
+        setNewProfileImgURL(updatedPicURL);
       } catch (err) {
-        console.log(err);
+        window.alert(err);
       }
     }
   };
@@ -44,7 +51,6 @@ const Setting = (props) => {
             profilePic: newProfileImgURL === "" ? profilePic : newProfileImgURL,
           }
         );
-        console.log(response);
         dispatch({ type: "LOGOUT" });
         dispatch({
           type: "LOGIN_SUCCESS",
@@ -66,7 +72,6 @@ const Setting = (props) => {
             profilePic: newProfileImgURL === "" ? profilePic : newProfileImgURL,
           }
         );
-        console.log(response);
         dispatch({ type: "LOGOUT" });
         dispatch({
           type: "LOGIN_SUCCESS",
@@ -80,12 +85,11 @@ const Setting = (props) => {
       }
       window.location.replace("/");
     } catch (err) {
-      console.log(err);
+      window.alert(err);
     }
   };
 
   const deleteUserData = async (e) => {
-    console.log(e.target.value);
     try {
       await axios.delete(
         `${process.env.REACT_APP_BASE_URL}/loginDatas/delete`,
@@ -96,7 +100,7 @@ const Setting = (props) => {
       dispatch({ type: "LOGOUT" });
       window.location.replace("/");
     } catch (err) {
-      console.log(err);
+      window.alert(err);
     }
   };
 

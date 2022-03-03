@@ -15,20 +15,17 @@ const Write = () => {
   const [titleImg, setTitleImg] = useState();
   const [writePageImgURL, setWritePageImgURL] = useState("");
   const [catName, setCatName] = useState("HTML");
-  const { id } = useContext(Context);
+  const { id, token } = useContext(Context);
   const [editorText, setEditorText] = useState("");
   const editorRef = useRef();
   const param = useParams();
   const [postForEdit, setPostForEdit] = useState({});
-
-  console.log(param.id);
 
   useEffect(async () => {
     if (param.id) {
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/posts/${param.id}`
       );
-      console.log(response.data);
       setTitleImg(true);
       setPostForEdit(response.data);
       setTitle(response.data.title);
@@ -38,8 +35,6 @@ const Write = () => {
     }
     return () => setTitleImg();
   }, [param.id]);
-
-  console.log(title, writePageImgURL, catName, editorText);
 
   useEffect(() => {
     if (editorRef.current) {
@@ -54,7 +49,6 @@ const Write = () => {
             console.log(blob.name);
             let formData = new FormData();
             let fileName = `${Date.now()}${blob.name}`;
-            console.log(formData, fileName);
             formData.append("name", fileName);
             formData.append("file", blob);
 
@@ -91,27 +85,6 @@ const Write = () => {
 
   const selectImg = async (e) => {
     // 기존 APIs request 문법!
-    // setTitleImg(e.target.files[0]);
-    // if (e.target.files[0]) {
-    //   const data = new FormData();
-    //   const filename = `${Date.now()}${e.target.files[0].name}`;
-    //   console.log(filename);
-    //   console.log(e.target.files[0]);
-    //   data.append("name", filename);
-    //   data.append("file", e.target.files[0]);
-    //   try {
-    //     const response = await fetch(`http://localhost:5000/pic/upload`, {
-    //       method: "POST",
-    //       body: data,
-    //     });
-    //     const updatedPicURL = await response.json();
-    //     setWritePageImgURL(updatedPicURL);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }
-
-    // axios 라이브러리 사용!
     setTitleImg(e.target.files[0]);
     if (e.target.files[0]) {
       const data = new FormData();
@@ -119,100 +92,125 @@ const Write = () => {
       data.append("name", filename);
       data.append("file", e.target.files[0]);
       try {
-        const res = await axios.post(
+        const response = await fetch(
           `${process.env.REACT_APP_BASE_URL}/pic/upload`,
-          data
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: data,
+          }
         );
-        setWritePageImgURL(res.data);
+        const updatedPicURL = await response.json();
+        setWritePageImgURL(updatedPicURL);
       } catch (err) {
-        console.log(err);
+        window.alert(err);
       }
     }
+
+    // axios 라이브러리 사용!
+    // setTitleImg(e.target.files[0]);
+    // if (e.target.files[0]) {
+    //   const data = new FormData();
+    //   const filename = `${Date.now()}${e.target.files[0].name}`;
+    //   data.append("name", filename);
+    //   data.append("file", e.target.files[0]);
+    //   try {
+    //     const res = await axios.post(
+    //       `${process.env.REACT_APP_BASE_URL}/pic/upload`,
+    //       data
+    //     );
+    //     setWritePageImgURL(res.data);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     // 기존 APIs request 문법!
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/posts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          imgUrl: writePageImgURL,
+          title: title,
+          text: editorText,
+          catName: catName,
+          author: id,
+        }),
+      });
+      const data = await response.json();
+      window.location.replace(`/post/${data.savedNewPost._id}`);
+    } catch (err) {
+      window.alert("허가된 사용자만 내 블로그에 글 올릴수 있음!");
+    }
+
+    // axios 라이브러리 사용!
     // try {
-    //   const response = await fetch(`http://localhost:5000/posts`, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
+    //   const res = await axios.post(
+    //     `${process.env.REACT_APP_BASE_URL}/posts`,
+    //     {
     //       imgUrl: writePageImgURL,
     //       title: title,
     //       text: editorText,
     //       catName: catName,
     //       author: id,
-    //     }),
-    //   });
-    //   const data = await response.json();
-    //   window.location.replace(
-    //     `http://localhost:3000/post/${data.savedNewPost._id}`
+    //     }
     //   );
+    //   console.log(res);
+    //   window.location.replace(`/post/${res.data.savedNewPost?._id}`);
     // } catch (err) {
     //   console.log(err);
     // }
-
-    // axios 라이브러리 사용!
-    try {
-      const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts`, {
-        imgUrl: writePageImgURL,
-        title: title,
-        text: editorText,
-        catName: catName,
-        author: id,
-      });
-      window.location.replace(`/post/${res.data.savedNewPost?._id}`);
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   const handleEdit = async (event) => {
     event.preventDefault();
-    console.log(param.id, param.id === true);
-    console.log(postForEdit);
-    console.log({
-      imgUrl: writePageImgURL,
-      title: title,
-      text: editorText,
-      catName: catName,
-      author: id,
-    });
-
     // 기존 APIs request 문법!
+    try {
+      const res = await fetch(`http://localhost:5000/posts/${param.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          imgUrl: writePageImgURL,
+          title: title,
+          text: editorText,
+          catName: catName,
+          author: id,
+        }),
+      });
+
+      res.status === 401 &&
+        window.alert(`${res.statusText} 이 글 작성자만 편집할 수 있습니다!`);
+
+      res.status === 201 && window.location.replace(`/post/${param.id}`);
+    } catch (err) {
+      window.alert(err);
+    }
+
+    // axios 라이브러리 사용!
     // try {
-    //   await fetch(`http://localhost:5000/posts/${param.id}`, {
-    //     method: "PUT",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({
-    //       imgUrl: writePageImgURL,
-    //       title: title,
-    //       text: editorText,
-    //       catName: catName,
-    //       author: id,
-    //     }),
+    //   await axios.put(`${process.env.REACT_APP_BASE_URL}/posts/${param.id}`, {
+    //     imgUrl: writePageImgURL,
+    //     title: title,
+    //     text: editorText,
+    //     catName: catName,
+    //     author: id,
     //   });
     //   window.location.replace(`/post/${param.id}`);
     // } catch (err) {
     //   console.log(err);
     // }
-
-    // axios 라이브러리 사용!
-    try {
-      await axios.put(`${process.env.REACT_APP_BASE_URL}/posts/${param.id}`, {
-        imgUrl: writePageImgURL,
-        title: title,
-        text: editorText,
-        catName: catName,
-        author: id,
-      });
-      window.location.replace(`/post/${param.id}`);
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   // console.log(editorRef.current?.getInstance().getHTML());

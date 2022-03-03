@@ -7,7 +7,6 @@ import axios from "axios";
 const Login = (props) => {
   const { id, dispatch } = useContext(Context);
   const [loginSuccess, setLoginSuccess] = useState(false);
-  console.log(id);
   const idRef = useRef();
   const pwdRef = useRef();
 
@@ -41,7 +40,6 @@ const Login = (props) => {
           password: pwdRef.current.value,
         }
       );
-      console.log(res.data);
       dispatch({
         type: "LOGIN_SUCCESS",
         payload: {
@@ -52,7 +50,7 @@ const Login = (props) => {
         },
       });
     } catch (err) {
-      console.log(err);
+      window.alert(err);
     }
     setLoginSuccess(true);
   };

@@ -11,6 +11,7 @@ import multer from "multer";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import ContactDatasModel from "./models/contactDatasModel.js";
+import isAuthLogin from "./middleware/isAuthLogin.js";
 
 dotenv.config();
 
@@ -39,9 +40,14 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-app.post("/pic/upload", upload.single("file"), (req, res, next) => {
-  res.status(200).json(`http://localhost:5000/images/${req.body.name}`);
-});
+app.post(
+  "/pic/upload",
+  isAuthLogin,
+  upload.single("file"),
+  (req, res, next) => {
+    res.status(200).json(`http://localhost:5000/images/${req.body.name}`);
+  }
+);
 
 app.use("/posts", postsDataRouter);
 app.use("/loginDatas", loginDatasRouter);

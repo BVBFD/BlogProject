@@ -9,7 +9,7 @@ const HomePost = ({ post }) => {
   return (
     <div className={styles.homePost}>
       <div className={styles.imgBox}>
-        <img src={post.imgUrl} alt="" />
+        {post.imgUrl === "" ? null : <img src={post.imgUrl} alt="" />}
       </div>
       <div className={styles.explains}>
         <span className={styles.title}>{post.title}</span>
