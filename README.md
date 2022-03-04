@@ -72,7 +72,10 @@
 1. ver 2.0 작업 시작 
 2. 기존 ver 1.0 버전은 master branch에 저장
 
-*ver 2.0.1 - 2022년 03월 04일
+*ver 2.0.1 - 2022년 03월 03일
 1. ver 2.0 블로그 프로젝트 완료.
 2. 기존 ver 1.0 버전은 폐기처분. 코드는 master branch에 저장.
 3. Heroku를 통해서 Server에 배포.
+
+*ver 2.0.2 - 2022년 03월 03일
+1. post upload시 images upload 안 되었던 문제 수정.
