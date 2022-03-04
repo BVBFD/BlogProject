@@ -54,16 +54,22 @@ const Write = () => {
 
             try {
               // 기존 APIs request 문법!
-              // const response = await fetch(`http://localhost:5000/pic/upload`, {
-              //   method: "POST",
-              //   body: formData,
-              // });
-              // const updatedPicURL = await response.json();
-              // const imageUrl = updatedPicURL;
+              const response = await fetch(
+                `https://myportfolioblogproject.herokuapp.com/pic/upload`,
+                {
+                  method: "POST",
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                  body: formData,
+                }
+              );
+              const updatedPicURL = await response.json();
+              const imageUrl = updatedPicURL;
 
               // axios 라이브러리 사용!
-              const res = await axiosInstance.post(`/pic/upload`, formData);
-              const imageUrl = res.data;
+              // const res = await axiosInstance.post(`/pic/upload`, formData);
+              // const imageUrl = res.data;
 
               callback(imageUrl, "image");
             } catch (err) {
