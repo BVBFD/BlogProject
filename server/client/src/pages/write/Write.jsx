@@ -15,7 +15,7 @@ const Write = () => {
   const [titleImg, setTitleImg] = useState();
   const [writePageImgURL, setWritePageImgURL] = useState("");
   const [catName, setCatName] = useState("HTML");
-  const { id, token } = useContext(Context);
+  const { id, editable } = useContext(Context);
   const [editorText, setEditorText] = useState("");
   const editorRef = useRef();
   const param = useParams();
@@ -58,9 +58,9 @@ const Write = () => {
                 `https://myportfolioblogproject.herokuapp.com/pic/upload`,
                 {
                   method: "POST",
-                  headers: {
-                    Authorization: `Bearer ${token}`,
-                  },
+                  // headers: {
+                  //   Authorization: `Bearer ${token}`,
+                  // },
                   body: formData,
                 }
               );
@@ -97,9 +97,9 @@ const Write = () => {
           `https://myportfolioblogproject.herokuapp.com/pic/upload`,
           {
             method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            // headers: {
+            //   Authorization: `Bearer ${token}`,
+            // },
             body: data,
           }
         );
@@ -131,6 +131,10 @@ const Write = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (id !== "lse126" || !editable) {
+      window.alert("개인블로그 입니다. 편집은 주인장만 가능!");
+      return;
+    }
     // 기존 APIs request 문법!
     try {
       const response = await fetch(
@@ -139,7 +143,7 @@ const Write = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             imgUrl: writePageImgURL,
@@ -153,7 +157,7 @@ const Write = () => {
       const data = await response.json();
       window.location.replace(`/post/${data.savedNewPost._id}`);
     } catch (err) {
-      window.alert("허가된 사용자만 내 블로그에 글 올릴수 있음!");
+      window.alert("개인블로그 입니다. 편집은 주인장만 가능!");
     }
 
     // axios 라이브러리 사용!
@@ -185,7 +189,7 @@ const Write = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             imgUrl: writePageImgURL,
@@ -196,6 +200,10 @@ const Write = () => {
           }),
         }
       );
+
+      const data = await res.json();
+
+      console.log(data);
 
       res.status === 401 &&
         window.alert(`${res.statusText} 이 글 작성자만 편집할 수 있습니다!`);
@@ -280,7 +288,7 @@ const Write = () => {
           }
           initialValue="글 수정은 아래 원본 Markdown을 Markdown 편집기에 복사 붙여넣기 해주세요"
           previewStyle="vertical"
-          height="75vh"
+          height="90vh"
           initialEditType="wysiwyg"
           toolbarItems={[
             ["heading", "bold", "italic", "strike"],
@@ -292,15 +300,16 @@ const Write = () => {
           plugins={[colorSyntax]}
         />
         {param.id && (
-          <input
+          <div
             style={{
               width: "100%",
               padding: "1.2rem",
               backgroundColor: "#999",
               color: "#fff",
             }}
-            value={postForEdit.text}
-          ></input>
+          >
+            {postForEdit.text}
+          </div>
         )}
       </form>
     </section>

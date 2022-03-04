@@ -3,7 +3,8 @@ import Reducer from "./reducer.js";
 
 const initialLoginData = {
   id: JSON.parse(localStorage.getItem("id")) || null,
-  token: JSON.parse(localStorage.getItem("token")) || null,
+  // token: JSON.parse(localStorage.getItem("token")) || null,
+  editable: localStorage.getItem("editable") || null,
   profilePic: localStorage.getItem("profilePic") || null,
   email: localStorage.getItem("email") || null,
 };
@@ -15,7 +16,8 @@ export const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("id", JSON.stringify(state.id));
-    localStorage.setItem("token", JSON.stringify(state.token));
+    // localStorage.setItem("token", JSON.stringify(state.token));
+    localStorage.setItem("editable", state.editable);
     localStorage.setItem("profilePic", state.profilePic);
     localStorage.setItem("email", state.email);
   }, [state.id]);
@@ -24,7 +26,8 @@ export const ContextProvider = ({ children }) => {
     <Context.Provider
       value={{
         id: state.id,
-        token: state.token,
+        // token: state.token,
+        editable: state.editable,
         profilePic: state.profilePic,
         dispatch,
       }}

@@ -3,7 +3,8 @@ const Reducer = (state, action) => {
     case "LOGIN_SUCCESS":
       return {
         id: action.payload.userId,
-        token: action.payload.token,
+        // token: action.payload.token,
+        editable: action.payload.editable,
         profilePic: action.payload.profilePic,
         email: action.payload.email,
       };
@@ -11,7 +12,8 @@ const Reducer = (state, action) => {
     case "LOGOUT":
       return {
         id: null,
-        token: null,
+        // token: null,
+        editable: null,
         profilePic: null,
         email: null,
       };

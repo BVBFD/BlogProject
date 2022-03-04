@@ -41,8 +41,9 @@ const Login = (props) => {
         type: "LOGIN_SUCCESS",
         payload: {
           userId: res.data.sendLoginData.userId,
-          token: res.data.token,
+          // token: res.data.token,
           profilePic: res.data.sendLoginData.profilePic,
+          editable: res.data.sendLoginData.editable,
           email: res.data.sendLoginData.email,
         },
       });

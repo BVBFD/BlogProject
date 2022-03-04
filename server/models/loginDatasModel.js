@@ -20,6 +20,11 @@ const LoginDatasSchema = new mongoose.Schema(
       required: false,
       default: "",
     },
+    editable: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   { timestamps: true }
 );

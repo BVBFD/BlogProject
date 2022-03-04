@@ -6,7 +6,7 @@ import { Context } from "../../context/context";
 import styles from "./Setting.module.css";
 
 const Setting = (props) => {
-  const { id, profilePic, dispatch, token } = useContext(Context);
+  const { id, profilePic, dispatch } = useContext(Context);
   const [email, setEmail] = useState(localStorage.getItem("email"));
   const [newProfileImgURL, setNewProfileImgURL] = useState("");
   const [newId, setNewId] = useState("");
@@ -25,9 +25,9 @@ const Setting = (props) => {
           `https://myportfolioblogproject.herokuapp.com/pic/upload`,
           {
             method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            // headers: {
+            //   Authorization: `Bearer ${token}`,
+            // },
             body: data,
           }
         );
@@ -54,7 +54,7 @@ const Setting = (props) => {
           type: "LOGIN_SUCCESS",
           payload: {
             userId: response.data.sendUpdatedLoginData.userId,
-            token: response.data.token,
+            // token: response.data.token,
             profilePic: response.data.sendUpdatedLoginData.profilePic,
             email: response.data.sendUpdatedLoginData.email,
           },
@@ -72,7 +72,7 @@ const Setting = (props) => {
           type: "LOGIN_SUCCESS",
           payload: {
             userId: response.data.sendUpdatedLoginData.userId,
-            token: response.data.token,
+            // token: response.data.token,
             profilePic: response.data.sendUpdatedLoginData.profilePic,
             email: response.data.sendUpdatedLoginData.email,
           },

@@ -1,12 +1,12 @@
 import LoginDatasModel from "../models/loginDatasModel.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
 
-function createJwtToken(data) {
-  return jwt.sign({ data }, process.env.JWT_Secret_Key, {
-    expiresIn: process.env.JWT_ExpiresIn,
-  });
-}
+// function createJwtToken(data) {
+//   return jwt.sign({ data }, process.env.JWT_Secret_Key, {
+//     expiresIn: process.env.JWT_ExpiresIn,
+//   });
+// }
 
 export const login = async (req, res, next) => {
   try {
@@ -21,8 +21,8 @@ export const login = async (req, res, next) => {
     );
     !checkedPwd && res.status(401).json("Invalid Id and Pwd!");
     const { password, ...sendLoginData } = foundLoginData._doc;
-    const token = createJwtToken(sendLoginData);
-    res.status(200).json({ sendLoginData, token });
+    // const token = createJwtToken(sendLoginData);
+    res.status(200).json({ sendLoginData });
   } catch (err) {
     res.status(500).json("server errors!");
   }
@@ -37,11 +37,12 @@ export const signUp = async (req, res, next) => {
       password: hashedPwd,
       email: req.body.email,
       profilePic: req.body.profilePic,
+      editable: req.body.editable,
     });
     const savedNewLoginData = await newLoginData.save();
     const { password, ...data } = savedNewLoginData._doc;
-    const token = createJwtToken(data);
-    res.status(201).json({ data, token });
+    // const token = createJwtToken(data);
+    res.status(201).json({ data });
   } catch (err) {
     res.status(409).json("This Id already existed!");
   }
@@ -68,8 +69,8 @@ export const update = async (req, res, next) => {
         { returnOriginal: false }
       );
       const { password, ...sendUpdatedLoginData } = updatedLoginData._doc;
-      const token = createJwtToken(sendUpdatedLoginData);
-      res.status(201).json({ sendUpdatedLoginData, token });
+      // const token = createJwtToken(sendUpdatedLoginData);
+      res.status(201).json({ sendUpdatedLoginData });
     } catch (err) {
       res.status(401).send(err);
     }
@@ -89,8 +90,8 @@ export const update = async (req, res, next) => {
         { returnOriginal: false }
       );
       const { password, ...sendUpdatedLoginData } = updatedLoginData._doc;
-      const token = createJwtToken(sendUpdatedLoginData);
-      res.status(201).json({ sendUpdatedLoginData, token });
+      // const token = createJwtToken(sendUpdatedLoginData);
+      res.status(201).json({ sendUpdatedLoginData });
     } catch (err) {
       res.status(401).send(err);
     }

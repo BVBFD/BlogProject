@@ -7,7 +7,6 @@ import {
   updatePost,
   uploadPost,
 } from "../controllers/postsDataController.js";
-import isAuthPost from "../middleware/isAuthPost.js";
 
 const router = express.Router();
 
@@ -15,10 +14,10 @@ router.get("/", getAllPostsAndGetPostsByCatnames);
 
 router.get("/:id", getPostsById);
 
-router.post("/", isAuthPost, uploadPost);
+router.post("/", uploadPost);
 
-router.put("/:id", isAuthPost, updatePost);
+router.put("/:id", updatePost);
 
-router.delete("/:id", isAuthPost, deletePost);
+router.delete("/:id", deletePost);
 
 export default router;

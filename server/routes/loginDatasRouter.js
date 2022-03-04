@@ -6,13 +6,12 @@ import {
   update,
   remove,
 } from "../controllers/loginDatasController.js";
-import isAuthLogin from "../middleware/isAuthLogin.js";
 
 const router = express.Router();
 
 router.post("/login", login);
 
-router.post("/signup", isAuthLogin, signUp);
+router.post("/signup", signUp);
 
 router.put("/update", update);
 

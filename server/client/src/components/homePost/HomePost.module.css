@@ -45,11 +45,11 @@
   display: none;
 }
 
-.homePost .explains div p {
+.homePost .explains div {
   display: -webkit-box;
   overflow: hidden;
-  line-height: 1.7;
-  max-height: 3.4em;
+  line-height: 1.2;
+  max-height: 2.4rem;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
