@@ -15,12 +15,15 @@ const About = (props) => {
           <div className={styles.aboutExplainBox}>
             <header>This Blog is ...</header>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Cupiditate molestias pariatur tenetur et voluptates quisquam
-              quidem sequi ad suscipit culpa inventore, soluta ut, fuga aperiam
-              qui aspernatur hic accusantium perspiciatis!
+              This Blog is my final goal of learning programming language. I
+              think craeting new blog website just by my self is the standard of
+              IT Job seekers' skills to get used to working on the field for my
+              customers. I am always trying to keep up with new skills trends.
             </p>
-            <a href="https://bvbfd.github.io/Profile-Website-Portfolio/">
+            <a
+              href="https://bvbfd.github.io/Portfolio-Website-ver2.0/"
+              target="_blank"
+            >
               <button>Visit Profile</button>
             </a>
           </div>

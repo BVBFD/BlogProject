@@ -106,3 +106,54 @@
   font-weight: bolder;
   color: #666;
 }
+
+@media screen and (max-width: 1300px) {
+  .postPage .postBox {
+    margin: 0;
+  }
+
+  .postPage .postBox .postImgTextBox .postTitleImgBox {
+    width: 100vw;
+  }
+
+  .postPage .postBox .postImgTextBox .postTextBox {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  .postPage .postBox .postImgTextBox .postTextBox .postHeader {
+    margin-top: 0.5rem;
+  }
+
+  .postPage .postBox .postImgTextBox .postTextBox .postHeader p,
+  .postPage .postBox .postImgTextBox .postTextBox .postHeader div {
+    display: none;
+  }
+
+  .postPage .postBox .postImgTextBox .postTextBox .postHeader span {
+    font-size: 1.2rem;
+  }
+
+  .postPage .postBox .postImgTextBox .postTextBox .authorAndDate {
+    margin-top: 0.5rem;
+  }
+
+  .postPage .postBox .postImgTextBox .postTextBox .authorAndDate p {
+    font-size: 0.8rem;
+  }
+
+  .postPage .postBox .postImgTextBox .postTextBox .authorAndDate p span {
+    font-size: 0.8rem;
+  }
+
+  .postPage .postBox .postImgTextBox .postTextBox .authorAndDate span {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 450px) {
+}

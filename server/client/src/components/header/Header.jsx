@@ -1,10 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/context";
 import styles from "./Header.module.css";
 
 const Header = ({ homeBtnIndex, setHomeBtnIndex }) => {
   const { id, dispatch, profilePic } = useContext(Context);
+  const barRef = useRef();
+  const exitRef = useRef();
+  const mobileCoverBoxRef = useRef();
+
   const setClickHomeBtn = () => {
     if (!homeBtnIndex) {
       setHomeBtnIndex(false);
@@ -20,47 +24,74 @@ const Header = ({ homeBtnIndex, setHomeBtnIndex }) => {
 
   return (
     <header className={styles.header}>
+      <span
+        ref={barRef}
+        onClick={(e) => {
+          e.target.parentNode.classList.toggle(styles.toggle);
+          exitRef.current.classList.toggle(styles.toggle);
+          mobileCoverBoxRef.current.classList.remove(
+            styles.mobileCoverBoxToggle
+          );
+        }}
+        className={`${styles.toggleBar} ${styles.toggle}`}
+      >
+        <i class="fa-solid fa-bars"></i>
+      </span>
+      <span
+        ref={exitRef}
+        onClick={(e) => {
+          e.target.parentNode.classList.toggle(styles.toggle);
+          barRef.current.classList.toggle(styles.toggle);
+          mobileCoverBoxRef.current.classList.add(styles.mobileCoverBoxToggle);
+        }}
+        className={`${styles.toggleExit} ${styles.toggle}`}
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </span>
       <div className={styles.socialSNSs}>
-        <i class="fab fa-facebook-square"></i>
-        <i class="fab fa-twitter-square"></i>
-        <i class="fab fa-pinterest-square"></i>
-        <i class="fab fa-instagram-square"></i>
+        <a href="https://github.com/BVBFD">
+          <i class="fa-brands fa-github-square"></i>
+        </a>
       </div>
-      <div className={styles.pageLinks}>
-        <Link onClick={setClickHomeBtn} className="link" to={"/"}>
-          <span>HOME</span>
-        </Link>
-        <Link className="link" to={"/about"}>
-          <span>ABOUT</span>
-        </Link>
-        <Link className="link" to={"/contact"}>
-          <span>CONTACT</span>
-        </Link>
-        <Link className="link" to={"/write"}>
-          <span>WRITE</span>
-        </Link>
+      <div
+        ref={mobileCoverBoxRef}
+        className={`${styles.mobileCoverBox} ${styles.mobileCoverBoxToggle}`}
+      >
+        <div className={styles.pageLinks}>
+          <Link onClick={setClickHomeBtn} className="link" to={"/"}>
+            <span>HOME</span>
+          </Link>
+          <Link className="link" to={"/about"}>
+            <span>ABOUT</span>
+          </Link>
+          <Link className="link" to={"/contact"}>
+            <span>CONTACT</span>
+          </Link>
+          <Link className="link" to={"/write"}>
+            <span>WRITE</span>
+          </Link>
+        </div>
+        {!id ? (
+          <div className={styles.settingsBox}>
+            <Link className="link" to={"/login"}>
+              <span>LOGIN</span>
+            </Link>
+            <Link className="link" to={"/signup"}>
+              <span>SIGN-UP</span>
+            </Link>
+          </div>
+        ) : (
+          <div className={styles.logoutBox}>
+            <span onClick={onLogout}>Log-out</span>
+            <Link to={"/setting"}>
+              <div className={styles.profileImgBox}>
+                <img src={profilePic} />
+              </div>
+            </Link>
+          </div>
+        )}
       </div>
-      {!id ? (
-        <div className={styles.settingsBox}>
-          <Link className="link" to={"/login"}>
-            <span>LOGIN</span>
-          </Link>
-          <Link className="link" to={"/signup"}>
-            <span>SIGN-UP</span>
-          </Link>
-          <i class="fas fa-search"></i>
-        </div>
-      ) : (
-        <div className={styles.logoutBox}>
-          <span onClick={onLogout}>Log-out</span>
-          <Link to={"/setting"}>
-            <div className={styles.profileImgBox}>
-              <img src={profilePic} />
-            </div>
-          </Link>
-          <i class="fas fa-search"></i>
-        </div>
-      )}
+      {/* <i class="fas fa-search"></i> */}
     </header>
   );
 };

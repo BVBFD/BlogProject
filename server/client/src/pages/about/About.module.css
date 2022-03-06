@@ -71,3 +71,38 @@
   color: #fff;
   box-shadow: 8px 8px 0.4rem #fff;
 }
+
+@media screen and (max-width: 1300px) {
+  .about {
+    height: 100vh;
+  }
+
+  .about .aboutIntroBox {
+    flex-direction: column;
+    width: 18rem;
+    margin-top: 4rem;
+  }
+
+  .about .aboutIntroBox .imgBox {
+    width: 18rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .about .aboutIntroBox .imgBox img {
+    width: 95%;
+    margin-top: 0.5rem;
+    height: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 380px) {
+  .about .aboutIntroBox {
+    margin-top: 10rem;
+  }
+}

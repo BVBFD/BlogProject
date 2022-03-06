@@ -68,3 +68,23 @@
   color: #fff;
   cursor: pointer;
 }
+
+@media screen and (max-width: 1300px) {
+  .contact {
+    height: 100vh;
+  }
+
+  .contact .contactInfoBox .mapBox {
+    display: none;
+  }
+
+  .contact .contactInfoBox .infoBox {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 450px) {
+}

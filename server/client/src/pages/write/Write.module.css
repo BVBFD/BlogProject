@@ -59,3 +59,22 @@
   height: 30rem;
   object-fit: cover;
 }
+
+@media screen and (max-width: 1300px) {
+  .write .titleImgAddBox .titleInputBox .uploadBtn {
+    width: 4rem;
+    height: 2.2rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .write .titleImgAddBox .titleInputBox .selectCategory {
+    height: 2.4rem;
+    margin-bottom: 1.4rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 450px) {
+}
