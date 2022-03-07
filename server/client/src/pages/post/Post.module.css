@@ -15,15 +15,13 @@
 }
 
 .postPage .postBox .postImgTextBox .postTitleImgBox img {
-  width: 95%;
-  height: 25rem;
-  object-fit: fill;
+  width: 95vw;
+  object-fit: cover;
   border-radius: 0.4rem;
 }
 
 .postPage .postBox .postImgTextBox .postTextBox {
-  width: 90%;
-  margin-left: 4rem;
+  width: 100%;
   margin-top: 1.5rem;
 }
 

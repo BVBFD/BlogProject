@@ -85,7 +85,7 @@ const Header = ({ homeBtnIndex, setHomeBtnIndex }) => {
             <span onClick={onLogout}>Log-out</span>
             <Link to={"/setting"}>
               <div className={styles.profileImgBox}>
-                <img src={profilePic} />
+                <img src={profilePic} crossOrigin="anonymous" />
               </div>
             </Link>
           </div>

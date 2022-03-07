@@ -25,6 +25,7 @@ const Setting = (props) => {
           `https://myportfolioblogproject.herokuapp.com/pic/upload`,
           {
             method: "POST",
+            mode: "cors",
             // headers: {
             //   Authorization: `Bearer ${token}`,
             // },
@@ -107,7 +108,7 @@ const Setting = (props) => {
             <div className={styles.imgBox}>
               <img
                 src={newProfileImgURL === "" ? profilePic : newProfileImgURL}
-                alt=""
+                crossOrigin="anonymous"
               />
               <label htmlFor="profileImgInput">
                 <i

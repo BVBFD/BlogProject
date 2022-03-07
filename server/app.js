@@ -11,6 +11,8 @@ import multer from "multer";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import ContactDatasModel from "./models/contactDatasModel.js";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import cloudinary from "cloudinary";
 
 dotenv.config();
 
@@ -18,9 +20,25 @@ const app = express();
 app.use(express.json());
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use("/images", express.static(path.join(__dirname, "/image")));
+// app.use("/images", express.static(path.join(__dirname, "/image")));
 
-app.use(helmet());
+const cspOptions = {
+  directives: {
+    // 기본 옵션을 가져옵니다.
+    ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+
+    // cloudinary 사이트의 이미지 소스를 허용합니다.
+    "img-src": ["'self'", "data:", `https://res.cloudinary.com`],
+  },
+};
+
+// Helmet의 모든 기능 사용. (contentSecurityPolicy에는 custom option 적용)
+app.use(
+  helmet({
+    contentSecurityPolicy: cspOptions,
+  })
+);
+
 app.use(cors());
 app.use(morgan("tiny"));
 
@@ -29,23 +47,44 @@ app.get("/lee", (req, res, next) => {
   return res.status(200).send(console.log("Success!"));
 });
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "image");
-  },
-  filename: (req, file, cb) => {
-    cb(null, req.body.name);
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "image");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, req.body.name);
+//   },
+// });
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary.v2,
+  params: {
+    folder: "myportfolioblogproject",
+    format: async (req, file) => "jpg",
+    public_id: (req, file) => req.filename,
   },
 });
 
 const upload = multer({ storage: storage });
+
 app.post("/pic/upload", upload.single("file"), (req, res, next) => {
-  res
-    .status(200)
-    .json(
-      `https://myportfolioblogproject.herokuapp.com/images/${req.body.name}`
-    );
+  res.header("Cross-Origin-Resource-Policy", "cross-origin");
+  res.status(200).json(req.file.path);
 });
+
+// app.post("/pic/upload", upload.single("file"), (req, res, next) => {
+//   res
+//     .status(200)
+//     .json(
+//       `https://myportfolioblogproject.herokuapp.com/images/${req.body.name}`
+//     );
+// });
 
 app.use("/posts", postsDataRouter);
 app.use("/loginDatas", loginDatasRouter);

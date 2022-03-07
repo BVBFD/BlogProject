@@ -44,7 +44,6 @@ const Write = () => {
         .getInstance()
         .addHook("addImageBlobHook", (blob, callback) => {
           (async () => {
-            console.log(blob.name);
             let formData = new FormData();
             let fileName = `${Date.now()}${blob.name}`;
             formData.append("name", fileName);
@@ -58,6 +57,7 @@ const Write = () => {
                 `https://myportfolioblogproject.herokuapp.com/pic/upload`,
                 {
                   method: "POST",
+                  mode: "cors",
                   // headers: {
                   //   Authorization: `Bearer ${token}`,
                   // },
@@ -70,7 +70,6 @@ const Write = () => {
               // axios 라이브러리 사용!
               // const res = await axiosInstance.post(`/pic/upload`, formData);
               // const imageUrl = res.data;
-
               callback(imageUrl, "image");
             } catch (err) {
               console.log(err);
@@ -97,6 +96,7 @@ const Write = () => {
           `https://myportfolioblogproject.herokuapp.com/pic/upload`,
           {
             method: "POST",
+            mode: "cors",
             // headers: {
             //   Authorization: `Bearer ${token}`,
             // },
@@ -228,13 +228,16 @@ const Write = () => {
     // }
   };
 
-  // console.log(editorRef.current?.getInstance().getHTML());
   return (
     <section className={styles.write}>
       <Header />
       {titleImg ? (
         <div className={styles.titleImgBox}>
-          <img src={param.id ? postForEdit.imgUrl : writePageImgURL} alt="" />
+          <img
+            src={param.id ? postForEdit.imgUrl : writePageImgURL}
+            alt=""
+            crossOrigin="anonymous"
+          />
         </div>
       ) : null}
       <form
@@ -278,18 +281,19 @@ const Write = () => {
             Upload
           </button>
         </div>
-        {console.log(postForEdit.text)}
-        {console.log(postForEdit?.text)}
         <Editor
           className={styles.editor}
           ref={editorRef}
-          onChange={() =>
+          onChange={(e) =>
             setEditorText(editorRef.current?.getInstance().getHTML())
           }
-          initialValue="글 수정은 아래 원본 Markdown을 Markdown 편집기에 복사 붙여넣기 해주세요"
+          initialValue="
+            편집을 원하시면 아래 마크다운 언어를 마크다운 페이지에 복사해주세요. 
+            이미지 붙여넣기는 반드시 markdown 편집기에서 해주세요. 
+            (교차 출처 허용 문제는 markdown, WYSIWYG 편집기 호환 관련된 업데이트 안된 에디터 자체 문제임)"
           previewStyle="vertical"
           height="90vh"
-          initialEditType="wysiwyg"
+          initialEditType="markdown"
           toolbarItems={[
             ["heading", "bold", "italic", "strike"],
             ["hr", "quote"],
@@ -298,6 +302,23 @@ const Write = () => {
             ["code", "codeblock"],
           ]}
           plugins={[colorSyntax]}
+          customHTMLRenderer={{
+            image(node, context) {
+              const { destination } = node;
+              const { getChildrenText, skipChildren } = context;
+              skipChildren();
+              return {
+                type: "openTag",
+                tagName: "img",
+                selfClose: true,
+                attributes: {
+                  src: destination,
+                  alt: getChildrenText(node),
+                  crossOrigin: "anonymous",
+                },
+              };
+            },
+          }}
         />
         {param.id && (
           <div
