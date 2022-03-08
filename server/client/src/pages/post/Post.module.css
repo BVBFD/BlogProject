@@ -94,7 +94,7 @@
   width: 100%;
 }
 
-.postPage
+/* .postPage
   .postBox
   .postImgTextBox
   .postTextBox
@@ -103,7 +103,7 @@
   font-size: 1.8rem;
   font-weight: bolder;
   color: #666;
-}
+} */
 
 @media screen and (max-width: 1300px) {
   .postPage .postBox {

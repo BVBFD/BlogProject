@@ -81,7 +81,9 @@ const Post = (props) => {
           <div className={styles.postBox}>
             <div className={styles.postImgTextBox}>
               <div className={styles.postTitleImgBox}>
-                {post.imgUrl === "" ? null : <img src={post.imgUrl} alt="" />}
+                {post.imgUrl === "" ? null : (
+                  <img crossOrigin="anonymous" src={post.imgUrl} alt="" />
+                )}
               </div>
               <div className={styles.postTextBox}>
                 <header className={styles.postHeader}>

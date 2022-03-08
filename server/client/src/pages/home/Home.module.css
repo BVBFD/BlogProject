@@ -57,14 +57,14 @@
   display: flex;
   flex-wrap: wrap;
   margin-top: 2rem;
-  margin-left: 2.5rem;
+  margin-left: 1rem;
 }
 
 .home .homeContentsPart .postsPart {
   flex: 1 1 70%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(25vw, 1fr));
+  gap: 1rem;
 }
 
 .home ul {
@@ -104,7 +104,8 @@
     display: flex;
     flex-wrap: wrap;
     margin-top: 1rem;
-    margin-left: 1.4rem;
+    margin-left: 0.7rem;
+    margin-right: 0.7rem;
   }
 
   .home .homeContentsPart .postsPart {
