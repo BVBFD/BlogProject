@@ -87,3 +87,5 @@
 1. Heroku image 와 같은 대용량 리소스는 영구히 저장되지 않는 점 개선 노력.
 2. 이미지 저장소는 cloudinary에 두고 cloudinary multer 라이브러리 이용해서 cloudinary 서버와는 교차출처 허용 header를 설정해서 이미지 반영.
 
+*ver 2.2.1 - 2022년 03월 09일
+1. grid template colums width 모바일, 컴퓨터 화면에 맞게 유동적으로 적용될 수 있게 크기 수정.
