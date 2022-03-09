@@ -120,8 +120,6 @@ app.use((error, req, res, next) => {
   res.sendStatus(500);
 });
 
-console.log("test!");
-
 mongoose
   .connect(process.env.MONGO_DB_URL)
   .then(() => console.log("Mongo DB Start!"))
