@@ -1,22 +1,22 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import Header from "../../components/header/Header.jsx";
-import styles from "./Write.module.css";
-import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from "@toast-ui/react-editor";
-import "tui-color-picker/dist/tui-color-picker.css";
-import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
-import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
-import { Context } from "../../context/context.js";
-import { useParams } from "react-router-dom";
-import { axiosInstance } from "../../config.js";
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import Header from '../../components/header/Header.jsx';
+import styles from './Write.module.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
+import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+import { Context } from '../../context/context.js';
+import { useParams } from 'react-router-dom';
+import { axiosInstance } from '../../config.js';
 
 const Write = () => {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
   const [titleImg, setTitleImg] = useState();
-  const [writePageImgURL, setWritePageImgURL] = useState("");
-  const [catName, setCatName] = useState("HTML");
+  const [writePageImgURL, setWritePageImgURL] = useState('');
+  const [catName, setCatName] = useState('HTML');
   const { id, editable } = useContext(Context);
-  const [editorText, setEditorText] = useState("");
+  const [editorText, setEditorText] = useState('');
   const editorRef = useRef();
   const param = useParams();
   const [postForEdit, setPostForEdit] = useState({});
@@ -37,27 +37,27 @@ const Write = () => {
   useEffect(() => {
     if (editorRef.current) {
       // 기존에 Image 를 Import 하는 Hook을 제거한다.
-      editorRef.current.getInstance().removeHook("addImageBlobHook");
+      editorRef.current.getInstance().removeHook('addImageBlobHook');
 
       // 새롭게 Image 를 Import 하는 Hook을 생성한다.
       editorRef.current
         .getInstance()
-        .addHook("addImageBlobHook", (blob, callback) => {
+        .addHook('addImageBlobHook', (blob, callback) => {
           (async () => {
             let formData = new FormData();
             let fileName = `${Date.now()}${blob.name}`;
-            formData.append("name", fileName);
-            formData.append("file", blob);
+            formData.append('name', fileName);
+            formData.append('file', blob);
 
-            console.log("이미지가 업로드 됐습니다.");
+            console.log('이미지가 업로드 됐습니다.');
 
             try {
               // 기존 APIs request 문법!
               const response = await fetch(
                 `https://myportfolioblogproject.herokuapp.com/pic/upload`,
                 {
-                  method: "POST",
-                  mode: "cors",
+                  method: 'POST',
+                  mode: 'cors',
                   // headers: {
                   //   Authorization: `Bearer ${token}`,
                   // },
@@ -70,7 +70,7 @@ const Write = () => {
               // axios 라이브러리 사용!
               // const res = await axiosInstance.post(`/pic/upload`, formData);
               // const imageUrl = res.data;
-              callback(imageUrl, "image");
+              callback(imageUrl, 'image');
             } catch (err) {
               console.log(err);
             }
@@ -89,14 +89,14 @@ const Write = () => {
     if (e.target.files[0]) {
       const data = new FormData();
       const filename = `${Date.now()}${e.target.files[0].name}`;
-      data.append("name", filename);
-      data.append("file", e.target.files[0]);
+      data.append('name', filename);
+      data.append('file', e.target.files[0]);
       try {
         const response = await fetch(
           `https://myportfolioblogproject.herokuapp.com/pic/upload`,
           {
-            method: "POST",
-            mode: "cors",
+            method: 'POST',
+            mode: 'cors',
             // headers: {
             //   Authorization: `Bearer ${token}`,
             // },
@@ -131,8 +131,8 @@ const Write = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (id !== "lse126" || !editable) {
-      window.alert("개인블로그 입니다. 편집은 주인장만 가능!");
+    if (id !== 'lse126' || !editable) {
+      window.alert('개인블로그 입니다. 편집은 주인장만 가능!');
       return;
     }
     // 기존 APIs request 문법!
@@ -140,9 +140,9 @@ const Write = () => {
       const response = await fetch(
         `https://myportfolioblogproject.herokuapp.com/posts`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             // Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
@@ -157,7 +157,7 @@ const Write = () => {
       const data = await response.json();
       window.location.replace(`/post/${data.savedNewPost._id}`);
     } catch (err) {
-      window.alert("개인블로그 입니다. 편집은 주인장만 가능!");
+      window.alert('개인블로그 입니다. 편집은 주인장만 가능!');
     }
 
     // axios 라이브러리 사용!
@@ -186,9 +186,9 @@ const Write = () => {
       const res = await fetch(
         `https://myportfolioblogproject.herokuapp.com/posts/${param.id}`,
         {
-          method: "PUT",
+          method: 'PUT',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             // Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
@@ -235,8 +235,8 @@ const Write = () => {
         <div className={styles.titleImgBox}>
           <img
             src={param.id ? postForEdit.imgUrl : writePageImgURL}
-            alt=""
-            crossOrigin="anonymous"
+            alt=''
+            crossOrigin='anonymous'
           />
         </div>
       ) : null}
@@ -245,39 +245,39 @@ const Write = () => {
         className={styles.titleImgAddBox}
       >
         <div className={styles.titleInputBox}>
-          <label className={styles.imgFileLabel} htmlFor="imgFileInput">
-            <i class="fas fa-plus"></i>
+          <label className={styles.imgFileLabel} htmlFor='imgFileInput'>
+            <i class='fas fa-plus'></i>
           </label>
           <input
             onChange={selectImg}
-            id="imgFileInput"
-            type="file"
-            style={{ display: "none" }}
+            id='imgFileInput'
+            type='file'
+            style={{ display: 'none' }}
           />
           <input
             className={styles.titleInput}
-            type="text"
+            type='text'
             autoFocus={true}
-            placeholder="Title"
+            placeholder='Title'
             onChange={(e) => setTitle(e.target.value)}
-            defaultValue={param.id ? postForEdit.title : ""}
+            defaultValue={param.id ? postForEdit.title : ''}
           />
           <select
             onChange={(e) => setCatName(e.target.value)}
-            name="Category"
+            name='Category'
             className={styles.selectCategory}
-            defaultValue={param.id ? postForEdit.catName : "HTML"}
+            defaultValue={param.id ? postForEdit.catName : 'HTML'}
           >
-            <option value="HTML">HTML</option>
-            <option value="CSS">CSS</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="React">React</option>
-            <option value="Node JS">Node JS</option>
-            <option value="TypeScript">TypeScript</option>
-            <option value="Game">Game</option>
-            <option value="Book">Book</option>
+            <option value='HTML'>HTML</option>
+            <option value='CSS'>CSS</option>
+            <option value='JavaScript'>JavaScript</option>
+            <option value='React'>React</option>
+            <option value='Node JS'>Node JS</option>
+            <option value='TypeScript'>TypeScript</option>
+            <option value='Game'>Game</option>
+            <option value='Book'>Book</option>
           </select>
-          <button type="submit" className={styles.uploadBtn}>
+          <button type='submit' className={styles.uploadBtn}>
             Upload
           </button>
         </div>
@@ -287,19 +287,16 @@ const Write = () => {
           onChange={(e) =>
             setEditorText(editorRef.current?.getInstance().getHTML())
           }
-          initialValue="
-            편집을 원하시면 아래 마크다운 언어를 마크다운 페이지에 복사해주세요. 
-            이미지 붙여넣기는 반드시 markdown 편집기에서 해주세요. 
-            (교차 출처 허용 문제는 markdown, WYSIWYG 편집기 호환 관련된 업데이트 안된 에디터 자체 문제임)"
-          previewStyle="vertical"
-          height="90vh"
-          initialEditType="markdown"
+          previewStyle='vertical'
+          height='90vh'
+          initialValue={postForEdit?.text}
+          initialEditType='markdown'
           toolbarItems={[
-            ["heading", "bold", "italic", "strike"],
-            ["hr", "quote"],
-            ["ul", "ol", "task", "indent", "outdent"],
-            ["table", "image", "link"],
-            ["code", "codeblock"],
+            ['heading', 'bold', 'italic', 'strike'],
+            ['hr', 'quote'],
+            ['ul', 'ol', 'task', 'indent', 'outdent'],
+            ['table', 'image', 'link'],
+            ['code', 'codeblock'],
           ]}
           plugins={[colorSyntax]}
           customHTMLRenderer={{
@@ -308,13 +305,13 @@ const Write = () => {
               const { getChildrenText, skipChildren } = context;
               skipChildren();
               return {
-                type: "openTag",
-                tagName: "img",
+                type: 'openTag',
+                tagName: 'img',
                 selfClose: true,
                 attributes: {
                   src: destination,
                   alt: getChildrenText(node),
-                  crossOrigin: "anonymous",
+                  crossOrigin: 'anonymous',
                 },
               };
             },
@@ -323,10 +320,10 @@ const Write = () => {
         {param.id && (
           <div
             style={{
-              width: "100%",
-              padding: "1.2rem",
-              backgroundColor: "#999",
-              color: "#fff",
+              width: '100%',
+              padding: '1.2rem',
+              backgroundColor: '#999',
+              color: '#fff',
             }}
           >
             {postForEdit.text}

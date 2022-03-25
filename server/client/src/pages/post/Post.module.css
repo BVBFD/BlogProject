@@ -91,7 +91,7 @@
 }
 
 .postPage .postBox .postImgTextBox .postTextBox .postContentText img {
-  width: 100%;
+  /* width: 100%; */
 }
 
 /* .postPage
@@ -147,6 +147,10 @@
 
   .postPage .postBox .postImgTextBox .postTextBox .authorAndDate span {
     font-size: 0.8rem;
+  }
+
+  .postPage .postBox .postImgTextBox .postTextBox .postContentText img {
+    width: 100%;
   }
 }
 

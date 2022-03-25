@@ -1,5 +1,5 @@
-import LoginDatasModel from "../models/loginDatasModel.js";
-import bcrypt from "bcryptjs";
+import LoginDatasModel from '../models/loginDatasModel.js';
+import bcrypt from 'bcryptjs';
 // import jwt from "jsonwebtoken";
 
 // function createJwtToken(data) {
@@ -14,17 +14,17 @@ export const login = async (req, res, next) => {
     const foundLoginData = await LoginDatasModel.findOne({
       userId: req.body.userId,
     });
-    !foundLoginData && res.status(401).json("Invalid Id and Pwd!");
+    !foundLoginData && res.status(401).json('Invalid Id and Pwd!');
     const checkedPwd = await bcrypt.compare(
       req.body.password,
       foundLoginData.password
     );
-    !checkedPwd && res.status(401).json("Invalid Id and Pwd!");
+    !checkedPwd && res.status(401).json('Invalid Id and Pwd!');
     const { password, ...sendLoginData } = foundLoginData._doc;
     // const token = createJwtToken(sendLoginData);
     res.status(200).json({ sendLoginData });
   } catch (err) {
-    res.status(500).json("server errors!");
+    res.status(500).json('server errors!');
   }
 };
 
@@ -44,7 +44,7 @@ export const signUp = async (req, res, next) => {
     // const token = createJwtToken(data);
     res.status(201).json({ data });
   } catch (err) {
-    res.status(409).json("This Id already existed!");
+    res.status(409).json('This Id already existed!');
   }
 };
 
@@ -56,7 +56,7 @@ export const update = async (req, res, next) => {
     const foundOriginData = await LoginDatasModel.findOne({
       userId: req.body.userId,
     });
-    !foundOriginData && res.status(401).send("You can only set your own data!");
+    !foundOriginData && res.status(401).send('You can only set your own data!');
     try {
       const updatedLoginData = await LoginDatasModel.findByIdAndUpdate(
         foundOriginData.id,
@@ -78,7 +78,7 @@ export const update = async (req, res, next) => {
     const foundOriginData = await LoginDatasModel.findOne({
       userId: req.body.userId,
     });
-    !foundOriginData && res.status(401).send("You can only set your own data!");
+    !foundOriginData && res.status(401).send('You can only set your own data!');
     try {
       const updatedLoginData = await LoginDatasModel.findByIdAndUpdate(
         foundOriginData.id,
@@ -104,12 +104,12 @@ export const remove = async (req, res, next) => {
     const foundUserData = await LoginDatasModel.findOne({
       userId: req.body.userId,
     });
-    !foundUserData && res.status(400).json("Bad request!");
+    !foundUserData && res.status(400).json('Bad request!');
     if (req.body.userId === foundUserData.userId) {
       foundUserData.delete();
-      res.status(204).json("UserData has been deleted!");
+      res.status(204).json('UserData has been deleted!');
     } else {
-      res.status(401).json("You can delete own your login data!");
+      res.status(401).json('You can delete own your login data!');
     }
   } catch (err) {
     console.log(err);

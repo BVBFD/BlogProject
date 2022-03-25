@@ -1,4 +1,4 @@
-import PostDatasModel from "../models/postDatasModel.js";
+import PostDatasModel from '../models/postDatasModel.js';
 
 export const getAllPostsAndGetPostsByCatnames = async (req, res, next) => {
   const catName = req.query.cat;
@@ -43,7 +43,7 @@ export const uploadPost = async (req, res, next) => {
       catName: req.body.catName,
       author: req.body.author,
     });
-    !newPost && res.status(400).json("Bad Request!");
+    !newPost && res.status(400).json('Bad Request!');
     const savedNewPost = await newPost.save();
     console.log(savedNewPost);
     res.status(201).json({ savedNewPost });
@@ -64,7 +64,7 @@ export const updatePost = async (req, res, next) => {
       );
       res.status(201).json(updatedPost);
     } else {
-      res.status(401).json("You can update and delete own your posts!");
+      res.status(401).json('You can update and delete own your posts!');
     }
   } catch (err) {
     res.status(401).json(err);
@@ -77,9 +77,9 @@ export const deletePost = async (req, res, next) => {
     const foundPost = await PostDatasModel.findById(req.params.id);
     if (req.body.author === foundPost.author) {
       foundPost.delete();
-      res.status(204).json("The Post has been deleted!");
+      res.status(204).json('The Post has been deleted!');
     } else {
-      res.status(401).json("You can update and delete own your posts!");
+      res.status(401).json('You can update and delete own your posts!');
     }
   } catch (err) {
     res.status(401).json(err);

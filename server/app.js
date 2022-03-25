@@ -1,18 +1,18 @@
-import express from "express";
-import "express-async-errors";
-import helmet from "helmet";
-import cors from "cors";
-import morgan from "morgan";
-import postsDataRouter from "./routes/postsDataRouter.js";
-import loginDatasRouter from "./routes/loginDatasRouter.js";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import multer from "multer";
-import path, { dirname } from "path";
-import { fileURLToPath } from "url";
-import ContactDatasModel from "./models/contactDatasModel.js";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
-import cloudinary from "cloudinary";
+import express from 'express';
+import 'express-async-errors';
+import helmet from 'helmet';
+import cors from 'cors';
+import morgan from 'morgan';
+import postsDataRouter from './routes/postsDataRouter.js';
+import loginDatasRouter from './routes/loginDatasRouter.js';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import multer from 'multer';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import ContactDatasModel from './models/contactDatasModel.js';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import cloudinary from 'cloudinary';
 
 dotenv.config();
 
@@ -28,7 +28,7 @@ const cspOptions = {
     ...helmet.contentSecurityPolicy.getDefaultDirectives(),
 
     // cloudinary 사이트의 이미지 소스를 허용합니다.
-    "img-src": ["'self'", "data:", `https://res.cloudinary.com`],
+    'img-src': ["'self'", 'data:', `https://res.cloudinary.com`],
   },
 };
 
@@ -40,11 +40,11 @@ app.use(
 );
 
 app.use(cors());
-app.use(morgan("tiny"));
+app.use(morgan('tiny'));
 
-app.get("/lee", (req, res, next) => {
-  console.log("Hey this is initial test code!");
-  return res.status(200).send(console.log("Success!"));
+app.get('/lee', (req, res, next) => {
+  console.log('Hey this is initial test code!');
+  return res.status(200).send(console.log('Success!'));
 });
 
 // const storage = multer.diskStorage({
@@ -65,16 +65,16 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary.v2,
   params: {
-    folder: "myportfolioblogproject",
-    format: async (req, file) => "jpg",
+    folder: 'myportfolioblogproject',
+    format: async (req, file) => 'gif',
     public_id: (req, file) => req.filename,
   },
 });
 
 const upload = multer({ storage: storage });
 
-app.post("/pic/upload", upload.single("file"), (req, res, next) => {
-  res.header("Cross-Origin-Resource-Policy", "cross-origin");
+app.post('/pic/upload', upload.single('file'), (req, res, next) => {
+  res.header('Cross-Origin-Resource-Policy', 'cross-origin');
   res.status(200).json(req.file.path);
 });
 
@@ -86,9 +86,9 @@ app.post("/pic/upload", upload.single("file"), (req, res, next) => {
 //     );
 // });
 
-app.use("/posts", postsDataRouter);
-app.use("/loginDatas", loginDatasRouter);
-app.post("/contacts", async (req, res, next) => {
+app.use('/posts', postsDataRouter);
+app.use('/loginDatas', loginDatasRouter);
+app.post('/contacts', async (req, res, next) => {
   try {
     const newContact = new ContactDatasModel({
       customerName: req.body.customerName,
@@ -96,7 +96,7 @@ app.post("/contacts", async (req, res, next) => {
       number: req.body.number,
       message: req.body.message,
     });
-    !newContact && res.status(400).json("Bad Request!");
+    !newContact && res.status(400).json('Bad Request!');
     const savedNewContact = await newContact.save();
     console.log(savedNewContact);
     res.status(201).json({ savedNewContact });
@@ -105,10 +105,10 @@ app.post("/contacts", async (req, res, next) => {
   }
 });
 
-app.use(express.static(path.join(__dirname, "/client/build")));
+app.use(express.static(path.join(__dirname, '/client/build')));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/client/build", "index.html"));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
 });
 
 app.use((req, res, next) => {
@@ -122,9 +122,9 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(process.env.MONGO_DB_URL)
-  .then(() => console.log("Mongo DB Start!"))
+  .then(() => console.log('Mongo DB Start!'))
   .catch((err) => console.error(err));
 
 app.listen(process.env.PORT || 5000, () => {
-  console.log("Backend is running check!");
+  console.log('Backend is running check!');
 });
