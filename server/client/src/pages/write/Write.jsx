@@ -239,7 +239,9 @@ const Write = () => {
             crossOrigin='anonymous'
           />
         </div>
-      ) : null}
+      ) : (
+        <img src='../images/postdefaultimg.png' style={{ width: '100%' }} />
+      )}
       <form
         onSubmit={param.id === undefined ? handleSubmit : handleEdit}
         className={styles.titleImgAddBox}

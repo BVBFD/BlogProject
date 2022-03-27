@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import Header from "../../components/header/Header";
-import styles from "./Post.module.css";
-import { useLocation, useParams } from "react-router-dom";
-import Write from "../write/Write";
-import { Context } from "../../context/context";
-import { axiosInstance } from "../../config";
+import React, { useContext, useEffect, useState } from 'react';
+import Header from '../../components/header/Header';
+import styles from './Post.module.css';
+import { useLocation, useParams } from 'react-router-dom';
+import Write from '../write/Write';
+import { Context } from '../../context/context';
+import { axiosInstance } from '../../config';
 
 const Post = (props) => {
   const [post, setPost] = useState({});
@@ -41,9 +41,9 @@ const Post = (props) => {
       const res = await fetch(
         `https://myportfolioblogproject.herokuapp.com/posts/${param.id}`,
         {
-          method: "DELETE",
+          method: 'DELETE',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             // Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
@@ -55,7 +55,7 @@ const Post = (props) => {
       res.status === 401 &&
         window.alert(`${res.statusText} 이 글 작성자만 편집할 수 있습니다!`);
 
-      res.status === 204 && window.location.replace("/");
+      res.status === 204 && window.location.replace('/');
     } catch (err) {
       window.alert(err);
     }
@@ -81,8 +81,10 @@ const Post = (props) => {
           <div className={styles.postBox}>
             <div className={styles.postImgTextBox}>
               <div className={styles.postTitleImgBox}>
-                {post.imgUrl === "" ? null : (
-                  <img crossOrigin="anonymous" src={post.imgUrl} alt="" />
+                {post.imgUrl === '' ? (
+                  <img src='../images/postdefaultimg.png' />
+                ) : (
+                  <img crossOrigin='anonymous' src={post.imgUrl} alt='' />
                 )}
               </div>
               <div className={styles.postTextBox}>
@@ -100,9 +102,9 @@ const Post = (props) => {
                           setEditBtnIndex(false);
                         }
                       }}
-                      class="fa-solid fa-pen-to-square"
+                      class='fa-solid fa-pen-to-square'
                     ></i>
-                    <i onClick={deletePost} class="fa-solid fa-trash"></i>
+                    <i onClick={deletePost} class='fa-solid fa-trash'></i>
                   </div>
                 </header>
                 <div className={styles.authorAndDate}>
