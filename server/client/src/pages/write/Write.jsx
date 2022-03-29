@@ -61,6 +61,10 @@ const Write = () => {
                   // headers: {
                   //   Authorization: `Bearer ${token}`,
                   // },
+                  credentials: 'include',
+                  headers: {
+                    Origin: `https://res.cloudinary.com`,
+                  },
                   body: formData,
                 }
               );

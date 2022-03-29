@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Header from "../../components/header/Header.jsx";
-import HomePost from "../../components/homePost/HomePost.jsx";
-import SidebarAboutMe from "../../components/sidebarAboutMe/SidebarAboutMe.jsx";
-import { axiosInstance } from "../../config.js";
-import styles from "./Home.module.css";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Header from '../../components/header/Header.jsx';
+import HomePost from '../../components/homePost/HomePost.jsx';
+import SidebarAboutMe from '../../components/sidebarAboutMe/SidebarAboutMe.jsx';
+import { axiosInstance } from '../../config.js';
+import styles from './Home.module.css';
 
 const Home = (props) => {
   const [totalPosts, setTotalPosts] = useState([]);
   const [num, setNum] = useState(1);
   const [paginationRowNum, setPaginationRowNum] = useState(5);
   const [endNum, setEndNum] = useState(totalPosts.length / 4 + 4);
-  const [sideBarAccessIndex, setSideBarAccessIndex] = useState("");
+  const [sideBarAccessIndex, setSideBarAccessIndex] = useState('');
   const [selectedPostsArray, setSelectedPostsArray] = useState([]);
   const [homeBtnIndex, setHomeBtnIndex] = useState(false);
 
@@ -86,7 +86,7 @@ const Home = (props) => {
     <section className={styles.home}>
       <Header homeBtnIndex={homeBtnIndex} setHomeBtnIndex={setHomeBtnIndex} />
       <div className={styles.homeBgImg}>
-        <img src="../images/cathay.jpg" alt="" />
+        <img src='../images/cathay.jpg' alt='' />
       </div>
       <div className={styles.title}>
         <span>IT & Game</span>
@@ -96,7 +96,7 @@ const Home = (props) => {
         <div className={styles.postsPart}>
           {selectedArray.map((post) => {
             return (
-              <Link className="link" to={`/post/${post._id}`}>
+              <Link className='link' to={`/post/${post._id}`}>
                 <HomePost post={post} />
               </Link>
             );
@@ -110,7 +110,7 @@ const Home = (props) => {
       </div>
       <ul>
         <i
-          class="fa-solid fa-circle-arrow-left"
+          class='fa-solid fa-circle-arrow-left'
           onClick={previousPaginationNum}
         ></i>
         {paginationRowNum === 5 &&
@@ -170,7 +170,7 @@ const Home = (props) => {
               }
             })}
         <i
-          class="fa-solid fa-circle-arrow-right"
+          class='fa-solid fa-circle-arrow-right'
           onClick={nextPaginationNum}
         ></i>
       </ul>

@@ -39,7 +39,13 @@ app.use(
   })
 );
 
-app.use(cors());
+app.use(
+  cors({
+    origin: `https://res.cloudinary.com`,
+    optionsSuccessStatus: 200,
+    credentials: true,
+  })
+);
 app.use(morgan('tiny'));
 
 app.get('/lee', (req, res, next) => {
