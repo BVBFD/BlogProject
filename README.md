@@ -97,3 +97,6 @@
 *ver 2.2.4 - 2022년 03월 27일
 1. Image default 이미지 설정 및 적용
 2. Sidebar 내용 보충 및 수정해서 업데이트
+
+*ver 2.2.5 - 2022년 03월 29일
+1. CORS Cloudinary 서버 수정 코드 추가
