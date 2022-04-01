@@ -94,6 +94,12 @@
   /* width: 100%; */
 }
 
+.postPage .postBox .postImgTextBox .postTextBox .postContentText pre {
+  background: black;
+  color: white;
+  padding: 1rem;
+}
+
 /* .postPage
   .postBox
   .postImgTextBox
@@ -151,6 +157,11 @@
 
   .postPage .postBox .postImgTextBox .postTextBox .postContentText img {
     width: 100%;
+  }
+
+  .postPage .postBox .postImgTextBox .postTextBox .postContentText pre {
+    font-size: 0.5rem;
+    padding: 0.5rem 0.2rem;
   }
 }
 
