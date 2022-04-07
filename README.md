@@ -100,3 +100,9 @@
 
 *ver 2.2.5 - 2022년 03월 29일
 1. CORS Cloudinary 서버 수정 코드 추가
+
+*ver 2.4.0 - 2022년 04월 07일
+1. Toast UI Editor 에서 react-quill smart editor로 변경!
+2. 코드 게시글 가시성을 위해서 react-quill edtior의 code-block에서 highlight.js 라이브러리 추가!
+3. Toast UI Editor 에서 불가능했던 포스트 default value 설정 react-quill editor 에서 설정!
+4. 기존 Toast UI Editor 코드는 향후 참고를 위하여 주석처리 해놓음. 
