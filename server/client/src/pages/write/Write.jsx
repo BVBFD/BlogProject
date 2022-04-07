@@ -481,11 +481,12 @@ const Write = () => {
           modules={modules}
           formats={formats}
           value={editorText}
+          defaultValue={param.id ? postForEdit.text : ''}
           onChange={setEditorText}
           // onKeyDown={detectRemoveImg}
           theme={'snow'}
         />
-        {param.id && (
+        {/* {param.id && (
           <div
             style={{
               width: '100%',
@@ -496,7 +497,7 @@ const Write = () => {
           >
             {postForEdit.text}
           </div>
-        )}
+        )} */}
       </form>
     </section>
   );
