@@ -6,6 +6,11 @@ import Write from '../write/Write';
 import { Context } from '../../context/context';
 import { axiosInstance } from '../../config';
 
+import 'react-quill/dist/quill.snow.css';
+import 'react-quill/dist/quill.core.css';
+import 'react-quill/dist/quill.bubble.css';
+import 'highlight.js/styles/vs2015.css';
+
 const Post = (props) => {
   const [post, setPost] = useState({});
   const location = useLocation();
@@ -73,6 +78,12 @@ const Post = (props) => {
     // }
   };
 
+  useEffect(() => {
+    document
+      .querySelectorAll('img')
+      .forEach((img) => img.setAttribute('crossOrigin', 'anonymous'));
+  }, []);
+
   return (
     <section className={styles.postPage}>
       {!editBtnIndex ? (
@@ -113,11 +124,14 @@ const Post = (props) => {
                   </p>
                   <span>{new Date(post.createdAt).toDateString()}</span>
                 </div>
-                <div
-                  className={styles.postContentText}
-                  dangerouslySetInnerHTML={inputText()}
-                >
-                  {/* <p>{post.text}</p> */}
+                <div className='ql-snow'>
+                  <div
+                    class='ql-editor'
+                    className={styles.postContentText}
+                    dangerouslySetInnerHTML={inputText()}
+                  >
+                    {/* <p>{post.text}</p> */}
+                  </div>
                 </div>
               </div>
             </div>

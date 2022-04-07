@@ -7,6 +7,9 @@ export const axiosInstance = axios.create(
   {
     mode: 'cors',
     credentials: 'include',
-    headers: { Origin: `https://res.cloudinary.com` },
+    headers: {
+      // Origin: `https://res.cloudinary.com`,
+      Origin: `http://localhost:3000`,
+    },
   }
 );

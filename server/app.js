@@ -41,7 +41,8 @@ app.use(
 
 app.use(
   cors({
-    origin: `https://res.cloudinary.com`,
+    // origin: `https://res.cloudinary.com`,
+    origin: `http://localhost:3000`,
     optionsSuccessStatus: 200,
     credentials: true,
   })
