@@ -1,14 +1,22 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import Header from '../../components/header/Header';
 import { Context } from '../../context/context.js';
 import styles from './Login.module.css';
 import axiosInstance from '../../config';
+import { useNavigate } from 'react-router-dom';
 
-const Login = (props) => {
+const Login = () => {
   const { id, dispatch } = useContext(Context);
   const [loginSuccess, setLoginSuccess] = useState(false);
   const idRef = useRef();
   const pwdRef = useRef();
+  const navigate = useNavigate();
 
   const onLogin = async (event) => {
     event.preventDefault();
@@ -37,6 +45,7 @@ const Login = (props) => {
         userId: idRef.current.value,
         password: pwdRef.current.value,
       });
+
       dispatch({
         type: 'LOGIN_SUCCESS',
         payload: {
@@ -47,13 +56,16 @@ const Login = (props) => {
           email: res.data.sendLoginData.email,
         },
       });
+
+      // XSS TOKEN 받기!
+      await axiosInstance.get(`/getXSSToken`);
     } catch (err) {
       window.alert(err);
     }
     setLoginSuccess(true);
   };
 
-  loginSuccess && window.location.replace('/');
+  navigate('/');
 
   // event.preventDefault();
   // console.log(event);

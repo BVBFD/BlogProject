@@ -14,6 +14,8 @@ import ContactDatasModel from './models/contactDatasModel.js';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import cloudinary from 'cloudinary';
 import rateLimiter from './middleware/rate-limiter.js';
+import cookieParser from 'cookie-parser';
+import bcrypt from 'bcryptjs';
 
 dotenv.config();
 
@@ -49,7 +51,32 @@ app.use(
   })
 );
 app.use(morgan('tiny'));
+app.use(cookieParser());
 app.use(rateLimiter);
+
+app.get('/getXSSToken', async (req, res, next) => {
+  try {
+    const XSS_TOKEN = await bcrypt.hash(process.env.XSS_TOKEN, 1);
+    res.cookie('XSS_TOKEN', XSS_TOKEN, {
+      maxAge: 3 * 60 * 60 * 1000,
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true,
+    });
+    res.status(200).json('XSS_TOKEN 생성!');
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+app.get('/getCSRFToken', async (req, res, next) => {
+  try {
+    const CSRF_TOKEN = await bcrypt.hash(process.env.CSRF_TOKEN, 1);
+    res.status(201).json(CSRF_TOKEN);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
 
 app.get('/lee', (req, res, next) => {
   console.log('Hey this is initial test code!');

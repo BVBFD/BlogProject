@@ -6,19 +6,15 @@ const defaultRetryConfig = {
   retryDelay: 100,
 };
 
-const axiosInstance = axios.create(
-  {
-    baseURL: 'https://myportfolioblogproject.herokuapp.com/',
+const axiosInstance = axios.create({
+  baseURL: 'https://myportfolioblogproject.herokuapp.com/',
+  mode: 'cors',
+  withCredentials: true,
+  headers: {
+    // Origin: `https://res.cloudinary.com`,
+    Origin: `http://localhost:3000`,
   },
-  {
-    mode: 'cors',
-    credentials: 'include',
-    headers: {
-      // Origin: `https://res.cloudinary.com`,
-      Origin: `http://localhost:3000`,
-    },
-  }
-);
+});
 
 axiosRetry(axiosInstance, {
   retries: defaultRetryConfig.retries,

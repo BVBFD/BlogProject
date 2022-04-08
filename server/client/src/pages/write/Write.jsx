@@ -7,7 +7,7 @@ import styles from './Write.module.css';
 // import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 // import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import { Context } from '../../context/context.js';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axiosInstance from '../../config.js';
 
 import ReactQuill from 'react-quill';
@@ -27,6 +27,26 @@ const Write = () => {
   const editorRef = useRef();
   const param = useParams();
   const [postForEdit, setPostForEdit] = useState({});
+  const navigate = useNavigate();
+  const [csrfToken, setCsrfToken] = useState('');
+
+  useEffect(async () => {
+    const res = await fetch(
+      `https://myportfolioblogproject.herokuapp.com/getCSRFToken`,
+      {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Origin: `http://localhost:3000`,
+        },
+      }
+    );
+
+    const data = await res.json();
+    setCsrfToken(data);
+  }, []);
 
   useEffect(async () => {
     if (param.id) {
@@ -303,6 +323,7 @@ const Write = () => {
     //     `https://myportfolioblogproject.herokuapp.com/posts`,
     //     {
     //       method: 'POST',
+    //       credentials: 'include',
     //       headers: {
     //         'Content-Type': 'application/json',
     //         // Authorization: `Bearer ${token}`,
@@ -324,15 +345,23 @@ const Write = () => {
 
     // axios 라이브러리 사용!
     try {
-      const res = await axiosInstance.post(`/posts`, {
-        imgUrl: writePageImgURL,
-        title: title,
-        text: editorText,
-        catName: catName,
-        author: id,
-      });
+      const res = await axiosInstance.post(
+        `/posts`,
+        {
+          imgUrl: writePageImgURL,
+          title: title,
+          text: editorText,
+          catName: catName,
+          author: id,
+        },
+        {
+          headers: {
+            CSRF_TOKEN: csrfToken,
+          },
+        }
+      );
 
-      window.location.replace(`/post/${res.data.savedNewPost?._id}`);
+      navigate(`/post/${res.data.savedNewPost?._id}`);
     } catch (err) {
       console.log(err);
     }
@@ -365,13 +394,21 @@ const Write = () => {
       // console.log(data);
 
       // axios 라이브러리 사용!
-      const res = await axiosInstance.put(`/posts/${param.id}`, {
-        imgUrl: writePageImgURL,
-        title: title,
-        text: editorText,
-        catName: catName,
-        author: id,
-      });
+      const res = await axiosInstance.put(
+        `/posts/${param.id}`,
+        {
+          imgUrl: writePageImgURL,
+          title: title,
+          text: editorText,
+          catName: catName,
+          author: id,
+        },
+        {
+          headers: {
+            CSRF_TOKEN: csrfToken,
+          },
+        }
+      );
 
       res.status === 401 &&
         window.alert(`${res.statusText} 이 글 작성자만 편집할 수 있습니다!`);
