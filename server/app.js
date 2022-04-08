@@ -13,6 +13,7 @@ import { fileURLToPath } from 'url';
 import ContactDatasModel from './models/contactDatasModel.js';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import cloudinary from 'cloudinary';
+import rateLimiter from './middleware/rate-limiter.js';
 
 dotenv.config();
 
@@ -48,6 +49,7 @@ app.use(
   })
 );
 app.use(morgan('tiny'));
+app.use(rateLimiter);
 
 app.get('/lee', (req, res, next) => {
   console.log('Hey this is initial test code!');

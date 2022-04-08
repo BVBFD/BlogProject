@@ -1,8 +1,8 @@
-import React, { useContext, useRef, useState } from "react";
-import Header from "../../components/header/Header";
-import { Context } from "../../context/context.js";
-import styles from "./Login.module.css";
-import { axiosInstance } from "../../config";
+import React, { useContext, useRef, useState } from 'react';
+import Header from '../../components/header/Header';
+import { Context } from '../../context/context.js';
+import styles from './Login.module.css';
+import axiosInstance from '../../config';
 
 const Login = (props) => {
   const { id, dispatch } = useContext(Context);
@@ -38,7 +38,7 @@ const Login = (props) => {
         password: pwdRef.current.value,
       });
       dispatch({
-        type: "LOGIN_SUCCESS",
+        type: 'LOGIN_SUCCESS',
         payload: {
           userId: res.data.sendLoginData.userId,
           // token: res.data.token,
@@ -53,7 +53,7 @@ const Login = (props) => {
     setLoginSuccess(true);
   };
 
-  loginSuccess && window.location.replace("/");
+  loginSuccess && window.location.replace('/');
 
   // event.preventDefault();
   // console.log(event);
@@ -88,20 +88,20 @@ const Login = (props) => {
           <span>ID</span>
           <input
             ref={idRef}
-            type="text"
+            type='text'
             autoFocus
-            placeholder="Enter your ID"
+            placeholder='Enter your ID'
           />
         </div>
         <div className={styles.pwdBox}>
           <span>Password</span>
           <input
             ref={pwdRef}
-            type="password"
-            placeholder="Enter your password"
+            type='password'
+            placeholder='Enter your password'
           />
         </div>
-        <button type="submit">login</button>
+        <button type='submit'>login</button>
       </form>
     </>
   );

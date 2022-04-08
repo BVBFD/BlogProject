@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../../components/header/Header.jsx';
 import HomePost from '../../components/homePost/HomePost.jsx';
 import SidebarAboutMe from '../../components/sidebarAboutMe/SidebarAboutMe.jsx';
-import { axiosInstance } from '../../config.js';
+import axiosInstance from '../../config.js';
 import styles from './Home.module.css';
 
 const Home = (props) => {

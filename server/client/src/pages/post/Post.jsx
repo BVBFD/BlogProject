@@ -4,7 +4,7 @@ import styles from './Post.module.css';
 import { useLocation, useParams } from 'react-router-dom';
 import Write from '../write/Write';
 import { Context } from '../../context/context';
-import { axiosInstance } from '../../config';
+import axiosInstance from '../../config';
 
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.core.css';

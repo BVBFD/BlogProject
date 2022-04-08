@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import Header from '../../components/header/Header';
-import { axiosInstance } from '../../config';
+import axiosInstance from '../../config';
 import { Context } from '../../context/context';
 import styles from './Contact.module.css';
 

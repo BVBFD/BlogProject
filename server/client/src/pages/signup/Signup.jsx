@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
-import Header from "../../components/header/Header";
-import styles from "./Signup.module.css";
-import { Context } from "../../context/context.js";
-import { axiosInstance } from "../../config";
+import React, { useContext, useState } from 'react';
+import Header from '../../components/header/Header';
+import styles from './Signup.module.css';
+import { Context } from '../../context/context.js';
+import axiosInstance from '../../config';
 
 const Signup = (props) => {
-  const [id, setId] = useState("");
-  const [email, setEmail] = useState("");
-  const [pwd, setPwd] = useState("");
+  const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
+  const [pwd, setPwd] = useState('');
   const { dispatch } = useContext(Context);
   const [loginSuccess, setLoginSuccess] = useState(false);
 
@@ -44,12 +44,12 @@ const Signup = (props) => {
         userId: id,
         password: pwd,
         email: email,
-        profilePic: "",
+        profilePic: '',
         editable: false,
       });
 
       dispatch({
-        type: "LOGIN_SUCCESS",
+        type: 'LOGIN_SUCCESS',
         payload: {
           userId: res.data.data.userId,
           // token: res.data.token,
@@ -67,7 +67,7 @@ const Signup = (props) => {
   // 아이디는 jwt 토큰화 시켜서 유효기간 설정후 클라이언트, 서버 정보 교환
   // jwt 토큰은 클라이언트 로컬 db에 저장 로그아웃 실행시 삭제기능 백엔드, 클라이언트에서 구현할것
 
-  loginSuccess && window.location.replace("/");
+  loginSuccess && window.location.replace('/');
 
   return (
     <>
@@ -79,30 +79,30 @@ const Signup = (props) => {
         <div className={styles.idBox}>
           <span>ID</span>
           <input
-            type="text"
+            type='text'
             autoFocus
-            placeholder="Enter your ID"
+            placeholder='Enter your ID'
             onChange={(e) => setId(e.target.value)}
           />
         </div>
         <div className={styles.emailBox}>
           <span>Email</span>
           <input
-            type="email"
+            type='email'
             autoFocus
-            placeholder="Enter your Email"
+            placeholder='Enter your Email'
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className={styles.pwdBox}>
           <span>Password</span>
           <input
-            type="password"
+            type='password'
             onChange={(e) => setPwd(e.target.value)}
-            placeholder="Enter your Password"
+            placeholder='Enter your Password'
           />
         </div>
-        <button type="submit">Sign-up</button>
+        <button type='submit'>Sign-up</button>
       </form>
     </>
   );

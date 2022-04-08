@@ -8,11 +8,10 @@ import styles from './Write.module.css';
 // import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import { Context } from '../../context/context.js';
 import { useParams } from 'react-router-dom';
-import { axiosInstance } from '../../config.js';
+import axiosInstance from '../../config.js';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import axios from 'axios';
 import hljs from 'highlight.js';
 import 'react-quill/dist/quill.core.css';
 import 'react-quill/dist/quill.bubble.css';
@@ -38,6 +37,11 @@ const Write = () => {
       setWritePageImgURL(response.data.imgUrl);
       setCatName(response.data.catName);
       setEditorText(response.data.text);
+
+      // 에디터 내의 이미지 태그에 crossOrigin 속성 부여!
+      document
+        .querySelectorAll('.ql-editor img')
+        .forEach((img) => img.setAttribute('crossorigin', 'anonymous'));
     }
     return () => setTitleImg();
   }, [param.id]);
@@ -126,22 +130,23 @@ const Write = () => {
       formData.append('file', file); // formData는 키-밸류 구조
       // 백엔드 multer라우터에 이미지를 보낸다.
       try {
-        // const result = await axios.post(
-        //   'https://myportfolioblogproject.herokuapp.com/pic/upload',
-        //   formData
+        // axios 사용 Rate Litmit 기능 때문!
+        const result = await axiosInstance.post('/pic/upload', formData);
+        const updatedPicURL = result.data;
+
+        //  일반 fetch api
+        // const response = await fetch(
+        //   `https://myportfolioblogproject.herokuapp.com/pic/upload`,
+        //   {
+        //     method: 'POST',
+        //     mode: 'cors',
+        //     // headers: {
+        //     //   Authorization: `Bearer ${token}`,
+        //     // },
+        //     body: formData,
+        //   }
         // );
-        const response = await fetch(
-          `https://myportfolioblogproject.herokuapp.com/pic/upload`,
-          {
-            method: 'POST',
-            mode: 'cors',
-            // headers: {
-            //   Authorization: `Bearer ${token}`,
-            // },
-            body: formData,
-          }
-        );
-        const updatedPicURL = await response.json();
+        // const updatedPicURL = await response.json();
         console.log('성공 시, 백엔드가 보내주는 데이터', updatedPicURL);
         const IMG_URL = updatedPicURL;
         // 이 URL을 img 태그의 src에 넣은 요소를 현재 에디터의 커서에 넣어주면 에디터 내에서 이미지가 나타난다
@@ -170,8 +175,6 @@ const Write = () => {
       }
     });
   };
-
-  console.log(editorText);
 
   hljs.configure({
     languages: ['javascript', 'html', 'css', 'react', 'sass', 'typescript'],
@@ -246,18 +249,23 @@ const Write = () => {
       data.append('name', filename);
       data.append('file', e.target.files[0]);
       try {
-        const response = await fetch(
-          `https://myportfolioblogproject.herokuapp.com/pic/upload`,
-          {
-            method: 'POST',
-            mode: 'cors',
-            // headers: {
-            //   Authorization: `Bearer ${token}`,
-            // },
-            body: data,
-          }
-        );
-        const updatedPicURL = await response.json();
+        // axios 사용 Rate Litmit 기능 때문!
+        const result = await axiosInstance.post('/pic/upload', data);
+        const updatedPicURL = result.data;
+
+        // 일반 fetch api 사용
+        // const response = await fetch(
+        //   `https://myportfolioblogproject.herokuapp.com/pic/upload`,
+        //   {
+        //     method: 'POST',
+        //     mode: 'cors',
+        //     // headers: {
+        //     //   Authorization: `Bearer ${token}`,
+        //     // },
+        //     body: data,
+        //   }
+        // );
+        // const updatedPicURL = await response.json();
         setWritePageImgURL(updatedPicURL);
       } catch (err) {
         window.alert(err);
@@ -290,74 +298,80 @@ const Write = () => {
       return;
     }
     // 기존 APIs request 문법!
-    try {
-      const response = await fetch(
-        `https://myportfolioblogproject.herokuapp.com/posts`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            // Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            imgUrl: writePageImgURL,
-            title: title,
-            text: editorText,
-            catName: catName,
-            author: id,
-          }),
-        }
-      );
-      const data = await response.json();
-      window.location.replace(`/post/${data.savedNewPost._id}`);
-    } catch (err) {
-      window.alert('개인블로그 입니다. 편집은 주인장만 가능!');
-    }
-
-    // axios 라이브러리 사용!
     // try {
-    //   const res = await axios.post(
-    //     `${process.env.REACT_APP_BASE_URL}/posts`,
+    //   const response = await fetch(
+    //     `https://myportfolioblogproject.herokuapp.com/posts`,
     //     {
-    //       imgUrl: writePageImgURL,
-    //       title: title,
-    //       text: editorText,
-    //       catName: catName,
-    //       author: id,
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         // Authorization: `Bearer ${token}`,
+    //       },
+    //       body: JSON.stringify({
+    //         imgUrl: writePageImgURL,
+    //         title: title,
+    //         text: editorText,
+    //         catName: catName,
+    //         author: id,
+    //       }),
     //     }
     //   );
-    //   console.log(res);
-    //   window.location.replace(`/post/${res.data.savedNewPost?._id}`);
+    //   const data = await response.json();
+    //   window.location.replace(`/post/${data.savedNewPost._id}`);
     // } catch (err) {
-    //   console.log(err);
+    //   window.alert('개인블로그 입니다. 편집은 주인장만 가능!');
     // }
+
+    // axios 라이브러리 사용!
+    try {
+      const res = await axiosInstance.post(`/posts`, {
+        imgUrl: writePageImgURL,
+        title: title,
+        text: editorText,
+        catName: catName,
+        author: id,
+      });
+
+      window.location.replace(`/post/${res.data.savedNewPost?._id}`);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleEdit = async (event) => {
     event.preventDefault();
     // 기존 APIs request 문법!
     try {
-      const res = await fetch(
-        `https://myportfolioblogproject.herokuapp.com/posts/${param.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            // Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            imgUrl: writePageImgURL,
-            title: title,
-            text: editorText,
-            catName: catName,
-            author: id,
-          }),
-        }
-      );
+      // const res = await fetch(
+      //   `https://myportfolioblogproject.herokuapp.com/posts/${param.id}`,
+      //   {
+      //     method: 'PUT',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       // Authorization: `Bearer ${token}`,
+      //     },
+      //     body: JSON.stringify({
+      //       imgUrl: writePageImgURL,
+      //       title: title,
+      //       text: editorText,
+      //       catName: catName,
+      //       author: id,
+      //     }),
+      //   }
+      // );
 
-      const data = await res.json();
+      // const data = await res.json();
 
-      console.log(data);
+      // console.log(data);
+
+      // axios 라이브러리 사용!
+      const res = await axiosInstance.put(`/posts/${param.id}`, {
+        imgUrl: writePageImgURL,
+        title: title,
+        text: editorText,
+        catName: catName,
+        author: id,
+      });
 
       res.status === 401 &&
         window.alert(`${res.statusText} 이 글 작성자만 편집할 수 있습니다!`);
