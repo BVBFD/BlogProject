@@ -106,3 +106,9 @@
 2. 코드 게시글 가시성을 위해서 react-quill edtior의 code-block에서 highlight.js 라이브러리 추가!
 3. Toast UI Editor 에서 불가능했던 포스트 default value 설정 react-quill editor 에서 설정!
 4. 기존 Toast UI Editor 코드는 향후 참고를 위하여 주석처리 해놓음. 
+
+
+*ver 2.5.0 - 2022년 04월 09일
+1. 보안업데이트 - axios 사용에 한해서 axios api limiter를 써서 D-DOS 공격 예방!
+2. 보안업데이트 - XSS 대응 방안으로 XSS 전용 토큰 인증 방식으로 예방!
+3. 보안업데이트 - CSRF 대응 방안으로 CSRF 전용 토큰 인증 방식으로 예방! 
