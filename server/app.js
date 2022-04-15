@@ -30,8 +30,10 @@ const cspOptions = {
     // 기본 옵션을 가져옵니다.
     ...helmet.contentSecurityPolicy.getDefaultDirectives(),
 
-    // cloudinary 사이트의 이미지 소스를 허용합니다.
+    // cloudinary 사이트의 이미지, 비디오 소스를 허용합니다.
     'img-src': ["'self'", 'data:', `https://res.cloudinary.com`],
+    'media-src': ["'self'", 'data:', `https://res.cloudinary.com`],
+    'child-src': ["'self'", 'data:', `https://res.cloudinary.com`],
   },
 };
 
@@ -39,6 +41,9 @@ const cspOptions = {
 app.use(
   helmet({
     contentSecurityPolicy: cspOptions,
+    frameguard: {
+      action: 'DENY',
+    },
   })
 );
 
@@ -107,14 +112,31 @@ const storage = new CloudinaryStorage({
   },
 });
 
+const videoStorage = new CloudinaryStorage({
+  cloudinary: cloudinary.v2,
+  params: {
+    folder: 'myportfolioblogproject/video',
+    resource_type: 'video',
+    format: async (req, file) => 'mp4',
+    public_id: (req, file) => req.filename,
+    chunk_size: 8000000,
+  },
+});
+
 const upload = multer({ storage: storage });
+const videoUpload = multer({ storage: videoStorage });
 
 app.post('/pic/upload', upload.single('file'), (req, res, next) => {
   res.header('Cross-Origin-Resource-Policy', 'cross-origin');
   res.status(200).json(req.file.path);
 });
 
-// app.post("/pic/upload", upload.single("file"), (req, res, next) => {
+app.post('/video/upload', videoUpload.single('file'), (req, res, next) => {
+  res.header('Cross-Origin-Resource-Policy', 'cross-origin');
+  res.status(200).json(req.file.path);
+});
+
+// app.post('/pic/upload', upload.single('file'), (req, res, next) => {
 //   res
 //     .status(200)
 //     .json(

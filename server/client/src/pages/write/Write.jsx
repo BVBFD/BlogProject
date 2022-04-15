@@ -122,8 +122,71 @@ const Write = () => {
   // 향후 비디오 파일 서버에 저장후 url만 가지고 올수 있도록 custom 예정
   const videoHandler = () => {
     console.log('video handler on!!');
-  };
 
+    console.log('에디터에서 비디오 버튼을 클릭하면 이 핸들러가 시작됩니다!');
+
+    // 1. 비디오를 저장할 input type=file DOM을 만든다.
+    const input = document.createElement('input');
+
+    // 속성 써주기
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'video/*');
+    input.click(); // 에디터 비디오버튼을 클릭하면 이 input이 클릭된다.
+    // input이 클릭되면 파일 선택창이 나타난다.
+    console.log(input);
+
+    input.addEventListener('change', async () => {
+      console.log('File OnChange!');
+      const file = input.files[0];
+      console.log(file);
+
+      // multer에 맞는 형식으로 데이터 만들어준다.
+      const formData = new FormData();
+      const filename = `${Date.now()}${file.name}`;
+      formData.append('name', filename);
+      formData.append('file', file); // formData는 키-밸류 구조
+      // 백엔드 multer라우터에 비디오를 보낸다.
+      try {
+        // axios 사용 Rate Litmit 기능 때문!
+        const result = await axiosInstance.post('/video/upload', formData);
+        const updatedVidURL = result.data;
+
+        //  일반 fetch api
+        // const response = await fetch(
+        //   `https://myportfolioblogproject.herokuapp.com/pic/upload`,
+        //   {
+        //     method: 'POST',
+        //     mode: 'cors',
+        //     // headers: {
+        //     //   Authorization: `Bearer ${token}`,
+        //     // },
+        //     body: formData,
+        //   }
+        // );
+        // const updatedPicURL = await response.json();
+        console.log('성공 시, 백엔드가 보내주는 데이터', updatedVidURL);
+        const vid_URL = updatedVidURL;
+        // 이 URL을 비디오 태그의 src에 넣은 요소를 현재 에디터의 커서에 넣어주면 에디터 내에서 이미지가 나타난다
+        // src가 base64가 아닌 짧은 URL이기 때문에 데이터베이스에 에디터의 전체 글 내용을 저장할 수있게된다
+        // 이미지는 꼭 로컬 백엔드 uploads 폴더가 아닌 다른 곳에 저장해 URL로 사용하면된다.
+
+        // 이미지 태그를 에디터에 써주기 - 여러 방법이 있다.
+        const editor = editorRef.current.getEditor(); // 에디터 객체 가져오기
+        const imgUrl = vid_URL.slice(0, -3).concat('png');
+        // 가져온 위치에 비디오를 삽입한다
+        editor.root.innerHTML =
+          editor.root.innerHTML +
+          `<img width="500px" className="videoImg" src="${imgUrl}" crossOrigin></img>
+          <a href="${vid_URL}">✅Click to play above Video🎦</a>`;
+
+        document
+          .querySelectorAll('.videoImg')
+          .forEach((video) => video.setAttribute('width', '500px'));
+      } catch (error) {
+        console.log('실패!!!');
+      }
+    });
+  };
   // 이미지 서버에 저장후 url만 가지고 올수 있도록 custom!
   const imageHandler = (e) => {
     console.log('에디터에서 이미지 버튼을 클릭하면 이 핸들러가 시작됩니다!');
@@ -190,6 +253,7 @@ const Write = () => {
           .querySelectorAll('img')
           .forEach((img) => img.setAttribute('crossOrigin', 'anonymous'));
         // 자바스크립트 자동 엔터키 생각해보기!! 갔다와서
+        editor.setSelection(range.index + 1);
       } catch (error) {
         console.log('실패!!!');
       }
