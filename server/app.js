@@ -31,9 +31,10 @@ const cspOptions = {
     ...helmet.contentSecurityPolicy.getDefaultDirectives(),
 
     // cloudinary 사이트의 이미지, 비디오 소스를 허용합니다.
-    'img-src': ["'self'", 'data:', `https://res.cloudinary.com`],
+    'img-src': ["'self'", 'data:', `*`],
     'media-src': ["'self'", 'data:', `https://res.cloudinary.com`],
     'child-src': ["'self'", 'data:', `https://res.cloudinary.com`],
+    'frame-src': ["'self'", 'data:', `https://res.cloudinary.com`],
   },
 };
 
@@ -41,9 +42,6 @@ const cspOptions = {
 app.use(
   helmet({
     contentSecurityPolicy: cspOptions,
-    frameguard: {
-      action: 'DENY',
-    },
   })
 );
 

@@ -62,6 +62,10 @@ const Write = () => {
       document
         .querySelectorAll('.ql-editor img')
         .forEach((img) => img.setAttribute('crossorigin', 'anonymous'));
+
+      document
+        .querySelectorAll('.ql-editor a img')
+        .forEach((img) => img.setAttribute('style', 'max-width: 500px;'));
     }
     return () => setTitleImg();
   }, [param.id]);
@@ -168,16 +172,23 @@ const Write = () => {
         const vid_URL = updatedVidURL;
         // 이 URL을 비디오 태그의 src에 넣은 요소를 현재 에디터의 커서에 넣어주면 에디터 내에서 이미지가 나타난다
         // src가 base64가 아닌 짧은 URL이기 때문에 데이터베이스에 에디터의 전체 글 내용을 저장할 수있게된다
-        // 이미지는 꼭 로컬 백엔드 uploads 폴더가 아닌 다른 곳에 저장해 URL로 사용하면된다.
+        // 비디오는 꼭 로컬 백엔드 uploads 폴더가 아닌 다른 곳에 저장해 URL로 사용하면된다.
 
-        // 이미지 태그를 에디터에 써주기 - 여러 방법이 있다.
+        // 비디오 태그를 에디터에 써주기 - 여러 방법이 있다.
+
         const editor = editorRef.current.getEditor(); // 에디터 객체 가져오기
         const imgUrl = vid_URL.slice(0, -3).concat('png');
         // 가져온 위치에 비디오를 삽입한다
         editor.root.innerHTML =
           editor.root.innerHTML +
-          `<img width="500px" className="videoImg" src="${imgUrl}" crossOrigin></img>
-          <a href="${vid_URL}">✅Click to play above Video🎦</a>`;
+          `<p>
+            <a href="${vid_URL}" style="text-decoration: none;cusor:pointer;display:flex;flex-direction:column;">
+              <img class="videoImgs" style="width: 500px;" width="500px" src="${imgUrl}" crossOrigin></img>
+              <span>
+                ✅Click to play above Video🎦
+              </span>
+            </a>
+          </p>`;
 
         document
           .querySelectorAll('.videoImg')

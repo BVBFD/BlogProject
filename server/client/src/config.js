@@ -13,6 +13,8 @@ const axiosInstance = axios.create({
   headers: {
     // Origin: `https://res.cloudinary.com`,
     Origin: `http://localhost:3000`,
+    'Content-Securitiy-Policy':
+      'img-src *;media-src https://res.cloudinary.com;child-src https://res.cloudinary.com;frame-src https://res.cloudinary.com;',
   },
 });
 
