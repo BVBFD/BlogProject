@@ -111,6 +111,10 @@
   color: #666;
 } */
 
+.postPage .postBox .postImgTextBox .postTextBox .postContentText a img {
+  width: 500px;
+}
+
 @media screen and (max-width: 1300px) {
   .postPage .postBox {
     margin: 0;
@@ -156,6 +160,10 @@
   }
 
   .postPage .postBox .postImgTextBox .postTextBox .postContentText img {
+    width: 100%;
+  }
+
+  .postPage .postBox .postImgTextBox .postTextBox .postContentText a img {
     width: 100%;
   }
 

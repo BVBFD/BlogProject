@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Header from '../../components/header/Header';
 import styles from './Post.module.css';
 import { useLocation, useParams } from 'react-router-dom';
@@ -18,6 +18,7 @@ const Post = () => {
   const [editBtnIndex, setEditBtnIndex] = useState(false);
   const { id } = useContext(Context);
   const [csrfToken, setCsrfToken] = useState('');
+  const postTextBoxRef = useRef();
 
   useEffect(async () => {
     const res = await fetch(
@@ -57,6 +58,10 @@ const Post = () => {
     } catch (err) {
       window.alert(err);
     }
+
+    document
+      .querySelectorAll('.videoImgs')
+      .forEach((img) => img.setAttribute('style', ''));
   }, [location, param]);
 
   const deletePost = async () => {
@@ -134,6 +139,7 @@ const Post = () => {
                 <div className='ql-snow'>
                   <div
                     class='ql-editor'
+                    ref={postTextBoxRef}
                     className={styles.postContentText}
                     dangerouslySetInnerHTML={inputText()}
                   >

@@ -32,9 +32,17 @@ const cspOptions = {
 
     // cloudinary 사이트의 이미지, 비디오 소스를 허용합니다.
     'img-src': ["'self'", 'data:', `*`],
-    'media-src': ["'self'", 'data:', `https://res.cloudinary.com`],
-    'child-src': ["'self'", 'data:', `https://res.cloudinary.com`],
-    'frame-src': ["'self'", 'data:', `https://res.cloudinary.com`],
+    'media-src': [
+      "'self'",
+      'data:',
+      `https://res.cloudinary.com https://www.youtube.com/embed/`,
+    ],
+    'child-src': [
+      "'self'",
+      'data:',
+      `https://res.cloudinary.com https://www.youtube.com/embed/`,
+    ],
+    'frame-src': ["'self'", 'data:', `https://www.youtube.com/embed/`],
   },
 };
 
@@ -47,8 +55,8 @@ app.use(
 
 app.use(
   cors({
-    // origin: `https://res.cloudinary.com`,
-    origin: `http://localhost:3000`,
+    origin: `https://res.cloudinary.com`,
+    // origin: `http://localhost:3000`,
     optionsSuccessStatus: 200,
     credentials: true,
   })

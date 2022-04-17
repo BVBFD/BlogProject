@@ -124,6 +124,48 @@ const Write = () => {
   // }, [editorRef]);
 
   // 향후 비디오 파일 서버에 저장후 url만 가지고 올수 있도록 custom 예정
+  // const videoHandler = () => {
+  //   console.log('video handler on!!');
+  //   // const getVideoUrl = (url) => {
+  //   //   return url;
+  //   // };
+
+  //   const getVideoUrl = (url) => {
+  //     let match =
+  //       url.match(
+  //         /^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtube\.com\/watch.*v=([a-zA-Z0-9_-]+)/
+  //       ) ||
+  //       url.match(
+  //         /^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtu\.be\/([a-zA-Z0-9_-]+)/
+  //       ) ||
+  //       url.match(/^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/);
+  //     console.log(match[2]);
+  //     if (match && match[2].length === 11) {
+  //       return 'https' + '://www.youtube.com/embed/' + match[2] + '?showinfo=0';
+  //     }
+  //     if (
+  //       (match = url.match(/^(?:(https?):\/\/)?(?:www\.)?vimeo\.com\/(\d+)/))
+  //     ) {
+  //       // eslint-disable-line no-cond-assign
+  //       return (
+  //         (match[1] || 'https') + '://player.vimeo.com/video/' + match[2] + '/'
+  //       );
+  //     }
+  //     return null;
+  //   };
+
+  //   const editor = editorRef.current.getEditor();
+  //   let url = prompt('Enter Video URL: ');
+  //   url = getVideoUrl(url);
+  //   if (url != null) {
+  //     console.log(url);
+  //     editor.root.innerHTML =
+  //       editor.root.innerHTML +
+  //       editor.root.innerHTML +
+  //       `<p><iframe width="560" height="315" src=${url} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen/></p>`;
+  //   }
+  // };
+
   const videoHandler = () => {
     console.log('video handler on!!');
 
@@ -157,17 +199,23 @@ const Write = () => {
 
         //  일반 fetch api
         // const response = await fetch(
-        //   `https://myportfolioblogproject.herokuapp.com/pic/upload`,
+        //   `https://myportfolioblogproject.herokuapp.com/video/upload`,
         //   {
         //     method: 'POST',
         //     mode: 'cors',
+        //     credentials: 'include',
         //     // headers: {
         //     //   Authorization: `Bearer ${token}`,
         //     // },
+        //     headers: {
+        //       Origin: `https://res.cloudinary.com`,
+        //       'Content-Securitiy-Policy':
+        //         'img-src *;media-src https://res.cloudinary.com;child-src https://res.cloudinary.com;frame-src https://res.cloudinary.com;',
+        //     },
         //     body: formData,
         //   }
         // );
-        // const updatedPicURL = await response.json();
+        // const updatedVidURL = await response.json();
         console.log('성공 시, 백엔드가 보내주는 데이터', updatedVidURL);
         const vid_URL = updatedVidURL;
         // 이 URL을 비디오 태그의 src에 넣은 요소를 현재 에디터의 커서에 넣어주면 에디터 내에서 이미지가 나타난다
@@ -175,29 +223,33 @@ const Write = () => {
         // 비디오는 꼭 로컬 백엔드 uploads 폴더가 아닌 다른 곳에 저장해 URL로 사용하면된다.
 
         // 비디오 태그를 에디터에 써주기 - 여러 방법이 있다.
-
         const editor = editorRef.current.getEditor(); // 에디터 객체 가져오기
         const imgUrl = vid_URL.slice(0, -3).concat('png');
-        // 가져온 위치에 비디오를 삽입한다
+        // 가져온 위치에 비디오를 삽입한다.
         editor.root.innerHTML =
           editor.root.innerHTML +
           `<p>
-            <a href="${vid_URL}" style="text-decoration: none;cusor:pointer;display:flex;flex-direction:column;">
-              <img class="videoImgs" style="width: 500px;" width="500px" src="${imgUrl}" crossOrigin></img>
-              <span>
-                ✅Click to play above Video🎦
-              </span>
-            </a>
-          </p>`;
+          <a href="${vid_URL}" style="text-decoration: none;cusor:pointer;display:flex;flex-direction:column;">
+            <img class="videoImgs" style="width: 500px;" src="${imgUrl}" crossOrigin></img>
+            <span>
+              ✅Click to play above Video🎦
+            </span>
+          </a>
+        </p>`;
 
         document
           .querySelectorAll('.videoImg')
           .forEach((video) => video.setAttribute('width', '500px'));
+
+        document
+          .querySelectorAll('.videoImg')
+          .forEach((video) => video.setAttribute('crossOrigin', 'anonymous'));
       } catch (error) {
         console.log('실패!!!');
       }
     });
   };
+
   // 이미지 서버에 저장후 url만 가지고 올수 있도록 custom!
   const imageHandler = (e) => {
     console.log('에디터에서 이미지 버튼을 클릭하면 이 핸들러가 시작됩니다!');
