@@ -17,3 +17,10 @@ body {
   list-style-type: none;
   color: inherit;
 }
+
+.page-item.active {
+  background-color: #111;
+  color: whitesmoke;
+  padding: 0 0.4rem 0.1rem 0.4rem;
+  border-radius: 50%;
+}
