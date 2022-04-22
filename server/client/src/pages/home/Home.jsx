@@ -17,8 +17,6 @@ const Home = (props) => {
     []
   );
   const [sideBarPageCount, setSideBarPageCount] = useState();
-
-  const [homeBtnIndex, setHomeBtnIndex] = useState(false);
   const [pageCount, setpageCount] = useState();
   const [selectedArray, setSelectedArray] = useState([]);
 
@@ -97,7 +95,7 @@ const Home = (props) => {
 
   return (
     <section className={styles.home}>
-      <Header homeBtnIndex={homeBtnIndex} setHomeBtnIndex={setHomeBtnIndex} />
+      <Header />
       <div className={styles.homeBgImg}>
         <img src='../images/cathay.jpg' alt='' />
       </div>
@@ -127,10 +125,7 @@ const Home = (props) => {
                 );
               })}
         </div>
-        <SidebarAboutMe
-          setSideBarAccessIndex={setSideBarAccessIndex}
-          setHomeBtnIndex={setHomeBtnIndex}
-        />
+        <SidebarAboutMe setSideBarAccessIndex={setSideBarAccessIndex} />
       </div>
       <ReactPaginate
         previousLabel={'prev'}

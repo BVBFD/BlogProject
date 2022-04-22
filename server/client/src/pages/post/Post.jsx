@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import Header from '../../components/header/Header';
 import styles from './Post.module.css';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Write from '../write/Write';
 import { Context } from '../../context/context';
 import axiosInstance from '../../config';
@@ -19,6 +19,7 @@ const Post = () => {
   const { id } = useContext(Context);
   const [csrfToken, setCsrfToken] = useState('');
   const postTextBoxRef = useRef();
+  const navigate = useNavigate();
 
   useEffect(async () => {
     const res = await fetch(
@@ -62,7 +63,7 @@ const Post = () => {
     document
       .querySelectorAll('.videoImgs')
       .forEach((img) => img.setAttribute('style', ''));
-  }, [location, param]);
+  }, [location, param, editBtnIndex]);
 
   const deletePost = async () => {
     // 기존 APIs request 문법!
@@ -84,7 +85,7 @@ const Post = () => {
       );
       res.status === 401 &&
         window.alert(`${res.statusText} 이 글 작성자만 편집할 수 있습니다!`);
-      res.status === 204 && window.location.replace('/');
+      res.status === 204 && navigate('/');
     } catch (err) {
       window.alert(err);
     }
@@ -151,7 +152,7 @@ const Post = () => {
           </div>
         </>
       ) : (
-        <Write />
+        <Write setEditBtnIndex={setEditBtnIndex} />
       )}
     </section>
   );

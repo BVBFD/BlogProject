@@ -1,10 +1,9 @@
 import React from 'react';
 import styles from './SidebarAboutMe.module.css';
 
-const SidebarAboutMe = ({ setSideBarAccessIndex, setHomeBtnIndex }) => {
+const SidebarAboutMe = ({ setSideBarAccessIndex }) => {
   const setIndex = (e) => {
     if (e.target.nodeName === 'SPAN') {
-      setHomeBtnIndex(true);
       setSideBarAccessIndex(e.target.innerText);
     }
   };

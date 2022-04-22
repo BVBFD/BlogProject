@@ -11,8 +11,8 @@ const axiosInstance = axios.create({
   mode: 'cors',
   withCredentials: true,
   headers: {
-    // Origin: `https://res.cloudinary.com`,
-    Origin: `http://localhost:3000`,
+    Origin: `https://res.cloudinary.com`,
+    // Origin: `http://localhost:3000`,
     'Content-Securitiy-Policy':
       'img-src *;media-src https://res.cloudinary.com https://www.youtube.com/embed/;child-src https://res.cloudinary.com https://www.youtube.com/embed/;frame-src https://www.youtube.com/embed/;',
   },

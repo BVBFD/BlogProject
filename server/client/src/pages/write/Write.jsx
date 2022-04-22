@@ -17,7 +17,7 @@ import 'react-quill/dist/quill.core.css';
 import 'react-quill/dist/quill.bubble.css';
 import 'highlight.js/styles/vs2015.css';
 
-const Write = () => {
+const Write = ({ setEditBtnIndex }) => {
   const [title, setTitle] = useState('');
   const [titleImg, setTitleImg] = useState();
   const [writePageImgURL, setWritePageImgURL] = useState('');
@@ -540,7 +540,9 @@ const Write = () => {
       res.status === 401 &&
         window.alert(`${res.statusText} 이 글 작성자만 편집할 수 있습니다!`);
 
-      res.status === 201 && window.location.replace(`/post/${param.id}`);
+      res.status === 201 &&
+        setEditBtnIndex(false) &&
+        navigate(`/post/${param.id}`);
     } catch (err) {
       window.alert(err);
     }
