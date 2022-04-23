@@ -78,23 +78,40 @@ const Home = (props) => {
     const selectedPostsArray = totalPosts.filter(
       (post) => post.catName === sideBarAccessIndex
     );
-    setSideBarPageCount(Math.ceil(selectedPostsArray?.length / 4));
 
-    const newArray = [
-      selectedPostsArray[0],
-      selectedPostsArray[1],
-      selectedPostsArray[2],
-      selectedPostsArray[3],
-    ];
+    if (sideBarAccessIndex === undefined) {
+      setSideBarPageCount(Math.ceil(totalPosts?.length / 4));
 
-    setSideBarSelectedChosenPost(newArray);
-    setSideBarSelectedPost(selectedPostsArray);
-    setBooleanSidebarIndex(true);
-    // category 목록별 posts 글들 분류 화면에 표시
+      const newArray = [
+        totalPosts[0],
+        totalPosts[1],
+        totalPosts[2],
+        totalPosts[3],
+      ];
+
+      setSideBarSelectedChosenPost(newArray);
+      setSideBarSelectedPost(totalPosts);
+      setBooleanSidebarIndex(true);
+    } else {
+      setSideBarPageCount(Math.ceil(selectedPostsArray?.length / 4));
+
+      const newArray = [
+        selectedPostsArray[0],
+        selectedPostsArray[1],
+        selectedPostsArray[2],
+        selectedPostsArray[3],
+      ];
+
+      setSideBarSelectedChosenPost(newArray);
+      setSideBarSelectedPost(selectedPostsArray);
+      setBooleanSidebarIndex(true);
+      // category 목록별 posts 글들 분류 화면에 표시
+    }
   }, [sideBarAccessIndex]);
 
   const showTotalPosts = () => {
     setBooleanSidebarIndex(false);
+    setSideBarAccessIndex(undefined);
     // 전체 posts 띄우기!!
   };
 
