@@ -1,6 +1,6 @@
-import React from "react";
-import Header from "../../components/header/Header";
-import styles from "./About.module.css";
+import React from 'react';
+import Header from '../../components/header/Header';
+import styles from './About.module.css';
 
 const About = (props) => {
   return (
@@ -10,7 +10,7 @@ const About = (props) => {
         <header className={styles.pageTitle}>About</header>
         <div className={styles.aboutIntroBox}>
           <div className={styles.imgBox}>
-            <img src="../images/charina.gif" alt="" />
+            <img src='../images/charina.gif' alt='' />
           </div>
           <div className={styles.aboutExplainBox}>
             <header>This Blog is ...</header>
@@ -21,8 +21,8 @@ const About = (props) => {
               customers. I am always trying to keep up with new skills trends.
             </p>
             <a
-              href="https://bvbfd.github.io/Portfolio-Website-ver2.0/"
-              target="_blank"
+              href='https://bvbfd.github.io/Portfolio-Website-ver2.0/'
+              target='_blank'
             >
               <button>Visit Profile</button>
             </a>

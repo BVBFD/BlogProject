@@ -26,7 +26,6 @@ const App = (props) => {
 
     await res.json();
   }, []);
-
   return (
     <Routes>
       <Route path={'/'} element={<Home />} />

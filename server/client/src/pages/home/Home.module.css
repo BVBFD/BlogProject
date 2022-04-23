@@ -1,5 +1,19 @@
 .home {
   position: relative;
+  overflow-x: hidden;
+}
+
+.home .openTotalPosts {
+  cursor: pointer;
+  padding: 0.2rem;
+  margin-left: 0.3rem;
+  margin-top: 0.1rem;
+  background: royalblue;
+  color: whitesmoke;
+}
+
+.home .openTotalPosts:active {
+  transform: scale(0.8);
 }
 
 .home .homeBgImg {
@@ -104,12 +118,15 @@
   .home .homeContentsPart .postsPart {
     flex: 1 1 70%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
     gap: 2.5rem;
   }
 }
 
 @media screen and (max-width: 768px) {
+  .home .homeContentsPart .postsPart {
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  }
 }
 
 @media screen and (max-width: 450px) {

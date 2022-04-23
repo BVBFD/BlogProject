@@ -93,12 +93,20 @@ const Home = (props) => {
     // category 목록별 posts 글들 분류 화면에 표시
   }, [sideBarAccessIndex]);
 
+  const showTotalPosts = () => {
+    setBooleanSidebarIndex(false);
+    // 전체 posts 띄우기!!
+  };
+
   return (
     <section className={styles.home}>
       <Header />
       <div className={styles.homeBgImg}>
         <img src='../images/cathay.jpg' alt='' />
       </div>
+      <button className={styles.openTotalPosts} onClick={showTotalPosts}>
+        Total Posts
+      </button>
       <div className={styles.title}>
         <span>IT & Game</span>
         <span>Blog</span>
