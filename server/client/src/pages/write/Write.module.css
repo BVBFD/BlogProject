@@ -1,3 +1,7 @@
+.write .titleImgAddBox {
+  position: relative;
+}
+
 .write .titleImgAddBox .titleInputBox {
   display: flex;
   justify-content: center;
@@ -57,6 +61,200 @@
 .titleImgBox img {
   width: 95%;
   object-fit: cover;
+}
+
+.loader {
+  position: absolute;
+  top: 30rem;
+  left: 50rem;
+  width: 10rem;
+  height: 10rem;
+}
+
+.loader span:nth-child(1) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  color: white;
+  transform: rotate(calc(60deg * 1));
+}
+
+.loader span:nth-child(1) p:nth-child(1) {
+  border-radius: 50%;
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 1rem;
+  height: 1rem;
+  animation: animLoading 1s linear infinite;
+  animation-delay: calc(0.1s * 1);
+}
+
+.loader span:nth-child(1) p:nth-child(2) {
+  border-radius: 50%;
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  width: 1rem;
+  height: 1rem;
+  animation: animLoading 1s linear infinite;
+  animation-delay: calc(0.1s * 2);
+}
+
+.loader span:nth-child(1) p:nth-child(3) {
+  border-radius: 50%;
+  position: absolute;
+  content: '';
+  bottom: 0;
+  left: 0;
+  width: 1rem;
+  height: 1rem;
+  animation: animLoading 1s linear infinite;
+  animation-delay: calc(0.1s * 3);
+}
+
+.loader span:nth-child(1) p:nth-child(4) {
+  border-radius: 50%;
+  position: absolute;
+  content: '';
+  bottom: 0;
+  right: 0;
+  width: 1rem;
+  height: 1rem;
+  animation: animLoading 1s linear infinite;
+  animation-delay: calc(0.1s * 4);
+}
+
+.loader span:nth-child(2) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  color: white;
+  transform: rotate(calc(60deg * 2));
+}
+
+.loader span:nth-child(2) p:nth-child(1) {
+  border-radius: 50%;
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 1rem;
+  height: 1rem;
+  animation: animLoading 1s linear infinite;
+  animation-delay: calc(0.1s * 5);
+}
+
+.loader span:nth-child(2) p:nth-child(2) {
+  border-radius: 50%;
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  width: 1rem;
+  height: 1rem;
+  animation: animLoading 1s linear infinite;
+  animation-delay: calc(0.1s * 6);
+}
+
+.loader span:nth-child(2) p:nth-child(3) {
+  border-radius: 50%;
+  position: absolute;
+  content: '';
+  bottom: 0;
+  left: 0;
+  width: 1rem;
+  height: 1rem;
+  animation: animLoading 1s linear infinite;
+  animation-delay: calc(0.1s * 7);
+}
+
+.loader span:nth-child(2) p:nth-child(4) {
+  border-radius: 50%;
+  position: absolute;
+  content: '';
+  bottom: 0;
+  right: 0;
+  width: 1rem;
+  height: 1rem;
+  animation: animLoading 1s linear infinite;
+  animation-delay: calc(0.1s * 8);
+}
+
+.loader span:nth-child(3) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  color: white;
+  transform: rotate(calc(60deg * 3));
+}
+
+.loader span:nth-child(3) p:nth-child(1) {
+  border-radius: 50%;
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 1rem;
+  height: 1rem;
+  animation: animLoading 1s linear infinite;
+  animation-delay: calc(0.1s * 9);
+}
+
+.loader span:nth-child(3) p:nth-child(2) {
+  border-radius: 50%;
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  width: 1rem;
+  height: 1rem;
+  animation: animLoading 1s linear infinite;
+  animation-delay: calc(0.1s * 10);
+}
+
+.loader span:nth-child(3) p:nth-child(3) {
+  border-radius: 50%;
+  position: absolute;
+  content: '';
+  bottom: 0;
+  left: 0;
+  width: 1rem;
+  height: 1rem;
+  animation: animLoading 1s linear infinite;
+  animation-delay: calc(0.1s * 11);
+}
+
+.loader span:nth-child(3) p:nth-child(4) {
+  border-radius: 50%;
+  position: absolute;
+  content: '';
+  bottom: 0;
+  right: 0;
+  width: 1rem;
+  height: 1rem;
+  animation: animLoading 1s linear infinite;
+  animation-delay: calc(0.1s * 12);
+}
+
+@keyframes animLoading {
+  0% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: black;
+  }
 }
 
 @media screen and (max-width: 1300px) {

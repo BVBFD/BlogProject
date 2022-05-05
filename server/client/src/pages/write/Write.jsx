@@ -29,6 +29,7 @@ const Write = ({ setEditBtnIndex }) => {
   const [postForEdit, setPostForEdit] = useState({});
   const navigate = useNavigate();
   const [csrfToken, setCsrfToken] = useState('');
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(async () => {
     const res = await fetch(
@@ -193,6 +194,7 @@ const Write = ({ setEditBtnIndex }) => {
       formData.append('file', file); // formData는 키-밸류 구조
       // 백엔드 multer라우터에 비디오를 보낸다.
       try {
+        setIsFetching(true);
         // axios 사용 Rate Litmit 기능 때문!
         const result = await axiosInstance.post('/video/upload', formData);
         const updatedVidURL = result.data;
@@ -244,6 +246,7 @@ const Write = ({ setEditBtnIndex }) => {
         document
           .querySelectorAll('.videoImg')
           .forEach((video) => video.setAttribute('crossOrigin', 'anonymous'));
+        setIsFetching(false);
       } catch (error) {
         console.log('실패!!!');
       }
@@ -276,7 +279,7 @@ const Write = ({ setEditBtnIndex }) => {
       formData.append('file', file); // formData는 키-밸류 구조
       // 백엔드 multer라우터에 이미지를 보낸다.
       try {
-        // axios 사용 Rate Litmit 기능 때문!
+        setIsFetching(true);
         const result = await axiosInstance.post('/pic/upload', formData);
         const updatedPicURL = result.data;
 
@@ -317,6 +320,7 @@ const Write = ({ setEditBtnIndex }) => {
           .forEach((img) => img.setAttribute('crossOrigin', 'anonymous'));
         // 자바스크립트 자동 엔터키 생각해보기!! 갔다와서
         editor.setSelection(range.index + 1);
+        setIsFetching(false);
       } catch (error) {
         console.log('실패!!!');
       }
@@ -396,6 +400,7 @@ const Write = ({ setEditBtnIndex }) => {
       data.append('name', filename);
       data.append('file', e.target.files[0]);
       try {
+        setIsFetching(true);
         // axios 사용 Rate Litmit 기능 때문!
         const result = await axiosInstance.post('/pic/upload', data);
         const updatedPicURL = result.data;
@@ -414,6 +419,7 @@ const Write = ({ setEditBtnIndex }) => {
         // );
         // const updatedPicURL = await response.json();
         setWritePageImgURL(updatedPicURL);
+        setIsFetching(false);
       } catch (err) {
         window.alert(err);
       }
@@ -678,6 +684,31 @@ const Write = ({ setEditBtnIndex }) => {
             {postForEdit.text}
           </div>
         )} */}
+
+        {!isFetching ? (
+          ''
+        ) : (
+          <div className={styles.loader}>
+            <span>
+              <p></p>
+              <p></p>
+              <p></p>
+              <p></p>
+            </span>
+            <span>
+              <p></p>
+              <p></p>
+              <p></p>
+              <p></p>
+            </span>
+            <span>
+              <p></p>
+              <p></p>
+              <p></p>
+              <p></p>
+            </span>
+          </div>
+        )}
       </form>
     </section>
   );
