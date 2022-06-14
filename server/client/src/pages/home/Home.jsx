@@ -11,7 +11,12 @@ const Home = (props) => {
   const [totalPosts, setTotalPosts] = useState([]);
 
   const [sideBarAccessIndex, setSideBarAccessIndex] = useState('');
+
   const [booleanSidebarIndex, setBooleanSidebarIndex] = useState(false);
+  const [searchingTitle, setSearchingTitle] = useState('');
+  const [searchingTitleArray, setSearchingTitleArray] = useState([]);
+  const [searchingTitleShownArray, setSearchingTitleShownArray] = useState([]);
+
   const [sideBarSelectedPost, setSideBarSelectedPost] = useState([]);
   const [sideBarSelectedChosenPost, setSideBarSelectedChosenPost] = useState(
     []
@@ -110,10 +115,52 @@ const Home = (props) => {
   }, [sideBarAccessIndex]);
 
   const showTotalPosts = () => {
-    setBooleanSidebarIndex(false);
-    setSideBarAccessIndex(undefined);
+    // setBooleanSidebarIndex(false);
+    // setSideBarAccessIndex(undefined);
+    window.location.reload();
     // 전체 posts 띄우기!!
   };
+
+  const handleSearchInputChange = (e) => {
+    const searchTitle = e.target.value.replace(/(\s*)/g, '').toLowerCase();
+    setSearchingTitle(searchTitle);
+  };
+
+  useEffect(() => {
+    // searchingInputTitleArray
+    let filtered = [];
+    let postTitle = '';
+    if (booleanSidebarIndex) {
+      filtered = sideBarSelectedPost.filter((post) => {
+        postTitle = post.title.replace(/(\s*)/g, '').toLowerCase();
+        return postTitle.includes(searchingTitle);
+      });
+      setSearchingTitleArray(filtered);
+    }
+
+    if (!booleanSidebarIndex) {
+      filtered = totalPosts.filter((post) => {
+        postTitle = post.title.replace(/(\s*)/g, '').toLowerCase();
+        return postTitle.includes(searchingTitle);
+      });
+      setSearchingTitleArray(filtered);
+    }
+
+    if (searchingTitle === '') {
+      setSearchingTitleArray([]);
+    }
+
+    setSearchingTitleShownArray([
+      filtered[0],
+      filtered[1],
+      filtered[2],
+      filtered[3],
+    ]);
+
+    // pagenation 정리
+    // prettier-ignore
+    setpageCount(Math.ceil(filtered.reverse().length / 4));
+  }, [searchingTitle]);
 
   return (
     <section className={styles.home}>
@@ -121,16 +168,28 @@ const Home = (props) => {
       <div className={styles.homeBgImg}>
         <img src='../images/cathay.jpg' alt='' />
       </div>
-      <button className={styles.openTotalPosts} onClick={showTotalPosts}>
-        Total Posts
-      </button>
       <div className={styles.title}>
         <span>IT & Game</span>
         <span>Blog</span>
       </div>
+      <div className={styles.totalSearchBox}>
+        <button className={styles.openTotalPosts} onClick={showTotalPosts}>
+          Total Posts
+        </button>
+        {!booleanSidebarIndex ? (
+          <input
+            className={styles.searchInput}
+            type='text'
+            placeholder='Searching Posts...'
+            onChange={handleSearchInputChange}
+          />
+        ) : (
+          ''
+        )}
+      </div>
       <div className={styles.homeContentsPart}>
         <div className={styles.postsPart}>
-          {!booleanSidebarIndex
+          {!booleanSidebarIndex && searchingTitleArray?.length === 0
             ? selectedArray?.map((post) => {
                 return post === undefined ? (
                   <div></div>
@@ -149,30 +208,70 @@ const Home = (props) => {
                   </Link>
                 );
               })}
+          {searchingTitleArray?.length !== 0 &&
+            searchingTitleShownArray?.map((post) => {
+              return post === undefined ? (
+                <div></div>
+              ) : (
+                <Link className='link' to={`/post/${post?._id}`}>
+                  <HomePost post={post} />
+                </Link>
+              );
+            })}
         </div>
         <SidebarAboutMe setSideBarAccessIndex={setSideBarAccessIndex} />
       </div>
-      <ReactPaginate
-        previousLabel={'prev'}
-        nextLabel={'next'}
-        breakLabel={''}
-        pageCount={!booleanSidebarIndex ? pageCount : sideBarPageCount}
-        marginPagesDisplayed={0}
-        pageRangeDisplayed={4}
-        onPageChange={
-          !booleanSidebarIndex ? handlePageClick : sideBarHandleClick
-        }
-        containerClassName={'pagination justify-content-center'}
-        pageClassName={'page-item'}
-        pageLinkClassName={'page-link'}
-        previousClassName={'page-item'}
-        previousLinkClassName={'page-link'}
-        nextClassName={'page-item'}
-        nextLinkClassName={'page-link'}
-        breakClassName={'page-item'}
-        breakLinkClassName={'page-link'}
-        activeClassName={'active'}
-      />
+      {searchingTitleArray?.length === 0 ? (
+        <ReactPaginate
+          previousLabel={'prev'}
+          nextLabel={'next'}
+          breakLabel={''}
+          pageCount={!booleanSidebarIndex ? pageCount : sideBarPageCount}
+          marginPagesDisplayed={0}
+          pageRangeDisplayed={4}
+          onPageChange={
+            !booleanSidebarIndex ? handlePageClick : sideBarHandleClick
+          }
+          containerClassName={'pagination justify-content-center'}
+          pageClassName={'page-item'}
+          pageLinkClassName={'page-link'}
+          previousClassName={'page-item'}
+          previousLinkClassName={'page-link'}
+          nextClassName={'page-item'}
+          nextLinkClassName={'page-link'}
+          breakClassName={'page-item'}
+          breakLinkClassName={'page-link'}
+          activeClassName={'active'}
+        />
+      ) : (
+        <ReactPaginate
+          previousLabel={'prev'}
+          nextLabel={'next'}
+          breakLabel={''}
+          pageCount={!booleanSidebarIndex ? pageCount : sideBarPageCount}
+          marginPagesDisplayed={0}
+          pageRangeDisplayed={4}
+          onPageChange={(event) => {
+            let newArray = [
+              searchingTitleArray.reverse()[event.selected * 4],
+              searchingTitleArray.reverse()[event.selected * 4 + 1],
+              searchingTitleArray.reverse()[event.selected * 4 + 2],
+              searchingTitleArray.reverse()[event.selected * 4 + 3],
+            ];
+            setSearchingTitleShownArray(newArray);
+          }}
+          containerClassName={'pagination justify-content-center'}
+          pageClassName={'page-item'}
+          pageLinkClassName={'page-link'}
+          previousClassName={'page-item'}
+          previousLinkClassName={'page-link'}
+          nextClassName={'page-item'}
+          nextLinkClassName={'page-link'}
+          breakClassName={'page-item'}
+          breakLinkClassName={'page-link'}
+          activeClassName={'active'}
+        />
+      )}
     </section>
   );
 };
