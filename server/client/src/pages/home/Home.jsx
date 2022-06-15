@@ -192,7 +192,7 @@ const Home = (props) => {
           {!booleanSidebarIndex && searchingTitleArray?.length === 0
             ? selectedArray?.map((post) => {
                 return post === undefined ? (
-                  <div></div>
+                  ''
                 ) : (
                   <Link className='link' to={`/post/${post?._id}`}>
                     <HomePost post={post} />
@@ -201,7 +201,7 @@ const Home = (props) => {
               })
             : sideBarSelectedChosenPost?.map((post) => {
                 return post === undefined ? (
-                  <div></div>
+                  ''
                 ) : (
                   <Link className='link' to={`/post/${post?._id}`}>
                     <HomePost post={post} />
@@ -211,7 +211,7 @@ const Home = (props) => {
           {searchingTitleArray?.length !== 0 &&
             searchingTitleShownArray?.map((post) => {
               return post === undefined ? (
-                <div></div>
+                ''
               ) : (
                 <Link className='link' to={`/post/${post?._id}`}>
                   <HomePost post={post} />

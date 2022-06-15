@@ -112,12 +112,16 @@
 }
 
 @media screen and (max-width: 1300px) {
+  .home .title {
+    margin-top: 3rem;
+  }
+
   .home .title span:nth-child(1) {
     display: none;
   }
 
   .home .title span:nth-child(2) {
-    font-size: 2.6rem;
+    font-size: 6rem;
     font-style: italic;
     font-weight: bolder;
   }
