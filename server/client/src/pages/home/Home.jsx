@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '../../components/header/Header.jsx';
 import HomePost from '../../components/homePost/HomePost.jsx';
 import SidebarAboutMe from '../../components/sidebarAboutMe/SidebarAboutMe.jsx';
@@ -27,6 +27,7 @@ const Home = (props) => {
   const [selectedArray, setSelectedArray] = useState([]);
 
   const searchInputRef = useRef();
+  const navigate = useNavigate();
 
   const handlePageClick = (event) => {
     const newArray = [
@@ -118,7 +119,8 @@ const Home = (props) => {
   }, [sideBarAccessIndex]);
 
   const showTotalPosts = () => {
-    booleanSidebarIndex && window.location.reload();
+    booleanSidebarIndex && navigate(0);
+
     setSearchingTitle('');
     searchInputRef.current.value = '';
     // 전체 posts 띄우기!!
