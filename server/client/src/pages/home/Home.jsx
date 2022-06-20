@@ -118,9 +118,7 @@ const Home = (props) => {
   }, [sideBarAccessIndex]);
 
   const showTotalPosts = () => {
-    // setBooleanSidebarIndex(false);
-    // setSideBarAccessIndex(undefined);
-    // window.location.reload();
+    booleanSidebarIndex && window.location.reload();
     setSearchingTitle('');
     searchInputRef.current.value = '';
     // 전체 posts 띄우기!!
