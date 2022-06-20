@@ -6,6 +6,7 @@ import SidebarAboutMe from '../../components/sidebarAboutMe/SidebarAboutMe.jsx';
 import axiosInstance from '../../config.js';
 import styles from './Home.module.css';
 import ReactPaginate from 'react-paginate';
+import { useRef } from 'react';
 
 const Home = (props) => {
   const [totalPosts, setTotalPosts] = useState([]);
@@ -24,6 +25,8 @@ const Home = (props) => {
   const [sideBarPageCount, setSideBarPageCount] = useState();
   const [pageCount, setpageCount] = useState();
   const [selectedArray, setSelectedArray] = useState([]);
+
+  const searchInputRef = useRef();
 
   const handlePageClick = (event) => {
     const newArray = [
@@ -117,7 +120,9 @@ const Home = (props) => {
   const showTotalPosts = () => {
     // setBooleanSidebarIndex(false);
     // setSideBarAccessIndex(undefined);
-    window.location.reload();
+    // window.location.reload();
+    setSearchingTitle('');
+    searchInputRef.current.value = '';
     // 전체 posts 띄우기!!
   };
 
@@ -178,6 +183,7 @@ const Home = (props) => {
         </button>
         {!booleanSidebarIndex ? (
           <input
+            ref={searchInputRef}
             className={styles.searchInput}
             type='text'
             placeholder='Searching Posts...'
