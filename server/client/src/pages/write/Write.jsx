@@ -660,7 +660,7 @@ const Write = ({ setEditBtnIndex }) => {
           }}
         /> */}
         <ReactQuill
-          style={{ height: '90vh' }}
+          style={{ width: '100%', height: '90vh' }}
           className={styles.editor}
           height='90vh'
           ref={editorRef}

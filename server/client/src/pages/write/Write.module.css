@@ -1,5 +1,9 @@
 .write .titleImgAddBox {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .write .titleImgAddBox .titleInputBox {
@@ -65,8 +69,6 @@
 
 .loader {
   position: absolute;
-  top: 30rem;
-  left: 40rem;
   width: 10rem;
   height: 10rem;
 }
