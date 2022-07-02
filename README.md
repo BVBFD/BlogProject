@@ -160,9 +160,10 @@
 
 *ver 2.9.2 - 2022년 07월 02일
 1. 새로운 post 게재, 수정 업데이트 시 더블클릭 중복 submit 에러로 인한 2개 이상의 중복 포스 생성 오류 수정
-   (client 코드에서 true and false 변수를 사용)
+   <br>(client 코드에서 true and false 변수를 사용)
 2. 추가적으로 post 게재, 수정 업데이트시 Idempotency 보장을 위한 Idempotent 키를 활용!
-   (Date.now(), Math.random()을 활용한 고유 UID키를 생성하고 백엔드에서 이벤트 중복 생성시 이 Idempotency_Key를 비교 검사하여 처리하는 방식!)
+   <br>(Date.now(), Math.random()을 활용한 고유 UID키를 생성하고,
+   <br> 백엔드에서 이벤트 중복 생성시 이 Idempotency_Key를 비교 검사하여 처리하는 방식!)
    
 ----- 블로그 프로젝트 버전 2.0 종료 -----
 
