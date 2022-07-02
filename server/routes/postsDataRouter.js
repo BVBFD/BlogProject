@@ -9,6 +9,7 @@ import {
 } from '../controllers/postsDataController.js';
 import { isCSRFToken } from '../middleware/isCSRFToken.js';
 import { isXSSToken } from '../middleware/isXSSToken.js';
+import { isDoubleClick } from '../middleware/isDoubleClick.js';
 
 const router = express.Router();
 
@@ -16,9 +17,9 @@ router.get('/', getAllPostsAndGetPostsByCatnames);
 
 router.get('/:id', getPostsById);
 
-router.post('/', isXSSToken, isCSRFToken, uploadPost);
+router.post('/', isXSSToken, isCSRFToken, isDoubleClick, uploadPost);
 
-router.put('/:id', isXSSToken, isCSRFToken, updatePost);
+router.put('/:id', isXSSToken, isCSRFToken, isDoubleClick, updatePost);
 
 router.delete('/:id', isXSSToken, isCSRFToken, deletePost);
 

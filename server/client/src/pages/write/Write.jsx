@@ -30,6 +30,7 @@ const Write = ({ setEditBtnIndex }) => {
   const navigate = useNavigate();
   const [csrfToken, setCsrfToken] = useState('');
   const [isFetching, setIsFetching] = useState(false);
+  const [firstSubmit, setFirstSubmit] = useState(true);
 
   useEffect(async () => {
     const res = await fetch(
@@ -446,126 +447,136 @@ const Write = ({ setEditBtnIndex }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (id !== 'lse126' || !editable) {
-      window.alert('개인블로그 입니다. 편집은 주인장만 가능!');
-      return;
-    }
-    // 기존 APIs request 문법!
-    // try {
-    //   const response = await fetch(
-    //     `https://myportfolioblogproject.herokuapp.com/posts`,
-    //     {
-    //       method: 'POST',
-    //       credentials: 'include',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         // Authorization: `Bearer ${token}`,
-    //       },
-    //       body: JSON.stringify({
-    //         imgUrl: writePageImgURL,
-    //         title: title,
-    //         text: editorText,
-    //         catName: catName,
-    //         author: id,
-    //       }),
-    //     }
-    //   );
-    //   const data = await response.json();
-    //   window.location.replace(`/post/${data.savedNewPost._id}`);
-    // } catch (err) {
-    //   window.alert('개인블로그 입니다. 편집은 주인장만 가능!');
-    // }
+    if (firstSubmit) {
+      setFirstSubmit(false);
 
-    // axios 라이브러리 사용!
-    try {
-      const res = await axiosInstance.post(
-        `/posts`,
-        {
-          imgUrl: writePageImgURL,
-          title: title,
-          text: editorText,
-          catName: catName,
-          author: id,
-        },
-        {
-          headers: {
-            CSRF_TOKEN: csrfToken,
+      if (id !== 'lse126' || !editable) {
+        window.alert('개인블로그 입니다. 편집은 주인장만 가능!');
+        return;
+      }
+      // 기존 APIs request 문법!
+      // try {
+      //   const response = await fetch(
+      //     `https://myportfolioblogproject.herokuapp.com/posts`,
+      //     {
+      //       method: 'POST',
+      //       credentials: 'include',
+      //       headers: {
+      //         'Content-Type': 'application/json',
+      //         // Authorization: `Bearer ${token}`,
+      //       },
+      //       body: JSON.stringify({
+      //         imgUrl: writePageImgURL,
+      //         title: title,
+      //         text: editorText,
+      //         catName: catName,
+      //         author: id,
+      //       }),
+      //     }
+      //   );
+      //   const data = await response.json();
+      //   window.location.replace(`/post/${data.savedNewPost._id}`);
+      // } catch (err) {
+      //   window.alert('개인블로그 입니다. 편집은 주인장만 가능!');
+      // }
+
+      // axios 라이브러리 사용!
+      try {
+        const res = await axiosInstance.post(
+          `/posts`,
+          {
+            imgUrl: writePageImgURL,
+            title: title,
+            text: editorText,
+            catName: catName,
+            author: id,
           },
-        }
-      );
+          {
+            headers: {
+              CSRF_TOKEN: csrfToken,
+              Idempotency_Key: `${Date.now()}${Math.random()}`,
+            },
+          }
+        );
 
-      navigate(`/post/${res.data.savedNewPost?._id}`);
-    } catch (err) {
-      console.log(err);
+        navigate(`/post/${res.data.savedNewPost?._id}`);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
   const handleEdit = async (event) => {
     event.preventDefault();
-    // 기존 APIs request 문법!
-    try {
-      // const res = await fetch(
-      //   `https://myportfolioblogproject.herokuapp.com/posts/${param.id}`,
-      //   {
-      //     method: 'PUT',
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //       // Authorization: `Bearer ${token}`,
-      //     },
-      //     body: JSON.stringify({
-      //       imgUrl: writePageImgURL,
-      //       title: title,
-      //       text: editorText,
-      //       catName: catName,
-      //       author: id,
-      //     }),
-      //   }
-      // );
+    if (firstSubmit) {
+      setFirstSubmit(false);
 
-      // const data = await res.json();
+      // 기존 APIs request 문법!
+      try {
+        // const res = await fetch(
+        //   `https://myportfolioblogproject.herokuapp.com/posts/${param.id}`,
+        //   {
+        //     method: 'PUT',
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //       // Authorization: `Bearer ${token}`,
+        //     },
+        //     body: JSON.stringify({
+        //       imgUrl: writePageImgURL,
+        //       title: title,
+        //       text: editorText,
+        //       catName: catName,
+        //       author: id,
+        //     }),
+        //   }
+        // );
 
-      // console.log(data);
+        // const data = await res.json();
+
+        // console.log(data);
+
+        // axios 라이브러리 사용!
+        const res = await axiosInstance.put(
+          `/posts/${param.id}`,
+          {
+            imgUrl: writePageImgURL,
+            title: title,
+            text: editorText,
+            catName: catName,
+            author: id,
+          },
+          {
+            headers: {
+              CSRF_TOKEN: csrfToken,
+              Idempotency_Key: `${Date.now()}${Math.random()}`,
+            },
+          }
+        );
+
+        res.status === 401 &&
+          window.alert(`${res.statusText} 이 글 작성자만 편집할 수 있습니다!`);
+
+        res.status === 201 &&
+          setEditBtnIndex(false) &&
+          navigate(`/post/${param.id}`);
+      } catch (err) {
+        window.alert(err);
+      }
 
       // axios 라이브러리 사용!
-      const res = await axiosInstance.put(
-        `/posts/${param.id}`,
-        {
-          imgUrl: writePageImgURL,
-          title: title,
-          text: editorText,
-          catName: catName,
-          author: id,
-        },
-        {
-          headers: {
-            CSRF_TOKEN: csrfToken,
-          },
-        }
-      );
-
-      res.status === 401 &&
-        window.alert(`${res.statusText} 이 글 작성자만 편집할 수 있습니다!`);
-
-      res.status === 201 &&
-        setEditBtnIndex(false) &&
-        navigate(`/post/${param.id}`);
-    } catch (err) {
-      window.alert(err);
+      // try {
+      //   await axios.put(`${process.env.REACT_APP_BASE_URL}/posts/${param.id}`, {
+      //     imgUrl: writePageImgURL,
+      //     title: title,
+      //     text: editorText,
+      //     catName: catName,
+      //     author: id,
+      //   });
+      //   window.location.replace(`/post/${param.id}`);
+      // } catch (err) {
+      //   console.log(err);
+      // }
     }
-
-    // axios 라이브러리 사용!
-    // try {
-    //   await axios.put(`${process.env.REACT_APP_BASE_URL}/posts/${param.id}`, {
-    //     imgUrl: writePageImgURL,
-    //     title: title,
-    //     text: editorText,
-    //     catName: catName,
-    //     author: id,
-    //   });
-    //   window.location.replace(`/post/${param.id}`);
-    // } catch (err) {
-    //   console.log(err);
-    // }
   };
 
   return (
