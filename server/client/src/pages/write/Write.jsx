@@ -628,7 +628,7 @@ const Write = ({ setEditBtnIndex }) => {
             <option value='Node JS'>Node JS</option>
             <option value='TypeScript'>TypeScript</option>
             <option value='Game'>Game</option>
-            <option value='Book'>Book</option>
+            <option value='Book / Learn'>Book / Learn</option>
           </select>
           <button type='submit' className={styles.uploadBtn}>
             Upload

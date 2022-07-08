@@ -27,7 +27,7 @@ const SidebarAboutMe = ({ setSideBarAccessIndex }) => {
         <span>Node JS</span>
         <span>TypeScript</span>
         <span>Game</span>
-        <span>Book</span>
+        <span>Book / Learn</span>
       </div>
       <header className={styles.catSNSBox}>FOLLOW US</header>
       <div className={styles.snsMarks}>
