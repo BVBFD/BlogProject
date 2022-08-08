@@ -22,7 +22,7 @@ const SidebarAboutMe = ({ setSideBarAccessIndex }) => {
       <div onClick={setIndex} className={styles.catBox}>
         <span>HTML</span>
         <span>CSS</span>
-        <span>JavaScript</span>
+        <span>JavaScript / Svelte</span>
         <span>React</span>
         <span>Node JS</span>
         <span>TypeScript</span>

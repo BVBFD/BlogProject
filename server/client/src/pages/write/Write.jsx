@@ -623,7 +623,7 @@ const Write = ({ setEditBtnIndex }) => {
           >
             <option value='HTML'>HTML</option>
             <option value='CSS'>CSS</option>
-            <option value='JavaScript'>JavaScript</option>
+            <option value='JavaScript / Svelte'>JavaScript / Svelte</option>
             <option value='React'>React</option>
             <option value='Node JS'>Node JS</option>
             <option value='TypeScript'>TypeScript</option>
