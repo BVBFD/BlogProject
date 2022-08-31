@@ -20,7 +20,7 @@ const SidebarAboutMe = ({ setSideBarAccessIndex }) => {
       </p>
       <header className={styles.catHeader}>CATEGORIES</header>
       <div onClick={setIndex} className={styles.catBox}>
-        <span>HTML</span>
+        <span>HTML / Git</span>
         <span>CSS</span>
         <span>JavaScript / Svelte</span>
         <span>React</span>

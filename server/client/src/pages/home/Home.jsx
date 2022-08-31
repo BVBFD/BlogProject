@@ -7,6 +7,7 @@ import axiosInstance from '../../config.js';
 import styles from './Home.module.css';
 import ReactPaginate from 'react-paginate';
 import { useRef } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Home = (props) => {
   const [totalPosts, setTotalPosts] = useState([]);
@@ -195,25 +196,31 @@ const Home = (props) => {
       </div>
       <div className={styles.homeContentsPart}>
         <div className={styles.postsPart}>
-          {!booleanSidebarIndex && searchingTitleArray?.length === 0
-            ? selectedArray?.map((post) => {
-                return post === undefined ? (
-                  ''
-                ) : (
-                  <Link className='link' to={`/post/${post?._id}`}>
-                    <HomePost post={post} />
-                  </Link>
-                );
-              })
-            : sideBarSelectedChosenPost?.map((post) => {
-                return post === undefined ? (
-                  ''
-                ) : (
-                  <Link className='link' to={`/post/${post?._id}`}>
-                    <HomePost post={post} />
-                  </Link>
-                );
-              })}
+          {!booleanSidebarIndex && searchingTitleArray?.length === 0 ? (
+            selectedArray?.map((post) => {
+              return post === undefined ? (
+                ''
+              ) : (
+                <Link className='link' to={`/post/${post?._id}`}>
+                  <HomePost post={post} />
+                </Link>
+              );
+            })
+          ) : sideBarSelectedChosenPost ? (
+            <div className={styles.loader}>
+              <CircularProgress />
+            </div>
+          ) : (
+            sideBarSelectedChosenPost?.map((post) => {
+              return post === undefined ? (
+                ''
+              ) : (
+                <Link className='link' to={`/post/${post?._id}`}>
+                  <HomePost post={post} />
+                </Link>
+              );
+            })
+          )}
           {searchingTitleArray?.length !== 0 &&
             searchingTitleShownArray?.map((post) => {
               return post === undefined ? (

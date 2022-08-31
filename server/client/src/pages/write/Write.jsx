@@ -1,6 +1,7 @@
 import React, { useMemo, useContext, useEffect, useRef, useState } from 'react';
 import Header from '../../components/header/Header.jsx';
 import styles from './Write.module.css';
+import CircularProgress from '@mui/material/CircularProgress';
 // import '@toast-ui/editor/dist/toastui-editor.css';
 // import { Editor } from '@toast-ui/react-editor';
 // import 'tui-color-picker/dist/tui-color-picker.css';
@@ -21,7 +22,7 @@ const Write = ({ setEditBtnIndex }) => {
   const [title, setTitle] = useState('');
   const [titleImg, setTitleImg] = useState();
   const [writePageImgURL, setWritePageImgURL] = useState('');
-  const [catName, setCatName] = useState('HTML');
+  const [catName, setCatName] = useState('HTML / Git');
   const { id, editable } = useContext(Context);
   const [editorText, setEditorText] = useState('');
   const editorRef = useRef();
@@ -250,6 +251,7 @@ const Write = ({ setEditBtnIndex }) => {
         setIsFetching(false);
       } catch (error) {
         console.log('실패!!!');
+        setIsFetching(false);
       }
     });
   };
@@ -324,6 +326,7 @@ const Write = ({ setEditBtnIndex }) => {
         setIsFetching(false);
       } catch (error) {
         console.log('실패!!!');
+        setIsFetching(false);
       }
     });
   };
@@ -579,6 +582,13 @@ const Write = ({ setEditBtnIndex }) => {
     }
   };
 
+  useEffect(() => {
+    setFirstSubmit(true);
+    return () => {
+      setFirstSubmit(true);
+    };
+  });
+
   return (
     <section className={styles.write}>
       <Header />
@@ -619,9 +629,9 @@ const Write = ({ setEditBtnIndex }) => {
             onChange={(e) => setCatName(e.target.value)}
             name='Category'
             className={styles.selectCategory}
-            defaultValue={param.id ? postForEdit.catName : 'HTML'}
+            defaultValue={param.id ? postForEdit.catName : 'HTML / Git'}
           >
-            <option value='HTML'>HTML</option>
+            <option value='HTML / Git'>HTML / Git</option>
             <option value='CSS'>CSS</option>
             <option value='JavaScript / Svelte'>JavaScript / Svelte</option>
             <option value='React'>React</option>
@@ -695,29 +705,12 @@ const Write = ({ setEditBtnIndex }) => {
             {postForEdit.text}
           </div>
         )} */}
-
         {!isFetching ? (
           ''
         ) : (
           <div className={styles.loader}>
-            <span>
-              <p></p>
-              <p></p>
-              <p></p>
-              <p></p>
-            </span>
-            <span>
-              <p></p>
-              <p></p>
-              <p></p>
-              <p></p>
-            </span>
-            <span>
-              <p></p>
-              <p></p>
-              <p></p>
-              <p></p>
-            </span>
+            {' '}
+            <CircularProgress />
           </div>
         )}
       </form>
