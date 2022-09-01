@@ -206,7 +206,7 @@ const Home = (props) => {
                 </Link>
               );
             })
-          ) : sideBarAccessIndex ? (
+          ) : sideBarAccessIndex || searchingTitleArray?.length !== 0 ? (
             sideBarSelectedChosenPost?.map((post) => {
               return post === undefined ? (
                 ''
