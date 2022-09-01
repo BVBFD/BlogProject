@@ -206,11 +206,7 @@ const Home = (props) => {
                 </Link>
               );
             })
-          ) : sideBarSelectedChosenPost ? (
-            <div className={styles.loader}>
-              <CircularProgress />
-            </div>
-          ) : (
+          ) : sideBarAccessIndex ? (
             sideBarSelectedChosenPost?.map((post) => {
               return post === undefined ? (
                 ''
@@ -220,6 +216,10 @@ const Home = (props) => {
                 </Link>
               );
             })
+          ) : (
+            <div className={styles.loader}>
+              <CircularProgress />
+            </div>
           )}
           {searchingTitleArray?.length !== 0 &&
             searchingTitleShownArray?.map((post) => {
@@ -232,6 +232,7 @@ const Home = (props) => {
               );
             })}
         </div>
+
         <SidebarAboutMe setSideBarAccessIndex={setSideBarAccessIndex} />
       </div>
       {searchingTitleArray?.length === 0 ? (
