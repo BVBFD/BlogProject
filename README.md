@@ -196,7 +196,7 @@ nano /etc/nginx/sites-available/netflix
 ```
 
 ```
-location /api {
+location /api/ {
         proxy_pass http://45.90.108.107:8800;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
@@ -228,6 +228,18 @@ npm install
 nano .env
 ```
 
+##### But If you encounter some errors because of old nodejs or npm version, you have to install the recent version of them
+
+```
+curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+( You can change the another version number from 18 to any version number )
+```
+
+```
+sudo apt-get install -y nodejs
+( It installs npm as well )
+```
+
 ##### Copy and paste your env file
 
 ```
@@ -248,6 +260,18 @@ pm2 start --name api index.js
 
 ```
 pm2 startup ubuntu
+```
+
+When you delete and stop pm2 operation
+
+```
+pm2 delete <app_name>
+```
+
+When you check the status of pm2 operation
+
+```
+pm2 status
 ```
 
 ## React App Deployment
