@@ -113,6 +113,10 @@ ufw enable
 ufw allow "Nginx Full"
 ```
 
+```
+ufw allow from [Your Internet IP address]
+```
+
 ## First Page
 
 #### Delete the default server configuration
