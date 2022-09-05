@@ -178,8 +178,6 @@
 4. 새로운 사설 호스팅 VPS 배포 겸 client, server 코드에서 필요없는 코드 대거 삭제하였음. 깔끔하게 코드를 정리함 -> VPS-Deploy-Code 브랜치 
 
 <hr/>
-<hr/>
-
 ## ----- 블로그 프로젝트 버전 2.0 종료 -----
 
 #### 두번째 블로그 프로젝트 소회
@@ -204,3 +202,4 @@
 4. JEST, React Test Library를 이용하여 단위 Test 코드 작성 할 것!
 5. 조금 더 깨끗한 코드 구현을 위해 Styled-Components CSS 프레임 워크 적용할 것!
 6. 조금 더 깨끗한 코드 구현을 위해 Redux 상태 관리 툴 대신 React의 useReducer, context API 통해서만 구현해 볼 것!
+<hr/>
