@@ -177,8 +177,8 @@
 3. 원격 서버 세팅 및 배포시 활용했던 ubuntu, nginx 세팅, 배포 방법은 VPS-Deploy-Code 브랜치의 Readme.md에 따로 정리해놓았음.
 4. 새로운 사설 호스팅 VPS 배포 겸 client, server 코드에서 필요없는 코드 대거 삭제하였음. 깔끔하게 코드를 정리함 -> VPS-Deploy-Code 브랜치 
 
-
-
+<hr/>
+<hr/>
 
 ## ----- 블로그 프로젝트 버전 2.0 종료 -----
 
