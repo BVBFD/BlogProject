@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const LoginDatasSchema = new mongoose.Schema(
   {
@@ -18,7 +18,7 @@ const LoginDatasSchema = new mongoose.Schema(
     profilePic: {
       type: String,
       required: false,
-      default: "",
+      default: '',
     },
     editable: {
       type: Boolean,
@@ -29,4 +29,4 @@ const LoginDatasSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("LoginDatas", LoginDatasSchema);
+module.exports = mongoose.model('LoginDatas', LoginDatasSchema);

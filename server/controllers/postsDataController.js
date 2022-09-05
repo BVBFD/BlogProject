@@ -1,6 +1,6 @@
-import PostDatasModel from '../models/postDatasModel.js';
+const PostDatasModel = require('../models/postDatasModel.js');
 
-export const getAllPostsAndGetPostsByCatnames = async (req, res, next) => {
+const getAllPostsAndGetPostsByCatnames = async (req, res, next) => {
   const catName = req.query.cat;
   console.log(catName);
   try {
@@ -20,7 +20,7 @@ export const getAllPostsAndGetPostsByCatnames = async (req, res, next) => {
   }
 };
 
-export const getPostsById = async (req, res, next) => {
+const getPostsById = async (req, res, next) => {
   const paramId = req.params.id;
   try {
     try {
@@ -34,7 +34,7 @@ export const getPostsById = async (req, res, next) => {
   }
 };
 
-export const uploadPost = async (req, res, next) => {
+const uploadPost = async (req, res, next) => {
   try {
     const newPost = new PostDatasModel({
       imgUrl: req.body.imgUrl,
@@ -52,7 +52,7 @@ export const uploadPost = async (req, res, next) => {
   }
 };
 
-export const updatePost = async (req, res, next) => {
+const updatePost = async (req, res, next) => {
   try {
     console.log(req.params.id);
     const foundPost = await PostDatasModel.findById(req.params.id);
@@ -71,7 +71,7 @@ export const updatePost = async (req, res, next) => {
   }
 };
 
-export const deletePost = async (req, res, next) => {
+const deletePost = async (req, res, next) => {
   try {
     console.log(req.params.id);
     const foundPost = await PostDatasModel.findById(req.params.id);
@@ -84,4 +84,12 @@ export const deletePost = async (req, res, next) => {
   } catch (err) {
     res.status(401).json(err);
   }
+};
+
+module.exports = {
+  getAllPostsAndGetPostsByCatnames,
+  getPostsById,
+  uploadPost,
+  updatePost,
+  deletePost,
 };

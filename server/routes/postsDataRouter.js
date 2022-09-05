@@ -1,15 +1,12 @@
-import express from 'express';
-import 'express-async-errors';
-import {
+const express = require('express');
+require('express-async-errors');
+const {
   deletePost,
   getAllPostsAndGetPostsByCatnames,
   getPostsById,
   updatePost,
   uploadPost,
-} from '../controllers/postsDataController.js';
-import { isCSRFToken } from '../middleware/isCSRFToken.js';
-import { isXSSToken } from '../middleware/isXSSToken.js';
-import { isDoubleClick } from '../middleware/isDoubleClick.js';
+} = require('../controllers/postsDataController.js');
 
 const router = express.Router();
 
@@ -17,10 +14,10 @@ router.get('/', getAllPostsAndGetPostsByCatnames);
 
 router.get('/:id', getPostsById);
 
-router.post('/', isXSSToken, isCSRFToken, isDoubleClick, uploadPost);
+router.post('/', uploadPost);
 
-router.put('/:id', isXSSToken, isCSRFToken, isDoubleClick, updatePost);
+router.put('/:id', updatePost);
 
-router.delete('/:id', isXSSToken, isCSRFToken, deletePost);
+router.delete('/:id', deletePost);
 
-export default router;
+module.exports = router;

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const ContactDatasSchema = new mongoose.Schema(
   {
@@ -25,4 +25,4 @@ const ContactDatasSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("ContactDatas", ContactDatasSchema);
+module.exports = mongoose.model('ContactDatas', ContactDatasSchema);
