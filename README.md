@@ -171,6 +171,12 @@ nano /var/www/netflix/index.html
 systemctl start nginx
 ```
 
+##### When you meet "state: degraded" in "systemctl status"
+
+```
+systemctl reset-failed
+```
+
 ## Uploading Apps Using Git
 
 ```
