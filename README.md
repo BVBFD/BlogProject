@@ -1,3 +1,272 @@
+<hr>
+
+# My Portfolio Blog Site Ver 2.0
+<br>
+This is the second version of my blog portfolio.
+<br>
+For making this project, I used HTML, CSS, JavaScript, React, NodeJS, MongoDB, Nginx, Hostinger VPS
+<br>
+While coding this blog project, I could learn lots of things.
+I could experience all process of web-programming from front-end to back-end, deployment as well.
+
+<br>
+<br>
+
+<hr>
+
+### Implement Global State Admin without Redux or Redux Toolkits 
+
+<br>
+While making this blog project, I have no idea about Redux or Redux Toolkits.
+<br>
+And, I am even not aware of the exist of them.
+<br>
+<br>
+So, I have to choice but to just try.
+<br>
+And, I could make it using just React Hooks APIs.
+<br>
+<br>
+I used useContext(), useReducer() and declared reducer functions.
+<br>
+To send state data globally, I used Context.Provider as well.
+<br>
+<br>
+
+- context.jsx
+
+```JavaScript
+
+import {
+  createContext,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useReducer,
+  useState,
+} from 'react';
+import Reducer from './reducer.js';
+
+const initialLoginData = {
+  id: JSON.parse(localStorage.getItem('id')) || null,
+  // token: JSON.parse(localStorage.getItem("token")) || null,
+  editable: localStorage.getItem('editable') || null,
+  profilePic: localStorage.getItem('profilePic') || null,
+  email: localStorage.getItem('email') || null,
+};
+
+
+export const Context = createContext(initialLoginData);
+
+export const ContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(Reducer, initialLoginData);
+
+  useEffect(() => {
+    localStorage.setItem('id', JSON.stringify(state.id));
+    // localStorage.setItem("token", JSON.stringify(state.token));
+    localStorage.setItem('editable', state.editable);
+    localStorage.setItem('profilePic', state.profilePic);
+    localStorage.setItem('email', state.email);
+  }, [state.id]);
+
+  return (
+    <Context.Provider
+      value={{
+        id: state.id,
+        // token: state.token,
+        editable: state.editable,
+        profilePic: state.profilePic,
+        dispatch,
+      }}
+    >
+      {children}
+    </Context.Provider>
+  );
+};
+
+```
+
+<hr>
+
+- reducer.js
+
+```JavaScript
+const Reducer = (state, action) => {
+  switch (action.type) {
+    case "LOGIN_SUCCESS":
+      return {
+        id: action.payload.userId,
+        // token: action.payload.token,
+        editable: action.payload.editable,
+        profilePic: action.payload.profilePic,
+        email: action.payload.email,
+      };
+
+    case "LOGOUT":
+      return {
+        id: null,
+        // token: null,
+        editable: null,
+        profilePic: null,
+        email: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export default Reducer;
+
+```
+
+<hr>
+
+- index.js
+
+```JavaScript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import { BrowserRouter } from 'react-router-dom';
+import { ContextProvider } from './context/context';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <ContextProvider>
+        <App />
+      </ContextProvider>
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+```
+
+<hr>
+
+- Login Component
+
+```JavaScript
+import React, { useContext, useRef, useState } from 'react';
+import Header from '../../components/header/Header';
+import { Context } from '../../context/context.js';
+import styles from './Login.module.css';
+import axiosInstance from '../../config';
+import { useNavigate } from 'react-router-dom';
+
+const Login = () => {
+  const { id, dispatch } = useContext(Context);
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const idRef = useRef();
+  const pwdRef = useRef();
+  const navigate = useNavigate();
+
+  const onLogin = async (event) => {
+    event.preventDefault();
+    try {
+      const res = await axiosInstance.post(`/loginDatas/login`, {
+        userId: idRef.current.value,
+        password: pwdRef.current.value,
+      });
+
+      dispatch({
+        type: 'LOGIN_SUCCESS',
+        payload: {
+          userId: res.data.sendLoginData.userId,
+          profilePic: res.data.sendLoginData.profilePic,
+          editable: res.data.sendLoginData.editable,
+          email: res.data.sendLoginData.email,
+        },
+      });
+    } catch (err) {
+      window.alert(err);
+    }
+    setLoginSuccess(true);
+  };
+
+  navigate('/');
+
+  return (
+    <>
+      <Header />
+      <form className={styles.loginBox} onSubmit={onLogin}>
+        <div>
+          <span>Login</span>
+        </div>
+        <div className={styles.idBox}>
+          <span>ID</span>
+          <input
+            ref={idRef}
+            type='text'
+            autoFocus
+            placeholder='Enter your ID'
+          />
+        </div>
+        <div className={styles.pwdBox}>
+          <span>Password</span>
+          <input
+            ref={pwdRef}
+            type='password'
+            placeholder='Enter your password'
+          />
+        </div>
+        <button type='submit'>login</button>
+      </form>
+    </>
+  );
+};
+
+export default Login;
+
+```
+
+<hr>
+
+### Login, Posts and Sidebar
+<br>
+You can browser through my blog websites like below
+<br>
+And I tried to focus on implementing paginating with React.
+<br>
+I used React-Pagination module to implement it.
+<br>
+<br>
+
+![blog](https://user-images.githubusercontent.com/83178592/189166737-645a1265-1d2a-4f2d-b1f4-d2717a56bca1.gif)
+
+
+<hr>
+
+### Upload Post including Image and Video materials
+<br>
+I implemented uploading pictures or videos.
+<br>
+Everytime uploading pictures or videos, it is sent to the cloudinary storage.
+<br>
+And then, get URL of it, it can be shown on blog website
+<br>
+<br>
+
+![blog2](https://user-images.githubusercontent.com/83178592/189169626-916214cd-c1e8-4b79-ba57-f9693a31ad6c.gif)
+
+<hr>
+<a href="http://37.44.244.229/">Go To Visit Portfolio-Website</a>
+
+<hr>
+
+### Deployment
+<br>
+I Deployed this website on Hostinger VPS( Virtual Private Server ) set by Nginx.
+<br>
+You can refer to how I deployed this website on Hostinger VPS on right the below.
+<br>
+<br>
+
+<hr>
+
 # Connecting to the VPS
 
 To connect your VPS server, you can use your server IP, you can create a root password and enter the server with your IP address and password credentials. But the more secure way is using an SSH key.
