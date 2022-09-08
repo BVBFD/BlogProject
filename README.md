@@ -23,7 +23,7 @@ While making this blog project, I have no idea about Redux or Redux Toolkits.
 And, I am even not aware of the exist of them.
 <br>
 <br>
-So, I have to choice but to just try.
+So, I have no choice but to just try.
 <br>
 And, I could make it using just React Hooks APIs.
 <br>
