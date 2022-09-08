@@ -7,6 +7,7 @@ This is the second version of my blog portfolio.
 For making this project, I used HTML, CSS, JavaScript, React, NodeJS, MongoDB, Nginx, Hostinger VPS
 <br>
 While coding this blog project, I could learn lots of things.
+<br>
 I could experience all process of web-programming from front-end to back-end, deployment as well.
 
 <br>
