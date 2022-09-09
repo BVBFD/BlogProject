@@ -39,7 +39,7 @@ const Post = () => {
 
   const deletePost = async () => {
     try {
-      const res = await fetch(`http://api.lsevina126.asia/posts/${param.id}`, {
+      const res = await fetch(`https://api.lsevina126.asia/posts/${param.id}`, {
         method: 'DELETE',
         credentials: 'include',
         headers: {

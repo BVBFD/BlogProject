@@ -21,7 +21,7 @@ const Setting = (props) => {
       data.append('name', filename);
       data.append('file', e.target.files[0]);
       try {
-        const response = await fetch(`http://api.lsevina126.asia/pic/upload`, {
+        const response = await fetch(`https://api.lsevina126.asia/pic/upload`, {
           method: 'POST',
           mode: 'cors',
           body: data,
