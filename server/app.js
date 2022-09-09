@@ -46,7 +46,7 @@ app.use(
 
 app.use(
   cors({
-    origin: [`http://localhost:3000`, `http://www.lsevina126.asia`],
+    origin: [`http://localhost:3000`, `https://www.lsevina126.asia`],
     optionsSuccessStatus: 200,
     credentials: true,
   })
