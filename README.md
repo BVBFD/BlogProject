@@ -602,6 +602,40 @@ Let's make some server configuration
 
 ```
 
+---
+
+_If you happen to encounter "uncaught syntaxerror: unexpected token '<'" error whenever url routing access after build and deployment_
+
+1. Add this line in index.html after <head> tag like below
+
+```HTML
+<base href="/" />
+
+```
+
+Ex)
+
+![base](https://user-images.githubusercontent.com/83178592/191037841-8ae583e8-d016-4189-a1d0-c62c984963d9.png)
+
+
+2. You have to check <script> tag in index.html - You have to delete '.' like below in the script tag of index.html
+
+FROM
+
+```HTML
+<script defer="defer" src="./static/js/main.d2aa2.js">
+
+```
+
+TO
+
+```HTML
+<script defer="defer" src="/static/js/main.d2aa2.js">
+
+```
+
+---
+
 ### Adding Domain
 
 1 - Make sure that you created your A records on your domain provider website.
