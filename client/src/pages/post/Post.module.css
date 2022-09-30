@@ -1,3 +1,8 @@
+.postPage * {
+  overflow-x: scroll;
+  /* when you want to add x-overflow-scroll in code block pre tag */
+}
+
 .postPage .postBox {
   display: flex;
 }
@@ -98,8 +103,9 @@
   background: black;
   color: white;
   padding: 1rem;
-  font: -webkit-small-control;
-  white-space: pre-wrap;
+  font: message-box;
+  /* white-space: pre-wrap; */
+  /* when you want to auto-change line in code block pre tag */
 }
 
 /* .postPage
