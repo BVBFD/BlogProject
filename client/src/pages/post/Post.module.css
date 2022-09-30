@@ -99,6 +99,7 @@
   color: white;
   padding: 1rem;
   font: -webkit-small-control;
+  white-space: pre-wrap;
 }
 
 /* .postPage
