@@ -98,6 +98,7 @@
   background: black;
   color: white;
   padding: 1rem;
+  font: -webkit-small-control;
 }
 
 /* .postPage
@@ -122,6 +123,7 @@
 
   .postPage .postBox .postImgTextBox .postTitleImgBox {
     width: 100vw;
+    margin: auto;
   }
 
   .postPage .postBox .postImgTextBox .postTextBox {
