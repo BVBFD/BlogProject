@@ -45,6 +45,7 @@ const Write = ({ setEditBtnIndex }) => {
         .querySelectorAll('.ql-editor a img')
         .forEach((img) => img.setAttribute('style', 'max-width: 500px;'));
     }
+
     return () => setTitleImg();
   }, [param.id]);
 

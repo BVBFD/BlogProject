@@ -1,6 +1,5 @@
-.postPage * {
-  overflow-x: scroll;
-  /* when you want to add x-overflow-scroll in code block pre tag */
+.postPage .ql-formats {
+  overflow: auto;
 }
 
 .postPage .postBox {
@@ -9,6 +8,11 @@
 
 .postPage .postBox {
   margin: 2rem 2rem 0 2rem;
+}
+
+.postPage .postBox * {
+  overflow-x: scroll;
+  /* when you want to add x-overflow-scroll in code block pre tag */
 }
 
 .postPage .postBox .postImgTextBox .postTitleImgBox {
