@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import Header from '../../components/header/Header';
-import styles from './Post.module.css';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import Write from '../write/Write';
-import { Context } from '../../context/context';
-import axiosInstance from '../../config';
+import React, { useContext, useEffect, useRef, useState } from "react";
+import Header from "../../components/header/Header";
+import styles from "./Post.module.css";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import Write from "../write/Write";
+import { Context } from "../../context/context";
+import axiosInstance from "../../config";
 
-import 'react-quill/dist/quill.snow.css';
-import 'react-quill/dist/quill.core.css';
-import 'react-quill/dist/quill.bubble.css';
-import 'highlight.js/styles/vs2015.css';
+import "react-quill/dist/quill.snow.css";
+import "react-quill/dist/quill.core.css";
+import "react-quill/dist/quill.bubble.css";
+import "highlight.js/styles/vs2015.css";
 
 const Post = () => {
   const [post, setPost] = useState({});
@@ -33,17 +33,17 @@ const Post = () => {
     }
 
     document
-      .querySelectorAll('.videoImgs')
-      .forEach((img) => img.setAttribute('style', ''));
+      .querySelectorAll(".videoImgs")
+      .forEach((img) => img.setAttribute("style", ""));
   }, [location, param, editBtnIndex]);
 
   const deletePost = async () => {
     try {
       const res = await fetch(`https://api.lsevina126.asia/posts/${param.id}`, {
-        method: 'DELETE',
-        credentials: 'include',
+        method: "DELETE",
+        credentials: "include",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           author: id,
@@ -53,7 +53,7 @@ const Post = () => {
         window.alert(
           `${res.statusText} This is private Blog. Onle The Admin can edit!!`
         );
-      res.status === 204 && navigate('/');
+      res.status === 204 && navigate("/");
     } catch (err) {
       window.alert(err);
     }
@@ -61,8 +61,8 @@ const Post = () => {
 
   useEffect(() => {
     document
-      .querySelectorAll('img')
-      .forEach((img) => img.setAttribute('crossOrigin', 'anonymous'));
+      .querySelectorAll("img")
+      .forEach((img) => img.setAttribute("crossOrigin", "anonymous"));
   }, []);
 
   return (
@@ -73,10 +73,10 @@ const Post = () => {
           <div className={styles.postBox}>
             <div className={styles.postImgTextBox}>
               <div className={styles.postTitleImgBox}>
-                {post.imgUrl === '' ? (
-                  <img src='../images/postdefaultimg.png' />
+                {post.imgUrl === "" ? (
+                  <img src="../images/postdefaultimg.png" />
                 ) : (
-                  <img crossOrigin='anonymous' src={post.imgUrl} alt='' />
+                  <img crossOrigin="anonymous" src={post.imgUrl} alt="" />
                 )}
               </div>
               <div className={styles.postTextBox}>
@@ -94,9 +94,9 @@ const Post = () => {
                           setEditBtnIndex(false);
                         }
                       }}
-                      class='fa-solid fa-pen-to-square'
+                      class="fa-solid fa-pen-to-square"
                     ></i>
-                    <i onClick={deletePost} class='fa-solid fa-trash'></i>
+                    <i onClick={deletePost} class="fa-solid fa-trash"></i>
                   </div>
                 </header>
                 <div className={styles.authorAndDate}>
@@ -105,9 +105,9 @@ const Post = () => {
                   </p>
                   <span>{new Date(post.createdAt).toDateString()}</span>
                 </div>
-                <div className='ql-snow'>
+                <div className="ql-snow">
                   <div
-                    class='ql-editor'
+                    class="ql-editor"
                     ref={postTextBoxRef}
                     className={styles.postContentText}
                     dangerouslySetInnerHTML={inputText()}
