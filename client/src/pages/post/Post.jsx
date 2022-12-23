@@ -14,11 +14,11 @@ import "highlight.js/styles/vs2015.css";
 const Post = () => {
   const [post, setPost] = useState({});
   const location = useLocation();
-  const param = useParams();
   const [editBtnIndex, setEditBtnIndex] = useState(false);
   const { id } = useContext(Context);
   const postTextBoxRef = useRef();
   const navigate = useNavigate();
+  const _id = location.search.split("=")[1];
 
   const inputText = () => {
     return { __html: `${post.text}` };
@@ -26,7 +26,7 @@ const Post = () => {
 
   useEffect(async () => {
     try {
-      const res = await axiosInstance.get(`/posts/${param.id}`);
+      const res = await axiosInstance.get(`/posts/${_id}`);
       setPost(res.data);
     } catch (err) {
       window.alert(err);
@@ -35,11 +35,11 @@ const Post = () => {
     document
       .querySelectorAll(".videoImgs")
       .forEach((img) => img.setAttribute("style", ""));
-  }, [location, param, editBtnIndex]);
+  }, [location, _id, editBtnIndex]);
 
   const deletePost = async () => {
     try {
-      const res = await fetch(`https://api.lsevina126.asia/posts/${param.id}`, {
+      const res = await fetch(`https://api.lsevina126.asia/posts/${_id}`, {
         method: "DELETE",
         credentials: "include",
         headers: {

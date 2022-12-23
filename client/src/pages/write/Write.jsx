@@ -253,8 +253,10 @@ const Write = ({ setEditBtnIndex }) => {
             },
           }
         );
-
-        navigate(`/post/${res.data.savedNewPost?._id}`);
+        console.log(res.data);
+        navigate(
+          `/post/${res.data?.savedNewPost?.title}?id=${res.data?.savedNewPost?._id}`
+        );
       } catch (err) {
         console.log(err);
       }
@@ -290,7 +292,7 @@ const Write = ({ setEditBtnIndex }) => {
 
         res.status === 201 &&
           setEditBtnIndex(false) &&
-          navigate(`/post/${param.id}`);
+          navigate(`/post/${res.data?.savedNewPost?.title}?id=${param.id}`);
       } catch (err) {
         window.alert(err);
       }

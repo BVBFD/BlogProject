@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Header from '../../components/header/Header.jsx';
-import HomePost from '../../components/homePost/HomePost.jsx';
-import SidebarAboutMe from '../../components/sidebarAboutMe/SidebarAboutMe.jsx';
-import axiosInstance from '../../config.js';
-import styles from './Home.module.css';
-import ReactPaginate from 'react-paginate';
-import { useRef } from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Header from "../../components/header/Header.jsx";
+import HomePost from "../../components/homePost/HomePost.jsx";
+import SidebarAboutMe from "../../components/sidebarAboutMe/SidebarAboutMe.jsx";
+import axiosInstance from "../../config.js";
+import styles from "./Home.module.css";
+import ReactPaginate from "react-paginate";
+import { useRef } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Home = (props) => {
   const [totalPosts, setTotalPosts] = useState([]);
 
-  const [sideBarAccessIndex, setSideBarAccessIndex] = useState('');
+  const [sideBarAccessIndex, setSideBarAccessIndex] = useState("");
 
   const [booleanSidebarIndex, setBooleanSidebarIndex] = useState(false);
-  const [searchingTitle, setSearchingTitle] = useState('');
+  const [searchingTitle, setSearchingTitle] = useState("");
   const [searchingTitleArray, setSearchingTitleArray] = useState([]);
   const [searchingTitleShownArray, setSearchingTitleShownArray] = useState([]);
 
@@ -65,12 +65,12 @@ const Home = (props) => {
 
   useEffect(() => {
     const lis = document.querySelectorAll(`.pagination .page-item`);
-    const liDis = document.querySelector('.pagination .page-item.disabled');
-    const liAct = document.querySelector('.pagination .page-item.active');
+    const liDis = document.querySelector(".pagination .page-item.disabled");
+    const liAct = document.querySelector(".pagination .page-item.active");
 
-    liDis?.classList?.remove('disabled');
-    liAct?.classList?.remove('active');
-    lis[1].querySelector('a').click();
+    liDis?.classList?.remove("disabled");
+    liAct?.classList?.remove("active");
+    lis[1].querySelector("a").click();
 
     const selectedPostsArray = totalPosts.filter(
       (post) => post.catName === sideBarAccessIndex
@@ -108,21 +108,21 @@ const Home = (props) => {
   const showTotalPosts = () => {
     booleanSidebarIndex && navigate(0);
 
-    setSearchingTitle('');
-    searchInputRef.current.value = '';
+    setSearchingTitle("");
+    searchInputRef.current.value = "";
   };
 
   const handleSearchInputChange = (e) => {
-    const searchTitle = e.target.value.replace(/(\s*)/g, '').toLowerCase();
+    const searchTitle = e.target.value.replace(/(\s*)/g, "").toLowerCase();
     setSearchingTitle(searchTitle);
   };
 
   useEffect(() => {
     let filtered = [];
-    let postTitle = '';
+    let postTitle = "";
     if (booleanSidebarIndex) {
       filtered = sideBarSelectedPost.filter((post) => {
-        postTitle = post.title.replace(/(\s*)/g, '').toLowerCase();
+        postTitle = post.title.replace(/(\s*)/g, "").toLowerCase();
         return postTitle.includes(searchingTitle);
       });
       setSearchingTitleArray(filtered);
@@ -130,13 +130,13 @@ const Home = (props) => {
 
     if (!booleanSidebarIndex) {
       filtered = totalPosts.filter((post) => {
-        postTitle = post.title.replace(/(\s*)/g, '').toLowerCase();
+        postTitle = post.title.replace(/(\s*)/g, "").toLowerCase();
         return postTitle.includes(searchingTitle);
       });
       setSearchingTitleArray(filtered);
     }
 
-    if (searchingTitle === '') {
+    if (searchingTitle === "") {
       setSearchingTitleArray([]);
     }
 
@@ -155,7 +155,7 @@ const Home = (props) => {
     <section className={styles.home}>
       <Header />
       <div className={styles.homeBgImg}>
-        <img src='../images/cathay.jpg' alt='' />
+        <img src="../images/cathay.jpg" alt="" />
       </div>
       <div className={styles.title}>
         <span>IT & Game</span>
@@ -169,12 +169,12 @@ const Home = (props) => {
           <input
             ref={searchInputRef}
             className={styles.searchInput}
-            type='text'
-            placeholder='Searching Posts...'
+            type="text"
+            placeholder="Searching Posts..."
             onChange={handleSearchInputChange}
           />
         ) : (
-          ''
+          ""
         )}
       </div>
       <div className={styles.homeContentsPart}>
@@ -182,9 +182,12 @@ const Home = (props) => {
           {!booleanSidebarIndex && searchingTitleArray?.length === 0 ? (
             selectedArray?.map((post) => {
               return post === undefined ? (
-                ''
+                ""
               ) : (
-                <Link className='link' to={`/post/${post?._id}`}>
+                <Link
+                  className="link"
+                  to={`/post/${post?.title}?id=${post?._id}`}
+                >
                   <HomePost post={post} />
                 </Link>
               );
@@ -192,9 +195,12 @@ const Home = (props) => {
           ) : sideBarAccessIndex || searchingTitleArray?.length !== 0 ? (
             sideBarSelectedChosenPost?.map((post) => {
               return post === undefined ? (
-                ''
+                ""
               ) : (
-                <Link className='link' to={`/post/${post?._id}`}>
+                <Link
+                  className="link"
+                  to={`/post/${post?.title}?id=${post?._id}`}
+                >
                   <HomePost post={post} />
                 </Link>
               );
@@ -207,9 +213,12 @@ const Home = (props) => {
           {searchingTitleArray?.length !== 0 &&
             searchingTitleShownArray?.map((post) => {
               return post === undefined ? (
-                ''
+                ""
               ) : (
-                <Link className='link' to={`/post/${post?._id}`}>
+                <Link
+                  className="link"
+                  to={`/post/${post?.title}?id=${post?._id}`}
+                >
                   <HomePost post={post} />
                 </Link>
               );
@@ -220,31 +229,31 @@ const Home = (props) => {
       </div>
       {searchingTitleArray?.length === 0 ? (
         <ReactPaginate
-          previousLabel={'prev'}
-          nextLabel={'next'}
-          breakLabel={''}
+          previousLabel={"prev"}
+          nextLabel={"next"}
+          breakLabel={""}
           pageCount={!booleanSidebarIndex ? pageCount : sideBarPageCount}
           marginPagesDisplayed={0}
           pageRangeDisplayed={4}
           onPageChange={
             !booleanSidebarIndex ? handlePageClick : sideBarHandleClick
           }
-          containerClassName={'pagination justify-content-center'}
-          pageClassName={'page-item'}
-          pageLinkClassName={'page-link'}
-          previousClassName={'page-item'}
-          previousLinkClassName={'page-link'}
-          nextClassName={'page-item'}
-          nextLinkClassName={'page-link'}
-          breakClassName={'page-item'}
-          breakLinkClassName={'page-link'}
-          activeClassName={'active'}
+          containerClassName={"pagination justify-content-center"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
         />
       ) : (
         <ReactPaginate
-          previousLabel={'prev'}
-          nextLabel={'next'}
-          breakLabel={''}
+          previousLabel={"prev"}
+          nextLabel={"next"}
+          breakLabel={""}
           pageCount={!booleanSidebarIndex ? pageCount : sideBarPageCount}
           marginPagesDisplayed={0}
           pageRangeDisplayed={4}
@@ -257,16 +266,16 @@ const Home = (props) => {
             ];
             setSearchingTitleShownArray(newArray);
           }}
-          containerClassName={'pagination justify-content-center'}
-          pageClassName={'page-item'}
-          pageLinkClassName={'page-link'}
-          previousClassName={'page-item'}
-          previousLinkClassName={'page-link'}
-          nextClassName={'page-item'}
-          nextLinkClassName={'page-link'}
-          breakClassName={'page-item'}
-          breakLinkClassName={'page-link'}
-          activeClassName={'active'}
+          containerClassName={"pagination justify-content-center"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
         />
       )}
     </section>

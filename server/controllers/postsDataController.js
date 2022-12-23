@@ -1,8 +1,7 @@
-const PostDatasModel = require('../models/postDatasModel.js');
+const PostDatasModel = require("../models/postDatasModel.js");
 
 const getAllPostsAndGetPostsByCatnames = async (req, res, next) => {
   const catName = req.query.cat;
-  console.log(catName);
   try {
     let foundPosts;
     if (catName) {
@@ -43,7 +42,7 @@ const uploadPost = async (req, res, next) => {
       catName: req.body.catName,
       author: req.body.author,
     });
-    !newPost && res.status(400).json('Bad Request!');
+    !newPost && res.status(400).json("Bad Request!");
     const savedNewPost = await newPost.save();
     console.log(savedNewPost);
     res.status(201).json({ savedNewPost });
@@ -53,9 +52,9 @@ const uploadPost = async (req, res, next) => {
 };
 
 const updatePost = async (req, res, next) => {
+  const paramId = req.params.id;
   try {
-    console.log(req.params.id);
-    const foundPost = await PostDatasModel.findById(req.params.id);
+    const foundPost = await PostDatasModel.findById(paramId);
     if (req.body.author === foundPost.author) {
       const updatedPost = await PostDatasModel.findByIdAndUpdate(
         req.params.id,
@@ -64,7 +63,7 @@ const updatePost = async (req, res, next) => {
       );
       res.status(201).json(updatedPost);
     } else {
-      res.status(401).json('You can update and delete own your posts!');
+      res.status(401).json("You can update and delete own your posts!");
     }
   } catch (err) {
     res.status(401).json(err);
@@ -72,14 +71,14 @@ const updatePost = async (req, res, next) => {
 };
 
 const deletePost = async (req, res, next) => {
+  const paramId = req.params.id;
   try {
-    console.log(req.params.id);
-    const foundPost = await PostDatasModel.findById(req.params.id);
+    const foundPost = await PostDatasModel.findById(paramId);
     if (req.body.author === foundPost.author) {
       foundPost.delete();
-      res.status(204).json('The Post has been deleted!');
+      res.status(204).json("The Post has been deleted!");
     } else {
-      res.status(401).json('You can update and delete own your posts!');
+      res.status(401).json("You can update and delete own your posts!");
     }
   } catch (err) {
     res.status(401).json(err);

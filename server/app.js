@@ -1,18 +1,18 @@
-const express = require('express');
-require('express-async-errors');
-const helmet = require('helmet');
-const cors = require('cors');
-const morgan = require('morgan');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const multer = require('multer');
-const cloudinary = require('cloudinary');
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
-const cookieParser = require('cookie-parser');
+const express = require("express");
+require("express-async-errors");
+const helmet = require("helmet");
+const cors = require("cors");
+const morgan = require("morgan");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const multer = require("multer");
+const cloudinary = require("cloudinary");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cookieParser = require("cookie-parser");
 
-const postsDataRouter = require('./routes/postsDataRouter.js');
-const loginDatasRouter = require('./routes/loginDatasRouter.js');
-const ContactDatasModel = require('./models/contactDatasModel.js');
+const postsDataRouter = require("./routes/postsDataRouter.js");
+const loginDatasRouter = require("./routes/loginDatasRouter.js");
+const ContactDatasModel = require("./models/contactDatasModel.js");
 
 dotenv.config();
 
@@ -23,18 +23,18 @@ const cspOptions = {
   directives: {
     ...helmet.contentSecurityPolicy.getDefaultDirectives(),
 
-    'img-src': ["'self'", 'data:', `*`],
-    'media-src': [
+    "img-src": ["'self'", "data:", `*`],
+    "media-src": [
       "'self'",
-      'data:',
+      "data:",
       `https://res.cloudinary.com https://www.youtube.com/embed/`,
     ],
-    'child-src': [
+    "child-src": [
       "'self'",
-      'data:',
+      "data:",
       `https://res.cloudinary.com https://www.youtube.com/embed/`,
     ],
-    'frame-src': ["'self'", 'data:', `https://www.youtube.com/embed/`],
+    "frame-src": ["'self'", "data:", `https://www.youtube.com/embed/`],
   },
 };
 
@@ -51,12 +51,12 @@ app.use(
     credentials: true,
   })
 );
-app.use(morgan('tiny'));
+app.use(morgan("tiny"));
 app.use(cookieParser());
 
-app.get('/lee', (req, res, next) => {
-  console.log('Hey this is initial test code!');
-  return res.status(200).send(console.log('Success!'));
+app.get("/lee", (req, res, next) => {
+  console.log("Hey this is initial test code!");
+  return res.status(200).send(console.log("Success!"));
 });
 
 cloudinary.config({
@@ -68,8 +68,8 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary.v2,
   params: {
-    folder: 'myportfolioblogproject',
-    format: async (req, file) => 'gif',
+    folder: "myportfolioblogproject",
+    format: async (req, file) => "gif",
     public_id: (req, file) => req.filename,
   },
 });
@@ -77,9 +77,9 @@ const storage = new CloudinaryStorage({
 const videoStorage = new CloudinaryStorage({
   cloudinary: cloudinary.v2,
   params: {
-    folder: 'myportfolioblogproject/video',
-    resource_type: 'video',
-    format: async (req, file) => 'mp4',
+    folder: "myportfolioblogproject/video",
+    resource_type: "video",
+    format: async (req, file) => "mp4",
     public_id: (req, file) => req.filename,
     chunk_size: 8000000,
   },
@@ -88,19 +88,19 @@ const videoStorage = new CloudinaryStorage({
 const upload = multer({ storage: storage });
 const videoUpload = multer({ storage: videoStorage });
 
-app.post('/pic/upload', upload.single('file'), (req, res, next) => {
-  res.header('Cross-Origin-Resource-Policy', 'cross-origin');
+app.post("/pic/upload", upload.single("file"), (req, res, next) => {
+  res.header("Cross-Origin-Resource-Policy", "cross-origin");
   res.status(200).json(req.file.path);
 });
 
-app.post('/video/upload', videoUpload.single('file'), (req, res, next) => {
-  res.header('Cross-Origin-Resource-Policy', 'cross-origin');
+app.post("/video/upload", videoUpload.single("file"), (req, res, next) => {
+  res.header("Cross-Origin-Resource-Policy", "cross-origin");
   res.status(200).json(req.file.path);
 });
 
-app.use('/posts', postsDataRouter);
-app.use('/loginDatas', loginDatasRouter);
-app.post('/contacts', async (req, res, next) => {
+app.use("/posts", postsDataRouter);
+app.use("/loginDatas", loginDatasRouter);
+app.post("/contacts", async (req, res, next) => {
   try {
     const newContact = new ContactDatasModel({
       customerName: req.body.customerName,
@@ -108,7 +108,7 @@ app.post('/contacts', async (req, res, next) => {
       number: req.body.number,
       message: req.body.message,
     });
-    !newContact && res.status(400).json('Bad Request!');
+    !newContact && res.status(400).json("Bad Request!");
     const savedNewContact = await newContact.save();
     console.log(savedNewContact);
     res.status(201).json({ savedNewContact });
@@ -128,9 +128,9 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(process.env.MONGO_DB_URL)
-  .then(() => console.log('Mongo DB Start!'))
+  .then(() => console.log("Mongo DB Start!"))
   .catch((err) => console.error(err));
 
 app.listen(process.env.PORT || 8800, () => {
-  console.log('Backend is running check!');
+  console.log("Backend is running check!");
 });
