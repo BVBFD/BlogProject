@@ -1,0 +1,27 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.2rem 1rem;
+}
+
+.logo {
+  transform: scale(1.1);
+}
+
+.wrapper ul {
+  display: flex;
+  flex-direction: row;
+}
+
+.wrapper ul a {
+  margin: 0 2rem;
+  font-size: 1.6rem;
+}
+
+.loginSignup a {
+  margin: 0 1rem;
+  font-size: 1.2rem;
+}

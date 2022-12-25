@@ -1,0 +1,5 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30vw, 1fr));
+  flex: 3;
+}
