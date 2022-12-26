@@ -12,7 +12,7 @@
 
 .loginBox div:nth-child(1) span {
   font-size: 2.5rem;
-  color: #2525b9;
+  color: lightgray;
   text-transform: uppercase;
   font-weight: 700;
 }
@@ -26,7 +26,7 @@
 }
 
 .loginBox .idBox span {
-  color: #2525b9;
+  color: lightgray;
   font-size: 1.1rem;
   font-weight: 700;
   align-self: flex-start;
@@ -55,7 +55,7 @@
 
 .loginBox .pwdBox span {
   align-self: flex-start;
-  color: #2525b9;
+  color: lightgray;
   font-size: 1.1rem;
   font-weight: 700;
   height: 2rem;
@@ -67,7 +67,7 @@
   padding: 0.5rem;
   border-radius: 8px;
   border: none;
-  background: #5555ff;
+  background: blue;
   color: #fff;
   text-transform: capitalize;
   cursor: pointer;
