@@ -5,6 +5,8 @@
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 2rem;
+  cursor: pointer;
+  user-select: none;
 }
 
 .wrapper img {

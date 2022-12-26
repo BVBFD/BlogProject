@@ -8,7 +8,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Navbar />
-      {children}
+      <div style={{ marginTop: '3rem' }}>{children}</div>
     </>
   );
 };

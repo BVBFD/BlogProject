@@ -5,6 +5,9 @@
   align-items: center;
   width: 100%;
   padding: 0.3rem 3rem;
+  position: fixed;
+  top: 0;
+  background: white;
 }
 
 .logo {

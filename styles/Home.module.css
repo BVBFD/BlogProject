@@ -3,6 +3,26 @@
   padding: 1rem;
 }
 
+.totalBtn {
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+  font-size: large;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.4rem;
+  color: white;
+  background: rgb(106, 106, 255);
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.totalBtn:hover {
+  background: blue;
+}
+
+.totalBtn:active {
+  transform: scale(0.8);
+}
+
 .sidebar {
   flex: 1;
   display: flex;

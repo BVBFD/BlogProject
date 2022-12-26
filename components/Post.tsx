@@ -12,7 +12,10 @@ const Post = () => {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
           illum neque dolores explicabo facilis corrupti natus dolore, culpa
           fugiat deserunt, porro dicta consectetur atque voluptatibus
-          doloremque, aut odit nulla nemo?
+          doloremque, aut odit nulla nemo? Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Ullam, facere! Fuga quaerat deserunt
+          earum nobis natus, eveniet sit tempore tempora, ea eius cumque aliquam
+          temporibus nam id provident beatae velit.
         </div>
       </div>
     </div>

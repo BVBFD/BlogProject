@@ -19,6 +19,7 @@ export default function Home() {
         />
       </Head>
       <Banner />
+      <button className={styles.totalBtn}>TOTAL</button>
       <div className={styles.container}>
         <Posts />
         <div className={styles.sidebar}>
