@@ -12,11 +12,10 @@ import axios from 'axios';
 export default function Home({ ps }: any) {
   const [posts, setPosts] = useState([]);
   const [count, setCount] = useState<number>();
-  const [selectedPost, setSelectedPost] = useState<any>();
-
-  console.log(posts);
-  console.log(count);
-  console.log(selectedPost);
+  const [catPost, setCatPost] = useState<any>([]);
+  const [selectedPost, setSelectedPost] = useState<any>([]);
+  const [catname, setCatname] = useState<string>('');
+  const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
     setPosts(ps);
@@ -24,11 +23,44 @@ export default function Home({ ps }: any) {
     setSelectedPost([ps[0], ps[1], ps[2], ps[3]]);
   }, []);
 
-  const handleTotal = () => {};
+  const handleTotal = () => {
+    setCatPost([]);
+    setCatname('');
+    setPage(1);
+    setCount(Math.ceil(posts.length / 4));
+    setSelectedPost([posts[0], posts[1], posts[2], posts[3]]);
+  };
 
-  const handleChange = () => {};
+  const handleChange = (e: any, page: number) => {
+    setPage(page);
+    if (catname == '') {
+      setSelectedPost([
+        posts[(page - 1) * 4],
+        posts[(page - 1) * 4 + 1],
+        posts[(page - 1) * 4 + 2],
+        posts[(page - 1) * 4 + 3],
+      ]);
+    } else {
+      setSelectedPost([
+        catPost[(page - 1) * 4],
+        catPost[(page - 1) * 4 + 1],
+        catPost[(page - 1) * 4 + 2],
+        catPost[(page - 1) * 4 + 3],
+      ]);
+    }
+  };
 
-  const handleCatName = () => {};
+  const handleCatName = (e: any) => {
+    setCatname(e.target.innerText);
+    const newArray = posts.filter(
+      // @ts-ignore
+      (post) => post.catName === e.target.innerText
+    );
+    setCatPost(newArray);
+    setCount(Math.ceil(newArray.length / 4));
+    setSelectedPost([newArray[0], newArray[1], newArray[2], newArray[3]]);
+    setPage(1);
+  };
 
   return (
     <>
@@ -103,8 +135,18 @@ export default function Home({ ps }: any) {
           </div>
         </div>
       </div>
-      <Stack spacing={2} direction='row' justifyContent={'center'}>
-        <Pagination count={count} color='primary' onChange={handleChange} />
+      <Stack
+        spacing={2}
+        direction='row'
+        justifyContent={'center'}
+        marginBottom={'1rem'}
+      >
+        <Pagination
+          page={page}
+          count={count}
+          color='primary'
+          onChange={handleChange}
+        />
       </Stack>
     </>
   );

@@ -32,11 +32,29 @@
 }
 
 .wrapper .content div {
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
   display: -webkit-box;
+  overflow: hidden;
   line-height: 1.2;
   max-height: 2.4rem;
-  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   text-overflow: ellipsis;
+}
+
+.wrapper .content div {
+  align-self: flex-start;
+}
+
+.wrapper .content div img,
+.wrapper .content div br,
+.wrapper .content div strong,
+.wrapper .content div h1,
+.wrapper .content div h2,
+.wrapper .content div h3,
+.wrapper .content div pre {
+  display: none;
+}
+
+.wrapper .content div p {
+  width: 25vw;
 }
