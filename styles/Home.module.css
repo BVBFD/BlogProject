@@ -1,18 +1,35 @@
 .container {
   display: flex;
-  padding: 1rem;
+  padding: 0 1rem;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnInputBox {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 1rem;
+  padding-left: 1rem;
 }
 
 .totalBtn {
-  margin-left: 1rem;
-  margin-top: 0.5rem;
   font-size: large;
   padding: 0.4rem 0.6rem;
   border-radius: 0.4rem;
   color: white;
   background: rgb(106, 106, 255);
   border: 1px solid white;
+  margin: 0.6rem 1rem;
   cursor: pointer;
+}
+
+.searchInput {
+  padding: 0.2rem 0.4rem;
+  font-size: 1.2rem;
 }
 
 .totalBtn:hover {

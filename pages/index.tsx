@@ -4,8 +4,32 @@ import Posts from '../components/Posts';
 import styles from '../styles/Home.module.css';
 import Image from 'next/image';
 import { Facebook, Pinterest, Twitter, Instagram } from '@mui/icons-material';
+import { Pagination } from '@mui/material';
+import { Stack } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-export default function Home() {
+export default function Home({ ps }: any) {
+  const [posts, setPosts] = useState([]);
+  const [count, setCount] = useState<number>();
+  const [selectedPost, setSelectedPost] = useState<any>();
+
+  console.log(posts);
+  console.log(count);
+  console.log(selectedPost);
+
+  useEffect(() => {
+    setPosts(ps);
+    setCount(Math.ceil(ps?.length / 4));
+    setSelectedPost([ps[0], ps[1], ps[2], ps[3]]);
+  }, []);
+
+  const handleTotal = () => {};
+
+  const handleChange = () => {};
+
+  const handleCatName = () => {};
+
   return (
     <>
       <Head>
@@ -37,9 +61,16 @@ export default function Home() {
         <script type='text/babel' src='/my-scripts.js'></script>
       </Head>
       <Banner />
-      <button className={styles.totalBtn}>TOTAL</button>
+      <button className={styles.totalBtn} onClick={handleTotal}>
+        TOTAL
+      </button>
+      <input
+        className={styles.searchInput}
+        type='text'
+        placeholder='Searching Posts...'
+      />
       <div className={styles.container}>
-        <Posts />
+        <Posts selectedPost={selectedPost} />
         <div className={styles.sidebar}>
           <header>About Me</header>
           <div className={styles.imgBox}>
@@ -54,14 +85,14 @@ export default function Home() {
           </div>
           <header className={styles.catHead}>CATEGORIES</header>
           <div className={styles.categoriesBox}>
-            <span>HTML / GIT</span>
-            <span>CSS</span>
-            <span>JavaScript</span>
-            <span>Front-End</span>
-            <span>Back-End</span>
-            <span>TypeScript</span>
-            <span>Game</span>
-            <span>Book / Learn</span>
+            <span onClick={handleCatName}>HTML / Git</span>
+            <span onClick={handleCatName}>CSS</span>
+            <span onClick={handleCatName}>JavaScript</span>
+            <span onClick={handleCatName}>Front-End</span>
+            <span onClick={handleCatName}>Back-End</span>
+            <span onClick={handleCatName}>TypeScript</span>
+            <span onClick={handleCatName}>Game</span>
+            <span onClick={handleCatName}>Book / Learn</span>
           </div>
           <footer>FOLLOW US</footer>
           <div className={styles.logoBox}>
@@ -72,6 +103,18 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Stack spacing={2} direction='row' justifyContent={'center'}>
+        <Pagination count={count} color='primary' onChange={handleChange} />
+      </Stack>
     </>
   );
 }
+
+export const getServerSideProps = async () => {
+  const res = await axios.get(`https://api.lsevina126.asia/posts`);
+  return {
+    props: {
+      ps: res.data.reverse(),
+    },
+  };
+};

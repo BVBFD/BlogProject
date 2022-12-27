@@ -1,13 +1,12 @@
-import Post from './Post';
+import Post from '../pages/post/[id]';
 import styles from '../styles/Posts.module.css';
 
-const Posts = () => {
+const Posts = ({ selectedPost }: any) => {
   return (
     <div className={styles.wrapper}>
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      {selectedPost?.map((post: any) => (
+        <Post post={post} />
+      ))}
     </div>
   );
 };

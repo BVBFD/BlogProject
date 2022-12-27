@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import styles from '../styles/Post.module.css';
+import styles from '../../styles/Post.module.css';
 
-const Post = () => {
+const Post = ({ post }: any) => {
   return (
     <div className={styles.wrapper}>
       <Image alt='postImg' src='/imgs/kislev.jpg' width={300} height={300} />
