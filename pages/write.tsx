@@ -107,29 +107,33 @@ const write = () => {
       </div>
       <form className={styles.titleImgAddBox}>
         <div className={styles.titleInputBox}>
-          <label className={styles.imgFileLabel} htmlFor='imgFileInput'>
-            <AddPhotoAlternate />
-          </label>
-          <input id='imgFileInput' type='file' style={{ display: 'none' }} />
-          <input
-            className={styles.titleInput}
-            type='text'
-            autoFocus={true}
-            placeholder='Title'
-          />
-          <select name='Category' className={styles.selectCategory}>
-            <option value='HTML / Git'>HTML / Git</option>
-            <option value='CSS'>CSS</option>
-            <option value='JavaScript'>JavaScript</option>
-            <option value='Front-End'>Front-End</option>
-            <option value='Back-End'>Back-End</option>
-            <option value='TypeScript'>TypeScript</option>
-            <option value='Game'>Game</option>
-            <option value='Book / Learn'>Book / Learn</option>
-          </select>
-          <button type='submit' className={styles.uploadBtn}>
-            Upload
-          </button>
+          <div className={styles.imgFileTitleInputBox}>
+            <label className={styles.imgFileLabel} htmlFor='imgFileInput'>
+              <AddPhotoAlternate />
+            </label>
+            <input id='imgFileInput' type='file' style={{ display: 'none' }} />
+            <input
+              className={styles.titleInput}
+              type='text'
+              autoFocus={true}
+              placeholder='Title'
+            />
+          </div>
+          <div className={styles.catnameUploadBox}>
+            <select name='Category' className={styles.selectCategory}>
+              <option value='HTML / Git'>HTML / Git</option>
+              <option value='CSS'>CSS</option>
+              <option value='JavaScript'>JavaScript</option>
+              <option value='Front-End'>Front-End</option>
+              <option value='Back-End'>Back-End</option>
+              <option value='TypeScript'>TypeScript</option>
+              <option value='Game'>Game</option>
+              <option value='Book / Learn'>Book / Learn</option>
+            </select>
+            <button type='submit' className={styles.uploadBtn}>
+              Upload
+            </button>
+          </div>
         </div>
         <QuillNoSSRWrapper
           modules={modules}

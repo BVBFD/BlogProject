@@ -6,16 +6,21 @@ import Image from 'next/image';
 import { Facebook, Pinterest, Twitter, Instagram } from '@mui/icons-material';
 import { Pagination } from '@mui/material';
 import { Stack } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
-export default function Home({ ps }: any) {
+const Home = ({ ps }: any) => {
   const [posts, setPosts] = useState([]);
   const [count, setCount] = useState<number>();
   const [catPost, setCatPost] = useState<any>([]);
   const [selectedPost, setSelectedPost] = useState<any>([]);
   const [catname, setCatname] = useState<string>('');
   const [page, setPage] = useState<number>(1);
+
+  const [searchText, setSearchText] = useState<string>();
+  const [searchPosts, setSearchPosts] = useState<any>([]);
+
+  const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   useEffect(() => {
     setPosts(ps);
@@ -29,6 +34,7 @@ export default function Home({ ps }: any) {
     setPage(1);
     setCount(Math.ceil(posts.length / 4));
     setSelectedPost([posts[0], posts[1], posts[2], posts[3]]);
+    searchInputRef.current.value = '';
   };
 
   const handleChange = (e: any, page: number) => {
@@ -61,6 +67,34 @@ export default function Home({ ps }: any) {
     setSelectedPost([newArray[0], newArray[1], newArray[2], newArray[3]]);
     setPage(1);
   };
+
+  useEffect(() => {
+    let filtered = [];
+    let postTitle = '';
+    if (searchText == null) {
+      return;
+    } else {
+      if (catname != '') {
+        filtered = catPost.filter((post: any) => {
+          postTitle = post.title.replace(/(\s*)/g, '').toLowerCase();
+          return postTitle.includes(searchText);
+        });
+        setSearchPosts(filtered);
+        setCount(Math.ceil(filtered.length / 4));
+        setSelectedPost([filtered[0], filtered[1], filtered[2], filtered[3]]);
+        setPage(1);
+      } else {
+        filtered = posts.filter((post: any) => {
+          postTitle = post.title.replace(/(\s*)/g, '').toLowerCase();
+          return postTitle.includes(searchText);
+        });
+        setSearchPosts(filtered);
+        setCount(Math.ceil(filtered.length / 4));
+        setSelectedPost([filtered[0], filtered[1], filtered[2], filtered[3]]);
+        setPage(1);
+      }
+    }
+  }, [searchText]);
 
   return (
     <>
@@ -99,8 +133,10 @@ export default function Home({ ps }: any) {
         </button>
         <input
           className={styles.searchInput}
+          ref={searchInputRef}
           type='text'
           placeholder='Searching Posts...'
+          onChange={(e: any) => setSearchText(e.target.value)}
         />
       </div>
       <div className={styles.container}>
@@ -152,7 +188,9 @@ export default function Home({ ps }: any) {
       </Stack>
     </>
   );
-}
+};
+
+export default Home;
 
 export const getServerSideProps = async () => {
   const res = await axios.get(`https://api.lsevina126.asia/posts`);

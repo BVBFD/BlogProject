@@ -3,7 +3,7 @@
     url('../public/imgs/chaos.jpg');
   background-size: cover;
   background-position: center;
-  height: calc(100vh - 3rem);
+  height: calc(100vh - 2rem);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,12 +17,13 @@
   color: #fff;
   backdrop-filter: blur(10px);
   padding: 0.5rem;
+  width: 80%;
 }
 
 .contact .contactInfoBox .infoBox {
   display: flex;
   flex: 1;
-  padding: 2rem;
+  padding: 2rem 0 2rem 1rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -30,7 +31,7 @@
 
 .contact .contactInfoBox .infoBox label {
   margin-top: 1rem;
-  align-self: flex-start;
+  align-self: center;
   font-size: 1.3rem;
 }
 
@@ -78,4 +79,48 @@
 
 .contact .contactInfoBox .infoBox button:active {
   transform: scale(0.9);
+}
+
+@media screen and (min-width: 1201px) {
+  /* 1201px and more - Extra large screens, TV */
+}
+
+@media screen and (max-width: 1200px) {
+  /* 1025px - 1200px - Desktops, large screens */
+  .contact .contactInfoBox .mapBox {
+    display: none;
+  }
+
+  .contact .contactInfoBox .infoBox input,
+  .contact .contactInfoBox .infoBox textarea {
+    width: 25rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  /* 769px - 1024px - laptops, small screens */
+}
+
+@media screen and (max-width: 768px) {
+  /* 481px - 768px - ipads, tablets */
+  .contact .contactInfoBox .infoBox input,
+  .contact .contactInfoBox .infoBox textarea {
+    width: 18rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* 320px - 480px - mobile devices */
+  .contact .contactInfoBox .infoBox input,
+  .contact .contactInfoBox .infoBox textarea {
+    width: 14rem;
+  }
+}
+
+@media screen and (max-width: 319px) {
+  /* 319px below - folder screens */
+  .contact .contactInfoBox .infoBox input,
+  .contact .contactInfoBox .infoBox textarea {
+    width: 10rem;
+  }
 }

@@ -3,7 +3,7 @@
     url('../public/imgs/empire.jpg');
   background-size: cover;
   background-position: center;
-  height: calc(100vh - 3rem);
+  height: calc(100vh - 2rem);
   display: flex;
   flex-direction: column;
   justify-content: center;

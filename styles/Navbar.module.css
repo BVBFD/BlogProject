@@ -57,9 +57,9 @@
 
 @media screen and (max-width: 1200px) {
   /* 1025px - 1200px - Desktops, large screens */
-  .sidebar {
+  /* .sidebar {
     display: none;
-  }
+  } */
 }
 
 @media screen and (max-width: 1024px) {
