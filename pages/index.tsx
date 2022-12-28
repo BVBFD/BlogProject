@@ -93,14 +93,16 @@ export default function Home({ ps }: any) {
         <script type='text/babel' src='/my-scripts.js'></script>
       </Head>
       <Banner />
-      <button className={styles.totalBtn} onClick={handleTotal}>
-        TOTAL
-      </button>
-      <input
-        className={styles.searchInput}
-        type='text'
-        placeholder='Searching Posts...'
-      />
+      <div className={styles.totalSearchBox}>
+        <button className={styles.totalBtn} onClick={handleTotal}>
+          TOTAL
+        </button>
+        <input
+          className={styles.searchInput}
+          type='text'
+          placeholder='Searching Posts...'
+        />
+      </div>
       <div className={styles.container}>
         <Posts selectedPost={selectedPost} />
         <div className={styles.sidebar}>

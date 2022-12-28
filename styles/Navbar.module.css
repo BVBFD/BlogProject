@@ -28,3 +28,59 @@
   margin: 0 1rem;
   font-size: 1.2rem;
 }
+
+.sidebar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 1.4rem;
+}
+
+.sidebarUl {
+  display: flex;
+  flex-direction: column;
+  padding: 0.4rem 1.4rem;
+}
+
+.sidebarUl.close {
+  display: none;
+}
+
+.sidebarUl a {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 1201px) {
+  /* 1201px and more - Extra large screens, TV */
+}
+
+@media screen and (max-width: 1200px) {
+  /* 1025px - 1200px - Desktops, large screens */
+  .sidebar {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  /* 769px - 1024px - laptops, small screens */
+  .wrapper {
+    display: none;
+  }
+
+  .sidebar {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* 481px - 768px - ipads, tablets */
+}
+
+@media screen and (max-width: 480px) {
+  /* 320px - 480px - mobile devices */
+}
+
+@media screen and (max-width: 319px) {
+  /* 319px below - folder screens */
+}

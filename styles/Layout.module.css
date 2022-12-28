@@ -1,7 +1,5 @@
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30vw, 1fr));
-  flex: 3;
+.layout {
+  margin-top: 3rem;
 }
 
 @media screen and (min-width: 1201px) {
@@ -14,8 +12,8 @@
 
 @media screen and (max-width: 1024px) {
   /* 769px - 1024px - laptops, small screens */
-  .wrapper {
-    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+  .layout {
+    margin-top: 0;
   }
 }
 
