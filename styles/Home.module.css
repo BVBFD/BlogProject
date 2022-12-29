@@ -129,6 +129,16 @@
   user-select: none;
 }
 
+.circularProgress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circularProgress svg {
+  transform: scale(5);
+}
+
 @media screen and (min-width: 1201px) {
   /* 1201px and more - Extra large screens, TV */
 }
@@ -141,6 +151,10 @@
   /* 769px - 1024px - laptops, small screens */
   .sidebar {
     display: none;
+  }
+
+  .circularProgress {
+    margin-top: 20%;
   }
 }
 

@@ -4,12 +4,11 @@ import Posts from '../components/Posts';
 import styles from '../styles/Home.module.css';
 import Image from 'next/image';
 import { Facebook, Pinterest, Twitter, Instagram } from '@mui/icons-material';
-import { Pagination } from '@mui/material';
-import { Stack } from '@mui/material';
+import { Pagination, CircularProgress, Stack } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
-const Home = ({ ps }: any) => {
+const Home = () => {
   const [posts, setPosts] = useState([]);
   const [count, setCount] = useState<number>();
   const [catPost, setCatPost] = useState<any>([]);
@@ -19,13 +18,24 @@ const Home = ({ ps }: any) => {
 
   const [searchText, setSearchText] = useState<string>();
   const [searchPosts, setSearchPosts] = useState<any>([]);
+  const [onProgress, setOnProgress] = useState<boolean>(false);
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   useEffect(() => {
-    setPosts(ps);
-    setCount(Math.ceil(ps?.length / 4));
-    setSelectedPost([ps[0], ps[1], ps[2], ps[3]]);
+    const getPosts = async () => {
+      setOnProgress(true);
+      const res = await axios.get(`https://api.lsevina126.asia/posts`);
+      const ps = res.data.reverse();
+
+      setPosts(ps);
+      setCount(Math.ceil(ps?.length / 4));
+      setSelectedPost([ps[0], ps[1], ps[2], ps[3]]);
+
+      return setOnProgress(false);
+    };
+
+    getPosts();
   }, []);
 
   const handleTotal = () => {
@@ -140,7 +150,13 @@ const Home = ({ ps }: any) => {
         />
       </div>
       <div className={styles.container}>
-        <Posts selectedPost={selectedPost} />
+        {onProgress ? (
+          <div className={styles.circularProgress} style={{ flex: 3 }}>
+            <CircularProgress />
+          </div>
+        ) : (
+          <Posts selectedPost={selectedPost} />
+        )}
         <div className={styles.sidebar}>
           <header>About Me</header>
           <div className={styles.imgBox}>
@@ -192,11 +208,14 @@ const Home = ({ ps }: any) => {
 
 export default Home;
 
-export const getServerSideProps = async () => {
-  const res = await axios.get(`https://api.lsevina126.asia/posts`);
-  return {
-    props: {
-      ps: res.data.reverse(),
-    },
-  };
-};
+// 서버사이드 렌더링
+// 아래 서버 API 데이터 호출이 완료되고, 페이지가 뜬다.
+// (NEXTJS 서버사이드 렌더링 -> 비효츌적이라 바꿈)
+// export const getServerSideProps = async () => {
+//   const res = await axios.get(`https://api.lsevina126.asia/posts`);
+//   return {
+//     props: {
+//       ps: res.data.reverse(),
+//     },
+//   };
+// };
