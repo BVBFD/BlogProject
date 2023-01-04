@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import styles from '../../styles/Post.module.css';
+import styles from '../styles/Post.module.css';
 
 const Post = ({ post }: any) => {
   const inputText = () => {
-    return { __html: `${post.text}` };
+    return { __html: `${post?.text}` };
   };
 
   return (
@@ -19,7 +19,7 @@ const Post = ({ post }: any) => {
         height={300}
       />
       <div className={styles.content}>
-        <header>{post.title}</header>
+        <header>{post?.title}</header>
         <span>{new Date(post?.updatedAt).toDateString()}</span>
         <div dangerouslySetInnerHTML={inputText()}></div>
       </div>

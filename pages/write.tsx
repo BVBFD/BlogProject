@@ -10,7 +10,7 @@ const QuillNoSSRWrapper = dynamic(() => import('react-quill'), {
   loading: () => <p>Loading ...</p>,
 });
 
-const write = () => {
+const write = ({ post }: any) => {
   const [value, setValue] = useState<string>('');
   const [isFetching, setIsFetching] = useState<boolean>();
 
@@ -99,7 +99,7 @@ const write = () => {
     <section className={styles.write}>
       <div className={styles.titleImgBox}>
         <Image
-          src='/imgs/postdefaultimg.png'
+          src={!post ? '/imgs/postdefaultimg.png' : post.imgUrl}
           alt=''
           width={1920}
           height={1080}
@@ -117,10 +117,15 @@ const write = () => {
               type='text'
               autoFocus={true}
               placeholder='Title'
+              defaultValue={!post ? '' : post.title}
             />
           </div>
           <div className={styles.catnameUploadBox}>
-            <select name='Category' className={styles.selectCategory}>
+            <select
+              name='Category'
+              className={styles.selectCategory}
+              defaultValue={!post ? '' : post.catName}
+            >
               <option value='HTML / Git'>HTML / Git</option>
               <option value='CSS'>CSS</option>
               <option value='JavaScript'>JavaScript</option>
@@ -141,6 +146,7 @@ const write = () => {
           style={{ width: '100%', height: '100vh' }}
           theme='snow'
           onChange={setValue}
+          defaultValue={!post ? '' : post.text}
         />
       </form>
     </section>

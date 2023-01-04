@@ -8,7 +8,7 @@ const about = () => {
       <header className={styles.pageTitle}>About</header>
       <div className={styles.aboutIntroBox}>
         <div className={styles.imgBox}>
-          <Image src={'/imgs/charina.gif'} alt='' width={30} height={30} />
+          <Image src={'/imgs/charina.gif'} alt='' width={300} height={300} />
         </div>
         <div className={styles.aboutExplainBox}>
           <header>This Blog is ...</header>
