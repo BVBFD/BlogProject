@@ -1,35 +1,36 @@
-import React, { useMemo, useContext, useEffect, useRef, useState } from "react";
-import Header from "../../components/header/Header.jsx";
-import styles from "./Write.module.css";
-import CircularProgress from "@mui/material/CircularProgress";
-import { Context } from "../../context/context.js";
-import { useNavigate, useParams } from "react-router-dom";
-import axiosInstance from "../../config.js";
+import React, { useMemo, useContext, useEffect, useRef, useState } from 'react';
+import Header from '../../components/header/Header.jsx';
+import styles from './Write.module.css';
+import CircularProgress from '@mui/material/CircularProgress';
+import { Context } from '../../context/context.js';
+import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../config.js';
 
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import hljs from "highlight.js";
-import "react-quill/dist/quill.core.css";
-import "react-quill/dist/quill.bubble.css";
-import "highlight.js/styles/vs2015.css";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import hljs from 'highlight.js';
+import 'react-quill/dist/quill.core.css';
+import 'react-quill/dist/quill.bubble.css';
+import 'highlight.js/styles/vs2015.css';
 
 const Write = ({ setEditBtnIndex }) => {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
   const [titleImg, setTitleImg] = useState();
-  const [writePageImgURL, setWritePageImgURL] = useState("");
-  const [catName, setCatName] = useState("HTML / Git");
+  const [writePageImgURL, setWritePageImgURL] = useState('');
+  const [catName, setCatName] = useState('HTML / Git');
   const { id, editable } = useContext(Context);
-  const [editorText, setEditorText] = useState("");
+  const [editorText, setEditorText] = useState('');
   const editorRef = useRef();
-  const param = useParams();
+
   const [postForEdit, setPostForEdit] = useState({});
   const navigate = useNavigate();
   const [isFetching, setIsFetching] = useState(false);
   const [firstSubmit, setFirstSubmit] = useState(true);
+  const queryId = window.location.search?.split('?')[1]?.split('=')[1];
 
   useEffect(async () => {
-    if (param.id) {
-      const response = await axiosInstance.get(`/posts/${param.id}`);
+    if (queryId) {
+      const response = await axiosInstance.get(`/posts/${queryId}`);
       setTitleImg(true);
       setPostForEdit(response.data);
       setTitle(response.data.title);
@@ -38,44 +39,44 @@ const Write = ({ setEditBtnIndex }) => {
       setEditorText(response.data.text);
 
       document
-        .querySelectorAll(".ql-editor img")
-        .forEach((img) => img.setAttribute("crossorigin", "anonymous"));
+        .querySelectorAll('.ql-editor img')
+        .forEach((img) => img.setAttribute('crossorigin', 'anonymous'));
 
       document
-        .querySelectorAll(".ql-editor a img")
-        .forEach((img) => img.setAttribute("style", "max-width: 500px;"));
+        .querySelectorAll('.ql-editor a img')
+        .forEach((img) => img.setAttribute('style', 'max-width: 500px;'));
     }
 
     return () => setTitleImg();
-  }, [param.id]);
+  }, [queryId]);
 
   const videoHandler = () => {
-    console.log("video handler on!!");
-    const input = document.createElement("input");
+    console.log('video handler on!!');
+    const input = document.createElement('input');
 
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "video/*");
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'video/*');
     input.click();
     console.log(input);
 
-    input.addEventListener("change", async () => {
-      console.log("File OnChange!");
+    input.addEventListener('change', async () => {
+      console.log('File OnChange!');
       const file = input.files[0];
       console.log(file);
 
       const formData = new FormData();
       const filename = `${Date.now()}${file.name}`;
-      formData.append("name", filename);
-      formData.append("file", file);
+      formData.append('name', filename);
+      formData.append('file', file);
       try {
         setIsFetching(true);
-        const result = await axiosInstance.post("/video/upload", formData);
+        const result = await axiosInstance.post('/video/upload', formData);
         const updatedVidURL = result.data;
 
-        console.log("The URL data upon success", updatedVidURL);
+        console.log('The URL data upon success', updatedVidURL);
         const vid_URL = updatedVidURL;
         const editor = editorRef.current.getEditor();
-        const imgUrl = vid_URL.slice(0, -3).concat("png");
+        const imgUrl = vid_URL.slice(0, -3).concat('png');
         editor.root.innerHTML =
           editor.root.innerHTML +
           `<p>
@@ -88,66 +89,66 @@ const Write = ({ setEditBtnIndex }) => {
         </p>`;
 
         document
-          .querySelectorAll(".videoImg")
-          .forEach((video) => video.setAttribute("width", "500px"));
+          .querySelectorAll('.videoImg')
+          .forEach((video) => video.setAttribute('width', '500px'));
 
         document
-          .querySelectorAll(".videoImg")
-          .forEach((video) => video.setAttribute("crossOrigin", "anonymous"));
+          .querySelectorAll('.videoImg')
+          .forEach((video) => video.setAttribute('crossOrigin', 'anonymous'));
         setIsFetching(false);
       } catch (error) {
-        console.log("실패!!!");
+        console.log('실패!!!');
         setIsFetching(false);
       }
     });
   };
 
   const imageHandler = (e) => {
-    console.log("Img handler starts");
-    const input = document.createElement("input");
+    console.log('Img handler starts');
+    const input = document.createElement('input');
 
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "image/*");
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
     input.click();
     console.log(input);
 
-    input.addEventListener("change", async () => {
-      console.log("File OnChange!");
+    input.addEventListener('change', async () => {
+      console.log('File OnChange!');
       const file = input.files[0];
       console.log(file);
 
       const formData = new FormData();
       const filename = `${Date.now()}${file.name}`;
-      formData.append("name", filename);
-      formData.append("file", file);
+      formData.append('name', filename);
+      formData.append('file', file);
 
       try {
         setIsFetching(true);
-        const result = await axiosInstance.post("/pic/upload", formData);
+        const result = await axiosInstance.post('/pic/upload', formData);
         const updatedPicURL = result.data;
 
-        console.log("The URL data upon success", updatedPicURL);
+        console.log('The URL data upon success', updatedPicURL);
         const IMG_URL = updatedPicURL;
         const editor = editorRef.current.getEditor();
         const range = editor.getSelection();
 
-        editor.insertEmbed(range.index, "image", IMG_URL);
+        editor.insertEmbed(range.index, 'image', IMG_URL);
 
         document
-          .querySelectorAll("img")
-          .forEach((img) => img.setAttribute("crossOrigin", "anonymous"));
+          .querySelectorAll('img')
+          .forEach((img) => img.setAttribute('crossOrigin', 'anonymous'));
 
         editor.setSelection(range.index + 1);
         setIsFetching(false);
       } catch (error) {
-        console.log("Fail!!");
+        console.log('Fail!!');
         setIsFetching(false);
       }
     });
   };
 
   hljs.configure({
-    languages: ["javascript", "html", "css", "react", "sass", "typescript"],
+    languages: ['javascript', 'html', 'css', 'react', 'sass', 'typescript'],
   });
 
   const modules = useMemo(() => {
@@ -158,17 +159,17 @@ const Write = ({ setEditBtnIndex }) => {
       toolbar: {
         container: [
           [{ header: [1, 2, 3, false] }],
-          ["bold", "italic", "underline", "strike", "blockquote"],
-          ["image", "video", "link", "code-block", "blockquote"],
+          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+          ['image', 'video', 'link', 'code-block', 'blockquote'],
           [
             {
-              size: ["small", false, "large", "huge"],
+              size: ['small', false, 'large', 'huge'],
             },
           ],
-          [{ list: "ordered" }, { list: "bullet" }],
-          [{ script: "sub" }, { script: "super" }],
-          [{ indent: "-1" }, { indent: "+1" }],
-          [{ direction: "rtl" }],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          [{ script: 'sub' }, { script: 'super' }],
+          [{ indent: '-1' }, { indent: '+1' }],
+          [{ direction: 'rtl' }],
           [{ color: [] }, { background: [] }],
           [
             {
@@ -176,7 +177,7 @@ const Write = ({ setEditBtnIndex }) => {
             },
           ],
           [{ align: [] }],
-          ["clean"],
+          ['clean'],
         ],
         handlers: {
           image: imageHandler,
@@ -187,24 +188,24 @@ const Write = ({ setEditBtnIndex }) => {
   }, []);
 
   const formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "align",
-    "strike",
-    "script",
-    "blockquote",
-    "background",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "color",
-    "code-block",
+    'header',
+    'font',
+    'size',
+    'bold',
+    'italic',
+    'underline',
+    'align',
+    'strike',
+    'script',
+    'blockquote',
+    'background',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+    'image',
+    'color',
+    'code-block',
   ];
 
   const selectImg = async (e) => {
@@ -212,11 +213,11 @@ const Write = ({ setEditBtnIndex }) => {
     if (e.target.files[0]) {
       const data = new FormData();
       const filename = `${Date.now()}${e.target.files[0].name}`;
-      data.append("name", filename);
-      data.append("file", e.target.files[0]);
+      data.append('name', filename);
+      data.append('file', e.target.files[0]);
       try {
         setIsFetching(true);
-        const result = await axiosInstance.post("/pic/upload", data);
+        const result = await axiosInstance.post('/pic/upload', data);
         const updatedPicURL = result.data;
 
         setWritePageImgURL(updatedPicURL);
@@ -232,8 +233,8 @@ const Write = ({ setEditBtnIndex }) => {
     if (firstSubmit) {
       setFirstSubmit(false);
 
-      if (id !== "lse126" || !editable) {
-        window.alert("This is private Blog. Onle The Admin can edit!!");
+      if (id !== 'lse126' || !editable) {
+        window.alert('This is private Blog. Onle The Admin can edit!!');
         return;
       }
 
@@ -253,7 +254,7 @@ const Write = ({ setEditBtnIndex }) => {
             },
           }
         );
-        console.log(res.data);
+
         navigate(
           `/post/${res.data?.savedNewPost?.title}?id=${res.data?.savedNewPost?._id}`
         );
@@ -270,7 +271,7 @@ const Write = ({ setEditBtnIndex }) => {
 
       try {
         const res = await axiosInstance.put(
-          `/posts/${param.id}`,
+          `/posts/${queryId}`,
           {
             imgUrl: writePageImgURL,
             title: title,
@@ -292,7 +293,7 @@ const Write = ({ setEditBtnIndex }) => {
 
         res.status === 201 &&
           setEditBtnIndex(false) &&
-          navigate(`/post/${res.data?.savedNewPost?.title}?id=${param.id}`);
+          navigate(`/post/${res.data?.savedNewPost?.title}?id=${queryId}`);
       } catch (err) {
         window.alert(err);
       }
@@ -312,53 +313,53 @@ const Write = ({ setEditBtnIndex }) => {
       {titleImg ? (
         <div className={styles.titleImgBox}>
           <img
-            src={param.id ? postForEdit.imgUrl : writePageImgURL}
-            alt=""
-            crossOrigin="anonymous"
+            src={queryId ? postForEdit.imgUrl : writePageImgURL}
+            alt=''
+            crossOrigin='anonymous'
           />
         </div>
       ) : (
-        <img src="../images/postdefaultimg.png" style={{ width: "100%" }} />
+        <img src='../images/postdefaultimg.png' style={{ width: '100%' }} />
       )}
       <form
-        onSubmit={param.id === undefined ? handleSubmit : handleEdit}
+        onSubmit={queryId === undefined ? handleSubmit : handleEdit}
         className={styles.titleImgAddBox}
       >
         <div className={styles.titleInputBox}>
-          <label className={styles.imgFileLabel} htmlFor="imgFileInput">
-            <i class="fas fa-plus"></i>
+          <label className={styles.imgFileLabel} htmlFor='imgFileInput'>
+            <i class='fas fa-plus'></i>
           </label>
           <input
             onChange={selectImg}
-            id="imgFileInput"
-            type="file"
-            style={{ display: "none" }}
+            id='imgFileInput'
+            type='file'
+            style={{ display: 'none' }}
           />
           <input
             className={styles.titleInput}
-            type="text"
+            type='text'
             autoFocus={true}
-            placeholder="Title"
+            placeholder='Title'
             onChange={(e) => setTitle(e.target.value)}
-            defaultValue={param.id ? postForEdit.title : ""}
+            defaultValue={queryId ? postForEdit.title : ''}
           />
           <select
             onChange={(e) => setCatName(e.target.value)}
-            name="Category"
+            name='Category'
             className={styles.selectCategory}
-            defaultValue={param.id ? postForEdit.catName : "HTML / Git"}
+            value={queryId && postForEdit.catName}
           >
-            <option value="HTML / Git">HTML / Git</option>
-            <option value="CSS">CSS</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="Front-End">Front-End</option>
-            <option value="Back-End">Back-End</option>
-            <option value="TypeScript">TypeScript</option>
-            <option value="Game">Game</option>
-            <option value="Book / Learn">Book / Learn</option>
+            <option value='HTML / Git'>HTML / Git</option>
+            <option value='CSS'>CSS</option>
+            <option value='JavaScript'>JavaScript</option>
+            <option value='Front-End'>Front-End</option>
+            <option value='Back-End'>Back-End</option>
+            <option value='TypeScript'>TypeScript</option>
+            <option value='Game'>Game</option>
+            <option value='Book / Learn'>Book / Learn</option>
           </select>
           <button
-            type="submit"
+            type='submit'
             disabled={!firstSubmit}
             className={styles.uploadBtn}
           >
@@ -366,22 +367,22 @@ const Write = ({ setEditBtnIndex }) => {
           </button>
         </div>
         <ReactQuill
-          style={{ width: "100%", height: "90vh" }}
+          style={{ width: '100%', height: '90vh' }}
           className={styles.editor}
-          height="90vh"
+          height='90vh'
           ref={editorRef}
           modules={modules}
           formats={formats}
           value={editorText}
-          defaultValue={param.id ? postForEdit.text : ""}
+          defaultValue={queryId ? postForEdit.text : ''}
           onChange={setEditorText}
-          theme={"snow"}
+          theme={'snow'}
         />
         {!isFetching ? (
-          ""
+          ''
         ) : (
           <div className={styles.loader}>
-            {" "}
+            {' '}
             <CircularProgress />
           </div>
         )}
