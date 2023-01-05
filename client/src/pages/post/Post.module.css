@@ -143,11 +143,11 @@
 
 @media screen and (max-width: 1300px) {
   .postPage .postBox {
-    margin: 0;
+    margin: 1rem;
   }
 
   .postPage .postBox .postImgTextBox .postTitleImgBox {
-    width: 100vw;
+    width: 100%;
     margin: auto;
   }
 
