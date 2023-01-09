@@ -65,6 +65,13 @@ const Post = () => {
       .forEach((img) => img.setAttribute('crossOrigin', 'anonymous'));
   }, []);
 
+  useEffect(() => {
+    document.querySelectorAll('meta')[3].content = `${post.title}`;
+    document.querySelector(
+      'title'
+    ).innerText = `Blog Project - ${post.title} - ${post.catName}`;
+  }, [post]);
+
   return (
     <section className={styles.postPage}>
       {!editBtnIndex ? (
