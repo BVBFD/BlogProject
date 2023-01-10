@@ -141,6 +141,13 @@
   width: 500px;
 }
 
+.circularBox {
+  height: calc(100vh - 3rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media screen and (max-width: 1300px) {
   .postPage .postBox {
     margin: 1rem;

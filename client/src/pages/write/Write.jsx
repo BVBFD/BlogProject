@@ -3,7 +3,7 @@ import Header from '../../components/header/Header.jsx';
 import styles from './Write.module.css';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Context } from '../../context/context.js';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axiosInstance from '../../config.js';
 
 import ReactQuill from 'react-quill';
@@ -26,11 +26,11 @@ const Write = ({ setEditBtnIndex }) => {
   const navigate = useNavigate();
   const [isFetching, setIsFetching] = useState(false);
   const [firstSubmit, setFirstSubmit] = useState(true);
-  const queryId = window.location.search?.split('?')[1]?.split('=')[1];
+  const paramId = useParams().id;
 
   useEffect(async () => {
-    if (queryId) {
-      const response = await axiosInstance.get(`/posts/${queryId}`);
+    if (paramId) {
+      const response = await axiosInstance.get(`/posts/${paramId}`);
       setTitleImg(true);
       setPostForEdit(response.data);
       setTitle(response.data.title);
@@ -48,7 +48,7 @@ const Write = ({ setEditBtnIndex }) => {
     }
 
     return () => setTitleImg();
-  }, [queryId]);
+  }, [paramId]);
 
   const videoHandler = () => {
     console.log('video handler on!!');
@@ -254,10 +254,7 @@ const Write = ({ setEditBtnIndex }) => {
             },
           }
         );
-
-        navigate(
-          `/post/${res.data?.savedNewPost?.title}?id=${res.data?.savedNewPost?._id}`
-        );
+        navigate(`/post/${res.data?.savedNewPost?._id}`);
       } catch (err) {
         console.log(err);
       }
@@ -271,7 +268,7 @@ const Write = ({ setEditBtnIndex }) => {
 
       try {
         const res = await axiosInstance.put(
-          `/posts/${queryId}`,
+          `/posts/${paramId}`,
           {
             imgUrl: writePageImgURL,
             title: title,
@@ -293,7 +290,7 @@ const Write = ({ setEditBtnIndex }) => {
 
         res.status === 201 &&
           setEditBtnIndex(false) &&
-          navigate(`/post/${res.data?.savedNewPost?.title}?id=${queryId}`);
+          navigate(`/post/${paramId}`);
       } catch (err) {
         window.alert(err);
       }
@@ -313,7 +310,7 @@ const Write = ({ setEditBtnIndex }) => {
       {titleImg ? (
         <div className={styles.titleImgBox}>
           <img
-            src={queryId ? postForEdit.imgUrl : writePageImgURL}
+            src={paramId ? postForEdit.imgUrl : writePageImgURL}
             alt=''
             crossOrigin='anonymous'
           />
@@ -322,7 +319,7 @@ const Write = ({ setEditBtnIndex }) => {
         <img src='../images/postdefaultimg.png' style={{ width: '100%' }} />
       )}
       <form
-        onSubmit={queryId === undefined ? handleSubmit : handleEdit}
+        onSubmit={paramId === undefined ? handleSubmit : handleEdit}
         className={styles.titleImgAddBox}
       >
         <div className={styles.titleInputBox}>
@@ -341,13 +338,13 @@ const Write = ({ setEditBtnIndex }) => {
             autoFocus={true}
             placeholder='Title'
             onChange={(e) => setTitle(e.target.value)}
-            defaultValue={queryId ? postForEdit.title : ''}
+            defaultValue={paramId ? postForEdit.title : ''}
           />
           <select
             onChange={(e) => setCatName(e.target.value)}
             name='Category'
             className={styles.selectCategory}
-            value={queryId && postForEdit.catName}
+            value={paramId && postForEdit.catName}
           >
             <option value='HTML / Git'>HTML / Git</option>
             <option value='CSS'>CSS</option>
@@ -374,7 +371,7 @@ const Write = ({ setEditBtnIndex }) => {
           modules={modules}
           formats={formats}
           value={editorText}
-          defaultValue={queryId ? postForEdit.text : ''}
+          defaultValue={paramId ? postForEdit.text : ''}
           onChange={setEditorText}
           theme={'snow'}
         />

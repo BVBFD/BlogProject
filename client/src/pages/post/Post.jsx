@@ -5,6 +5,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Write from '../write/Write';
 import { Context } from '../../context/context';
 import axiosInstance from '../../config';
+import { CircularProgress } from '@mui/material';
 
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.core.css';
@@ -18,10 +19,12 @@ const Post = () => {
   const { id } = useContext(Context);
   const postTextBoxRef = useRef();
   const navigate = useNavigate();
-  const _id = location.search.split('=')[1];
+  const _id = useParams().id;
 
   const inputText = () => {
-    return { __html: `${post.text}` };
+    return {
+      __html: `${post.text}`,
+    };
   };
 
   useEffect(async () => {
@@ -72,6 +75,8 @@ const Post = () => {
     ).innerText = `Blog Project - ${post.title} - ${post.catName}`;
   }, [post]);
 
+  console.log(post);
+
   return (
     <section className={styles.postPage}>
       {!editBtnIndex ? (
@@ -106,19 +111,29 @@ const Post = () => {
                     <i onClick={deletePost} class='fa-solid fa-trash'></i>
                   </div>
                 </header>
-                <div className={styles.authorAndDate}>
-                  <p>
-                    Author: <span>{post.author}</span>
-                  </p>
-                  <span>{new Date(post.createdAt).toDateString()}</span>
-                </div>
+                {post.text === undefined ? (
+                  <></>
+                ) : (
+                  <div className={styles.authorAndDate}>
+                    <p>
+                      Author: <span>{post.author}</span>
+                    </p>
+                    <span>{new Date(post.createdAt).toDateString()}</span>
+                  </div>
+                )}
                 <div className='ql-snow'>
-                  <div
-                    class='ql-editor'
-                    ref={postTextBoxRef}
-                    className={styles.postContentText}
-                    dangerouslySetInnerHTML={inputText()}
-                  ></div>
+                  {post.text === undefined ? (
+                    <div className={styles.circularBox}>
+                      <CircularProgress size={60} />
+                    </div>
+                  ) : (
+                    <div
+                      class='ql-editor'
+                      ref={postTextBoxRef}
+                      className={styles.postContentText}
+                      dangerouslySetInnerHTML={inputText()}
+                    ></div>
+                  )}
                 </div>
               </div>
             </div>

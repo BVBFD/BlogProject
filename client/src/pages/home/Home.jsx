@@ -189,12 +189,7 @@ const Home = (props) => {
               return post === undefined ? (
                 ''
               ) : (
-                <Link
-                  className='link'
-                  to={`/post/${post?.title
-                    .replace('/', '!!')
-                    .replace('?', '!!')}?id=${post?._id}`}
-                >
+                <Link className='link' to={`/post/${post?._id}`}>
                   <HomePost post={post} />
                 </Link>
               );
@@ -204,12 +199,7 @@ const Home = (props) => {
               return post === undefined ? (
                 ''
               ) : (
-                <Link
-                  className='link'
-                  to={`/post/${post?.title
-                    .replace('/', '!!')
-                    .replace('?', '!!')}?id=${post?._id}`}
-                >
+                <Link className='link' to={`/post/${post?._id}`}>
                   <HomePost post={post} />
                 </Link>
               );
@@ -224,12 +214,7 @@ const Home = (props) => {
               return post === undefined ? (
                 ''
               ) : (
-                <Link
-                  className='link'
-                  to={`/post/${post?.title
-                    .replace('/', '!!')
-                    .replace('?', '!!')}?id=${post?._id}`}
-                >
+                <Link className='link' to={`/post/${post?._id}`}>
                   <HomePost post={post} />
                 </Link>
               );
