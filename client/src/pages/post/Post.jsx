@@ -75,8 +75,6 @@ const Post = () => {
     ).innerText = `Blog Project - ${post.title} - ${post.catName}`;
   }, [post]);
 
-  console.log(post);
-
   return (
     <section className={styles.postPage}>
       {!editBtnIndex ? (
