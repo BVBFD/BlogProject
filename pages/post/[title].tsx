@@ -2,11 +2,11 @@ import Image from 'next/image';
 import styles from '../../styles/PostPage.module.css';
 import { Edit, Delete } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import Write from '../write';
 
 import 'highlight.js/styles/vs2015.css';
+import { publicRequest } from '../config';
 
 const PostPage = () => {
   const [post, setPost] = useState<any>();
@@ -16,7 +16,7 @@ const PostPage = () => {
 
   useEffect(() => {
     const getPost = async () => {
-      const res = await axios.get(`https://api.lsevina126.asia/posts/${id}`);
+      const res = await publicRequest.get(`/posts/${id}`);
       setPost(res.data);
     };
     getPost();

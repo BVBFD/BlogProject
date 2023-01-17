@@ -1,21 +1,37 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import styles from '../styles/Write.module.css';
 import { AddPhotoAlternate } from '@mui/icons-material';
+import { publicRequest } from './config';
 
-const QuillNoSSRWrapper = dynamic(() => import('react-quill'), {
-  ssr: false,
-  loading: () => <p>Loading ...</p>,
-});
+const ReactQuill = dynamic(
+  async () => {
+    const { default: RQ } = await import('react-quill');
+    return ({ forwardedRef, ...props }) => <RQ ref={forwardedRef} {...props} />;
+  },
+  {
+    ssr: false,
+  }
+);
 
-const write = ({ post }: any) => {
-  const [value, setValue] = useState<string>('');
-  const [isFetching, setIsFetching] = useState<boolean>();
+const write = ({ post }) => {
+  const [value, setValue] = useState('');
+  const [isFetching, setIsFetching] = useState(false);
+  const editorRef = useRef();
 
-  const imageHandler = (e: any) => {
+  const check = () => {
+    if (editorRef.current) {
+      return editorRef.current;
+    }
+    setTimeout(check, 0);
+  };
+
+  const imageHandler = (e) => {
     console.log('imageHandler');
+    let editorRefInside = check();
+    console.log(editorRefInside);
     const input = document.createElement('input');
 
     input.setAttribute('type', 'file');
@@ -24,14 +40,43 @@ const write = ({ post }: any) => {
 
     input.addEventListener('change', async () => {
       console.log('File OnChange!');
-      // @ts-ignore
       const file = input.files[0];
       console.log(file);
+
+      const formData = new FormData();
+      const filename = `${Date.now()}${file.name}`;
+      formData.append('name', filename);
+      formData.append('file', file);
+
+      try {
+        setIsFetching(true);
+        const result = await publicRequest.post('/pic/upload', formData);
+        const updatedPicURL = result.data;
+
+        console.log('The URL data upon success', updatedPicURL);
+        const IMG_URL = updatedPicURL;
+        const editor = editorRefInside.getEditor();
+        const range = editor.getSelection();
+
+        editor.insertEmbed(range.index, 'image', IMG_URL);
+
+        document
+          .querySelectorAll('img')
+          .forEach((img) => img.setAttribute('crossOrigin', 'anonymous'));
+
+        editor.setSelection(range.index + 1);
+        setIsFetching(false);
+      } catch (error) {
+        console.log('Fail!!');
+        setIsFetching(false);
+      }
     });
   };
 
-  const videoHandler = (e: any) => {
+  const videoHandler = (e) => {
     console.log('videoHandler');
+    let editorRefInside = check();
+    console.log(editorRefInside);
     const input = document.createElement('input');
 
     input.setAttribute('type', 'file');
@@ -43,6 +88,39 @@ const write = ({ post }: any) => {
       // @ts-ignore
       const file = input.files[0];
       console.log(file);
+
+      const formData = new FormData();
+      const filename = `${Date.now()}${file.name}`;
+      formData.append('name', filename);
+      formData.append('file', file);
+
+      try {
+        setIsFetching(true);
+        const result = await publicRequest.post('/video/upload', formData);
+        const updatedVidURL = result.data;
+
+        console.log('The URL data upon success', updatedVidURL);
+        const VID_URL = updatedVidURL;
+        const editor = editorRefInside.getEditor();
+        const imgUrl = VID_URL.slice(0, -3).concat('png');
+
+        editor.root.innerHTML =
+          editor.root.innerHTML +
+          `<p>
+          <a href="${VID_URL}" style="text-decoration: none;cusor:pointer;display:flex;flex-direction:column;">
+            <img class="videoImgs" style="width: 500px;" src="${imgUrl}" crossOrigin></img>
+            <span>
+              ✅Click to play above Video🎦
+            </span>
+          </a>
+        </p>`;
+        // `<video controls src="${VID_URL}" crossorigin />`;
+
+        setIsFetching(false);
+      } catch (error) {
+        console.log('Fail!!');
+        setIsFetching(false);
+      }
     });
   };
 
@@ -140,7 +218,8 @@ const write = ({ post }: any) => {
             </button>
           </div>
         </div>
-        <QuillNoSSRWrapper
+        <ReactQuill
+          forwardedRef={editorRef}
           modules={modules}
           formats={formats}
           style={{ width: '100%', height: '100vh' }}

@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Facebook, Pinterest, Twitter, Instagram } from '@mui/icons-material';
 import { Pagination, CircularProgress, Stack } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
+import { publicRequest } from './config';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -25,7 +25,7 @@ const Home = () => {
   useEffect(() => {
     const getPosts = async () => {
       setOnProgress(true);
-      const res = await axios.get(`https://api.lsevina126.asia/posts`);
+      const res = await publicRequest.get(`/posts`);
       const ps = res.data.reverse();
 
       setPosts(ps);
