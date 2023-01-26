@@ -70,9 +70,16 @@ const Post = () => {
 
   useEffect(() => {
     document.querySelectorAll('meta')[3].content = `${post.title}`;
+    document.querySelectorAll('meta')[4].content = `${post.title}`;
+    document.querySelectorAll(
+      'meta'
+    )[5].content = `https://www.lsevina126.asia/post/${post._id}`;
     document.querySelector(
       'title'
     ).innerText = `Blog Project - ${post.title} - ${post.catName}`;
+    document.querySelectorAll(
+      'link'
+    )[1].href = `https://www.lsevina126.asia/post/${post._id}`;
   }, [post]);
 
   return (
