@@ -74,6 +74,9 @@ const Post = () => {
     document.querySelectorAll(
       'meta'
     )[5].content = `https://www.lsevina126.asia/post/${post._id}`;
+    document.querySelectorAll('meta')[7].content = `${post.title}`;
+    document.querySelectorAll('meta')[8].content = `${post.imgUrl}`;
+    document.querySelectorAll('meta')[9].content = `${post.title}`;
     document.querySelector(
       'title'
     ).innerText = `Blog Project - ${post.title} - ${post.catName}`;
