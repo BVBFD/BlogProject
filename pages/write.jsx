@@ -5,6 +5,8 @@ import 'react-quill/dist/quill.snow.css';
 import styles from '../styles/Write.module.css';
 import { AddPhotoAlternate } from '@mui/icons-material';
 import { publicRequest } from './config';
+import { useRouter } from 'next/router';
+import { CircularProgress } from '@mui/material';
 
 const ReactQuill = dynamic(
   async () => {
@@ -16,10 +18,24 @@ const ReactQuill = dynamic(
   }
 );
 
-const write = ({ post }) => {
-  const [value, setValue] = useState('');
+const write = ({ post, setEditBtnIndex }) => {
+  const [value, setValue] = useState(post?.text);
   const [isFetching, setIsFetching] = useState(false);
   const editorRef = useRef();
+  const [titleImg, setTitleImg] = useState(true);
+  const [writePageImgURL, setWritePageImgURL] = useState(
+    !post ? '/imgs/postdefaultimg.png' : post.imgUrl
+  );
+  const [firstSubmit, setFirstSubmit] = useState(true);
+  const { id, title } = useRouter().query;
+
+  const [postTitle, setPostTitle] = useState();
+  const [catName, setCatName] = useState();
+
+  const [user, setUser] = useState('lse126');
+  const [editable, setEditable] = useState(true);
+
+  const router = useRouter();
 
   const check = () => {
     if (editorRef.current) {
@@ -173,33 +189,164 @@ const write = ({ post }) => {
     'video',
   ];
 
+  const selectImg = async (e) => {
+    setTitleImg(e.target.files[0]);
+    if (e.target.files[0]) {
+      const data = new FormData();
+      const filename = `${Date.now()}${e.target.files[0].name}`;
+      data.append('name', filename);
+      data.append('file', e.target.files[0]);
+      try {
+        setIsFetching(true);
+        const result = await publicRequest.post('/pic/upload', data);
+        const updatedPicURL = result.data;
+
+        setWritePageImgURL(updatedPicURL);
+        setIsFetching(false);
+      } catch (err) {
+        window.alert(err);
+      }
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (firstSubmit) {
+      setFirstSubmit(false);
+
+      if (user !== 'lse126' || !editable) {
+        window.alert('This is private Blog. Onle The Admin can edit!!');
+        return;
+      }
+
+      try {
+        const res = await publicRequest.post(
+          `/posts`,
+          {
+            imgUrl: writePageImgURL,
+            title: postTitle,
+            text: value,
+            catName: catName,
+            author: user,
+          },
+          {
+            headers: {
+              Idempotency_Key: `${Date.now()}${Math.random()}`,
+            },
+          }
+        );
+        router.push(
+          `/post/${res.data?.savedNewPost?.title
+            .replace('/', '!!')
+            .replace('?', '!!')}?id=${res.data?.savedNewPost?._id}`
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const handleEdit = async (event) => {
+    event.preventDefault();
+    if (firstSubmit) {
+      setFirstSubmit(false);
+
+      try {
+        const res = await publicRequest.put(
+          `/posts/${id}`,
+          {
+            imgUrl: writePageImgURL,
+            title: postTitle,
+            text: value,
+            catName: catName,
+            author: user,
+          },
+          {
+            headers: {
+              Idempotency_Key: `${Date.now()}${Math.random()}`,
+            },
+          }
+        );
+
+        res.status === 401 &&
+          window.alert(
+            `${res.statusText} This is private Blog. Onle The Admin can edit!!`
+          );
+
+        res.status === 201 &&
+          setEditBtnIndex(false) &&
+          router.push(
+            `/post/${res?.data.title
+              .replace('/', '!!')
+              .replace('?', '!!')}?id=${res?.data._id}`
+          );
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    setFirstSubmit(true);
+    return () => {
+      setFirstSubmit(true);
+    };
+  }, []);
+
   return (
     <section className={styles.write}>
       <div className={styles.titleImgBox}>
-        <Image
-          src={!post ? '/imgs/postdefaultimg.png' : post.imgUrl}
-          alt=''
-          width={1920}
-          height={1080}
-        />
+        {titleImg ? (
+          <Image
+            src={
+              id
+                ? !writePageImgURL
+                  ? `${post.imgUrl}`
+                  : `${writePageImgURL}`
+                : `${writePageImgURL}`
+            }
+            alt=''
+            width={1920}
+            height={1080}
+            crossOrigin='anonymous'
+          />
+        ) : (
+          <Image
+            src={'/imgs/postdefaultimg.png'}
+            alt=''
+            width={1920}
+            height={1080}
+            crossOrigin='anonymous'
+          />
+        )}
       </div>
-      <form className={styles.titleImgAddBox}>
+      <form
+        onSubmit={!id ? handleSubmit : handleEdit}
+        className={styles.titleImgAddBox}
+      >
         <div className={styles.titleInputBox}>
           <div className={styles.imgFileTitleInputBox}>
             <label className={styles.imgFileLabel} htmlFor='imgFileInput'>
               <AddPhotoAlternate />
             </label>
-            <input id='imgFileInput' type='file' style={{ display: 'none' }} />
+            <input
+              onChange={selectImg}
+              id='imgFileInput'
+              type='file'
+              style={{ display: 'none' }}
+            />
             <input
               className={styles.titleInput}
               type='text'
               autoFocus={true}
               placeholder='Title'
+              onChange={(e) => setPostTitle(e.target.value)}
               defaultValue={!post ? '' : post.title}
             />
           </div>
           <div className={styles.catnameUploadBox}>
             <select
+              onChange={(e) => setCatName(e.target.value)}
               name='Category'
               className={styles.selectCategory}
               defaultValue={!post ? '' : post.catName}
@@ -213,7 +360,11 @@ const write = ({ post }) => {
               <option value='Game'>Game</option>
               <option value='Book / Learn'>Book / Learn</option>
             </select>
-            <button type='submit' className={styles.uploadBtn}>
+            <button
+              type='submit'
+              disabled={!firstSubmit}
+              className={styles.uploadBtn}
+            >
               Upload
             </button>
           </div>
@@ -227,6 +378,13 @@ const write = ({ post }) => {
           onChange={setValue}
           defaultValue={!post ? '' : post.text}
         />
+        {!isFetching ? (
+          ''
+        ) : (
+          <div className={styles.loader}>
+            <CircularProgress />
+          </div>
+        )}
       </form>
     </section>
   );

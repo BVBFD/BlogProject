@@ -7,14 +7,15 @@ const BASE_URL = 'https://api.lsevina126.asia';
 //   ? JSON.parse(USER).currentUser?.accessToken?.toString()
 //   : null;
 
-let origin = 'http://localhost:3000' || 'https://www.lsevina126.asia';
+let Origin = 'http://localhost:3000' || 'https://www.lsevina126.asia';
 
 export const publicRequest = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
   headers: {
-    mode: 'cors',
-    origin,
+    Origin,
+    'Content-Securitiy-Policy':
+      'img-src *;media-src https://res.cloudinary.com https://www.youtube.com/embed/;child-src https://res.cloudinary.com https://www.youtube.com/embed/;frame-src https://www.youtube.com/embed/;',
   },
 });
 
