@@ -4,41 +4,17 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { ContextProvider } from './context/context';
-import { hydrate, render } from 'react-dom';
+import { HelmetProvider } from 'react-helmet-async';
 
-const rootElement = document.getElementById('root');
-
-if (rootElement.hasChildNodes()) {
-  hydrate(
-    <React.StrictMode>
-      <BrowserRouter>
-        <ContextProvider>
+ReactDOM.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <ContextProvider>
+        <HelmetProvider>
           <App />
-        </ContextProvider>
-      </BrowserRouter>
-    </React.StrictMode>,
-    rootElement
-  );
-} else {
-  render(
-    <React.StrictMode>
-      <BrowserRouter>
-        <ContextProvider>
-          <App />
-        </ContextProvider>
-      </BrowserRouter>
-    </React.StrictMode>,
-    rootElement
-  );
-}
-
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <BrowserRouter>
-//       <ContextProvider>
-//         <App />
-//       </ContextProvider>
-//     </BrowserRouter>
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
+        </HelmetProvider>
+      </ContextProvider>
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
