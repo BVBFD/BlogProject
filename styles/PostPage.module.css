@@ -31,7 +31,7 @@
   justify-content: center;
   align-items: center;
   height: fit-content;
-  width: 95vw;
+  /* width: 95vw; */
 }
 
 .postPage .postBox .postImgTextBox .postTitleImgBox img {
@@ -157,9 +157,9 @@
   align-items: center;
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1400px) {
   .postPage .postBox .postImgTextBox .postTitleImgBox {
-    width: 100vw;
+    width: auto;
     margin: auto;
   }
 
@@ -199,7 +199,7 @@
   }
 
   .postPage .postBox .postImgTextBox .postTextBox .postContentText img {
-    width: 100%;
+    width: 100% !important;
   }
 
   .postPage .postBox .postImgTextBox .postTextBox .postContentText a img {
@@ -207,7 +207,7 @@
   }
 
   .postPage .postBox .postImgTextBox .postTextBox .postContentText pre {
-    padding: 0.5rem 0.2rem;
+    /* padding: 0.5rem 0.2rem; */
   }
 }
 

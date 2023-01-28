@@ -30,7 +30,7 @@ const write = ({ post, setEditBtnIndex }) => {
   const { id, title } = useRouter().query;
 
   const [postTitle, setPostTitle] = useState();
-  const [catName, setCatName] = useState();
+  const [catName, setCatName] = useState('HTML / Git');
 
   const [user, setUser] = useState('lse126');
   const [editable, setEditable] = useState(true);
@@ -205,6 +205,7 @@ const write = ({ post, setEditBtnIndex }) => {
         setIsFetching(false);
       } catch (err) {
         window.alert(err);
+        setIsFetching(false);
       }
     }
   };
@@ -274,8 +275,7 @@ const write = ({ post, setEditBtnIndex }) => {
           );
 
         res.status === 201 &&
-          setEditBtnIndex(false) &&
-          router.push(
+          window.location.reload(
             `/post/${res?.data.title
               .replace('/', '!!')
               .replace('?', '!!')}?id=${res?.data._id}`
@@ -295,31 +295,35 @@ const write = ({ post, setEditBtnIndex }) => {
 
   return (
     <section className={styles.write}>
-      <div className={styles.titleImgBox}>
-        {titleImg ? (
-          <Image
-            src={
-              id
-                ? !writePageImgURL
-                  ? `${post.imgUrl}`
+      {!isFetching ? (
+        <div className={styles.titleImgBox}>
+          {titleImg ? (
+            <Image
+              src={
+                id
+                  ? !writePageImgURL
+                    ? `${post.imgUrl}`
+                    : `${writePageImgURL}`
                   : `${writePageImgURL}`
-                : `${writePageImgURL}`
-            }
-            alt=''
-            width={1920}
-            height={1080}
-            crossOrigin='anonymous'
-          />
-        ) : (
-          <Image
-            src={'/imgs/postdefaultimg.png'}
-            alt=''
-            width={1920}
-            height={1080}
-            crossOrigin='anonymous'
-          />
-        )}
-      </div>
+              }
+              alt=''
+              width={1920}
+              height={1080}
+              crossOrigin='anonymous'
+            />
+          ) : (
+            <Image
+              src={'/imgs/postdefaultimg.png'}
+              alt=''
+              width={1920}
+              height={1080}
+              crossOrigin='anonymous'
+            />
+          )}
+        </div>
+      ) : (
+        <div></div>
+      )}
       <form
         onSubmit={!id ? handleSubmit : handleEdit}
         className={styles.titleImgAddBox}
@@ -349,7 +353,7 @@ const write = ({ post, setEditBtnIndex }) => {
               onChange={(e) => setCatName(e.target.value)}
               name='Category'
               className={styles.selectCategory}
-              defaultValue={!post ? '' : post.catName}
+              defaultValue={!post ? 'HTML / Git' : post.catName}
             >
               <option value='HTML / Git'>HTML / Git</option>
               <option value='CSS'>CSS</option>

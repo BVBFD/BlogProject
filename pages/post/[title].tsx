@@ -9,6 +9,7 @@ import 'highlight.js/styles/vs2015.css';
 import { publicRequest } from '../config';
 import Head from 'next/head';
 import { CircularProgress } from '@mui/material';
+import { GetServerSidePropsContext } from 'next/types';
 // import { GetServerSidePropsContext } from 'next';
 
 const PostPage = ({ ps }: any) => {
@@ -18,17 +19,18 @@ const PostPage = ({ ps }: any) => {
   const { id } = router.query;
 
   const [user, setUser] = useState('lse126');
-  const [editable, setEditable] = useState(true);
+  // const [getDataSSR, setGetDataSSR] = useState(false);
 
   useEffect(() => {
-    const getPost = async () => {
-      const res = await publicRequest.get(`/posts/${id}`);
-      setPost(res.data);
-    };
-
-    // const getPost = () => {
-    //   setPost(ps);
+    // const getPostOnClient = async () => {
+    //   const res = await publicRequest.get(`/posts/${id}`);
+    //   setPost(res.data);
     // };
+    // getPostOnClient();
+
+    const getPost = () => {
+      setPost(ps);
+    };
     getPost();
 
     document
@@ -161,12 +163,12 @@ const PostPage = ({ ps }: any) => {
 
 export default PostPage;
 
-// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-//   const res = await publicRequest.get(`/posts/${ctx.query.id}`);
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const res = await publicRequest.get(`/posts/${ctx.query.id}`);
 
-//   return {
-//     props: {
-//       ps: res.data,
-//     },
-//   };
-// };
+  return {
+    props: {
+      ps: res.data,
+    },
+  };
+};
