@@ -109,10 +109,13 @@ const Home = () => {
   return (
     <>
       <Head>
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <link rel='icon' href='/imgs/Logo-big.png' />
         {/* SEO */}
         <title>Blog Project</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <link
+          rel='icon'
+          href='https://res.cloudinary.com/dewa3t2gi/image/upload/v1674981291/qyeb9rvghfair1pkgqud.png'
+        />
         <meta name='description' content='Blog Project with React and NodeJS' />
         <meta
           property='og:title'
@@ -121,7 +124,10 @@ const Home = () => {
         <meta property='og:url' content='https://www.lsevina126.asia' />
         <meta property='og:type' content='website' />
         <meta property='og:site_name' content='Blog Project for lsevina126' />
-        <meta property='og:image' content='/imgs/Logo-big.png' />
+        <meta
+          property='og:image'
+          content='https://res.cloudinary.com/dewa3t2gi/image/upload/v1674981291/qyeb9rvghfair1pkgqud.png'
+        />
         <meta
           property='og:description'
           content='Blog Project for lsevina126 with React and NodeJS'

@@ -13,7 +13,7 @@ import { GetServerSidePropsContext } from 'next/types';
 // import { GetServerSidePropsContext } from 'next';
 
 const PostPage = ({ ps }: any) => {
-  const [post, setPost] = useState<any>();
+  // const [post, setPost] = useState<any>();
   const [editBtnIndex, setEditBtnIndex] = useState<boolean>(false);
   const router = useRouter();
   const { id } = router.query;
@@ -28,11 +28,6 @@ const PostPage = ({ ps }: any) => {
     // };
     // getPostOnClient();
 
-    const getPost = () => {
-      setPost(ps);
-    };
-    getPost();
-
     document
       .querySelectorAll('.videoImgs')
       .forEach((img) => img.setAttribute('style', ''));
@@ -43,7 +38,7 @@ const PostPage = ({ ps }: any) => {
   }, [editBtnIndex, id]);
 
   const inputText = () => {
-    return { __html: `${post?.text}` };
+    return { __html: `${ps.text}` };
   };
 
   const deletePost = async () => {
@@ -71,26 +66,31 @@ const PostPage = ({ ps }: any) => {
   return !editBtnIndex ? (
     <section className={styles.postPage}>
       <Head>
-        <title>{post?.title}</title>
-        <meta name='description' content={post?.title} />
-        <meta property='og:title' content={post?.title} />
+        <title>{ps.title}</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <link
+          rel='icon'
+          href='https://res.cloudinary.com/dewa3t2gi/image/upload/v1674981291/qyeb9rvghfair1pkgqud.png'
+        />
+        <meta name='description' content={ps.title} />
+        <meta property='og:title' content={ps.title} />
         <meta
           property='og:url'
-          content={`https://www.lsevina126.asia/post/${post?.title}/${post?._id}`}
+          content={`https://www.lsevina126.asia/post/${ps.title}/${ps._id}`}
         />
         <meta property='og:type' content='website' />
-        <meta property='og:site_name' content='Blog Project for lsevina126' />
-        <meta property='og:image' content={post?.imgUrl} />
-        <meta property='og:description' content={post?.title} />
+        <meta property='og:site_name' content={ps.title} />
+        <meta property='og:image' content={ps.imgUrl} />
+        <meta property='og:description' content={ps.title} />
         <link
           rel='canonical'
-          href={`https://www.lsevina126.asia/post/${post?.title}/${post?._id}`}
+          href={`https://www.lsevina126.asia/post/${ps.title}/${ps._id}`}
         />
       </Head>
       <div className={styles.postBox}>
         <div className={styles.postImgTextBox}>
           <div className={styles.postTitleImgBox}>
-            {post?.imgUrl === '' ? (
+            {ps?.imgUrl === '' ? (
               <Image
                 src={'/imgs/postdefaultimg.png'}
                 alt='default'
@@ -98,9 +98,9 @@ const PostPage = ({ ps }: any) => {
                 height={1080}
               />
             ) : (
-              post && (
+              ps && (
                 <Image
-                  src={post?.imgUrl}
+                  src={ps?.imgUrl}
                   alt=''
                   width={1920}
                   height={1080}
@@ -112,9 +112,9 @@ const PostPage = ({ ps }: any) => {
           <div className={styles.postTextBox}>
             <header className={styles.postHeader}>
               <p>
-                Category: <span>{post?.catName}</span>
+                Category: <span>{ps.catName}</span>
               </p>
-              <span>{post?.title}</span>
+              <span>{ps.title}</span>
               <div>
                 <Edit
                   onClick={() => {
@@ -128,18 +128,18 @@ const PostPage = ({ ps }: any) => {
                 <Delete onClick={deletePost} />
               </div>
             </header>
-            {!post ? (
+            {!ps ? (
               <></>
             ) : (
               <div className={styles.authorAndDate}>
                 <p>
-                  Author: <span>{post?.author}</span>
+                  Author: <span>{ps.author}</span>
                 </p>
-                <span>{new Date(post?.createdAt).toDateString()}</span>
+                <span>{new Date(ps.createdAt).toDateString()}</span>
               </div>
             )}
             <div className='ql-snow'>
-              {!post ? (
+              {!ps ? (
                 <div className={styles.circularBox}>
                   <CircularProgress size={60} />
                 </div>
@@ -157,7 +157,7 @@ const PostPage = ({ ps }: any) => {
       </div>
     </section>
   ) : (
-    <Write post={post} setEditBtnIndex={setEditBtnIndex} />
+    <Write post={ps} setEditBtnIndex={setEditBtnIndex} />
   );
 };
 
