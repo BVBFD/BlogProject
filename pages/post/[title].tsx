@@ -10,6 +10,8 @@ import { publicRequest } from '../config';
 import Head from 'next/head';
 import { CircularProgress } from '@mui/material';
 import { GetServerSidePropsContext } from 'next/types';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/user';
 // import { GetServerSidePropsContext } from 'next';
 
 const PostPage = ({ ps }: any) => {
@@ -17,8 +19,7 @@ const PostPage = ({ ps }: any) => {
   const [editBtnIndex, setEditBtnIndex] = useState<boolean>(false);
   const router = useRouter();
   const { id } = router.query;
-
-  const [user, setUser] = useState('lse126');
+  const user = useSelector((state: RootState) => state.user);
   // const [getDataSSR, setGetDataSSR] = useState(false);
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const PostPage = ({ ps }: any) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          author: user,
+          author: `${user.id}`,
         }),
       });
       res.status === 401 &&

@@ -2,10 +2,22 @@ import Link from 'next/link';
 import styles from '../styles/Navbar.module.css';
 import { GitHub, Dehaze, Close } from '@mui/icons-material';
 import { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/user';
+import Image from 'next/image';
+import { useDispatch } from 'react-redux';
+import { logoutReduce } from '../redux/userSlice';
 
 const Navbar = () => {
   const [boolean, setBoolean] = useState<boolean>(false);
   const sidebarUlRef = useRef() as React.MutableRefObject<any>;
+  const { id, profilePic } = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
+
+  const onLogout = (event: any) => {
+    event.preventDefault();
+    dispatch(logoutReduce());
+  };
 
   return (
     <>
@@ -34,14 +46,31 @@ const Navbar = () => {
           </Link>
         </ul>
 
-        <div className={styles.loginSignup}>
-          <Link href={'login'} passHref>
-            Login
-          </Link>
-          <Link href={'signup'} passHref>
-            Sign-Up
-          </Link>
-        </div>
+        {id === '' ? (
+          <div className={styles.loginSignup}>
+            <Link href={'/login'} passHref>
+              Login
+            </Link>
+            <Link href={'/signup'} passHref>
+              Sign-Up
+            </Link>
+          </div>
+        ) : (
+          <div className={styles.logoutBox}>
+            <span onClick={onLogout}>Log-out</span>
+            <Link href={'/setting'} passHref>
+              <div className={styles.profileImgBox}>
+                <Image
+                  width={1}
+                  height={1}
+                  alt=''
+                  src={profilePic}
+                  crossOrigin='anonymous'
+                />
+              </div>
+            </Link>
+          </div>
+        )}
       </div>
 
       <div className={styles.sidebar}>
@@ -62,7 +91,7 @@ const Navbar = () => {
         )}
       </div>
       <ul ref={sidebarUlRef} className={`${styles.sidebarUl} ${styles.close}`}>
-        <Link href={'/'} passHref>
+        <Link href={''} passHref>
           Home
         </Link>
         <Link href={'/about'} passHref>
@@ -74,12 +103,31 @@ const Navbar = () => {
         <Link href={'/write'} passHref>
           Write
         </Link>
-        <Link href={'login'} passHref>
-          Login
-        </Link>
-        <Link href={'signup'} passHref>
-          Sign-Up
-        </Link>
+        {id === '' ? (
+          <div className={styles.settingsBox}>
+            <Link href={'/login'} passHref>
+              Login
+            </Link>
+            <Link href={'/signup'} passHref>
+              Sign-Up
+            </Link>
+          </div>
+        ) : (
+          <div className={styles.logoutBox}>
+            <span onClick={onLogout}>Log-out</span>
+            <Link href={'/setting'} passHref>
+              <div className={styles.profileImgBox}>
+                <Image
+                  width={1}
+                  height={1}
+                  alt=''
+                  src={profilePic}
+                  crossOrigin='anonymous'
+                />
+              </div>
+            </Link>
+          </div>
+        )}
       </ul>
     </>
   );

@@ -28,6 +28,26 @@
 .loginSignup a {
   margin: 0 1rem;
   font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.logoutBox {
+  display: flex;
+  align-items: center;
+}
+
+.logoutBox span {
+  margin: 0 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.logoutBox img {
+  width: 2.4rem !important;
+  height: 2.4rem !important;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: bottom;
 }
 
 .sidebar {
@@ -58,9 +78,20 @@
 
 @media screen and (max-width: 1200px) {
   /* 1025px - 1200px - Desktops, large screens */
-  /* .sidebar {
+  .sidebarUl .settingsBox {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebarUl .logoutBox span {
+    font-weight: 600;
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .sidebarUl .logoutBox .profileImgBox {
     display: none;
-  } */
+  }
 }
 
 @media screen and (max-width: 1024px) {

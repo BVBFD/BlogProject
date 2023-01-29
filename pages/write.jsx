@@ -7,6 +7,7 @@ import { AddPhotoAlternate } from '@mui/icons-material';
 import { publicRequest } from './config';
 import { useRouter } from 'next/router';
 import { CircularProgress } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 const ReactQuill = dynamic(
   async () => {
@@ -31,10 +32,7 @@ const write = ({ post, setEditBtnIndex }) => {
 
   const [postTitle, setPostTitle] = useState();
   const [catName, setCatName] = useState('HTML / Git');
-
-  const [user, setUser] = useState('lse126');
-  const [editable, setEditable] = useState(true);
-
+  const user = useSelector((state) => state.user);
   const router = useRouter();
 
   const check = () => {
@@ -83,7 +81,7 @@ const write = ({ post, setEditBtnIndex }) => {
         editor.setSelection(range.index + 1);
         setIsFetching(false);
       } catch (error) {
-        console.log('Fail!!');
+        window.alert('Fail!!');
         setIsFetching(false);
       }
     });
@@ -134,7 +132,7 @@ const write = ({ post, setEditBtnIndex }) => {
 
         setIsFetching(false);
       } catch (error) {
-        console.log('Fail!!');
+        window.alert('Fail!!');
         setIsFetching(false);
       }
     });
@@ -215,7 +213,7 @@ const write = ({ post, setEditBtnIndex }) => {
     if (firstSubmit) {
       setFirstSubmit(false);
 
-      if (user !== 'lse126' || !editable) {
+      if (user.id !== 'lse126' || !user.editable) {
         window.alert('This is private Blog. Onle The Admin can edit!!');
         return;
       }
@@ -228,7 +226,7 @@ const write = ({ post, setEditBtnIndex }) => {
             title: postTitle,
             text: value,
             catName: catName,
-            author: user,
+            author: user.id,
           },
           {
             headers: {
@@ -242,7 +240,7 @@ const write = ({ post, setEditBtnIndex }) => {
             .replace('?', '!!')}?id=${res.data?.savedNewPost?._id}`
         );
       } catch (error) {
-        console.log(error);
+        window.alert(error);
       }
     }
   };
@@ -260,7 +258,7 @@ const write = ({ post, setEditBtnIndex }) => {
             title: postTitle,
             text: value,
             catName: catName,
-            author: user,
+            author: user.id,
           },
           {
             headers: {
@@ -281,7 +279,7 @@ const write = ({ post, setEditBtnIndex }) => {
               .replace('?', '!!')}?id=${res?.data._id}`
           );
       } catch (error) {
-        console.log(error);
+        window.alert(error);
       }
     }
   };

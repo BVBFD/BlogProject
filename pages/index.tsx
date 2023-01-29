@@ -8,8 +8,7 @@ import { Pagination, CircularProgress, Stack } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import { publicRequest } from './config';
 
-const Home = () => {
-  const [posts, setPosts] = useState([]);
+const Home = ({ posts }: any) => {
   const [count, setCount] = useState<number>();
   const [catPost, setCatPost] = useState<any>([]);
   const [selectedPost, setSelectedPost] = useState<any>([]);
@@ -23,14 +22,10 @@ const Home = () => {
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   useEffect(() => {
-    const getPosts = async () => {
+    const getPosts = () => {
       setOnProgress(true);
-      const res = await publicRequest.get(`/posts`);
-      const ps = res.data.reverse();
-
-      setPosts(ps);
-      setCount(Math.ceil(ps?.length / 4));
-      setSelectedPost([ps[0], ps[1], ps[2], ps[3]]);
+      setCount(Math.ceil(posts?.length / 4));
+      setSelectedPost([posts[0], posts[1], posts[2], posts[3]]);
 
       return setOnProgress(false);
     };
@@ -227,3 +222,13 @@ const Home = () => {
 };
 
 export default Home;
+
+export const getServerSideProps = async () => {
+  const res = await publicRequest.get(`/posts`);
+
+  return {
+    props: {
+      posts: res.data.reverse(),
+    },
+  };
+};
