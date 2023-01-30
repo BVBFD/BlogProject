@@ -67,6 +67,7 @@ const PostPage = ({ ps }: any) => {
   return !editBtnIndex ? (
     <section className={styles.postPage}>
       <Head>
+        {/* SEO */}
         <title>{ps.title}</title>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link
@@ -87,6 +88,28 @@ const PostPage = ({ ps }: any) => {
           rel='canonical'
           href={`https://www.lsevina126.asia/post/${ps.title}/${ps._id}`}
         />
+        {/* SEO */}
+        <link
+          rel='stylesheet'
+          href='https://fonts.googleapis.com/icon?family=Material+Icons'
+        />
+        <link
+          rel='stylesheet'
+          href='https://unpkg.com/react-quill@1.3.3/dist/quill.snow.css'
+        />
+        <script
+          src='https://unpkg.com/react@16/umd/react.development.js'
+          // @ts-ignore
+          crossorigin
+        ></script>
+        <script
+          src='https://unpkg.com/react-dom@16/umd/react-dom.development.js'
+          // @ts-ignore
+          crossorigin
+        ></script>
+        <script src='https://unpkg.com/react-quill@1.3.3/dist/react-quill.js'></script>
+        <script src='https://unpkg.com/babel-standalone@6/babel.min.js'></script>
+        <script type='text/babel' src='/my-scripts.js'></script>
       </Head>
       <div className={styles.postBox}>
         <div className={styles.postImgTextBox}>
