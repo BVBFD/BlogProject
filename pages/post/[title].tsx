@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';
 
 const PostPage = ({ ps }: any) => {
-  const [post, setPost] = useState<any>();
+  // const [post, setPost] = useState<any>();
   const [editBtnIndex, setEditBtnIndex] = useState<boolean>(false);
   const router = useRouter();
   const { id } = router.query;
@@ -22,11 +22,11 @@ const PostPage = ({ ps }: any) => {
   // const [getDataSSR, setGetDataSSR] = useState(false);
 
   useEffect(() => {
-    const getPostOnClient = async () => {
-      const res = await publicRequest.get(`/posts/${id}`);
-      setPost(res.data);
-    };
-    getPostOnClient();
+    // const getPostOnClient = async () => {
+    //   const res = await publicRequest.get(`/posts/${id}`);
+    //   setPost(res.data);
+    // };
+    // getPostOnClient();
 
     document
       .querySelectorAll('.videoImgs')
@@ -38,7 +38,7 @@ const PostPage = ({ ps }: any) => {
   }, [editBtnIndex, id]);
 
   const inputText = () => {
-    return { __html: `${post.text}` };
+    return { __html: `${ps.text}` };
   };
 
   const deletePost = async () => {
@@ -111,11 +111,11 @@ const PostPage = ({ ps }: any) => {
         <script src='https://unpkg.com/babel-standalone@6/babel.min.js'></script>
         <script type='text/babel' src='/my-scripts.js'></script>
       </Head>
-      {post && (
+      {ps && (
         <div className={styles.postBox}>
           <div className={styles.postImgTextBox}>
             <div className={styles.postTitleImgBox}>
-              {post?.imgUrl === '' ? (
+              {ps?.imgUrl === '' ? (
                 <Image
                   src={
                     'https://res.cloudinary.com/dewa3t2gi/image/upload/v1675150372/omlojqzvdujpd3hhtpap.png'
@@ -125,9 +125,9 @@ const PostPage = ({ ps }: any) => {
                   height={1080}
                 />
               ) : (
-                post && (
+                ps && (
                   <Image
-                    src={post?.imgUrl}
+                    src={ps?.imgUrl}
                     alt=''
                     width={1920}
                     height={1080}
@@ -139,9 +139,9 @@ const PostPage = ({ ps }: any) => {
             <div className={styles.postTextBox}>
               <header className={styles.postHeader}>
                 <p>
-                  Category: <span>{post.catName}</span>
+                  Category: <span>{ps.catName}</span>
                 </p>
-                <span>{post.title}</span>
+                <span>{ps.title}</span>
                 <div>
                   <Edit
                     onClick={() => {
@@ -155,18 +155,18 @@ const PostPage = ({ ps }: any) => {
                   <Delete onClick={deletePost} />
                 </div>
               </header>
-              {!post ? (
+              {!ps ? (
                 <></>
               ) : (
                 <div className={styles.authorAndDate}>
                   <p>
-                    Author: <span>{post.author}</span>
+                    Author: <span>{ps.author}</span>
                   </p>
-                  <span>{new Date(post.createdAt).toDateString()}</span>
+                  <span>{new Date(ps.createdAt).toDateString()}</span>
                 </div>
               )}
               <div className='ql-snow'>
-                {!post ? (
+                {!ps ? (
                   <div className={styles.circularBox}>
                     <CircularProgress size={60} />
                   </div>
@@ -185,7 +185,7 @@ const PostPage = ({ ps }: any) => {
       )}
     </section>
   ) : (
-    <Write post={post} setEditBtnIndex={setEditBtnIndex} />
+    ps && <Write post={ps} setEditBtnIndex={setEditBtnIndex} />
   );
 };
 
