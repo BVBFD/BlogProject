@@ -1,9 +1,9 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { loginReduce } from "../redux/userSlice";
-import styles from "../styles/Signup.module.css";
-import { publicRequest } from "./config";
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginReduce } from '../redux/userSlice';
+import styles from '../styles/Signup.module.css';
+import { publicRequest } from '../config';
 
 type UserDataType = {
   userId: string;
@@ -15,12 +15,12 @@ type UserDataType = {
 
 type ReturnObjectType = (key: string, value: string) => any;
 
-const signup = () => {
+const Signup = () => {
   const [user, setUser] = useState<UserDataType | ReturnObjectType>({
-    userId: "",
-    password: "",
-    email: "",
-    profilePic: "",
+    userId: '',
+    password: '',
+    email: '',
+    profilePic: '',
     editable: false,
   });
   const [loginSuccess, setLoginSuccess] = useState(false);
@@ -50,23 +50,23 @@ const signup = () => {
     setLoginSuccess(true);
   };
 
-  loginSuccess && router.push("/");
+  loginSuccess && router.push('/');
 
   const returnObject: ReturnObjectType = (key: string, value: string) => {
     switch (key) {
-      case "userId":
+      case 'userId':
         return {
           ...user,
           userId: value,
         };
 
-      case "email":
+      case 'email':
         return {
           ...user,
           email: value,
         };
 
-      case "password":
+      case 'password':
         return {
           ...user,
           password: value,
@@ -82,34 +82,34 @@ const signup = () => {
       <div className={styles.idBox}>
         <span>ID</span>
         <input
-          onChange={(e) => setUser(returnObject("userId", `${e.target.value}`))}
-          type="text"
+          onChange={(e) => setUser(returnObject('userId', `${e.target.value}`))}
+          type='text'
           autoFocus
-          placeholder="Enter your ID"
+          placeholder='Enter your ID'
         />
       </div>
       <div className={styles.emailBox}>
         <span>Email</span>
         <input
-          onChange={(e) => setUser(returnObject("email", `${e.target.value}`))}
-          type="email"
+          onChange={(e) => setUser(returnObject('email', `${e.target.value}`))}
+          type='email'
           autoFocus
-          placeholder="Enter your Email"
+          placeholder='Enter your Email'
         />
       </div>
       <div className={styles.pwdBox}>
         <span>Password</span>
         <input
           onChange={(e) =>
-            setUser(returnObject("password", `${e.target.value}`))
+            setUser(returnObject('password', `${e.target.value}`))
           }
-          type="password"
-          placeholder="Enter your Password"
+          type='password'
+          placeholder='Enter your Password'
         />
       </div>
-      <button type="submit">Sign-Up</button>
+      <button type='submit'>Sign-Up</button>
     </form>
   );
 };
 
-export default signup;
+export default Signup;

@@ -1,17 +1,17 @@
-import dynamic from "next/dynamic";
-import Image from "next/image";
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import "react-quill/dist/quill.snow.css";
-import styles from "../styles/Write.module.css";
-import { AddPhotoAlternate } from "@mui/icons-material";
-import { publicRequest } from "./config";
-import { useRouter } from "next/router";
-import { CircularProgress } from "@mui/material";
-import { useSelector } from "react-redux";
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import 'react-quill/dist/quill.snow.css';
+import styles from '../styles/Write.module.css';
+import { AddPhotoAlternate } from '@mui/icons-material';
+import { publicRequest } from '../config';
+import { useRouter } from 'next/router';
+import { CircularProgress } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 const ReactQuill = dynamic(
   async () => {
-    const { default: RQ } = await import("react-quill");
+    const { default: RQ } = await import('react-quill');
     return ({ forwardedRef, ...props }) => <RQ ref={forwardedRef} {...props} />;
   },
   {
@@ -19,21 +19,21 @@ const ReactQuill = dynamic(
   }
 );
 
-const write = ({ post, setEditBtnIndex }) => {
+const Write = ({ post, setEditBtnIndex }) => {
   const [value, setValue] = useState(post?.text);
   const [isFetching, setIsFetching] = useState(false);
   const editorRef = useRef();
   const [titleImg, setTitleImg] = useState(true);
   const [writePageImgURL, setWritePageImgURL] = useState(
     !post
-      ? "https://res.cloudinary.com/dewa3t2gi/image/upload/v1675150372/omlojqzvdujpd3hhtpap.png"
+      ? 'https://res.cloudinary.com/dewa3t2gi/image/upload/v1675150372/omlojqzvdujpd3hhtpap.png'
       : post.imgUrl
   );
   const [firstSubmit, setFirstSubmit] = useState(true);
   const { id, title } = useRouter().query;
 
   const [postTitle, setPostTitle] = useState();
-  const [catName, setCatName] = useState("HTML / Git");
+  const [catName, setCatName] = useState('HTML / Git');
   const user = useSelector((state) => state.user);
   const router = useRouter();
 
@@ -45,80 +45,80 @@ const write = ({ post, setEditBtnIndex }) => {
   };
 
   const imageHandler = (e) => {
-    console.log("imageHandler");
+    console.log('imageHandler');
     let editorRefInside = check();
     console.log(editorRefInside);
-    const input = document.createElement("input");
+    const input = document.createElement('input');
 
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "image/*");
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
     input.click();
 
-    input.addEventListener("change", async () => {
-      console.log("File OnChange!");
+    input.addEventListener('change', async () => {
+      console.log('File OnChange!');
       const file = input.files[0];
       console.log(file);
 
       const formData = new FormData();
       const filename = `${Date.now()}${file.name}`;
-      formData.append("name", filename);
-      formData.append("file", file);
+      formData.append('name', filename);
+      formData.append('file', file);
 
       try {
         setIsFetching(true);
-        const result = await publicRequest.post("/pic/upload", formData);
+        const result = await publicRequest.post('/pic/upload', formData);
         const updatedPicURL = result.data;
 
-        console.log("The URL data upon success", updatedPicURL);
+        console.log('The URL data upon success', updatedPicURL);
         const IMG_URL = updatedPicURL;
         const editor = editorRefInside.getEditor();
         const range = editor.getSelection();
 
-        editor.insertEmbed(range.index, "image", IMG_URL);
+        editor.insertEmbed(range.index, 'image', IMG_URL);
 
         document
-          .querySelectorAll("img")
-          .forEach((img) => img.setAttribute("crossOrigin", "anonymous"));
+          .querySelectorAll('img')
+          .forEach((img) => img.setAttribute('crossOrigin', 'anonymous'));
 
         editor.setSelection(range.index + 1);
         setIsFetching(false);
       } catch (error) {
-        window.alert("Fail!!");
+        window.alert('Fail!!');
         setIsFetching(false);
       }
     });
   };
 
   const videoHandler = (e) => {
-    console.log("videoHandler");
+    console.log('videoHandler');
     let editorRefInside = check();
     console.log(editorRefInside);
-    const input = document.createElement("input");
+    const input = document.createElement('input');
 
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "video/*");
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'video/*');
     input.click();
 
-    input.addEventListener("change", async () => {
-      console.log("File OnChange!");
+    input.addEventListener('change', async () => {
+      console.log('File OnChange!');
       // @ts-ignore
       const file = input.files[0];
       console.log(file);
 
       const formData = new FormData();
       const filename = `${Date.now()}${file.name}`;
-      formData.append("name", filename);
-      formData.append("file", file);
+      formData.append('name', filename);
+      formData.append('file', file);
 
       try {
         setIsFetching(true);
-        const result = await publicRequest.post("/video/upload", formData);
+        const result = await publicRequest.post('/video/upload', formData);
         const updatedVidURL = result.data;
 
-        console.log("The URL data upon success", updatedVidURL);
+        console.log('The URL data upon success', updatedVidURL);
         const VID_URL = updatedVidURL;
         const editor = editorRefInside.getEditor();
-        const imgUrl = VID_URL.slice(0, -3).concat("png");
+        const imgUrl = VID_URL.slice(0, -3).concat('png');
 
         editor.root.innerHTML =
           editor.root.innerHTML +
@@ -134,7 +134,7 @@ const write = ({ post, setEditBtnIndex }) => {
 
         setIsFetching(false);
       } catch (error) {
-        window.alert("Fail!!");
+        window.alert('Fail!!');
         setIsFetching(false);
       }
     });
@@ -144,17 +144,17 @@ const write = ({ post, setEditBtnIndex }) => {
     return {
       toolbar: {
         container: [
-          [{ header: "1" }, { header: "2" }, { font: [] }],
+          [{ header: '1' }, { header: '2' }, { font: [] }],
           [{ size: [] }],
-          ["bold", "italic", "underline", "strike", "blockquote"],
+          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
           [
-            { list: "ordered" },
-            { list: "bullet" },
-            { indent: "-1" },
-            { indent: "+1" },
+            { list: 'ordered' },
+            { list: 'bullet' },
+            { indent: '-1' },
+            { indent: '+1' },
           ],
-          ["link", "image", "video"],
-          ["clean"],
+          ['link', 'image', 'video'],
+          ['clean'],
         ],
         handlers: {
           image: imageHandler,
@@ -173,20 +173,20 @@ const write = ({ post, setEditBtnIndex }) => {
    * See https://quilljs.com/docs/formats/
    */
   const formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "video",
+    'header',
+    'font',
+    'size',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+    'image',
+    'video',
   ];
 
   const selectImg = async (e) => {
@@ -194,11 +194,11 @@ const write = ({ post, setEditBtnIndex }) => {
     if (e.target.files[0]) {
       const data = new FormData();
       const filename = `${Date.now()}${e.target.files[0].name}`;
-      data.append("name", filename);
-      data.append("file", e.target.files[0]);
+      data.append('name', filename);
+      data.append('file', e.target.files[0]);
       try {
         setIsFetching(true);
-        const result = await publicRequest.post("/pic/upload", data);
+        const result = await publicRequest.post('/pic/upload', data);
         const updatedPicURL = result.data;
 
         setWritePageImgURL(updatedPicURL);
@@ -215,8 +215,8 @@ const write = ({ post, setEditBtnIndex }) => {
     if (firstSubmit) {
       setFirstSubmit(false);
 
-      if (user.id !== "lse126" || !user.editable) {
-        window.alert("This is private Blog. Onle The Admin can edit!!");
+      if (user.id !== 'lse126' || !user.editable) {
+        window.alert('This is private Blog. Onle The Admin can edit!!');
         return;
       }
 
@@ -238,8 +238,8 @@ const write = ({ post, setEditBtnIndex }) => {
         );
         router.push(
           `/post/${res.data?.savedNewPost?.title
-            .replace("/", "!!")
-            .replace("?", "!!")}?id=${res.data?.savedNewPost?._id}`
+            .replace('/', '!!')
+            .replace('?', '!!')}?id=${res.data?.savedNewPost?._id}`
         );
       } catch (error) {
         window.alert(error);
@@ -277,8 +277,8 @@ const write = ({ post, setEditBtnIndex }) => {
         res.status === 201 &&
           window.location.reload(
             `/post/${res?.data.title
-              .replace("/", "!!")
-              .replace("?", "!!")}?id=${res?.data._id}`
+              .replace('/', '!!')
+              .replace('?', '!!')}?id=${res?.data._id}`
           );
       } catch (error) {
         window.alert(error);
@@ -306,20 +306,20 @@ const write = ({ post, setEditBtnIndex }) => {
                     : `${writePageImgURL}`
                   : `${writePageImgURL}`
               }
-              alt=""
+              alt=''
               width={1920}
               height={1080}
-              crossOrigin="anonymous"
+              crossOrigin='anonymous'
             />
           ) : (
             <Image
               src={
-                "https://res.cloudinary.com/dewa3t2gi/image/upload/v1675150372/omlojqzvdujpd3hhtpap.png"
+                'https://res.cloudinary.com/dewa3t2gi/image/upload/v1675150372/omlojqzvdujpd3hhtpap.png'
               }
-              alt=""
+              alt=''
               width={1920}
               height={1080}
-              crossOrigin="anonymous"
+              crossOrigin='anonymous'
             />
           )}
         </div>
@@ -332,42 +332,42 @@ const write = ({ post, setEditBtnIndex }) => {
       >
         <div className={styles.titleInputBox}>
           <div className={styles.imgFileTitleInputBox}>
-            <label className={styles.imgFileLabel} htmlFor="imgFileInput">
+            <label className={styles.imgFileLabel} htmlFor='imgFileInput'>
               <AddPhotoAlternate />
             </label>
             <input
               onChange={selectImg}
-              id="imgFileInput"
-              type="file"
-              style={{ display: "none" }}
+              id='imgFileInput'
+              type='file'
+              style={{ display: 'none' }}
             />
             <input
               className={styles.titleInput}
-              type="text"
+              type='text'
               autoFocus={true}
-              placeholder="Title"
+              placeholder='Title'
               onChange={(e) => setPostTitle(e.target.value)}
-              defaultValue={!post ? "" : post.title}
+              defaultValue={!post ? '' : post.title}
             />
           </div>
           <div className={styles.catnameUploadBox}>
             <select
               onChange={(e) => setCatName(e.target.value)}
-              name="Category"
+              name='Category'
               className={styles.selectCategory}
-              defaultValue={!post ? "HTML / Git" : post.catName}
+              defaultValue={!post ? 'HTML / Git' : post.catName}
             >
-              <option value="HTML / Git">HTML / Git</option>
-              <option value="CSS">CSS</option>
-              <option value="JavaScript">JavaScript</option>
-              <option value="Front-End">Front-End</option>
-              <option value="Back-End">Back-End</option>
-              <option value="TypeScript">TypeScript</option>
-              <option value="Game">Game</option>
-              <option value="Book / Learn">Book / Learn</option>
+              <option value='HTML / Git'>HTML / Git</option>
+              <option value='CSS'>CSS</option>
+              <option value='JavaScript'>JavaScript</option>
+              <option value='Front-End'>Front-End</option>
+              <option value='Back-End'>Back-End</option>
+              <option value='TypeScript'>TypeScript</option>
+              <option value='Game'>Game</option>
+              <option value='Book / Learn'>Book / Learn</option>
             </select>
             <button
-              type="submit"
+              type='submit'
               disabled={!firstSubmit}
               className={styles.uploadBtn}
             >
@@ -379,13 +379,13 @@ const write = ({ post, setEditBtnIndex }) => {
           forwardedRef={editorRef}
           modules={modules}
           formats={formats}
-          style={{ width: "100%", height: "100vh" }}
-          theme="snow"
+          style={{ width: '100%', height: '100vh' }}
+          theme='snow'
           onChange={setValue}
-          defaultValue={!post ? "" : post.text}
+          defaultValue={!post ? '' : post.text}
         />
         {!isFetching ? (
-          ""
+          ''
         ) : (
           <div className={styles.loader}>
             <CircularProgress />
@@ -396,4 +396,4 @@ const write = ({ post, setEditBtnIndex }) => {
   );
 };
 
-export default write;
+export default Write;

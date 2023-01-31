@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/user';
 import { loginReduce, logoutReduce } from '../redux/userSlice';
 import styles from '../styles/Setting.module.css';
-import { publicRequest } from './config';
+import { publicRequest } from '../config';
 
-const setting = () => {
+const Setting = () => {
   const { id, email, profilePic } = useSelector(
     (state: RootState) => state.user
   );
@@ -152,4 +152,4 @@ const setting = () => {
   );
 };
 
-export default setting;
+export default Setting;

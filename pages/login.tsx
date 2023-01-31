@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/user';
 import { loginReduce } from '../redux/userSlice';
 import styles from '../styles/Login.module.css';
-import { publicRequest } from './config';
+import { publicRequest } from '../config';
 
-const login = () => {
+const Login = () => {
   const idRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const pwdRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const router = useRouter();
@@ -59,4 +59,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;

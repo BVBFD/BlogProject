@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Facebook, Pinterest, Twitter, Instagram } from '@mui/icons-material';
 import { Pagination, CircularProgress, Stack } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
-import { publicRequest } from './config';
+import { publicRequest } from '../config';
 
 const Home = ({ posts }: any) => {
   const [count, setCount] = useState<number>();

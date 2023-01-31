@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/user';
 import styles from '../styles/Contact.module.css';
-import { publicRequest } from './config';
+import { publicRequest } from '../config';
 
-const contact = () => {
+const Contact = () => {
   const [name, setName] = useState('');
   const [customerEmail, setCustomerEmail] = useState('');
   const [number, setNumber] = useState('');
@@ -14,7 +14,7 @@ const contact = () => {
 
   useEffect(() => {
     setOriginEmail(email);
-  }, []);
+  }, [email]);
 
   const onSendEmail = async (event: any) => {
     event.preventDefault();
@@ -70,4 +70,4 @@ const contact = () => {
   );
 };
 
-export default contact;
+export default Contact;
