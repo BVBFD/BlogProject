@@ -9,13 +9,13 @@ import 'highlight.js/styles/vs2015.css';
 import { publicRequest } from '../../config';
 import Head from 'next/head';
 import { CircularProgress } from '@mui/material';
-import { GetServerSidePropsContext } from 'next/types';
+// import { GetServerSidePropsContext } from 'next/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';
 // import { GetServerSidePropsContext } from 'next';
 
-const PostPage = ({ ps }: any) => {
-  // const [post, setPost] = useState<any>();
+const PostPage = () => {
+  const [post, setPost] = useState<any>();
   const [editBtnIndex, setEditBtnIndex] = useState<boolean>(false);
   const router = useRouter();
   const { id } = router.query;
@@ -23,11 +23,11 @@ const PostPage = ({ ps }: any) => {
   // const [getDataSSR, setGetDataSSR] = useState(false);
 
   useEffect(() => {
-    // const getPostOnClient = async () => {
-    //   const res = await publicRequest.get(`/posts/${id}`);
-    //   setPost(res.data);
-    // };
-    // getPostOnClient();
+    const getPostOnClient = async () => {
+      const res = await publicRequest.get(`/posts/${id}`);
+      setPost(res.data);
+    };
+    getPostOnClient();
 
     document
       .querySelectorAll('.videoImgs')
@@ -39,7 +39,7 @@ const PostPage = ({ ps }: any) => {
   }, [editBtnIndex, id]);
 
   const inputText = () => {
-    return { __html: `${ps.text}` };
+    return { __html: `${post.text}` };
   };
 
   const deletePost = async () => {
@@ -69,25 +69,25 @@ const PostPage = ({ ps }: any) => {
     <section className={styles.postPage}>
       <Head>
         {/* SEO */}
-        <title>{ps.title}</title>
+        <title>{post.title}</title>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link
           rel='icon'
           href='https://res.cloudinary.com/dewa3t2gi/image/upload/v1674981291/qyeb9rvghfair1pkgqud.png'
         />
-        <meta name='description' content={ps.title} />
-        <meta property='og:title' content={ps.title} />
+        <meta name='description' content={post.title} />
+        <meta property='og:title' content={post.title} />
         <meta
           property='og:url'
-          content={`https://www.lsevina126.asia/post/${ps.title}/${ps._id}`}
+          content={`https://lsevina126.netlify.app/post/${post.title}/${post._id}`}
         />
         <meta property='og:type' content='website' />
-        <meta property='og:site_name' content={ps.title} />
-        <meta property='og:image' content={ps.imgUrl} />
-        <meta property='og:description' content={ps.title} />
+        <meta property='og:site_name' content={post.title} />
+        <meta property='og:image' content={post.imgUrl} />
+        <meta property='og:description' content={post.title} />
         <link
           rel='canonical'
-          href={`https://www.lsevina126.asia/post/${ps.title}/${ps._id}`}
+          href={`https://lsevina126.netlify.app/post/${post.title}/${post._id}`}
         />
         {/* SEO */}
         <link
@@ -115,7 +115,7 @@ const PostPage = ({ ps }: any) => {
       <div className={styles.postBox}>
         <div className={styles.postImgTextBox}>
           <div className={styles.postTitleImgBox}>
-            {ps?.imgUrl === '' ? (
+            {post?.imgUrl === '' ? (
               <Image
                 src={
                   'https://res.cloudinary.com/dewa3t2gi/image/upload/v1675150372/omlojqzvdujpd3hhtpap.png'
@@ -125,9 +125,9 @@ const PostPage = ({ ps }: any) => {
                 height={1080}
               />
             ) : (
-              ps && (
+              post && (
                 <Image
-                  src={ps?.imgUrl}
+                  src={post?.imgUrl}
                   alt=''
                   width={1920}
                   height={1080}
@@ -139,9 +139,9 @@ const PostPage = ({ ps }: any) => {
           <div className={styles.postTextBox}>
             <header className={styles.postHeader}>
               <p>
-                Category: <span>{ps.catName}</span>
+                Category: <span>{post.catName}</span>
               </p>
-              <span>{ps.title}</span>
+              <span>{post.title}</span>
               <div>
                 <Edit
                   onClick={() => {
@@ -155,18 +155,18 @@ const PostPage = ({ ps }: any) => {
                 <Delete onClick={deletePost} />
               </div>
             </header>
-            {!ps ? (
+            {!post ? (
               <></>
             ) : (
               <div className={styles.authorAndDate}>
                 <p>
-                  Author: <span>{ps.author}</span>
+                  Author: <span>{post.author}</span>
                 </p>
-                <span>{new Date(ps.createdAt).toDateString()}</span>
+                <span>{new Date(post.createdAt).toDateString()}</span>
               </div>
             )}
             <div className='ql-snow'>
-              {!ps ? (
+              {!post ? (
                 <div className={styles.circularBox}>
                   <CircularProgress size={60} />
                 </div>
@@ -184,18 +184,18 @@ const PostPage = ({ ps }: any) => {
       </div>
     </section>
   ) : (
-    <Write post={ps} setEditBtnIndex={setEditBtnIndex} />
+    <Write post={post} setEditBtnIndex={setEditBtnIndex} />
   );
 };
 
 export default PostPage;
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const res = await publicRequest.get(`/posts/${ctx.query.id}`);
+// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+//   const res = await publicRequest.get(`/posts/${ctx.query.id}`);
 
-  return {
-    props: {
-      ps: res.data,
-    },
-  };
-};
+//   return {
+//     props: {
+//       ps: res.data,
+//     },
+//   };
+// };
