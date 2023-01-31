@@ -14,19 +14,18 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';
 
 const PostPage = ({ ps }: any) => {
-  // const [post, setPost] = useState<any>();
+  const [post, setPost] = useState<any>();
   const [editBtnIndex, setEditBtnIndex] = useState<boolean>(false);
   const router = useRouter();
   const { id } = router.query;
   const user = useSelector((state: RootState) => state.user);
-  // const [getDataSSR, setGetDataSSR] = useState(false);
 
   useEffect(() => {
-    // const getPostOnClient = async () => {
-    //   const res = await publicRequest.get(`/posts/${id}`);
-    //   setPost(res.data);
-    // };
-    // getPostOnClient();
+    const getPostOnClient = async () => {
+      const res = await publicRequest.get(`/posts/${id}`);
+      setPost(res.data);
+    };
+    getPostOnClient();
 
     document
       .querySelectorAll('.videoImgs')
@@ -38,7 +37,7 @@ const PostPage = ({ ps }: any) => {
   }, [editBtnIndex, id]);
 
   const inputText = () => {
-    return { __html: `${ps.text}` };
+    return { __html: `${post.text}` };
   };
 
   const deletePost = async () => {
@@ -111,37 +110,24 @@ const PostPage = ({ ps }: any) => {
         <script src='https://unpkg.com/babel-standalone@6/babel.min.js'></script>
         <script type='text/babel' src='/my-scripts.js'></script>
       </Head>
-      {ps && (
+      {post ? (
         <div className={styles.postBox}>
           <div className={styles.postImgTextBox}>
             <div className={styles.postTitleImgBox}>
-              {ps?.imgUrl === '' ? (
-                <Image
-                  src={
-                    'https://res.cloudinary.com/dewa3t2gi/image/upload/v1675150372/omlojqzvdujpd3hhtpap.png'
-                  }
-                  alt='default'
-                  width={1920}
-                  height={1080}
-                />
-              ) : (
-                ps && (
-                  <Image
-                    src={ps?.imgUrl}
-                    alt=''
-                    width={1920}
-                    height={1080}
-                    crossOrigin='anonymous'
-                  />
-                )
-              )}
+              <Image
+                src={post?.imgUrl}
+                alt=''
+                width={1920}
+                height={1080}
+                crossOrigin='anonymous'
+              />
             </div>
             <div className={styles.postTextBox}>
               <header className={styles.postHeader}>
                 <p>
-                  Category: <span>{ps.catName}</span>
+                  Category: <span>{post?.catName}</span>
                 </p>
-                <span>{ps.title}</span>
+                <span>{post?.title}</span>
                 <div>
                   <Edit
                     onClick={() => {
@@ -155,37 +141,31 @@ const PostPage = ({ ps }: any) => {
                   <Delete onClick={deletePost} />
                 </div>
               </header>
-              {!ps ? (
-                <></>
-              ) : (
-                <div className={styles.authorAndDate}>
-                  <p>
-                    Author: <span>{ps.author}</span>
-                  </p>
-                  <span>{new Date(ps.createdAt).toDateString()}</span>
-                </div>
-              )}
+              <div className={styles.authorAndDate}>
+                <p>
+                  Author: <span>{post?.author}</span>
+                </p>
+                <span>{new Date(post?.createdAt).toDateString()}</span>
+              </div>
               <div className='ql-snow'>
-                {!ps ? (
-                  <div className={styles.circularBox}>
-                    <CircularProgress size={60} />
-                  </div>
-                ) : (
-                  <div
-                    // @ts-ignore
-                    class='ql-editor'
-                    className={styles.postContentText}
-                    dangerouslySetInnerHTML={inputText()}
-                  ></div>
-                )}
+                <div
+                  // @ts-ignore
+                  class='ql-editor'
+                  className={styles.postContentText}
+                  dangerouslySetInnerHTML={inputText()}
+                ></div>
               </div>
             </div>
           </div>
         </div>
+      ) : (
+        <div className={styles.circularBox}>
+          <CircularProgress size={60} />
+        </div>
       )}
     </section>
   ) : (
-    ps && <Write post={ps} setEditBtnIndex={setEditBtnIndex} />
+    <Write post={post} setEditBtnIndex={setEditBtnIndex} />
   );
 };
 
