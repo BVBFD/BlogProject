@@ -3,7 +3,6 @@ import styles from '../../styles/PostPage.module.css';
 import { Edit, Delete } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Write from '../write';
 
 import 'highlight.js/styles/vs2015.css';
 import { publicRequest } from '../../config';
@@ -12,6 +11,7 @@ import { CircularProgress } from '@mui/material';
 import { GetServerSidePropsContext } from 'next/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';
+import dynamic from 'next/dynamic';
 
 const PostPage = ({ ps }: any) => {
   const [post, setPost] = useState<any>();
@@ -19,6 +19,7 @@ const PostPage = ({ ps }: any) => {
   const router = useRouter();
   const { id } = router.query;
   const user = useSelector((state: RootState) => state.user);
+  const Write = dynamic(() => import('../write'));
 
   useEffect(() => {
     const getPostOnClient = async () => {
