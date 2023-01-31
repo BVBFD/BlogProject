@@ -172,7 +172,7 @@ const PostPage = ({ ps }: any) => {
 
 export default PostPage;
 
-export const getStaticPaths = async (ctx: GetServerSidePropsContext) => {
+export const getStaticProps = async (ctx: GetServerSidePropsContext) => {
   const res = await publicRequest.get(`/posts/${ctx.query.id}`);
 
   return {
