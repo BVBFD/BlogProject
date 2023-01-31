@@ -8,7 +8,7 @@ import 'highlight.js/styles/vs2015.css';
 import { publicRequest } from '../../config';
 import Head from 'next/head';
 import { CircularProgress } from '@mui/material';
-import { GetServerSidePropsContext } from 'next/types';
+import { GetServerSidePropsContext, GetStaticPathsContext } from 'next/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';
 import dynamic from 'next/dynamic';
@@ -172,12 +172,30 @@ const PostPage = ({ ps }: any) => {
 
 export default PostPage;
 
-export const getStaticProps = async (ctx: GetServerSidePropsContext) => {
-  const res = await publicRequest.get(`/posts/${ctx.query.id}`);
+// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+//   const res = await publicRequest.get(`/posts/${ctx.query.id}`);
 
-  return {
-    props: {
-      ps: res.data,
-    },
-  };
+//   return {
+//     props: {
+//       ps: res.data,
+//     },
+//   };
+// };
+
+export const getStaticPaths = async () => {
+  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+    return {
+      paths: [],
+      fallback: 'blocking',
+    };
+  }
+
+  const res = await publicRequest.get(`/posts`);
+  const posts = res.data.reverse();
+
+  const paths = posts.map((post: any) => ({
+    params: { id: post._id },
+  }));
+
+  return { paths, fallback: false };
 };
