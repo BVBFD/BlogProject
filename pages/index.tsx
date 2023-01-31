@@ -185,7 +185,7 @@ const Home = () => {
               alt='sidebarImg'
               width={30}
               height={30}
-              src={'/imgs/charina.gif'}
+              src='https://res.cloudinary.com/dewa3t2gi/image/upload/v1675172408/a1pdcxclbrvilga2cebl.gif'
             />
             <p>Front-End, Back-End, Web Developer</p>
             <p>Sharing My Value and Knowledge For Others</p>
