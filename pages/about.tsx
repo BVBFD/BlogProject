@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import styles from '../styles/About.module.css';
+import Image from "next/image";
+import Link from "next/link";
+import styles from "../styles/About.module.css";
 
 const about = () => {
   return (
@@ -8,7 +8,7 @@ const about = () => {
       <header className={styles.pageTitle}>About</header>
       <div className={styles.aboutIntroBox}>
         <div className={styles.imgBox}>
-          <Image src={'/imgs/charina.gif'} alt='' width={300} height={300} />
+          <Image src={"/imgs/charina.gif"} alt="" width={300} height={300} />
         </div>
         <div className={styles.aboutExplainBox}>
           <header>This Blog is ...</header>
@@ -23,8 +23,8 @@ const about = () => {
             <br />I am always trying to keep up with new skills trends.
           </p>
           <Link
-            href={'https://bvbfd.github.io/Portfolio-Website-ver2.0/'}
-            target={'_blank'}
+            href={"https://bvbfd.github.io/Portfolio-Website-ver2.0/"}
+            target={"_blank"}
             passHref
           >
             <button>Visit Profile</button>
