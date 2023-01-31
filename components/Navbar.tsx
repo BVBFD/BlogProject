@@ -60,15 +60,11 @@ const Navbar = () => {
             <span onClick={onLogout}>Log-out</span>
             <Link href={'/setting'} passHref>
               <div className={styles.profileImgBox}>
-                <Image
+                <img
                   width={1}
                   height={1}
                   alt=''
-                  src={
-                    id
-                      ? `${profilePic}`
-                      : 'https://res.cloudinary.com/dewa3t2gi/image/upload/v1675150372/omlojqzvdujpd3hhtpap.png'
-                  }
+                  src={`${profilePic}`}
                   crossOrigin='anonymous'
                 />
               </div>
@@ -95,7 +91,7 @@ const Navbar = () => {
         )}
       </div>
       <ul ref={sidebarUlRef} className={`${styles.sidebarUl} ${styles.close}`}>
-        <Link href={''} passHref>
+        <Link href={'/'} passHref>
           Home
         </Link>
         <Link href={'/about'} passHref>
@@ -121,15 +117,11 @@ const Navbar = () => {
             <span onClick={onLogout}>Log-out</span>
             <Link href={'/setting'} passHref>
               <div className={styles.profileImgBox}>
-                <Image
+                <img
                   width={1}
                   height={1}
                   alt=''
-                  src={
-                    id
-                      ? `${profilePic}`
-                      : 'https://res.cloudinary.com/dewa3t2gi/image/upload/v1675150372/omlojqzvdujpd3hhtpap.png'
-                  }
+                  src={`${profilePic}`}
                   crossOrigin='anonymous'
                 />
               </div>

@@ -181,7 +181,7 @@ const Home = () => {
         <div className={styles.sidebar}>
           <header>About Me</header>
           <div className={styles.imgBox}>
-            <Image
+            <img
               alt='sidebarImg'
               width={30}
               height={30}
