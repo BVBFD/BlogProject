@@ -65,7 +65,7 @@ const PostPage = ({ ps }: any) => {
   };
 
   if (router.isFallback) {
-    router.push('/');
+    return <div>Loading...</div>;
   }
 
   return !editBtnIndex ? (
