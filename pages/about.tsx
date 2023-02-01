@@ -8,7 +8,12 @@ const About = () => {
       <header className={styles.pageTitle}>About</header>
       <div className={styles.aboutIntroBox}>
         <div className={styles.imgBox}>
-          <Image src='/imgs/charina.gif' alt='' width={300} height={300} />
+          <Image
+            src='https://res.cloudinary.com/dewa3t2gi/image/upload/v1675172408/a1pdcxclbrvilga2cebl.gif'
+            alt=''
+            width={300}
+            height={300}
+          />
         </div>
         <div className={styles.aboutExplainBox}>
           <header>This Blog is ...</header>
