@@ -184,7 +184,7 @@ export default PostPage;
 
 export const getStaticPaths = async () => {
   const res = await publicRequest.get(`https://api.lsevina126.asia/posts`);
-  const posts = res.data.reverse();
+  const posts = res.data;
 
   const paths = posts.map((post: any) => ({
     params: { title: post._id },
