@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import 'highlight.js/styles/vs2015.css';
 // import { publicRequest } from '../../config';
 import Head from 'next/head';
-import { CircularProgress } from '@mui/material';
+// import { CircularProgress } from '@mui/material';
 import { GetServerSidePropsContext } from 'next/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';
@@ -68,25 +68,25 @@ const PostPage = ({ ps }: any) => {
     <section className={styles.postPage}>
       <Head>
         {/* SEO */}
-        <title>{ps?.title}</title>
+        <title>{ps.title}</title>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link
           rel='icon'
           href='https://res.cloudinary.com/dewa3t2gi/image/upload/v1674981291/qyeb9rvghfair1pkgqud.png'
         />
-        <meta name='description' content={ps?.title} />
-        <meta property='og:title' content={ps?.title} />
+        <meta name='description' content={ps.title} />
+        <meta property='og:title' content={ps.title} />
         <meta
           property='og:url'
-          content={`https://lsevina126.netlify.app/post/${ps?.title}/${ps?._id}`}
+          content={`https://lsevina126.netlify.app/post/${ps.title}/${ps._id}`}
         />
         <meta property='og:type' content='website' />
-        <meta property='og:site_name' content={ps?.title} />
-        <meta property='og:image' content={ps?.imgUrl} />
-        <meta property='og:description' content={ps?.title} />
+        <meta property='og:site_name' content={ps.title} />
+        <meta property='og:image' content={ps.imgUrl} />
+        <meta property='og:description' content={ps.title} />
         <link
           rel='canonical'
-          href={`https://lsevina126.netlify.app/post/${ps?.title}/${ps?._id}`}
+          href={`https://lsevina126.netlify.app/post/${ps.title}/${ps._id}`}
         />
         {/* SEO */}
         {/* <link
@@ -111,59 +111,59 @@ const PostPage = ({ ps }: any) => {
         <script src='https://unpkg.com/babel-standalone@6/babel.min.js'></script>
         <script type='text/babel' src='/my-scripts.js'></script> */}
       </Head>
-      {ps ? (
-        <div className={styles.postBox}>
-          <div className={styles.postImgTextBox}>
-            <div className={styles.postTitleImgBox}>
-              <Image
-                src={ps?.imgUrl}
-                alt=''
-                width={1920}
-                height={1080}
-                crossOrigin='anonymous'
-              />
+      {/* {ps ?  */}
+      <div className={styles.postBox}>
+        <div className={styles.postImgTextBox}>
+          <div className={styles.postTitleImgBox}>
+            <Image
+              src={ps?.imgUrl}
+              alt=''
+              width={1920}
+              height={1080}
+              crossOrigin='anonymous'
+            />
+          </div>
+          <div className={styles.postTextBox}>
+            <header className={styles.postHeader}>
+              <p>
+                Category: <span>{ps?.catName}</span>
+              </p>
+              <span>{ps?.title}</span>
+              <div>
+                <Edit
+                  onClick={() => {
+                    if (!editBtnIndex) {
+                      setEditBtnIndex(true);
+                    } else {
+                      setEditBtnIndex(false);
+                    }
+                  }}
+                />
+                <Delete onClick={deletePost} />
+              </div>
+            </header>
+            <div className={styles.authorAndDate}>
+              <p>
+                Author: <span>{ps?.author}</span>
+              </p>
+              <span>{new Date(ps?.createdAt).toDateString()}</span>
             </div>
-            <div className={styles.postTextBox}>
-              <header className={styles.postHeader}>
-                <p>
-                  Category: <span>{ps?.catName}</span>
-                </p>
-                <span>{ps?.title}</span>
-                <div>
-                  <Edit
-                    onClick={() => {
-                      if (!editBtnIndex) {
-                        setEditBtnIndex(true);
-                      } else {
-                        setEditBtnIndex(false);
-                      }
-                    }}
-                  />
-                  <Delete onClick={deletePost} />
-                </div>
-              </header>
-              <div className={styles.authorAndDate}>
-                <p>
-                  Author: <span>{ps?.author}</span>
-                </p>
-                <span>{new Date(ps?.createdAt).toDateString()}</span>
-              </div>
-              <div className='ql-snow'>
-                <div
-                  // @ts-ignore
-                  class='ql-editor'
-                  className={styles.postContentText}
-                  dangerouslySetInnerHTML={inputText()}
-                ></div>
-              </div>
+            <div className='ql-snow'>
+              <div
+                // @ts-ignore
+                class='ql-editor'
+                className={styles.postContentText}
+                dangerouslySetInnerHTML={inputText()}
+              ></div>
             </div>
           </div>
         </div>
-      ) : (
-        <div className={styles.circularBox}>
-          <CircularProgress size={60} />
-        </div>
-      )}
+      </div>
+      {/* : (
+         <div className={styles.circularBox}>
+           <CircularProgress size={60} />
+         </div>
+       )} */}
     </section>
   ) : (
     <Write post={ps} setEditBtnIndex={setEditBtnIndex} />
