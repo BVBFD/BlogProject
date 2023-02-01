@@ -22,9 +22,8 @@ const PostPage = ({ ps }: any) => {
   const Write = dynamic(() => import('../write'));
 
   useEffect(() => {
-    const getPostOnClient = async () => {
-      const res = await publicRequest.get(`/posts/${id}`);
-      setPost(res.data);
+    const getPostOnClient = () => {
+      setPost(ps);
     };
     getPostOnClient();
 
@@ -173,11 +172,12 @@ const PostPage = ({ ps }: any) => {
 export default PostPage;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const res = await publicRequest.get(`/posts/${ctx.query.id}`);
+  const res = await fetch(`/posts/${ctx.query.id}`);
+  const ps = await res.json();
 
   return {
     props: {
-      ps: res.data,
+      ps,
     },
   };
 };
