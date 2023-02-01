@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Banner from '../components/Banner';
 import Posts from '../components/Posts';
 import styles from '../styles/Home.module.css';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { Facebook, Pinterest, Twitter, Instagram } from '@mui/icons-material';
 import { Pagination, CircularProgress, Stack } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
@@ -118,7 +118,7 @@ const Home = () => {
           property='og:title'
           content='Blog Project with React and NodeJS'
         />
-        <meta property='og:url' content='https://www.lsevina126.asia' />
+        <meta property='og:url' content='https://lsevina126.netlify.app' />
         <meta property='og:type' content='website' />
         <meta property='og:site_name' content='Blog Project for lsevina126' />
         <meta
@@ -129,7 +129,7 @@ const Home = () => {
           property='og:description'
           content='Blog Project for lsevina126 with React and NodeJS'
         />
-        <link rel='canonical' href='https://www.lsevina126.asia' />
+        <link rel='canonical' href='https://lsevina126.netlify.app' />
         {/* SEO */}
         <link
           rel='icon'
