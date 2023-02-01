@@ -110,11 +110,7 @@ const Home = () => {
   }, [searchText]);
 
   if (router.isFallback) {
-    return (
-      <div className={styles.circularProgress} style={{ flex: 3 }}>
-        <CircularProgress />
-      </div>
-    );
+    return <div className={styles.circularProgress}>Loading...</div>;
   }
 
   return (
