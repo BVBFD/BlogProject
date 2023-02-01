@@ -26,7 +26,7 @@ const PostPage = ({ ps }: any) => {
       const res = await publicRequest.get(`/posts/${id}`);
       setPost(res.data);
     };
-    !ps && getPostOnClient();
+    getPostOnClient();
 
     document
       .querySelectorAll('.videoImgs')
