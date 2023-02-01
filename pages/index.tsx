@@ -7,6 +7,7 @@ import { Facebook, Pinterest, Twitter, Instagram } from '@mui/icons-material';
 import { Pagination, CircularProgress, Stack } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import { publicRequest } from '../config';
+import { useRouter } from 'next/router';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -21,6 +22,7 @@ const Home = () => {
   const [onProgress, setOnProgress] = useState<boolean>(false);
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const router = useRouter();
 
   useEffect(() => {
     const getPosts = async () => {
@@ -106,6 +108,14 @@ const Home = () => {
       }
     }
   }, [searchText]);
+
+  if (router.isFallback) {
+    return (
+      <div className={styles.circularProgress} style={{ flex: 3 }}>
+        <CircularProgress />
+      </div>
+    );
+  }
 
   return (
     <>

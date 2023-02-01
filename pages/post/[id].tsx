@@ -64,14 +64,6 @@ const PostPage = ({ ps }: any) => {
     }
   };
 
-  if (router.isFallback) {
-    return (
-      <section className={styles.postPage}>
-        <div className={styles.postBox}>Loading...</div>
-      </section>
-    );
-  }
-
   return !editBtnIndex ? (
     <section className={styles.postPage}>
       <Head>
