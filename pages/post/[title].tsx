@@ -38,7 +38,7 @@ const PostPage = ({ ps }: any) => {
   }, [editBtnIndex, id]);
 
   const inputText = () => {
-    return { __html: `${ps.text}` };
+    return { __html: `${post.text}` };
   };
 
   const deletePost = async () => {
