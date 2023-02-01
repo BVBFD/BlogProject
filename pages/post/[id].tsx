@@ -8,7 +8,7 @@ import 'highlight.js/styles/vs2015.css';
 import { publicRequest } from '../../config';
 import Head from 'next/head';
 import { CircularProgress } from '@mui/material';
-import { GetServerSidePropsContext } from 'next/types';
+// import { GetServerSidePropsContext } from 'next/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';
 import dynamic from 'next/dynamic';
@@ -65,7 +65,11 @@ const PostPage = ({ ps }: any) => {
   };
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return (
+      <section className={styles.postPage}>
+        <div className={styles.postBox}>Loading...</div>
+      </section>
+    );
   }
 
   return !editBtnIndex ? (
