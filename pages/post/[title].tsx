@@ -12,6 +12,7 @@ import { GetServerSidePropsContext } from 'next/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';
 import dynamic from 'next/dynamic';
+import axios from 'axios';
 
 const PostPage = ({ ps }: any) => {
   const [post, setPost] = useState<any>();
@@ -89,7 +90,7 @@ const PostPage = ({ ps }: any) => {
           href={`https://lsevina126.netlify.app/post/${ps?.title}/${ps?._id}`}
         />
         {/* SEO */}
-        {/* <link
+        <link
           rel='stylesheet'
           href='https://fonts.googleapis.com/icon?family=Material+Icons'
         />
@@ -109,7 +110,7 @@ const PostPage = ({ ps }: any) => {
         ></script>
         <script src='https://unpkg.com/react-quill@1.3.3/dist/react-quill.js'></script>
         <script src='https://unpkg.com/babel-standalone@6/babel.min.js'></script>
-        <script type='text/babel' src='/my-scripts.js'></script> */}
+        <script type='text/babel' src='/my-scripts.js'></script>
       </Head>
       {post ? (
         <div className={styles.postBox}>
@@ -183,31 +184,23 @@ export default PostPage;
 // };
 
 export const getStaticPaths = async () => {
-  const res = await publicRequest.get(`https://api.lsevina126.asia/posts`);
-  const posts = res.data;
+  const res = await fetch(`https://api.lsevina126.asia/posts`);
+  const posts = await res.json();
 
   const paths = posts.map((post: any) => ({
     params: { title: post._id },
   }));
 
-  return { paths, fallback: 'blocking' };
+  return { paths, fallback: false };
 };
 
 export const getStaticProps = async ({ params }: any) => {
-  try {
-    const res = await publicRequest.get(
-      `https://api.lsevina126.asia/posts/${params.title}`
-    );
-    const ps = await res.data;
+  const res = await fetch(`https://api.lsevina126.asia/posts/${params.title}`);
+  const ps = await res.json();
 
-    return {
-      props: {
-        ps,
-      },
-    };
-  } catch (error) {
-    return {
-      notFound: true,
-    };
-  }
+  return {
+    props: {
+      ps,
+    },
+  };
 };
