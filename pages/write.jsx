@@ -248,6 +248,14 @@ const Write = ({ post }) => {
     }
   };
 
+  if (router.isFallback) {
+    return (
+      <section className={styles.write}>
+        <div>Loading...</div>
+      </section>
+    );
+  }
+
   const handleEdit = async (event) => {
     event.preventDefault();
     if (firstSubmit) {
