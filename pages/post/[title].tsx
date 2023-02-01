@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import 'highlight.js/styles/vs2015.css';
-// import { publicRequest } from '../../config';
+import { publicRequest } from '../../config';
 import Head from 'next/head';
 import { CircularProgress } from '@mui/material';
 import { GetServerSidePropsContext } from 'next/types';
@@ -22,8 +22,9 @@ const PostPage = ({ ps }: any) => {
   const Write = dynamic(() => import('../write'));
 
   useEffect(() => {
-    const getPostOnClient = () => {
-      setPost(ps);
+    const getPostOnClient = async () => {
+      const res = await publicRequest.get(`/posts/${id}`);
+      setPost(res.data);
     };
     getPostOnClient();
 
@@ -88,7 +89,7 @@ const PostPage = ({ ps }: any) => {
           href={`https://lsevina126.netlify.app/post/${ps.title}/${ps._id}`}
         />
         {/* SEO */}
-        {/* <link
+        <link
           rel='stylesheet'
           href='https://fonts.googleapis.com/icon?family=Material+Icons'
         />
@@ -108,14 +109,14 @@ const PostPage = ({ ps }: any) => {
         ></script>
         <script src='https://unpkg.com/react-quill@1.3.3/dist/react-quill.js'></script>
         <script src='https://unpkg.com/babel-standalone@6/babel.min.js'></script>
-        <script type='text/babel' src='/my-scripts.js'></script> */}
+        <script type='text/babel' src='/my-scripts.js'></script>
       </Head>
       {post ? (
         <div className={styles.postBox}>
           <div className={styles.postImgTextBox}>
             <div className={styles.postTitleImgBox}>
               <Image
-                src={post.imgUrl}
+                src={post?.imgUrl}
                 alt=''
                 width={1920}
                 height={1080}
@@ -125,9 +126,9 @@ const PostPage = ({ ps }: any) => {
             <div className={styles.postTextBox}>
               <header className={styles.postHeader}>
                 <p>
-                  Category: <span>{post.catName}</span>
+                  Category: <span>{post?.catName}</span>
                 </p>
-                <span>{post.title}</span>
+                <span>{post?.title}</span>
                 <div>
                   <Edit
                     onClick={() => {
@@ -143,9 +144,9 @@ const PostPage = ({ ps }: any) => {
               </header>
               <div className={styles.authorAndDate}>
                 <p>
-                  Author: <span>{post.author}</span>
+                  Author: <span>{post?.author}</span>
                 </p>
-                <span>{new Date(post.createdAt).toDateString()}</span>
+                <span>{new Date(post?.createdAt).toDateString()}</span>
               </div>
               <div className='ql-snow'>
                 <div
@@ -172,12 +173,11 @@ const PostPage = ({ ps }: any) => {
 export default PostPage;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const res = await fetch(`https://api.lsevina126.asia/posts/${ctx.query.id}`);
-  const ps = await res.json();
+  const res = await publicRequest.get(`/posts/${ctx.query.id}`);
 
   return {
     props: {
-      ps,
+      ps: res.data,
     },
   };
 };
