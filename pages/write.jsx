@@ -284,14 +284,6 @@ const Write = ({ post }) => {
     };
   }, []);
 
-  if (router.isFallback) {
-    return (
-      <div>
-        <CircularProgress size={60} />
-      </div>
-    );
-  }
-
   return (
     <section className={styles.write}>
       {!isFetching ? (

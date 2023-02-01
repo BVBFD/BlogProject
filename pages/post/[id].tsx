@@ -64,14 +64,6 @@ const PostPage = ({ ps }: any) => {
     }
   };
 
-  if (router.isFallback) {
-    return (
-      <div className={styles.circularBox}>
-        <CircularProgress size={60} />
-      </div>
-    );
-  }
-
   return !editBtnIndex ? (
     <section className={styles.postPage}>
       <Head>
@@ -182,7 +174,7 @@ export const getStaticPaths = async () => {
     },
   }));
 
-  return { paths, fallback: true };
+  return { paths, fallback: 'blocking' };
 };
 
 export const getStaticProps = async ({ params }: any) => {
