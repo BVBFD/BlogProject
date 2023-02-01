@@ -116,7 +116,7 @@ const PostPage = ({ ps }: any) => {
         <div className={styles.postImgTextBox}>
           <div className={styles.postTitleImgBox}>
             <Image
-              src={ps?.imgUrl}
+              src={ps.imgUrl}
               alt=''
               width={1920}
               height={1080}
@@ -126,9 +126,9 @@ const PostPage = ({ ps }: any) => {
           <div className={styles.postTextBox}>
             <header className={styles.postHeader}>
               <p>
-                Category: <span>{ps?.catName}</span>
+                Category: <span>{ps.catName}</span>
               </p>
-              <span>{ps?.title}</span>
+              <span>{ps.title}</span>
               <div>
                 <Edit
                   onClick={() => {
@@ -144,9 +144,9 @@ const PostPage = ({ ps }: any) => {
             </header>
             <div className={styles.authorAndDate}>
               <p>
-                Author: <span>{ps?.author}</span>
+                Author: <span>{ps.author}</span>
               </p>
-              <span>{new Date(ps?.createdAt).toDateString()}</span>
+              <span>{new Date(ps.createdAt).toDateString()}</span>
             </div>
             <div className='ql-snow'>
               <div
