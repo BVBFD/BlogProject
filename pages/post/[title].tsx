@@ -110,59 +110,60 @@ const PostPage = ({ ps }: any) => {
         <script src='https://unpkg.com/babel-standalone@6/babel.min.js'></script>
         <script type='text/babel' src='/my-scripts.js'></script>
       </Head>
-      {ps ? (
-        <div className={styles.postBox}>
-          <div className={styles.postImgTextBox}>
-            <div className={styles.postTitleImgBox}>
-              <Image
-                src={ps.imgUrl}
-                alt=''
-                width={1920}
-                height={1080}
-                crossOrigin='anonymous'
-              />
+      {/* {ps ? */}(
+      <div className={styles.postBox}>
+        <div className={styles.postImgTextBox}>
+          <div className={styles.postTitleImgBox}>
+            <Image
+              src={ps.imgUrl}
+              alt=''
+              width={1920}
+              height={1080}
+              crossOrigin='anonymous'
+            />
+          </div>
+          <div className={styles.postTextBox}>
+            <header className={styles.postHeader}>
+              <p>
+                Category: <span>{ps.catName}</span>
+              </p>
+              <span>{ps.title}</span>
+              <div>
+                <Edit
+                  onClick={() => {
+                    if (!editBtnIndex) {
+                      setEditBtnIndex(true);
+                    } else {
+                      setEditBtnIndex(false);
+                    }
+                  }}
+                />
+                <Delete onClick={deletePost} />
+              </div>
+            </header>
+            <div className={styles.authorAndDate}>
+              <p>
+                Author: <span>{ps.author}</span>
+              </p>
+              <span>{new Date(ps.createdAt).toDateString()}</span>
             </div>
-            <div className={styles.postTextBox}>
-              <header className={styles.postHeader}>
-                <p>
-                  Category: <span>{ps.catName}</span>
-                </p>
-                <span>{ps.title}</span>
-                <div>
-                  <Edit
-                    onClick={() => {
-                      if (!editBtnIndex) {
-                        setEditBtnIndex(true);
-                      } else {
-                        setEditBtnIndex(false);
-                      }
-                    }}
-                  />
-                  <Delete onClick={deletePost} />
-                </div>
-              </header>
-              <div className={styles.authorAndDate}>
-                <p>
-                  Author: <span>{ps.author}</span>
-                </p>
-                <span>{new Date(ps.createdAt).toDateString()}</span>
-              </div>
-              <div className='ql-snow'>
-                <div
-                  // @ts-ignore
-                  class='ql-editor'
-                  className={styles.postContentText}
-                  dangerouslySetInnerHTML={inputText()}
-                ></div>
-              </div>
+            <div className='ql-snow'>
+              <div
+                // @ts-ignore
+                class='ql-editor'
+                className={styles.postContentText}
+                dangerouslySetInnerHTML={inputText()}
+              ></div>
             </div>
           </div>
         </div>
-      ) : (
+      </div>
+      )
+      {/* : (
         <div className={styles.circularBox}>
           <CircularProgress size={60} />
         </div>
-      )}
+      )} */}
     </section>
   ) : (
     <Write post={ps} setEditBtnIndex={setEditBtnIndex} />
