@@ -238,7 +238,6 @@ const Write = ({ post }) => {
         );
 
         router.push(`/post/${res.data?.savedNewPost?._id}`);
-        router.push(`/`);
       } catch (error) {
         window.alert(error);
       }
