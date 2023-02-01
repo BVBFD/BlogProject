@@ -172,7 +172,7 @@ const PostPage = ({ ps }: any) => {
 export default PostPage;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const res = await fetch(`https://api.lsevina126.asia/posts/${ctx.query.id}`);
+  const res = await fetch(`/posts/${ctx.query.id}`);
   const ps = await res.json();
 
   return {
