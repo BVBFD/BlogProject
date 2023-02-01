@@ -64,6 +64,10 @@ const PostPage = ({ ps }: any) => {
     }
   };
 
+  if (router.isFallback) {
+    router.push('/');
+  }
+
   return !editBtnIndex ? (
     <section className={styles.postPage}>
       <Head>

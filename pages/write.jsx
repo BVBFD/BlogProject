@@ -237,10 +237,6 @@ const Write = ({ post }) => {
           }
         );
 
-        if (router.isFallback) {
-          router.push('/');
-        }
-
         // router.push(`/post/${res.data?.savedNewPost?._id}`);
       } catch (error) {
         window.alert(error);
