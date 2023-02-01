@@ -10,7 +10,8 @@ const BASE_URL = 'https://api.lsevina126.asia';
 let Origin =
   'http://localhost:3000' ||
   'https://www.lsevina126.asia' ||
-  'https://lsevina126.netlify.app';
+  'https://lsevina126.netlify.app' ||
+  'https://9671-113-131-240-155.jp.ngrok.io';
 
 export const publicRequest = axios.create({
   baseURL: BASE_URL,
