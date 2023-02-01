@@ -194,14 +194,20 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }: any) => {
-  const res = await publicRequest.get(
-    `https://api.lsevina126.asia/posts/${params.title}`
-  );
-  const ps = await res.data;
+  try {
+    const res = await publicRequest.get(
+      `https://api.lsevina126.asia/posts/${params.title}`
+    );
+    const ps = await res.data;
 
-  return {
-    props: {
-      ps,
-    },
-  };
+    return {
+      props: {
+        ps,
+      },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 };
