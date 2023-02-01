@@ -63,11 +63,16 @@ const PostPage = ({ ps }: any) => {
       window.alert(err);
     }
   };
-  return router.isFallback ? (
-    <div className={styles.circularBox}>
-      <CircularProgress size={60} />
-    </div>
-  ) : !editBtnIndex ? (
+
+  if (router.isFallback) {
+    return (
+      <div className={styles.circularBox}>
+        <CircularProgress size={60} />
+      </div>
+    );
+  }
+
+  return !editBtnIndex ? (
     <section className={styles.postPage}>
       <Head>
         {/* SEO */}
