@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import 'highlight.js/styles/vs2015.css';
-import { publicRequest } from '../../config';
+// import { publicRequest } from '../../config';
 import Head from 'next/head';
 import { CircularProgress } from '@mui/material';
 import { GetServerSidePropsContext } from 'next/types';
@@ -88,7 +88,7 @@ const PostPage = ({ ps }: any) => {
           href={`https://lsevina126.netlify.app/post/${ps.title}/${ps._id}`}
         />
         {/* SEO */}
-        <link
+        {/* <link
           rel='stylesheet'
           href='https://fonts.googleapis.com/icon?family=Material+Icons'
         />
@@ -108,7 +108,7 @@ const PostPage = ({ ps }: any) => {
         ></script>
         <script src='https://unpkg.com/react-quill@1.3.3/dist/react-quill.js'></script>
         <script src='https://unpkg.com/babel-standalone@6/babel.min.js'></script>
-        <script type='text/babel' src='/my-scripts.js'></script>
+        <script type='text/babel' src='/my-scripts.js'></script> */}
       </Head>
       {post ? (
         <div className={styles.postBox}>
