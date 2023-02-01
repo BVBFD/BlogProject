@@ -8,7 +8,7 @@ import 'highlight.js/styles/vs2015.css';
 import { publicRequest } from '../../config';
 import Head from 'next/head';
 import { CircularProgress } from '@mui/material';
-import { GetServerSidePropsContext, GetStaticPropsContext } from 'next/types';
+import { GetServerSidePropsContext } from 'next/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';
 import dynamic from 'next/dynamic';
@@ -89,27 +89,6 @@ const PostPage = ({ ps }: any) => {
           href={`https://lsevina126.netlify.app/post/${ps.title}/${ps._id}`}
         />
         {/* SEO */}
-        <link
-          rel='stylesheet'
-          href='https://fonts.googleapis.com/icon?family=Material+Icons'
-        />
-        <link
-          rel='stylesheet'
-          href='https://unpkg.com/react-quill@1.3.3/dist/quill.snow.css'
-        />
-        <script
-          src='https://unpkg.com/react@16/umd/react.development.js'
-          // @ts-ignore
-          crossorigin
-        ></script>
-        <script
-          src='https://unpkg.com/react-dom@16/umd/react-dom.development.js'
-          // @ts-ignore
-          crossorigin
-        ></script>
-        <script src='https://unpkg.com/react-quill@1.3.3/dist/react-quill.js'></script>
-        <script src='https://unpkg.com/babel-standalone@6/babel.min.js'></script>
-        <script type='text/babel' src='/my-scripts.js'></script>
       </Head>
       {post ? (
         <div className={styles.postBox}>
@@ -172,36 +151,12 @@ const PostPage = ({ ps }: any) => {
 
 export default PostPage;
 
-// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-//   const res = await publicRequest.get(`/posts/${ctx.query.id}`);
-
-//   return {
-//     props: {
-//       ps: res.data,
-//     },
-//   };
-// };
-
-export const getStaticPaths = async () => {
-  const res = await publicRequest.get(`/posts`);
-  const posts = res.data.reverse();
-
-  const paths = posts.map((post: any) => ({
-    params: { id: post._id },
-  }));
-
-  return { paths, fallback: false };
-};
-
-export const getStaticProps = async ({ params }: any) => {
-  const res = await publicRequest.get(
-    `/posts/${params?.split('?')[1].split('=')[1]}`
-  );
-  const ps = await res.data;
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const res = await publicRequest.get(`/posts/${ctx.query.id}`);
 
   return {
     props: {
-      ps,
+      ps: res.data,
     },
   };
 };
