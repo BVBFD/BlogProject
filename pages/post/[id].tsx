@@ -8,7 +8,7 @@ import 'highlight.js/styles/vs2015.css';
 import { publicRequest } from '../../config';
 import Head from 'next/head';
 import { CircularProgress } from '@mui/material';
-// import { GetServerSidePropsContext } from 'next/types';
+import { GetServerSidePropsContext } from 'next/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';
 import dynamic from 'next/dynamic';
@@ -151,18 +151,18 @@ const PostPage = ({ ps }: any) => {
 
 export default PostPage;
 
-// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-//   const res = await fetch(
-//     `https://api.lsevina126.asia/posts/${ctx.query.id}?meta=true`
-//   );
-//   const ps = await res.json();
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const res = await fetch(
+    `https://api.lsevina126.asia/posts/${ctx.query.id}?meta=true`
+  );
+  const ps = await res.json();
 
-//   return {
-//     props: {
-//       ps,
-//     },
-//   };
-// };
+  return {
+    props: {
+      ps,
+    },
+  };
+};
 
 export const getStaticPaths = async () => {
   const res = await fetch(`https://api.lsevina126.asia/posts`);
