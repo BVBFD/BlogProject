@@ -8,7 +8,7 @@ import 'highlight.js/styles/vs2015.css';
 import { publicRequest } from '../../config';
 import Head from 'next/head';
 import { CircularProgress } from '@mui/material';
-import { GetServerSidePropsContext } from 'next/types';
+import { GetServerSidePropsContext, GetStaticPropsContext } from 'next/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';
 import dynamic from 'next/dynamic';
@@ -193,8 +193,10 @@ export const getStaticPaths = async () => {
   return { paths, fallback: false };
 };
 
-export const getStaticProps = async ({ param }: any) => {
-  const res = await publicRequest.get(`/posts/${param.id}`);
+export const getStaticProps = async ({ params }: any) => {
+  const res = await publicRequest.get(
+    `/posts/${params?.split('?')[1].split('=')[1]}`
+  );
   const ps = await res.data;
 
   return {
