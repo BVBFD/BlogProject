@@ -4,7 +4,6 @@ export default function Document() {
   return (
     <Html>
       <Head>
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link
           rel='icon'
           href='https://res.cloudinary.com/dewa3t2gi/image/upload/v1674981291/qyeb9rvghfair1pkgqud.png'

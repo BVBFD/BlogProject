@@ -112,6 +112,7 @@ const Home = () => {
       <Head>
         {/* SEO */}
         <title>Blog Project</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
         <meta name='description' content='Blog Project with React and NodeJS' />
         <meta
           property='og:title'

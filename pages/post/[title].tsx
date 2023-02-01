@@ -68,6 +68,7 @@ const PostPage = ({ ps }: any) => {
       <Head>
         {/* SEO */}
         <title>{ps.title}</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
         <meta name='description' content={ps.title} />
         <meta property='og:title' content={ps.title} />
         <meta
