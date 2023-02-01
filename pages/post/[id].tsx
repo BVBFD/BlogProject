@@ -63,8 +63,11 @@ const PostPage = ({ ps }: any) => {
       window.alert(err);
     }
   };
-
-  return !editBtnIndex ? (
+  return router.isFallback ? (
+    <div className={styles.circularBox}>
+      <CircularProgress size={60} />
+    </div>
+  ) : !editBtnIndex ? (
     <section className={styles.postPage}>
       <Head>
         {/* SEO */}
@@ -151,18 +154,18 @@ const PostPage = ({ ps }: any) => {
 
 export default PostPage;
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const res = await fetch(
-    `https://api.lsevina126.asia/posts/${ctx.query.id}?meta=true`
-  );
-  const ps = await res.json();
+// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+//   const res = await fetch(
+//     `https://api.lsevina126.asia/posts/${ctx.query.id}?meta=true`
+//   );
+//   const ps = await res.json();
 
-  return {
-    props: {
-      ps,
-    },
-  };
-};
+//   return {
+//     props: {
+//       ps,
+//     },
+//   };
+// };
 
 export const getStaticPaths = async () => {
   const res = await fetch(`https://api.lsevina126.asia/posts`);
@@ -174,7 +177,7 @@ export const getStaticPaths = async () => {
     },
   }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 };
 
 export const getStaticProps = async ({ params }: any) => {
