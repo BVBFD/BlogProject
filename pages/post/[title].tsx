@@ -190,7 +190,7 @@ export const getStaticPaths = async () => {
     params: { title: post._id },
   }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: 'blocking' };
 };
 
 export const getStaticProps = async ({ params }: any) => {
