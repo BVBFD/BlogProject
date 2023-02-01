@@ -194,8 +194,11 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }: any) => {
+  console.log(params);
+  const id = params.split('?')[1].split('=')[1];
+
   const res = await publicRequest.get(
-    `https://api.lsevina126.asia/posts/${params.title}`
+    `https://api.lsevina126.asia/posts/${id}`
   );
   const ps = await res.data;
 
