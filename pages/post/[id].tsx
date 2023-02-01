@@ -26,7 +26,7 @@ const PostPage = ({ ps }: any) => {
       const res = await publicRequest.get(`/posts/${id}`);
       setPost(res.data);
     };
-    getPostOnClient();
+    !ps && getPostOnClient();
 
     document
       .querySelectorAll('.videoImgs')
@@ -68,21 +68,25 @@ const PostPage = ({ ps }: any) => {
     <section className={styles.postPage}>
       <Head>
         {/* SEO */}
-        <title>{ps.title}</title>
+        <title>{!ps ? post.title : ps.title}</title>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <meta name='description' content={ps.title} />
-        <meta property='og:title' content={ps.title} />
+        <meta name='description' content={!ps ? post.title : ps.title} />
+        <meta property='og:title' content={!ps ? post.title : ps.title} />
         <meta
           property='og:url'
-          content={`https://lsevina126.netlify.app/post/${ps.title}/${ps._id}`}
+          content={`https://lsevina126.netlify.app/post/${
+            !ps ? post.title : ps.title
+          }/${!ps ? post._id : ps._id}`}
         />
         <meta property='og:type' content='website' />
-        <meta property='og:site_name' content={ps.title} />
-        <meta property='og:image' content={ps.imgUrl} />
-        <meta property='og:description' content={ps.title} />
+        <meta property='og:site_name' content={!ps ? post.title : ps.title} />
+        <meta property='og:image' content={!ps ? post.imgUrl : ps.imgUrl} />
+        <meta property='og:description' content={!ps ? post.title : ps.title} />
         <link
           rel='canonical'
-          href={`https://lsevina126.netlify.app/post/${ps.title}/${ps._id}`}
+          href={`https://lsevina126.netlify.app/post/${
+            !ps ? post.title : ps.title
+          }/${!ps ? post._id : ps._id}`}
         />
         {/* SEO */}
       </Head>
