@@ -5,17 +5,16 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import 'highlight.js/styles/vs2015.css';
-import { publicRequest } from '../../config';
+// import { publicRequest } from '../../config';
 import Head from 'next/head';
 import { CircularProgress } from '@mui/material';
 import { GetServerSidePropsContext } from 'next/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';
 import dynamic from 'next/dynamic';
-import axios from 'axios';
 
 const PostPage = ({ ps }: any) => {
-  const [post, setPost] = useState<any>();
+  // const [post, setPost] = useState<any>();
   const [editBtnIndex, setEditBtnIndex] = useState<boolean>(false);
   const router = useRouter();
   const { id } = router.query;
@@ -23,11 +22,11 @@ const PostPage = ({ ps }: any) => {
   const Write = dynamic(() => import('../write'));
 
   useEffect(() => {
-    const getPostOnClient = async () => {
-      const res = await publicRequest.get(`/posts/${id}`);
-      setPost(res.data);
-    };
-    getPostOnClient();
+    // const getPostOnClient = async () => {
+    //   const res = await publicRequest.get(`/posts/${id}`);
+    //   setPost(res.data);
+    // };
+    // getPostOnClient();
 
     document
       .querySelectorAll('.videoImgs')
@@ -39,7 +38,7 @@ const PostPage = ({ ps }: any) => {
   }, [editBtnIndex, id]);
 
   const inputText = () => {
-    return { __html: `${post.text}` };
+    return { __html: `${ps.text}` };
   };
 
   const deletePost = async () => {
@@ -90,7 +89,7 @@ const PostPage = ({ ps }: any) => {
           href={`https://lsevina126.netlify.app/post/${ps?.title}/${ps?._id}`}
         />
         {/* SEO */}
-        <link
+        {/* <link
           rel='stylesheet'
           href='https://fonts.googleapis.com/icon?family=Material+Icons'
         />
@@ -110,14 +109,14 @@ const PostPage = ({ ps }: any) => {
         ></script>
         <script src='https://unpkg.com/react-quill@1.3.3/dist/react-quill.js'></script>
         <script src='https://unpkg.com/babel-standalone@6/babel.min.js'></script>
-        <script type='text/babel' src='/my-scripts.js'></script>
+        <script type='text/babel' src='/my-scripts.js'></script> */}
       </Head>
-      {post ? (
+      {ps ? (
         <div className={styles.postBox}>
           <div className={styles.postImgTextBox}>
             <div className={styles.postTitleImgBox}>
               <Image
-                src={post?.imgUrl}
+                src={ps?.imgUrl}
                 alt=''
                 width={1920}
                 height={1080}
@@ -127,9 +126,9 @@ const PostPage = ({ ps }: any) => {
             <div className={styles.postTextBox}>
               <header className={styles.postHeader}>
                 <p>
-                  Category: <span>{post?.catName}</span>
+                  Category: <span>{ps?.catName}</span>
                 </p>
-                <span>{post?.title}</span>
+                <span>{ps?.title}</span>
                 <div>
                   <Edit
                     onClick={() => {
@@ -145,9 +144,9 @@ const PostPage = ({ ps }: any) => {
               </header>
               <div className={styles.authorAndDate}>
                 <p>
-                  Author: <span>{post?.author}</span>
+                  Author: <span>{ps?.author}</span>
                 </p>
-                <span>{new Date(post?.createdAt).toDateString()}</span>
+                <span>{new Date(ps?.createdAt).toDateString()}</span>
               </div>
               <div className='ql-snow'>
                 <div
@@ -167,35 +166,14 @@ const PostPage = ({ ps }: any) => {
       )}
     </section>
   ) : (
-    <Write post={post} setEditBtnIndex={setEditBtnIndex} />
+    <Write post={ps} setEditBtnIndex={setEditBtnIndex} />
   );
 };
 
 export default PostPage;
 
-// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-//   const res = await publicRequest.get(`/posts/${ctx.query.id}`);
-
-//   return {
-//     props: {
-//       ps: res.data,
-//     },
-//   };
-// };
-
-export const getStaticPaths = async () => {
-  const res = await fetch(`https://api.lsevina126.asia/posts`);
-  const posts = await res.json();
-
-  const paths = posts.map((post: any) => ({
-    params: { title: post._id },
-  }));
-
-  return { paths, fallback: false };
-};
-
-export const getStaticProps = async ({ params }: any) => {
-  const res = await fetch(`https://api.lsevina126.asia/posts/${params.title}`);
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const res = await fetch(`https://api.lsevina126.asia/posts/${ctx.query.id}`);
   const ps = await res.json();
 
   return {
@@ -204,3 +182,25 @@ export const getStaticProps = async ({ params }: any) => {
     },
   };
 };
+
+// export const getStaticPaths = async () => {
+//   const res = await fetch(`https://api.lsevina126.asia/posts`);
+//   const posts = await res.json();
+
+//   const paths = posts.map((post: any) => ({
+//     params: { title: post._id },
+//   }));
+
+//   return { paths, fallback: false };
+// };
+
+// export const getStaticProps = async ({ params }: any) => {
+//   const res = await fetch(`https://api.lsevina126.asia/posts/${params.title}`);
+//   const ps = await res.json();
+
+//   return {
+//     props: {
+//       ps,
+//     },
+//   };
+// };
