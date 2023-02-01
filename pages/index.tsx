@@ -22,7 +22,6 @@ const Home = () => {
   const [onProgress, setOnProgress] = useState<boolean>(false);
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const router = useRouter();
 
   useEffect(() => {
     const getPosts = async () => {
@@ -108,10 +107,6 @@ const Home = () => {
       }
     }
   }, [searchText]);
-
-  if (router.isFallback) {
-    return <div className={styles.circularProgress}>Loading...</div>;
-  }
 
   return (
     <>

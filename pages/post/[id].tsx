@@ -8,7 +8,7 @@ import 'highlight.js/styles/vs2015.css';
 import { publicRequest } from '../../config';
 import Head from 'next/head';
 import { CircularProgress } from '@mui/material';
-// import { GetServerSidePropsContext } from 'next/types';
+import { GetServerSidePropsContext } from 'next/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';
 import dynamic from 'next/dynamic';
@@ -151,35 +151,10 @@ const PostPage = ({ ps }: any) => {
 
 export default PostPage;
 
-// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-//   const res = await fetch(
-//     `https://api.lsevina126.asia/posts/${ctx.query.id}?meta=true`
-//   );
-//   const ps = await res.json();
-
-//   return {
-//     props: {
-//       ps,
-//     },
-//   };
-// };
-
-export const getStaticPaths = async () => {
-  const res = await fetch(`https://api.lsevina126.asia/posts`);
-  const posts = await res.json();
-
-  const paths = posts.map((post: any) => ({
-    params: {
-      id: post._id,
-    },
-  }));
-
-  return { paths, fallback: true };
-};
-
-export const getStaticProps = async ({ params }: any) => {
-  const id = params.id;
-  const res = await fetch(`https://api.lsevina126.asia/posts/${id}?meta=true`);
+export const getServerSideProps = async ({ params }: any) => {
+  const res = await fetch(
+    `https://api.lsevina126.asia/posts/${params.id}?meta=true`
+  );
   const ps = await res.json();
 
   return {
@@ -188,3 +163,28 @@ export const getStaticProps = async ({ params }: any) => {
     },
   };
 };
+
+// export const getStaticPaths = async () => {
+//   const res = await fetch(`https://api.lsevina126.asia/posts`);
+//   const posts = await res.json();
+
+//   const paths = posts.map((post: any) => ({
+//     params: {
+//       id: post._id,
+//     },
+//   }));
+
+//   return { paths, fallback: false };
+// };
+
+// export const getStaticProps = async ({ params }: any) => {
+//   const id = params.id;
+//   const res = await fetch(`https://api.lsevina126.asia/posts/${id}?meta=true`);
+//   const ps = await res.json();
+
+//   return {
+//     props: {
+//       ps,
+//     },
+//   };
+// };

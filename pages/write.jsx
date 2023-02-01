@@ -237,21 +237,13 @@ const Write = ({ post }) => {
           }
         );
 
-        // router.push(`/post/${res.data?.savedNewPost?._id}`);
+        router.push(`/post/${res.data?.savedNewPost?._id}`);
         router.push(`/`);
       } catch (error) {
         window.alert(error);
       }
     }
   };
-
-  if (router.isFallback) {
-    return (
-      <section className={styles.write}>
-        <div>Loading...</div>
-      </section>
-    );
-  }
 
   const handleEdit = async (event) => {
     event.preventDefault();
