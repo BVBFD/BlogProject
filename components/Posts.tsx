@@ -11,12 +11,13 @@ const Posts = ({ selectedPost }: any) => {
         ) : (
           <Link
             href={{
-              pathname: `/post/${post.title
-                .replace('/', '!!')
-                .replace('?', '!!')}`,
-              query: {
-                id: post._id,
-              },
+              // pathname: `/post/${post.title
+              //   .replace('/', '!!')
+              //   .replace('?', '!!')}`,
+              // query: {
+              //   id: post._id,
+              // },
+              pathname: `/post/${post._id}`,
             }}
           >
             <Post post={post} />

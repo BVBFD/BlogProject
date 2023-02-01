@@ -19,7 +19,7 @@ const ReactQuill = dynamic(
   }
 );
 
-const Write = ({ post, setEditBtnIndex }) => {
+const Write = ({ post }) => {
   const [value, setValue] = useState(post?.text);
   const [isFetching, setIsFetching] = useState(false);
   const editorRef = useRef();
@@ -30,7 +30,7 @@ const Write = ({ post, setEditBtnIndex }) => {
       : post.imgUrl
   );
   const [firstSubmit, setFirstSubmit] = useState(true);
-  const { id, title } = useRouter().query;
+  const { id } = useRouter().query;
 
   const [postTitle, setPostTitle] = useState();
   const [catName, setCatName] = useState('HTML / Git');
@@ -236,11 +236,7 @@ const Write = ({ post, setEditBtnIndex }) => {
             },
           }
         );
-        router.push(
-          `/post/${res.data?.savedNewPost?.title
-            .replace('/', '!!')
-            .replace('?', '!!')}?id=${res.data?.savedNewPost?._id}`
-        );
+        router.push(`/post/${res.data?.savedNewPost?._id}`);
       } catch (error) {
         window.alert(error);
       }
@@ -274,12 +270,7 @@ const Write = ({ post, setEditBtnIndex }) => {
             `${res.statusText} This is private Blog. Onle The Admin can edit!!`
           );
 
-        res.status === 201 &&
-          window.location.reload(
-            `/post/${res?.data.title
-              .replace('/', '!!')
-              .replace('?', '!!')}?id=${res?.data._id}`
-          );
+        res.status === 201 && window.location.reload(`/post/${res?.data._id}`);
       } catch (error) {
         window.alert(error);
       }
