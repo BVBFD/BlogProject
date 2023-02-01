@@ -112,6 +112,10 @@ const Home = () => {
       <Head>
         {/* SEO */}
         <title>Blog Project</title>
+        <link
+          rel='icon'
+          href='https://res.cloudinary.com/dewa3t2gi/image/upload/v1674981291/qyeb9rvghfair1pkgqud.png'
+        />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <meta name='description' content='Blog Project with React and NodeJS' />
         <meta
@@ -131,10 +135,6 @@ const Home = () => {
         />
         <link rel='canonical' href='https://lsevina126.netlify.app' />
         {/* SEO */}
-        <link
-          rel='icon'
-          href='https://res.cloudinary.com/dewa3t2gi/image/upload/v1674981291/qyeb9rvghfair1pkgqud.png'
-        />
         <link
           rel='stylesheet'
           href='https://fonts.googleapis.com/icon?family=Material+Icons'
