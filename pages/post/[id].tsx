@@ -2,13 +2,13 @@ import Image from 'next/image';
 import styles from '../../styles/PostPage.module.css';
 import { Edit, Delete } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 
 import 'highlight.js/styles/vs2015.css';
 import { publicRequest } from '../../config';
 import Head from 'next/head';
 import { CircularProgress } from '@mui/material';
-import { GetServerSidePropsContext } from 'next/types';
+// import { GetServerSidePropsContext } from 'next/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';
 import dynamic from 'next/dynamic';
@@ -50,7 +50,7 @@ const PostPage = ({ ps }: any) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          author: `${user.id}`,
+          author: `${user?.id}`,
         }),
       });
 
@@ -64,29 +64,35 @@ const PostPage = ({ ps }: any) => {
     }
   };
 
+  console.log(router.isFallback);
+
+  if (router.isFallback) {
+    return (
+      <section className={styles.postPage}>
+        <span>Loading...</span>
+      </section>
+    );
+  }
+
   return !editBtnIndex ? (
     <section className={styles.postPage}>
       <Head>
         {/* SEO */}
-        <title>{!ps ? post.title : ps.title}</title>
+        <title>{ps.title}</title>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <meta name='description' content={!ps ? post.title : ps.title} />
-        <meta property='og:title' content={!ps ? post.title : ps.title} />
+        <meta name='description' content={ps.title} />
+        <meta property='og:title' content={ps.title} />
         <meta
           property='og:url'
-          content={`https://lsevina126.netlify.app/post/${
-            !ps ? post.title : ps.title
-          }/${!ps ? post._id : ps._id}`}
+          content={`https://lsevina126.netlify.app/post/${ps.title}/${ps._id}`}
         />
         <meta property='og:type' content='website' />
-        <meta property='og:site_name' content={!ps ? post.title : ps.title} />
-        <meta property='og:image' content={!ps ? post.imgUrl : ps.imgUrl} />
-        <meta property='og:description' content={!ps ? post.title : ps.title} />
+        <meta property='og:site_name' content={ps.title} />
+        <meta property='og:image' content={ps.imgUrl} />
+        <meta property='og:description' content={ps.title} />
         <link
           rel='canonical'
-          href={`https://lsevina126.netlify.app/post/${
-            !ps ? post.title : ps.title
-          }/${!ps ? post._id : ps._id}`}
+          href={`https://lsevina126.netlify.app/post/${ps.title}/${ps._id}`}
         />
         {/* SEO */}
       </Head>
@@ -151,35 +157,10 @@ const PostPage = ({ ps }: any) => {
 
 export default PostPage;
 
-export const getServerSideProps = async ({ params }: any) => {
-  const res = await fetch(
-    `https://api.lsevina126.asia/posts/${params.id}?meta=true`
-  );
-  const ps = await res.json();
-
-  return {
-    props: {
-      ps,
-    },
-  };
-};
-
-// export const getStaticPaths = async () => {
-//   const res = await fetch(`https://api.lsevina126.asia/posts`);
-//   const posts = await res.json();
-
-//   const paths = posts.map((post: any) => ({
-//     params: {
-//       id: post._id,
-//     },
-//   }));
-
-//   return { paths, fallback: false };
-// };
-
-// export const getStaticProps = async ({ params }: any) => {
-//   const id = params.id;
-//   const res = await fetch(`https://api.lsevina126.asia/posts/${id}?meta=true`);
+// export const getServerSideProps = async ({ params }: any) => {
+//   const res = await fetch(
+//     `https://api.lsevina126.asia/posts/${params.id}?meta=true`
+//   );
 //   const ps = await res.json();
 
 //   return {
@@ -188,3 +169,28 @@ export const getServerSideProps = async ({ params }: any) => {
 //     },
 //   };
 // };
+
+export const getStaticPaths = async () => {
+  const res = await fetch(`https://api.lsevina126.asia/posts`);
+  const posts = await res.json();
+
+  const paths = posts.map((post: any) => ({
+    params: {
+      id: post._id,
+    },
+  }));
+
+  return { paths, fallback: true };
+};
+
+export const getStaticProps = async ({ params }: any) => {
+  const id = params.id;
+  const res = await fetch(`https://api.lsevina126.asia/posts/${id}?meta=true`);
+  const ps = await res.json();
+
+  return {
+    props: {
+      ps,
+    },
+  };
+};

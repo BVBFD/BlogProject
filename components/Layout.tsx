@@ -1,5 +1,5 @@
-import Navbar from "./Navbar";
-import styles from "../styles/Layout.module.css";
+import Navbar from './Navbar';
+import styles from '../styles/Layout.module.css';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,6 +8,7 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <>
+      {/* @ts-ignore */}
       <Navbar />
       <div className={styles.layout}>{children}</div>
     </>

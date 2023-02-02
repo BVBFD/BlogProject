@@ -37,6 +37,14 @@ const Write = ({ post }) => {
   const user = useSelector((state) => state.user);
   const router = useRouter();
 
+  if (router.isFallback) {
+    return (
+      <div>
+        <span>Loading...</span>
+      </div>
+    );
+  }
+
   const check = () => {
     if (editorRef.current) {
       return editorRef.current;
@@ -284,6 +292,26 @@ const Write = ({ post }) => {
       setFirstSubmit(true);
     };
   }, []);
+
+  console.log(router.isFallback);
+
+  if (router.isFallback) {
+    return (
+      <section
+        className={styles.write}
+        style={{
+          height: '90vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div className={styles.titleImgBox}>
+          <CircularProgress style={{ scale: '6' }} />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.write}>

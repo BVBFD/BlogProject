@@ -20,7 +20,8 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/post/...params.tsx",
-    "pages/write.jsx"
+    "pages/write.jsx",
+    "redux/storage.ts"
   ],
   "exclude": ["node_modules"]
 }
