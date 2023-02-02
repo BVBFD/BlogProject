@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import styles from '../styles/Navbar.module.css';
-import { GitHub, Dehaze, Close } from '@mui/icons-material';
+import Close from '@mui/icons-material/Close';
+import Dehaze from '@mui/icons-material/Dehaze';
+import GitHub from '@mui/icons-material/GitHub';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/user';

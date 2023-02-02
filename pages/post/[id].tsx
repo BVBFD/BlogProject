@@ -1,13 +1,14 @@
 import Image from 'next/image';
 import styles from '../../styles/PostPage.module.css';
-import { Edit, Delete } from '@mui/icons-material';
+import Delete from '@mui/icons-material/Delete';
+import Edit from '@mui/icons-material/Edit';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import 'highlight.js/styles/vs2015.css';
 import { publicRequest } from '../../config';
 import Head from 'next/head';
-import { CircularProgress } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 // import { GetServerSidePropsContext } from 'next/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';

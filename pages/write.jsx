@@ -3,10 +3,10 @@ import Image from 'next/image';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import styles from '../styles/Write.module.css';
-import { AddPhotoAlternate } from '@mui/icons-material';
+import AddPhotoAlternate from '@mui/icons-material/AddPhotoAlternate';
 import { publicRequest } from '../config';
 import { useRouter } from 'next/router';
-import { CircularProgress } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useSelector } from 'react-redux';
 
 const ReactQuill = dynamic(

@@ -3,8 +3,13 @@ import Banner from '../components/Banner';
 import Posts from '../components/Posts';
 import styles from '../styles/Home.module.css';
 // import Image from 'next/image';
-import { Facebook, Pinterest, Twitter, Instagram } from '@mui/icons-material';
-import { Pagination, CircularProgress, Stack } from '@mui/material';
+import Facebook from '@mui/icons-material/Facebook';
+import Pinterest from '@mui/icons-material/Pinterest';
+import Twitter from '@mui/icons-material/Twitter';
+import Instagram from '@mui/icons-material/Instagram';
+import Stack from '@mui/material/Stack';
+import Pagination from '@mui/material/Pagination';
+import CircularProgress from '@mui/material/CircularProgress';
 import React, { useEffect, useRef, useState } from 'react';
 import { publicRequest } from '../config';
 

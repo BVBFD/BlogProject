@@ -1,5 +1,4 @@
-import { CircularProgress } from '@mui/material';
-import Image from 'next/image';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
