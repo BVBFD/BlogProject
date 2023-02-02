@@ -161,6 +161,7 @@ export const getServerSideProps = async ({ params }: any) => {
   // const ps = await res.json();
   const { PostSeo }: any = await import('../../postSeo.js');
   const post = PostSeo.filter((p: any) => p._id === params.id);
+
   let ps;
   if (post[0] == null) {
     const res = await fetch(
