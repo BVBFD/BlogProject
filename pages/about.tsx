@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/About.module.css';
 
@@ -8,7 +7,7 @@ const About = () => {
       <header className={styles.pageTitle}>About</header>
       <div className={styles.aboutIntroBox}>
         <div className={styles.imgBox}>
-          <Image
+          <img
             src='https://res.cloudinary.com/dewa3t2gi/image/upload/v1675172408/a1pdcxclbrvilga2cebl.gif'
             alt=''
             width={300}

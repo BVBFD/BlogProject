@@ -4,7 +4,6 @@ import { GitHub, Dehaze, Close } from '@mui/icons-material';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/user';
-import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { logoutReduce } from '../redux/userSlice';
 
@@ -66,7 +65,7 @@ const Navbar = () => {
               <span onClick={onLogout}>Log-out</span>
               <Link href={'/setting'} passHref>
                 <div className={styles.profileImgBox}>
-                  <Image
+                  <img
                     width={1}
                     height={1}
                     alt=''
@@ -126,7 +125,7 @@ const Navbar = () => {
               <span onClick={onLogout}>Log-out</span>
               <Link href={'/setting'} passHref>
                 <div className={styles.profileImgBox}>
-                  <Image
+                  <img
                     width={1}
                     height={1}
                     alt=''
