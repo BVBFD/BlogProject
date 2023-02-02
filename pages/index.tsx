@@ -108,6 +108,15 @@ const Home = () => {
     }
   }, [searchText]);
 
+  // 30초마다 서버 깨우기 초기 로딩속도 잡기
+  useEffect(() => {
+    const timer = setInterval(async () => {
+      await publicRequest.get('/posts/63d78a392e757991f51cf49d?meta=true');
+    }, 30000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <>
       <Head>
