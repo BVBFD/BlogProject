@@ -7,7 +7,6 @@ import { Facebook, Pinterest, Twitter, Instagram } from '@mui/icons-material';
 import { Pagination, CircularProgress, Stack } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import { publicRequest } from '../config';
-import { useRouter } from 'next/router';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);

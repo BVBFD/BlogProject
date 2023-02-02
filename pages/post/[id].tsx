@@ -91,7 +91,7 @@ const PostPage = ({ ps }: any) => {
           <div className={styles.postImgTextBox}>
             <div className={styles.postTitleImgBox}>
               <Image
-                src={post.imgUrl}
+                src={`${post.imgUrl}`}
                 alt=''
                 width={1920}
                 height={1080}

@@ -10,13 +10,10 @@ const Post = ({ post }: any) => {
     <div className={styles.wrapper}>
       <Image
         alt='postImg'
-        src={
-          `${post?.imgUrl}` == '../images/kislev.jpg'
-            ? '/imgs/kislev.jpg'
-            : `${post?.imgUrl}`
-        }
+        src={post?.imgUrl}
         width={300}
         height={300}
+        crossOrigin='anonymous'
       />
       <div className={styles.content}>
         <header>{post?.title}</header>

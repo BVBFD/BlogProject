@@ -21,15 +21,23 @@ class MyDocument extends Document {
             src='https://unpkg.com/react@16/umd/react.development.js'
             // @ts-ignore
             crossorigin
+            defer
           ></script>
           <script
             src='https://unpkg.com/react-dom@16/umd/react-dom.development.js'
             // @ts-ignore
             crossorigin
+            defer
           ></script>
-          <script src='https://unpkg.com/react-quill@1.3.3/dist/react-quill.js'></script>
-          <script src='https://unpkg.com/babel-standalone@6/babel.min.js'></script>
-          <script type='text/babel' src='/my-scripts.js'></script>
+          <script
+            defer
+            src='https://unpkg.com/react-quill@1.3.3/dist/react-quill.js'
+          ></script>
+          <script
+            defer
+            src='https://unpkg.com/babel-standalone@6/babel.min.js'
+          ></script>
+          <script defer type='text/babel' src='/my-scripts.js'></script>
         </Head>
         <body>
           <Main />

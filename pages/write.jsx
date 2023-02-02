@@ -25,9 +25,9 @@ const Write = ({ post }) => {
   const editorRef = useRef();
   const [titleImg, setTitleImg] = useState(true);
   const [writePageImgURL, setWritePageImgURL] = useState(
-    !post
+    !post || post?.imgUrl === ''
       ? 'https://res.cloudinary.com/dewa3t2gi/image/upload/v1675150372/omlojqzvdujpd3hhtpap.png'
-      : post.imgUrl
+      : post?.imgUrl
   );
   const [firstSubmit, setFirstSubmit] = useState(true);
   const { id } = useRouter().query;
