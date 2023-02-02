@@ -54,11 +54,14 @@ const PostPage = ({ ps }: any) => {
         }),
       });
 
-      res.status === 401 &&
-        window.alert(
-          `${res.statusText} This is private Blog. Onle The Admin can edit!!`
-        );
-      res.status === 204 && router.push('/');
+      if (res.status === 204) {
+        router.push('/');
+      } else {
+        res.status === 401 &&
+          window.alert(
+            `${res.statusText} This is private Blog. Onle The Admin can edit!!`
+          );
+      }
     } catch (err) {
       window.alert(err);
     }
@@ -152,10 +155,22 @@ const PostPage = ({ ps }: any) => {
 export default PostPage;
 
 export const getServerSideProps = async ({ params }: any) => {
-  const res = await fetch(
-    `https://api.lsevina126.asia/posts/${params.id}?meta=true`
-  );
-  const ps = await res.json();
+  // const res = await fetch(
+  //   `https://api.lsevina126.asia/posts/${params.id}?meta=true`
+  // );
+  // const ps = await res.json();
+  const { PostSeo }: any = await import('../../postSeo.js');
+  const post = PostSeo.filter((p: any) => p._id === params.id);
+  let ps;
+  if (post[0] == null) {
+    const res = await fetch(
+      `https://api.lsevina126.asia/posts/${params.id}?meta=true`
+    );
+    ps = await res.json();
+  } else {
+    const { text, ...others } = post[0] as any;
+    ps = others;
+  }
 
   return {
     props: {

@@ -200,7 +200,6 @@ const Write = ({ post }) => {
         setIsFetching(true);
         const result = await publicRequest.post('/pic/upload', data);
         const updatedPicURL = result.data;
-
         setWritePageImgURL(updatedPicURL);
         setIsFetching(false);
       } catch (err) {
@@ -236,7 +235,6 @@ const Write = ({ post }) => {
             },
           }
         );
-
         router.push(`/post/${res.data?.savedNewPost?._id}`);
       } catch (error) {
         window.alert(error);
@@ -266,12 +264,14 @@ const Write = ({ post }) => {
           }
         );
 
-        res.status === 401 &&
-          window.alert(
-            `${res.statusText} This is private Blog. Onle The Admin can edit!!`
-          );
-
-        res.status === 201 && window.location.reload(`/post/${res?.data._id}`);
+        if (res.status === 201) {
+          window.location.reload(`/post/${res?.data._id}`);
+        } else {
+          res.status === 401 &&
+            window.alert(
+              `${res.statusText} This is private Blog. Onle The Admin can edit!!`
+            );
+        }
       } catch (error) {
         window.alert(error);
       }

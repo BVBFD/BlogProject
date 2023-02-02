@@ -20,8 +20,9 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/post/...params.tsx",
-    "pages/write.jsx",
-    "redux/storage.ts"
+    "pages/write.tsx",
+    "redux/storage.ts",
+    "postSeo.js"
   ],
   "exclude": ["node_modules"]
 }
