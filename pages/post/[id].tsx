@@ -2,7 +2,7 @@ import Image from 'next/image';
 import styles from '../../styles/PostPage.module.css';
 import { Edit, Delete } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 import 'highlight.js/styles/vs2015.css';
 import { publicRequest } from '../../config';
@@ -64,35 +64,25 @@ const PostPage = ({ ps }: any) => {
     }
   };
 
-  console.log(router.isFallback);
-
-  if (router.isFallback) {
-    return (
-      <section className={styles.postPage}>
-        <span>Loading...</span>
-      </section>
-    );
-  }
-
   return !editBtnIndex ? (
     <section className={styles.postPage}>
       <Head>
         {/* SEO */}
-        <title>{ps.title}</title>
+        <title>{ps?.title}</title>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <meta name='description' content={ps.title} />
-        <meta property='og:title' content={ps.title} />
+        <meta name='description' content={ps?.title} />
+        <meta property='og:title' content={ps?.title} />
         <meta
           property='og:url'
-          content={`https://lsevina126.netlify.app/post/${ps.title}/${ps._id}`}
+          content={`https://lsevina126.netlify.app/post/${ps?.title}/${ps?._id}`}
         />
         <meta property='og:type' content='website' />
-        <meta property='og:site_name' content={ps.title} />
-        <meta property='og:image' content={ps.imgUrl} />
-        <meta property='og:description' content={ps.title} />
+        <meta property='og:site_name' content={ps?.title} />
+        <meta property='og:image' content={ps?.imgUrl} />
+        <meta property='og:description' content={ps?.title} />
         <link
           rel='canonical'
-          href={`https://lsevina126.netlify.app/post/${ps.title}/${ps._id}`}
+          href={`https://lsevina126.netlify.app/post/${ps?.title}/${ps?._id}`}
         />
         {/* SEO */}
       </Head>
