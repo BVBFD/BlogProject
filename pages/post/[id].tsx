@@ -64,8 +64,8 @@ const PostPage = ({ ps }: any) => {
     }
   };
 
-  return !editBtnIndex ? (
-    <section className={styles.postPage}>
+  return (
+    <>
       <Head>
         {/* SEO */}
         <title>{ps?.title}</title>
@@ -86,62 +86,66 @@ const PostPage = ({ ps }: any) => {
         />
         {/* SEO */}
       </Head>
-      {post ? (
-        <div className={styles.postBox}>
-          <div className={styles.postImgTextBox}>
-            <div className={styles.postTitleImgBox}>
-              <Image
-                src={`${post.imgUrl}`}
-                alt=''
-                width={1920}
-                height={1080}
-                crossOrigin='anonymous'
-              />
-            </div>
-            <div className={styles.postTextBox}>
-              <header className={styles.postHeader}>
-                <p>
-                  Category: <span>{post.catName}</span>
-                </p>
-                <span>{post.title}</span>
-                <div>
-                  <Edit
-                    onClick={() => {
-                      if (!editBtnIndex) {
-                        setEditBtnIndex(true);
-                      } else {
-                        setEditBtnIndex(false);
-                      }
-                    }}
+      {!editBtnIndex ? (
+        <section className={styles.postPage}>
+          {post ? (
+            <div className={styles.postBox}>
+              <div className={styles.postImgTextBox}>
+                <div className={styles.postTitleImgBox}>
+                  <Image
+                    src={`${post.imgUrl}`}
+                    alt=''
+                    width={1920}
+                    height={1080}
+                    crossOrigin='anonymous'
                   />
-                  <Delete onClick={deletePost} />
                 </div>
-              </header>
-              <div className={styles.authorAndDate}>
-                <p>
-                  Author: <span>{post.author}</span>
-                </p>
-                <span>{new Date(post.createdAt).toDateString()}</span>
-              </div>
-              <div className='ql-snow'>
-                <div
-                  // @ts-ignore
-                  class='ql-editor'
-                  className={styles.postContentText}
-                  dangerouslySetInnerHTML={inputText()}
-                ></div>
+                <div className={styles.postTextBox}>
+                  <header className={styles.postHeader}>
+                    <p>
+                      Category: <span>{post.catName}</span>
+                    </p>
+                    <span>{post.title}</span>
+                    <div>
+                      <Edit
+                        onClick={() => {
+                          if (!editBtnIndex) {
+                            setEditBtnIndex(true);
+                          } else {
+                            setEditBtnIndex(false);
+                          }
+                        }}
+                      />
+                      <Delete onClick={deletePost} />
+                    </div>
+                  </header>
+                  <div className={styles.authorAndDate}>
+                    <p>
+                      Author: <span>{post.author}</span>
+                    </p>
+                    <span>{new Date(post.createdAt).toDateString()}</span>
+                  </div>
+                  <div className='ql-snow'>
+                    <div
+                      // @ts-ignore
+                      class='ql-editor'
+                      className={styles.postContentText}
+                      dangerouslySetInnerHTML={inputText()}
+                    ></div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          ) : (
+            <div className={styles.circularBox}>
+              <CircularProgress size={60} />
+            </div>
+          )}
+        </section>
       ) : (
-        <div className={styles.circularBox}>
-          <CircularProgress size={60} />
-        </div>
+        <Write post={post} />
       )}
-    </section>
-  ) : (
-    <Write post={post} />
+    </>
   );
 };
 
@@ -175,7 +179,7 @@ export const getServerSideProps = async ({ params }: any) => {
 
 // export const getStaticProps = async ({ params }: any) => {
 //   const id = params.id;
-//   const res = await fetch(`https://api.lsevina126.asia/posts/${id}?meta=true`);
+//   const res = await fetch(`https://api.lsevina126.asia/posts/${id}`);
 //   const ps = await res.json();
 
 //   return {

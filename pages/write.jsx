@@ -285,22 +285,22 @@ const Write = ({ post }) => {
     };
   }, []);
 
-  // if (router.isFallback) {
-  //   return (
-  //     <section className={styles.write}>
-  //       <div
-  //         style={{
-  //           height: '90vh',
-  //           display: 'flex',
-  //           justifyContent: 'center',
-  //           alignItems: 'center',
-  //         }}
-  //       >
-  //         <CircularProgress />
-  //       </div>
-  //     </section>
-  //   );
-  // }
+  if (router.isFallback) {
+    return (
+      <section className={styles.write}>
+        <div
+          style={{
+            height: '90vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <CircularProgress />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.write}>
