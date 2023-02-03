@@ -4,12 +4,6 @@ import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-
-import 'react-quill/dist/quill.snow.css';
-import 'react-quill/dist/quill.core.css';
-import 'react-quill/dist/quill.bubble.css';
-import 'highlight.js/styles/vs2015.css';
-
 import { publicRequest } from '../../config';
 import Head from 'next/head';
 import CircularProgress from '@mui/material/CircularProgress';
