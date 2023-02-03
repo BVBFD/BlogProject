@@ -6,9 +6,11 @@ In order to optimize the SEO tag and other optimizaion for SEO, Server Side Rend
 I need to not only study SSR framework as well but I also need to optimize my tech blog site with good SEO.
 
 ReactJS ( SPA Site ) - https://www.lsevina126.asia/
+
 github - https://github.com/BVBFD/Blog-project/tree/VPS-Deploy-Code
 
 NextJS ( SSR Site ) - https://lsevina126.netlify.app/
+
 github - https://github.com/BVBFD/Blog-project/tree/nextjs
 
 ![blog](https://user-images.githubusercontent.com/83178592/216642197-a578af71-468e-45bd-98f6-e55c5a1ef024.png)
