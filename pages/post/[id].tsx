@@ -11,6 +11,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/user';
 import dynamic from 'next/dynamic';
+import 'highlight.js/styles/vs2015.css';
 
 const PostPage = ({ ps }: any) => {
   const [post, setPost] = useState<any>();

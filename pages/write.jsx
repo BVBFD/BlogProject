@@ -13,7 +13,6 @@ import 'react-quill/dist/quill.snow.css';
 import hljs from 'highlight.js';
 import 'react-quill/dist/quill.core.css';
 import 'react-quill/dist/quill.bubble.css';
-import 'highlight.js/styles/vs2015.css';
 
 const ReactQuill = dynamic(
   async () => {
