@@ -9,6 +9,12 @@ import { useRouter } from 'next/router';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useSelector } from 'react-redux';
 
+import 'react-quill/dist/quill.snow.css';
+import hljs from 'highlight.js';
+import 'react-quill/dist/quill.core.css';
+import 'react-quill/dist/quill.bubble.css';
+import 'highlight.js/styles/vs2015.css';
+
 const ReactQuill = dynamic(
   async () => {
     const { default: RQ } = await import('react-quill');
@@ -140,8 +146,15 @@ const Write = ({ post }) => {
     });
   };
 
+  hljs.configure({
+    languages: ['javascript', 'html', 'css', 'react', 'sass', 'typescript'],
+  });
+
   const modules = useMemo(() => {
     return {
+      syntax: {
+        highlight: (text) => hljs.highlightAuto(text).value,
+      },
       toolbar: {
         container: [
           ['bold', 'italic', 'underline', 'strike'], // toggled buttons
@@ -179,20 +192,26 @@ const Write = ({ post }) => {
    * See https://quilljs.com/docs/formats/
    */
   const formats = [
-    'header',
     'font',
     'size',
     'bold',
     'italic',
     'underline',
     'strike',
+    'color',
+    'background',
+    'script',
+    'header',
     'blockquote',
-    'list',
-    'bullet',
+    'code-block',
     'indent',
+    'list',
+    'direction',
+    'align',
     'link',
     'image',
     'video',
+    'formula',
   ];
 
   const selectImg = async (e) => {
