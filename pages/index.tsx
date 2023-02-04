@@ -199,19 +199,21 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Stack
-        spacing={2}
-        direction='row'
-        justifyContent={'center'}
-        marginBottom={'1rem'}
-      >
-        <Pagination
-          page={page}
-          count={count}
-          color='primary'
-          onChange={handleChange}
-        />
-      </Stack>
+      {!onProgress && (
+        <Stack
+          spacing={2}
+          direction='row'
+          justifyContent={'center'}
+          marginBottom={'1rem'}
+        >
+          <Pagination
+            page={page}
+            count={count}
+            color='primary'
+            onChange={handleChange}
+          />
+        </Stack>
+      )}
     </>
   );
 };
