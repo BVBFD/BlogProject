@@ -199,7 +199,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {!onProgress && (
+      {onProgress ? (
+        <div></div>
+      ) : (
         <Stack
           spacing={2}
           direction='row'
