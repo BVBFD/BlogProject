@@ -6,7 +6,7 @@ import { loginReduce } from '../redux/userSlice';
 import styles from '../styles/Login.module.css';
 import { publicRequest } from '../config';
 
-const Login = () => {
+const Login = ({ ps }: any) => {
   const idRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const pwdRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const router = useRouter();
@@ -60,3 +60,11 @@ const Login = () => {
 };
 
 export default Login;
+
+export const getStaticProps = async () => {
+  return {
+    props: {
+      ps: 'build-render',
+    },
+  };
+};

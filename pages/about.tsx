@@ -1,18 +1,13 @@
 import Link from 'next/link';
 import styles from '../styles/About.module.css';
 
-const About = () => {
+const About = ({ ps }: any) => {
   return (
     <section className={styles.about}>
       <header className={styles.pageTitle}>About</header>
       <div className={styles.aboutIntroBox}>
         <div className={styles.imgBox}>
-          <img
-            src='https://res.cloudinary.com/dewa3t2gi/image/upload/v1675172408/a1pdcxclbrvilga2cebl.gif'
-            alt=''
-            width={300}
-            height={300}
-          />
+          <img src={ps.imgSrc} alt='' width={300} height={300} />
         </div>
         <div className={styles.aboutExplainBox}>
           <header>This Blog is ...</header>
@@ -26,11 +21,7 @@ const About = () => {
             <br />
             <br />I am always trying to keep up with new skills trends.
           </p>
-          <Link
-            href='https://bvbfd.github.io/Portfolio-Website-ver2.0/'
-            target='_blank'
-            passHref
-          >
+          <Link href={ps.linkHref} target='_blank' passHref>
             <button>Visit Profile</button>
           </Link>
         </div>
@@ -40,3 +31,15 @@ const About = () => {
 };
 
 export default About;
+
+export const getStaticProps = async () => {
+  return {
+    props: {
+      ps: {
+        imgSrc:
+          'https://res.cloudinary.com/dewa3t2gi/image/upload/v1675172408/a1pdcxclbrvilga2cebl.gif',
+        linkHref: 'https://bvbfd.github.io/Portfolio-Website-ver2.0/',
+      },
+    },
+  };
+};

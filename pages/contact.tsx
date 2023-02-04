@@ -4,7 +4,7 @@ import { RootState } from '../redux/user';
 import styles from '../styles/Contact.module.css';
 import { publicRequest } from '../config';
 
-const Contact = () => {
+const Contact = ({ ps }: any) => {
   const [name, setName] = useState('');
   const [customerEmail, setCustomerEmail] = useState('');
   const [number, setNumber] = useState('');
@@ -71,3 +71,11 @@ const Contact = () => {
 };
 
 export default Contact;
+
+export const getStaticProps = async () => {
+  return {
+    props: {
+      ps: 'build-render',
+    },
+  };
+};

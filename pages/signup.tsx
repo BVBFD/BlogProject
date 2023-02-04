@@ -15,7 +15,7 @@ type UserDataType = {
 
 type ReturnObjectType = (key: string, value: string) => any;
 
-const Signup = () => {
+const Signup = ({ ps }: any) => {
   const [user, setUser] = useState<UserDataType | ReturnObjectType>({
     userId: '',
     password: '',
@@ -113,3 +113,11 @@ const Signup = () => {
 };
 
 export default Signup;
+
+export const getStaticProps = async () => {
+  return {
+    props: {
+      ps: 'build-render',
+    },
+  };
+};
