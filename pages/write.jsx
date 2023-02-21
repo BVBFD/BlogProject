@@ -413,7 +413,7 @@ const Write = ({ post }) => {
           forwardedRef={editorRef}
           modules={modules}
           formats={formats}
-          style={{ width: '100%', height: '100vh' }}
+          style={{ width: '100%', height: '90vh' }}
           theme='snow'
           onChange={setValue}
           defaultValue={!post ? '' : post.text}
