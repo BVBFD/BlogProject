@@ -55,12 +55,19 @@ const Home = () => {
 
   const handleChange = (e: any, page: number) => {
     setPage(page);
-    if (catname == '') {
+    if (catname == '' && searchPosts.length === 0) {
       setSelectedPost([
         posts[(page - 1) * 4],
         posts[(page - 1) * 4 + 1],
         posts[(page - 1) * 4 + 2],
         posts[(page - 1) * 4 + 3],
+      ]);
+    } else if (searchPosts.length !== 0) {
+      setSelectedPost([
+        searchPosts[(page - 1) * 4],
+        searchPosts[(page - 1) * 4 + 1],
+        searchPosts[(page - 1) * 4 + 2],
+        searchPosts[(page - 1) * 4 + 3],
       ]);
     } else {
       setSelectedPost([
