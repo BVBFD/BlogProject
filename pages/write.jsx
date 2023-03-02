@@ -158,6 +158,7 @@ const Write = ({ post }) => {
         container: [
           ['bold', 'italic', 'underline', 'strike'], // toggled buttons
           ['blockquote', 'code-block'],
+          ['link', 'image', 'video'],
 
           [{ header: 1 }, { header: 2 }], // custom button values
           [{ list: 'ordered' }, { list: 'bullet' }],
@@ -191,6 +192,8 @@ const Write = ({ post }) => {
    * See https://quilljs.com/docs/formats/
    */
   const formats = [
+    'image',
+    'video',
     'font',
     'size',
     'bold',
@@ -208,8 +211,6 @@ const Write = ({ post }) => {
     'direction',
     'align',
     'link',
-    'image',
-    'video',
     'formula',
   ];
 
