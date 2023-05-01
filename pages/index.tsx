@@ -49,6 +49,7 @@ const Home = () => {
     setCatname('');
     setPage(1);
     setCount(Math.ceil(posts.length / 4));
+    setSearchText('');
     setSelectedPost([posts[0], posts[1], posts[2], posts[3]]);
     searchInputRef.current.value = '';
   };
