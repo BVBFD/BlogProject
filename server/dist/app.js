@@ -11,8 +11,7 @@ var Server = (function () {
     }
     Server.prototype.listen = function () {
         this.app.listen(8080, function () {
-            console.log("Server is on...");
-            console.log("concurrently test");
+            console.log('Server is on...');
         });
     };
     return Server;
