@@ -1,0 +1,36 @@
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ul {
+    display: flex;
+    align-items: center;
+
+    li[title='Previous Page'],
+    li[title='Next Page'] {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        span {
+          width: 24px;
+          height: 24px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          svg {
+            width: 60%;
+            height: 60%;
+          }
+        }
+      }
+    }
+  }
+}

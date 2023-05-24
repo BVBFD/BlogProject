@@ -1,0 +1,65 @@
+.popUpContainer {
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 1px #d3dbd9;
+  width: max-content;
+  margin: auto;
+  max-height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: column;
+
+  .modalHeader {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+
+  .modalContentMain {
+    width: 100%;
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 15px;
+  }
+
+  footer {
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-bottom: 30px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .closeImgButton {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+
+    &:hover {
+      opacity: 0.6;
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

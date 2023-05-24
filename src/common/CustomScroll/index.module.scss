@@ -1,0 +1,26 @@
+.customScroll {
+  overflow-y: auto;
+
+  //   FireFox, MicroSoft Edge Browser Supports
+  scrollbar-width: thin;
+  scrollbar-color: #8f9f9b #dfdfdf;
+  //   FireFox, MicroSoft Edge Browser Supports
+
+  &::-webkit-scrollbar {
+    min-width: 4px;
+    max-width: 4px;
+    border-radius: 50px;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
+    border-radius: 50px;
+    background-color: #dfdfdf;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
+    border-radius: 50px;
+    background-color: #8f9f9b;
+  }
+}

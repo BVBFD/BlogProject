@@ -1,0 +1,79 @@
+.btn {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  min-height: 60px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 0 20px;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  background-color: #028267;
+  color: white;
+
+  div {
+    --wave-color: #028267 !important;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: #028267;
+    color: white;
+  }
+
+  &.primary {
+    background-color: #028267;
+    color: white;
+
+    div {
+      --wave-color: #028267;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: #028267;
+      color: white;
+    }
+  }
+
+  &.medium {
+    min-height: 50px;
+    font-size: 14px;
+
+    background-color: #028267;
+    color: white;
+
+    div {
+      --wave-color: #028267;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: #028267;
+      color: white;
+    }
+  }
+
+  &.small {
+    min-height: 30px;
+    font-size: 12px;
+
+    background-color: #028267;
+    color: white;
+
+    div {
+      --wave-color: #028267;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: #028267;
+      color: white;
+    }
+  }
+}
