@@ -22,10 +22,13 @@
   "settings": {
     "next": {
       "rootDir": "./client/src"
-    }
+    },
     // "react": {
     //   "version": "detect"
     // }
+    "react": {
+      "version": "999.999.999"
+    }
   },
   "env": {
     "es6": true,
