@@ -21,7 +21,13 @@
   "plugins": ["@typescript-eslint"],
   "settings": {
     "next": {
-      "rootDir": [".client/src/**/*", ".server/src/**/*"]
+      "rootDir": ".client/src/**/*"
+    },
+    "server": {
+      "rootDir": "./server/src/**/*"
+    },
+    "react": {
+      "version": "detect"
     }
   },
   "env": {
@@ -36,7 +42,6 @@
     "src/common/redux/endpoints"
   ],
   "rules": {
-    "next/no-html-link-for-pages": "off",
     "no-param-reassign": ["error", { "props": false }],
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "error",
