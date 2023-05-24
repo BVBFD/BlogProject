@@ -1,0 +1,49 @@
+{
+  "name": "blog-project-ver-4.0",
+  "version": "4.0.0",
+  "description": "This is blog-project refactoring with ES-Lint",
+  "scripts": {
+    "dev": "concurrently \"cd client && npm run dev\" \"cd server && npm run dev\"",
+    "prepare": "husky install",
+    "lint:fix": "eslint --fix ./src/**/*.{js,jsx,ts,tsx}",
+    "prettier:fix": "npx eslint-config-prettier ./src/**/*.{js,jsx,ts,tsx}",
+    "lint:fix:client": "eslint --fix ./client/src/**/*.{js,jsx,ts,tsx}",
+    "prettier:fix:client": "npx eslint-config-prettier ./client/src/**/*.{js,jsx,ts,tsx}",
+    "lint:fix:server": "eslint --fix ./server/src/**/*.{js,jsx,ts,tsx}",
+    "prettier:fix:server": "npx eslint-config-prettier ./server/src/**/*.{js,jsx,ts,tsx}",
+    "test": "concurrently \"npm run prettier:fix:client && npm run lint:fix:client\" \"npm run prettier:fix:server && npm run lint:fix:server\""
+  },
+  "dependencies": {
+    "eslint": "^8.39.0",
+    "eslint-config-next": "13.3.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "babel-eslint": "^10.1.0",
+    "concurrently": "^8.0.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8"
+  },
+  "author": "lsevina126",
+  "license": "ISC",
+  "lint-staged": {
+    "./client/src/**/*.{js,jsx,ts,tsx}": [
+      "npm run prettier:fix",
+      "npm run lint:fix"
+    ],
+    "./server/src/**/*.{js,jsx,ts,tsx}": [
+      "npm run prettier:fix",
+      "npm run lint:fix"
+    ]
+  }
+}

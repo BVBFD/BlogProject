@@ -1,0 +1,108 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
+
+    "airbnb",
+    "airbnb-typescript",
+    "next/core-web-vitals",
+
+    "prettier",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["@typescript-eslint"],
+  "settings": {
+    "next": {
+      "rootDir": "src/**/*"
+    }
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "ignorePatterns": [
+    "dist",
+    "node_modules",
+    "examples",
+    "scripts",
+    "src/common/redux/endpoints"
+  ],
+  "rules": {
+    "no-param-reassign": ["error", { "props": false }],
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "error",
+    // Possible errors
+    "max-lines-per-function": [
+      "error",
+      { "max": 200, "skipBlankLines": true, "skipComments": true }
+    ],
+    "max-lines": [
+      "error",
+      { "max": 300, "skipBlankLines": true, "skipComments": true }
+    ],
+    "no-console": "error",
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": ["function-declaration", "arrow-function"]
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    // Best practices
+    "no-var": "error",
+    "dot-notation": "error",
+    "no-else-return": "error",
+    "no-floating-decimal": "off",
+    "no-sequences": "error",
+    // Stylistic
+    "array-bracket-spacing": "off",
+    "computed-property-spacing": "off",
+    "curly": "off",
+    "no-lonely-if": "error",
+    "no-unneeded-ternary": "error",
+    "one-var-declaration-per-line": "off",
+    "quotes": "off",
+    // ES6
+    "array-callback-return": "off",
+    "prefer-const": "error",
+    // Imports
+    "import/prefer-default-export": "off",
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true
+      }
+    ],
+    "no-unused-expressions": "off",
+    "no-prototype-builtins": "off",
+    // REACT
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "jsx-a11y/href-no-hash": [0],
+    "react/display-name": 0,
+    "react/no-deprecated": "error",
+    "react/no-unsafe": [
+      "error",
+      {
+        "checkAliases": true
+      }
+    ],
+    "react/jsx-sort-props": [
+      "error",
+      {
+        "ignoreCase": true
+      }
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": 0
+  }
+}
