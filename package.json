@@ -5,8 +5,6 @@
   "scripts": {
     "dev": "concurrently \"cd client && npm run dev\" \"cd server && npm run dev\"",
     "prepare": "husky install",
-    "lint:fix": "eslint --fix ./src/**/*.{js,jsx,ts,tsx}",
-    "prettier:fix": "npx eslint-config-prettier ./src/**/*.{js,jsx,ts,tsx}",
     "lint:fix:client": "eslint --fix ./client/src/**/*.{js,jsx,ts,tsx}",
     "prettier:fix:client": "npx eslint-config-prettier ./client/src/**/*.{js,jsx,ts,tsx}",
     "lint:fix:server": "eslint --fix ./server/src/**/*.{js,jsx,ts,tsx}",

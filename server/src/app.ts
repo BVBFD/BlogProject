@@ -34,10 +34,7 @@ class Server {
 
   public listen() {
     // this.setMiddleware();
-    this.app.listen(8080, () => {
-      console.log("Server is on...");
-      console.log("concurrently test");
-    });
+    this.app.listen(8080, () => {});
   }
 }
 
