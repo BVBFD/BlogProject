@@ -21,10 +21,7 @@
   "plugins": ["@typescript-eslint"],
   "settings": {
     "next": {
-      "rootDir": ".client/src/**/*"
-    },
-    "server": {
-      "rootDir": "./server/src/**/*"
+      "rootDir": "./client/src"
     },
     "react": {
       "version": "detect"
