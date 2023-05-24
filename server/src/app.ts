@@ -1,4 +1,4 @@
-import express from 'express';
+import express from "express";
 
 class Server {
   public app: express.Application;
