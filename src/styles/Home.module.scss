@@ -1,0 +1,203 @@
+.totalSearchBox {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+
+  .totalBtn {
+    cursor: pointer;
+
+    &:active {
+      transform: scale(0.8);
+    }
+  }
+
+  .searchInput {
+    padding: 0.2rem 0.4rem;
+    font-size: 1.2rem;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin-left: 1rem;
+    max-height: 30px;
+  }
+}
+
+.container {
+  display: flex;
+  padding: 0 1rem;
+
+  .circularProgress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      transform: scale(3);
+    }
+  }
+
+  .sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    header {
+      &:nth-child(1) {
+        font-size: x-large;
+        font-weight: bold;
+        text-align: center;
+        position: relative;
+        border: 1px solid black;
+        border-left: none;
+        border-right: none;
+        padding: 0.3rem;
+      }
+    }
+
+    .imgBox {
+      img {
+        margin: 1rem 0;
+      }
+    }
+
+    p {
+      font-size: large;
+      text-align: center;
+      position: relative;
+      line-height: 1.8rem;
+    }
+
+    .catHead {
+      font-size: x-large;
+      font-weight: bold;
+      text-align: center;
+      position: relative;
+      border: 1px solid black;
+      border-left: none;
+      border-right: none;
+      padding: 0.3rem;
+      margin: 1.4rem 0;
+    }
+
+    .categoriesBox {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.4rem;
+
+      button {
+        font-size: large;
+        cursor: pointer;
+
+        &:hover {
+          font-weight: bold;
+        }
+
+        &:active {
+          transform: scale(0.8);
+          user-select: none;
+        }
+      }
+    }
+
+    footer {
+      font-size: x-large;
+      font-weight: bold;
+      text-align: center;
+      position: relative;
+      border: 1px solid black;
+      border-left: none;
+      border-right: none;
+      padding: 0.3rem;
+      margin: 1.4rem 0 0.7rem 0;
+    }
+
+    .logoBox {
+      width: 100%;
+
+      svg {
+        margin: 0.4rem;
+        transform: scale(1.2);
+        cursor: pointer;
+        user-select: none;
+
+        &:active {
+          transform: scale(1.1);
+          user-select: none;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  /* 1201px and more - Extra large screens, TV */
+}
+
+@media screen and (max-width: 1200px) {
+  /* 1025px - 1200px - Desktops, large screens */
+}
+
+@media screen and (max-width: 1024px) {
+  /* 769px - 1024px - laptops, small screens */
+  .sidebar {
+    display: none !important;
+  }
+
+  .totalSearchBox {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    button {
+      width: 100%;
+      margin-bottom: 0.6rem;
+    }
+
+    .searchInput {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  .circularProgress {
+    margin-top: 25%;
+
+    svg {
+      transform: none;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* 481px - 768px - ipads, tablets */
+  .circularProgress {
+    margin-top: 35%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* 320px - 480px - mobile devices */
+  .container {
+    display: block;
+  }
+
+  .totalSearchBox {
+    display: flex;
+    justify-content: center;
+  }
+
+  .searchInput {
+    margin: 0.3rem 1rem;
+  }
+
+  .circularProgress {
+    margin-top: 50%;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  /* 319px below - folder screens */
+  .circularProgress {
+    margin-top: 70%;
+  }
+}

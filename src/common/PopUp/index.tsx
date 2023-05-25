@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image } from 'antd';
 import styles from './index.module.scss';
 import Overlay from '../Overlay';
@@ -14,6 +14,19 @@ const PopUp = ({
   isCloseIcon,
   closeIconLocation,
 }: PopUpPropsType) => {
+  useEffect(() => {
+    const body = document.querySelector('body');
+    if (body) {
+      body.style.overflowY = 'hidden';
+    }
+
+    return () => {
+      if (body) {
+        body.style.overflowY = 'auto';
+      }
+    };
+  }, []);
+
   return (
     <Overlay>
       <article
@@ -26,10 +39,15 @@ const PopUp = ({
       >
         {isCloseIcon && (
           <button
-            className={`${styles.closeImgButton} absolute top-[${closeIconLocation?.top}px] bottom-[${closeIconLocation?.bottom}px]`}
+            className={`${styles.closeImgButton} absolute`}
             onClick={onClose}
             onKeyPress={onClose}
-            style={{ right: `${closeIconLocation?.right}px`, left: `${closeIconLocation?.left}px` }}
+            style={{
+              top: `${closeIconLocation?.top}px`,
+              bottom: `${closeIconLocation?.bottom}px`,
+              right: `${closeIconLocation?.right}px`,
+              left: `${closeIconLocation?.left}px`,
+            }}
             tabIndex={0}
             type="button"
           >

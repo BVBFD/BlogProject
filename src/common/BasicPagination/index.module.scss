@@ -2,16 +2,35 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 3rem;
 
   ul {
     display: flex;
     align-items: center;
 
-    li[title='Previous Page'],
-    li[title='Next Page'] {
+    :global(.ant-pagination-item-active) {
+      border-color: #028267;
+
+      a {
+        color: #028267;
+      }
+    }
+
+    li {
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 42px !important;
+      height: 42px !important;
+
+      a {
+        width: 42px !important;
+        height: 42px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        font-size: 20px;
+      }
 
       button {
         display: flex;
@@ -19,8 +38,8 @@
         align-items: center;
 
         span {
-          width: 24px;
-          height: 24px;
+          width: 42px;
+          height: 42px;
           display: flex;
           justify-content: center;
           align-items: center;
