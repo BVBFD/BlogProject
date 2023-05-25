@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://api.lsevina126.asia';
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 // const BASE_URL = 'http://localhost:8800';
 // const USER = JSON.parse(localStorage?.getItem('persist:root') as string)?.user;
 // const TOKEN = USER
