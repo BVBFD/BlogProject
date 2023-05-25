@@ -34,7 +34,10 @@ const Posts = ({ selectedPost }: { selectedPost: PostType[] }) => {
             <Post key={post._id} post={post} />
           </Link>
         ) : (
-          <div key={0} />
+          /* eslint-disable-next-line */
+          <a>
+            <div />
+          </a>
         )
       )}
     </div>
