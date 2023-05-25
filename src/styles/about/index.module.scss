@@ -1,0 +1,134 @@
+.about {
+  background: linear-gradient(rgb(153, 153, 153, 0.5), rgb(153, 153, 153, 0.5)),
+    url('../../../public/imgs/gallery-10.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  .pageTitle {
+    position: absolute;
+    top: 4rem;
+    font-size: 8rem;
+    margin-bottom: 2rem;
+    font-weight: bolder;
+    color: white;
+  }
+
+  .aboutIntroBox {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    border: 1px solid gainsboro;
+    color: #fff;
+    backdrop-filter: blur(10px);
+    position: relative;
+
+    .imgBox {
+      flex: 4;
+
+      img {
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .aboutExplainBox {
+      flex: 5;
+      padding: 0.8rem;
+
+      header {
+        font-size: 2.4rem;
+        font-weight: bolder;
+      }
+
+      p {
+        font-size: 1.2rem;
+        margin-top: 2rem;
+      }
+
+      button {
+        padding: 0.6rem;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        background: #fff;
+        color: #000;
+        font-weight: bold;
+        border: none;
+        box-shadow: 8px 8px 0.4rem #3f3f3f;
+        position: absolute;
+        bottom: -2rem;
+        right: -2rem;
+        cursor: pointer;
+
+        &:hover {
+          background: #000;
+          color: #fff;
+          box-shadow: 8px 8px 0.4rem #fff;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  /* 1201px and more - Extra large screens, TV */
+}
+
+@media screen and (max-width: 1200px) {
+  /* 1025px - 1200px - Desktops, large screens */
+  .about .pageTitle {
+    display: none;
+  }
+
+  .about .aboutIntroBox {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  /* 769px - 1024px - laptops, small screens */
+  .about .aboutIntroBox .aboutExplainBox button {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    margin-top: 2rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* 481px - 768px - ipads, tablets */
+}
+
+@media screen and (max-width: 480px) {
+  /* 320px - 480px - mobile devices */
+  .about .aboutIntroBox .aboutExplainBox header {
+    font-size: 1.4rem;
+  }
+
+  .about .aboutIntroBox .aboutExplainBox p {
+    font-size: 1rem;
+  }
+
+  .about .aboutIntroBox .aboutExplainBox button {
+    transform: scale(0.8);
+  }
+}
+
+@media screen and (max-width: 319px) {
+  /* 319px below - folder screens */
+  .about .aboutIntroBox .aboutExplainBox header {
+    font-size: 1.2rem;
+  }
+
+  .about .aboutIntroBox .aboutExplainBox p {
+    font-size: 0.8rem;
+  }
+
+  .about .aboutIntroBox .aboutExplainBox button {
+    transform: scale(0.6);
+  }
+}
