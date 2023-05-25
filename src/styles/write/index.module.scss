@@ -1,0 +1,143 @@
+.write {
+  .titleImgBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+
+    img {
+      width: 95%;
+      object-fit: cover;
+    }
+  }
+
+  .titleImgAddBox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .titleInputBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .catnameUploadBox {
+        display: flex;
+      }
+
+      .imgFileLabel {
+        display: inline-block;
+        width: 2rem;
+        cursor: pointer;
+        margin-right: 1rem;
+        position: relative;
+
+        svg {
+          transform: scale(1.4);
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+      }
+
+      .titleInput {
+        width: 80vw;
+        border: none;
+        font-size: 2rem;
+        margin: 3rem 0;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      button {
+        width: 3.8rem;
+        min-height: 2.6rem !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-weight: normal;
+        border-radius: 0.6rem;
+        outline: none;
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+
+      .selectCategory {
+        height: 2.6rem;
+        position: relative;
+        right: 1.5rem;
+        border: none;
+        background: #dfd8d8;
+        padding: 0.2rem;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 0.4rem;
+      }
+    }
+
+    .loader {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      width: 20rem;
+      height: 20rem;
+
+      svg {
+        transform: scale(5);
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  /* 1201px and more - Extra large screens, TV */
+}
+
+@media screen and (max-width: 1200px) {
+  /* 1025px - 1200px - Desktops, large screens */
+  .write .titleImgAddBox .titleInputBox .catnameUploadBox {
+    width: 100%;
+    justify-content: center;
+    margin: 1rem 4rem;
+  }
+
+  .write .titleImgAddBox .titleInputBox .titleInput {
+    margin: 1rem 0 0 0;
+  }
+
+  .write .titleImgAddBox .titleInputBox .catnameUploadBox .selectCategory {
+    flex: 1;
+  }
+
+  .write .titleImgAddBox .titleInputBox .catnameUploadBox .uploadBtn {
+    flex: 1;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  /* 769px - 1024px - laptops, small screens */
+}
+
+@media screen and (max-width: 768px) {
+  /* 481px - 768px - ipads, tablets */
+}
+
+@media screen and (max-width: 480px) {
+  /* 320px - 480px - mobile devices */
+  .write .titleImgAddBox .titleInputBox .catnameUploadBox {
+    margin: 1rem 3rem;
+  }
+}
+
+@media screen and (max-width: 319px) {
+  /* 319px below - folder screens */
+}
