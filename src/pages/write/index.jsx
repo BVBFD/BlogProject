@@ -327,10 +327,10 @@ const Write = ({ post }) => {
       <form className={styles.titleImgAddBox}>
         <div className={styles.titleInputBox}>
           <div className={styles.imgFileTitleInputBox}>
-            <div className={styles.imgFileLabel} htmlFor="imgFileInput">
+            <label className={styles.imgFileLabel} htmlFor="imgFileInput">
               <PictureFilled />
-            </div>
-            <input id="imgFileInput" onChange={selectImg} style={{ display: 'none' }} type="file" />
+              <input id="imgFileInput" onChange={selectImg} style={{ display: 'none' }} type="file" />
+            </label>
             <input
               className={styles.titleInput}
               defaultValue={!post ? '' : post.title}
