@@ -1,0 +1,119 @@
+.contact {
+  background: linear-gradient(rgb(153, 153, 153, 0.5), rgb(153, 153, 153, 0.5)), url('../../../public/imgs/chaos.jpg');
+  background-size: cover;
+  background-position: center;
+  height: calc(100vh - 2rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.contact .contactInfoBox {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid gainsboro;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  padding: 0.5rem;
+  width: 80%;
+}
+
+.contact .contactInfoBox .infoBox {
+  display: flex;
+  flex: 1;
+  padding: 2rem 0 2rem 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact .contactInfoBox .infoBox h3 {
+  margin-top: 1rem;
+  align-self: center;
+  font-size: 1.3rem;
+}
+
+.contact .contactInfoBox .infoBox input {
+  width: 20rem;
+  margin-top: 1rem;
+  height: 2.2rem;
+  padding: 1rem;
+  color: black;
+}
+
+.contact .contactInfoBox .mapBox {
+  background: linear-gradient(rgb(153, 153, 153, 0.5), rgb(153, 153, 153, 0.5)), url('../../../public/imgs/contact.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 65rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact .contactInfoBox .infoBox textarea {
+  resize: none;
+  margin-top: 1rem;
+  width: 20rem;
+  height: 10rem;
+  color: black;
+}
+
+.contact .contactInfoBox .infoBox button {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  width: 8rem;
+  padding: 0.6rem;
+  cursor: pointer;
+  border: none;
+}
+
+.contact .contactInfoBox .infoBox button:active {
+  transform: scale(0.9);
+}
+
+@media screen and (min-width: 1201px) {
+  /* 1201px and more - Extra large screens, TV */
+}
+
+@media screen and (max-width: 1200px) {
+  /* 1025px - 1200px - Desktops, large screens */
+  .contact .contactInfoBox .mapBox {
+    display: none;
+  }
+
+  .contact .contactInfoBox .infoBox input,
+  .contact .contactInfoBox .infoBox textarea {
+    width: 25rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  /* 769px - 1024px - laptops, small screens */
+}
+
+@media screen and (max-width: 768px) {
+  /* 481px - 768px - ipads, tablets */
+  .contact .contactInfoBox .infoBox input,
+  .contact .contactInfoBox .infoBox textarea {
+    width: 18rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* 320px - 480px - mobile devices */
+  .contact .contactInfoBox .infoBox input,
+  .contact .contactInfoBox .infoBox textarea {
+    width: 14rem;
+  }
+}
+
+@media screen and (max-width: 319px) {
+  /* 319px below - folder screens */
+  .contact .contactInfoBox .infoBox input,
+  .contact .contactInfoBox .infoBox textarea {
+    width: 10rem;
+  }
+}
