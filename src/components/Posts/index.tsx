@@ -18,9 +18,7 @@ const Posts = ({ selectedPost }: { selectedPost: PostType[] }) => {
   return (
     <div className={styles.wrapper}>
       {selectedPost?.map((post: PostType) =>
-        post === undefined ? (
-          <div key={0} />
-        ) : (
+        post ? (
           <Link
             href={{
               // pathname: `/post/${post.title
@@ -35,6 +33,8 @@ const Posts = ({ selectedPost }: { selectedPost: PostType[] }) => {
           >
             <Post key={post._id} post={post} />
           </Link>
+        ) : (
+          <div key={0} />
         )
       )}
     </div>

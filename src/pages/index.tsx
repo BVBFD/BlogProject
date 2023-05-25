@@ -29,6 +29,7 @@ const Home = () => {
   const [selectedPost, setSelectedPost] = useState<PostType[]>([]);
   const [catname, setCatname] = useState<string>('');
   const [page, setPage] = useState<number>(1);
+  const [paginationNum, setPaginationNum] = useState<number>(0);
 
   const [searchText, setSearchText] = useState<string>();
   const [searchPosts, setSearchPosts] = useState<PostType[]>([]);
@@ -43,7 +44,7 @@ const Home = () => {
       const res = await publicRequest.get(`/posts`);
       const ps = res.data.reverse();
       setPosts(ps);
-
+      setPaginationNum(ps.length);
       setSelectedPost([ps[0], ps[1], ps[2], ps[3]]);
 
       return setOnProgress(false);
@@ -57,6 +58,7 @@ const Home = () => {
     setCatPost([]);
     setCatname('');
     setPage(1);
+    setPaginationNum(posts.length);
     setSearchText('');
     setSelectedPost([posts[0], posts[1], posts[2], posts[3]]);
     searchInputRef.current.value = '';
@@ -82,6 +84,7 @@ const Home = () => {
     setCatname(innerText);
     const newArray = posts.filter((post) => post.catName === innerText);
     setCatPost(newArray);
+    setPaginationNum(newArray.length);
     setSelectedPost([newArray[0], newArray[1], newArray[2], newArray[3]]);
     setPage(1);
   };
@@ -89,24 +92,39 @@ const Home = () => {
   useEffect(() => {
     let filtered = [];
     let postTitle = '';
+
+    const handleFilteredCatname = () => {
+      filtered = catPost.filter((post: PostType) => {
+        postTitle = post.title.replace(/(\s*)/g, '').toLowerCase();
+        return postTitle.includes(searchText as string);
+      });
+      setSearchPosts(filtered);
+      setPaginationNum(filtered.length);
+      setSelectedPost([filtered[0], filtered[1], filtered[2], filtered[3]]);
+      setPage(1);
+    };
+
+    const handleFilteredNonCatname = () => {
+      filtered = posts.filter((post: PostType) => {
+        postTitle = post.title.replace(/(\s*)/g, '').toLowerCase();
+        return postTitle.includes(searchText as string);
+      });
+      setSearchPosts(filtered);
+      setPaginationNum(filtered.length);
+      setSelectedPost([filtered[0], filtered[1], filtered[2], filtered[3]]);
+      setPage(1);
+    };
+
     if (searchText) {
       if (catname !== '') {
-        filtered = catPost.filter((post: PostType) => {
-          postTitle = post.title.replace(/(\s*)/g, '').toLowerCase();
-          return postTitle.includes(searchText);
-        });
-        setSearchPosts(filtered);
-        setSelectedPost([filtered[0], filtered[1], filtered[2], filtered[3]]);
-        setPage(1);
+        handleFilteredCatname();
       } else {
-        filtered = posts.filter((post: PostType) => {
-          postTitle = post.title.replace(/(\s*)/g, '').toLowerCase();
-          return postTitle.includes(searchText);
-        });
-        setSearchPosts(filtered);
-        setSelectedPost([filtered[0], filtered[1], filtered[2], filtered[3]]);
-        setPage(1);
+        handleFilteredNonCatname();
       }
+    } else if (catname !== '') {
+      handleFilteredCatname();
+    } else {
+      handleTotal();
     }
   }, [searchText]);
 
@@ -205,7 +223,7 @@ const Home = () => {
           defaultCurrent={1}
           onChange={(changePageNum) => goToPage(changePageNum)}
           pageSize={4}
-          total={posts.length}
+          total={paginationNum}
         />
       )}
     </>
