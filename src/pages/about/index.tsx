@@ -23,7 +23,7 @@ const About = ({ ps }: AboutPropsType) => {
             <br />
             <br />
             I think craeting new blog website just by my self is the standard of IT skills to get used to working on the
-            field for my customers.
+            field for customers.
             <br />
             <br />I am always trying to keep up with new skills trends.
           </p>
