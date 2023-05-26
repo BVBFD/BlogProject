@@ -9,6 +9,7 @@ import { Spin } from 'antd';
 import { useSelector } from 'react-redux';
 
 import hljs from 'highlight.js';
+import 'highlight.js/styles/vs2015.css';
 import 'react-quill/dist/quill.core.css';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
