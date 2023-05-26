@@ -115,13 +115,13 @@
       width: 100%;
 
       svg {
-        margin: 0.4rem;
-        transform: scale(1.2);
+        margin: 0 0.8rem;
+        transform: scale(1.6);
         cursor: pointer;
         user-select: none;
 
         &:active {
-          transform: scale(1.1);
+          transform: scale(1.4);
           user-select: none;
         }
       }
@@ -139,6 +139,12 @@
 
 @media screen and (max-width: 1024px) {
   /* 769px - 1024px - laptops, small screens */
+  .homeSec {
+    :global(.ant-pagination) {
+      transform: scale(0.85) !important;
+    }
+  }
+
   .sidebar {
     display: none !important;
   }

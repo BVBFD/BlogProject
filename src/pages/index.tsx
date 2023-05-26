@@ -129,7 +129,7 @@ const Home = () => {
   }, [searchText]);
 
   return (
-    <>
+    <section className={styles.homeSec}>
       <Head>
         {/* SEO */}
         <title>Blog Project</title>
@@ -215,9 +215,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {onProgress ? (
-        <div />
-      ) : (
+      {posts.length !== 0 && (
         <BasicPagination
           current={page}
           defaultCurrent={1}
@@ -226,7 +224,7 @@ const Home = () => {
           total={paginationNum}
         />
       )}
-    </>
+    </section>
   );
 };
 
