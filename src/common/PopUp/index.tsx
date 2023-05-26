@@ -3,6 +3,7 @@ import { Image } from 'antd';
 import styles from './index.module.scss';
 import Overlay from '../Overlay';
 import { PopUpPropsType } from '../common';
+import CustomScroll from '../CustomScroll';
 
 const PopUp = ({
   title,
@@ -59,7 +60,7 @@ const PopUp = ({
         <header className={styles.modalHeader}>
           <div className={styles.title}>{title}</div>
         </header>
-        <main className={styles.modalContentMain}>{content}</main>
+        <CustomScroll>{content}</CustomScroll>
         {!footer ? null : <footer>{footer}</footer>}
       </article>
     </Overlay>
