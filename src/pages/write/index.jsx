@@ -3,7 +3,6 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import 'react-quill/dist/quill.snow.css';
 import { PictureFilled } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { Spin } from 'antd';
@@ -11,7 +10,9 @@ import { useSelector } from 'react-redux';
 
 import hljs from 'highlight.js';
 import 'react-quill/dist/quill.core.css';
+import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
+
 import BasicButton from '@/common/BasicButton';
 import { publicRequest } from '../../../config';
 import styles from '../../styles/write/index.module.scss';
