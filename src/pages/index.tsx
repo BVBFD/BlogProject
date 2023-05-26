@@ -79,6 +79,7 @@ const Home = () => {
   };
 
   const handleCatName = (e: React.MouseEvent<HTMLSpanElement>) => {
+    handleTotal();
     const { innerText } = e.target as HTMLSpanElement;
     setCatname(innerText);
     const newArray = posts.filter((post) => post.catName === innerText);
