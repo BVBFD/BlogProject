@@ -40,13 +40,11 @@ const Home = () => {
   useEffect(() => {
     const getPosts = async () => {
       setOnProgress(true);
-
       const res = await publicRequest.get(`/posts`);
       const ps = res.data.reverse();
       setPosts(ps);
       setPaginationNum(ps.length);
       setSelectedPost([ps[0], ps[1], ps[2], ps[3]]);
-
       return setOnProgress(false);
     };
 
@@ -60,6 +58,7 @@ const Home = () => {
     setPage(1);
     setPaginationNum(posts.length);
     setSearchText('');
+    setSearchPosts([]);
     setSelectedPost([posts[0], posts[1], posts[2], posts[3]]);
     searchInputRef.current.value = '';
   };
