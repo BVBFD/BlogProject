@@ -2,17 +2,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 3rem;
+  margin: 2rem;
 
   ul {
     display: flex;
     align-items: center;
 
     :global(.ant-pagination-item-active) {
-      border-color: #028267;
+      border-color: #028267 !important;
 
       a {
-        color: #028267;
+        color: #028267 !important;
       }
     }
 
