@@ -165,7 +165,7 @@ const Home = () => {
             <Spin />
           </div>
         ) : (
-          <Posts selectedPost={selectedPost} />
+          <Posts selectedPost={Array.from({ length: 4 }, (value, index) => selectedPost[index])} />
         )}
         <div className={styles.sidebar}>
           <header>About Me</header>
