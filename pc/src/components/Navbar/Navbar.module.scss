@@ -48,6 +48,14 @@
 
     .menuLink {
       margin: 0 1rem;
+
+      &:hover {
+        font-weight: bolder;
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
     }
   }
 }
