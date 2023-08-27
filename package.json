@@ -3,7 +3,10 @@
   "version": "5.0.0",
   "description": "This is blog-project refactoring with ES-Lint",
   "scripts": {
-    "dev": "concurrently \"cd pc && npm run dev\" \"cd mobile && npm run dev\" \"cd server && npm run dev\"",
+    "dev:pc": "cd pc && set PORT=3000 && npm run dev",
+    "dev:mobile": "cd mobile && set PORT=3001 && npm run dev",
+    "dev:server": "cd server && set PORT=8080 && npm run dev",
+    "dev": "concurrently \"npm run dev:pc\" \"npm run dev:mobile\" \"npm run dev:server\"",
     "prepare": "husky install",
     "lint:fix:pc": "eslint --fix ./pc/src/**/*.{js,jsx,ts,tsx}",
     "prettier:fix:pc": "npx eslint-config-prettier ./pc/src/**/*.{js,jsx,ts,tsx}",
