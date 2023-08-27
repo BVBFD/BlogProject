@@ -10,7 +10,7 @@ class Server {
 
   private setRoute() {
     // this.app.use(catsRouter);
-    this.app.get('/', (req, res, next) => {
+    this.app.get('/', (_req, res) => {
       res.json('get!!');
     });
   }
@@ -38,7 +38,7 @@ class Server {
   public listen() {
     // this.setMiddleware();
     this.app.listen(8080, () => {
-      console.log('Server is connected!!');
+      // console.log('Server is connected!!');
       this.setMiddleware();
     });
   }

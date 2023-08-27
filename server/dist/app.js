@@ -10,7 +10,7 @@ var Server = (function () {
         this.app = app;
     }
     Server.prototype.setRoute = function () {
-        this.app.get('/', function (req, res, next) {
+        this.app.get('/', function (_req, res) {
             res.json('get!!');
         });
     };
@@ -20,7 +20,6 @@ var Server = (function () {
     Server.prototype.listen = function () {
         var _this = this;
         this.app.listen(8080, function () {
-            console.log('Server is connected!!');
             _this.setMiddleware();
         });
     };

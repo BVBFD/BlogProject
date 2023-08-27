@@ -1,28 +1,36 @@
 'use client';
 
-import React, { useContext, useEffect } from 'react';
-import styles from './Navbar.module.scss';
+import React, { useContext } from 'react';
 import Image from 'next/image';
 import logo from 'public/imgs/logo.png';
 import Link from 'next/link';
-import { ThemeContext } from '@/context/ThemeContext';
+
+import { ThemeContext } from '../../context/ThemeContext';
+
+import styles from './Navbar.module.scss';
 
 const Navbar = () => {
   const { toggle, mode } = useContext(ThemeContext);
 
   return (
     <nav className={styles.navbar}>
-      <Link href={'/'} className={styles.logoLink}>
+      <Link className={styles.logoLink} href="/">
         <div className={styles.logo}>
-          <Image src={logo} alt="logo" fill={true} />
+          <Image alt="logo" fill src={logo} />
         </div>
         <h1>LEO BLOG</h1>
       </Link>
 
       <main>
-        <div
+        <button
           className={styles.theme}
           onClick={toggle}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              toggle();
+            }
+          }}
+          type="button"
           style={mode === 'light' ? { border: '1.5px solid black' } : { border: '1.5px solid white' }}
         >
           <div className={styles.icon}>🌙</div>
@@ -32,21 +40,21 @@ const Navbar = () => {
             style={
               mode === 'dark' ? { right: '5px', backgroundColor: 'white' } : { left: '5px', backgroundColor: 'black' }
             }
-          ></div>
-        </div>
-        <Link href={'/'} className={styles.menuLink}>
+          />
+        </button>
+        <Link className={styles.menuLink} href="/">
           Home
         </Link>
-        <Link href={'/portfolio'} className={styles.menuLink}>
+        <Link className={styles.menuLink} href="/portfolio">
           Portfolio
         </Link>
-        <Link href={'/blog'} className={styles.menuLink}>
+        <Link className={styles.menuLink} href="/blog">
           Blog
         </Link>
-        <Link href={'/about'} className={styles.menuLink}>
+        <Link className={styles.menuLink} href="/about">
           About
         </Link>
-        <Link href={'/contact'} className={styles.menuLink}>
+        <Link className={styles.menuLink} href="/contact">
           Contact
         </Link>
       </main>

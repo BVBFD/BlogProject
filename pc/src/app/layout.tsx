@@ -1,8 +1,9 @@
-import Navbar from '@/components/Navbar/Navbar';
-import './globals.css';
 import type { Metadata } from 'next';
 import { GFS_Didot } from 'next/font/google';
-import { ThemeContextProvider } from '@/context/ThemeContext';
+import './globals.css';
+
+import Navbar from '../components/Navbar/Navbar';
+import { ThemeContextProvider } from '../context/ThemeContext';
 
 const didot = GFS_Didot({ subsets: ['greek'], weight: '400' });
 
