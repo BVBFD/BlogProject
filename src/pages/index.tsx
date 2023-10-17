@@ -149,9 +149,11 @@ const Home = () => {
       </Head>
       <Banner />
       <div className={styles.totalSearchBox}>
-        <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
-          TOTAL
-        </BasicButton>
+        {(catname !== '' || searchText !== '') && (
+          <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
+            TOTAL
+          </BasicButton>
+        )}
         <input
           className={styles.searchInput}
           onChange={(e) => setSearchText(e.target.value)}

@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   padding: 1rem;
+  gap: 1rem;
 
   .totalBtn {
     cursor: pointer;
@@ -16,7 +17,6 @@
     font-size: 1.2rem;
     border: 1px solid black;
     border-radius: 4px;
-    margin-left: 1rem;
     max-height: 30px;
   }
 }
