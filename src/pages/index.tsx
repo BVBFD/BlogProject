@@ -182,7 +182,14 @@ const Home = () => {
             <p>Front-End, Back-End, Web Developer</p>
             <p>Sharing My Value and Knowledge For Others</p>
           </div>
-          <header className={styles.catHead}>CATEGORIES</header>
+          <header className={styles.catHead}>
+            <div>CATEGORIES</div>
+            {(catname !== '' || searchText !== '') && (
+              <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
+                TOTAL
+              </BasicButton>
+            )}
+          </header>
           <div className={styles.categoriesBox}>
             <button onClick={handleCatName} type="button">
               HTML / Git

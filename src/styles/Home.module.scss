@@ -68,6 +68,8 @@
     }
 
     .catHead {
+      display: flex;
+      flex-direction: column;
       font-size: x-large;
       font-weight: bold;
       text-align: center;
@@ -77,6 +79,8 @@
       border-right: none;
       padding: 0.3rem;
       margin: 1.4rem 0;
+      gap: 0.4rem;
+      padding: 0.4rem 0;
     }
 
     .categoriesBox {
