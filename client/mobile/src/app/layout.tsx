@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
-import { didot } from '../../../common/src/font/font';
+
+import { didot } from '@common/src/font/font';
 import './globals.css';
 
-import { homeMeta } from '../../../common/src/meta/meta';
+import { homeMeta } from '@common/src/meta/meta';
 
 export const metadata: Metadata = homeMeta;
 

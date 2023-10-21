@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
-import { didot } from '../../../common/src/font/font';
+
+import { didot } from '@common/src/font/font';
 import './globals.css';
 
-import Navbar from '../components/Navbar/Navbar';
 import { ThemeContextProvider } from '@common/src/context/ThemeContext';
 import { homeMeta } from '@common/src/meta/meta';
+
+import Navbar from '../components/Navbar/Navbar';
 
 export const metadata: Metadata = homeMeta;
 
