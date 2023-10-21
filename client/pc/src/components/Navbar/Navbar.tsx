@@ -5,7 +5,7 @@ import Image from 'next/image';
 import logo from 'public/imgs/logo.png';
 import Link from 'next/link';
 
-import { ThemeContext } from '../../context/ThemeContext';
+import { ThemeContext } from '@common/src/context/ThemeContext';
 
 import styles from './Navbar.module.scss';
 
@@ -30,8 +30,8 @@ const Navbar = () => {
               toggle();
             }
           }}
-          type="button"
           style={mode === 'light' ? { border: '1.5px solid black' } : { border: '1.5px solid white' }}
+          type="button"
         >
           <div className={styles.icon}>🌙</div>
           <div className={styles.icon}>🔆</div>

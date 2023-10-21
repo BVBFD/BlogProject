@@ -3,18 +3,20 @@
   "version": "5.0.0",
   "description": "This is blog-project refactoring with ES-Lint",
   "scripts": {
-    "dev:pc": "cd pc && set PORT=3000 && npm run dev",
-    "dev:mobile": "cd mobile && set PORT=3001 && npm run dev",
+    "dev:pc": "cd client && cd pc && set PORT=3000 && npm run dev",
+    "dev:mobile": "cd client && cd mobile && set PORT=3001 && npm run dev",
     "dev:server": "cd server && set PORT=8080 && npm run dev",
     "dev": "concurrently \"npm run dev:pc\" \"npm run dev:mobile\" \"npm run dev:server\"",
     "prepare": "husky install",
-    "lint:fix:pc": "eslint --fix ./pc/src/**/*.{js,jsx,ts,tsx}",
-    "prettier:fix:pc": "npx eslint-config-prettier ./pc/src/**/*.{js,jsx,ts,tsx}",
-    "lint:fix:mobile": "eslint --fix ./mobile/src/**/*.{js,jsx,ts,tsx}",
-    "prettier:fix:mobile": "npx eslint-config-prettier ./mobile/src/**/*.{js,jsx,ts,tsx}",
+    "lint:fix:pc": "eslint --fix ./client/pc/src/**/*.{js,jsx,ts,tsx}",
+    "prettier:fix:pc": "npx eslint-config-prettier ./client/pc/src/**/*.{js,jsx,ts,tsx}",
+    "lint:fix:mobile": "eslint --fix ./client/mobile/src/**/*.{js,jsx,ts,tsx}",
+    "prettier:fix:mobile": "npx eslint-config-prettier ./client/mobile/src/**/*.{js,jsx,ts,tsx}",
+    "lint:fix:common": "eslint --fix ./client/common/src/**/*.{js,jsx,ts,tsx}",
+    "prettier:fix:common": "npx eslint-config-prettier ./client/common/src/**/*.{js,jsx,ts,tsx}",
     "lint:fix:server": "eslint --fix ./server/src/**/*.{js,jsx,ts,tsx}",
     "prettier:fix:server": "npx eslint-config-prettier ./server/src/**/*.{js,jsx,ts,tsx}",
-    "test": "concurrently \"npm run prettier:fix:pc && npm run lint:fix:pc\" \"npm run prettier:fix:mobile && npm run lint:fix:mobile\" \"npm run prettier:fix:server && npm run lint:fix:server\""
+    "test": "concurrently \"npm run prettier:fix:pc && npm run lint:fix:pc\" \"npm run prettier:fix:mobile && npm run lint:fix:mobile\" \"npm run prettier:fix:common && npm run lint:fix:common\" \"npm run prettier:fix:server && npm run lint:fix:server\""
   },
   "dependencies": {
     "eslint": "^8.47.0",
@@ -50,6 +52,10 @@
       "npm run lint:fix:pc"
     ],
     "./mobile/src/**/*.{js,jsx,ts,tsx}": [
+      "npm run prettier:fix:mobile",
+      "npm run lint:fix:mobile"
+    ],
+    "./common/src/**/*.{js,jsx,ts,tsx}": [
       "npm run prettier:fix:mobile",
       "npm run lint:fix:mobile"
     ],

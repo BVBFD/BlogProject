@@ -20,7 +20,7 @@
   "plugins": ["@typescript-eslint"],
   "settings": {
     "next": {
-      "rootDir": ["pc/**/*", "mobile/**/*"]
+      "rootDir": ["client/pc/**/*", "client/mobile/**/*"]
     }
   },
   "env": {
