@@ -15,10 +15,17 @@ const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <Link className={styles.logoLink} href="/">
-        <div className={styles.logo}>
+        <div
+          className={styles.logo}
+          style={mode === 'light' ? { boxShadow: '0px 0px 12px gold' } : { boxShadow: '0px 0px 12px red' }}
+        >
           <Image alt="logo" fill src={logo} />
         </div>
-        <h1>LEO BLOG</h1>
+        <h1
+          style={mode === 'light' ? { textShadow: '2px 2px 0.1px darkgray' } : { textShadow: '2px 2px 0.1px darkred' }}
+        >
+          LEO BLOG
+        </h1>
       </Link>
 
       <main>

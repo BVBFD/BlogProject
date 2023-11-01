@@ -1,1 +1,58 @@
+.container {
+  header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 35vh;
+    position: relative;
+    margin-top: 2rem;
+    border: 2px solid white;
+    border-radius: 1rem;
 
+    img {
+      filter: opacity(0.2) grayscale(1);
+      transition: filter 3s;
+      border-radius: 0.9rem;
+    }
+  }
+
+  main {
+    .recentPost {
+      display: flex;
+      align-items: center;
+      height: 60vh;
+      gap: 4rem;
+      margin: 4rem 0;
+
+      .imgBox {
+        height: 100%;
+        position: relative;
+        flex: 1;
+
+        img {
+          border-radius: 1rem;
+        }
+      }
+
+      .detail {
+        flex: 1;
+
+        h1 {
+          font-size: 3rem;
+          font-weight: bolder;
+          line-height: 3rem;
+        }
+
+        p {
+          margin: 2rem 0;
+          font-size: 1.2rem;
+        }
+
+        a {
+          font-size: 1.4rem;
+        }
+      }
+    }
+  }
+}
