@@ -2,12 +2,13 @@
 
 import Image from 'next/image';
 
-import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useContext, useRef } from 'react';
 import { ThemeContext } from '@common/src/context/ThemeContext';
 
 import styles from './page.module.scss';
+import Button from 'src/common/Button/Button';
+import Link from 'next/link';
 
 const DynamicTyped = dynamic(() => import('../common/Typedjs/Typedjs'), {
   ssr: true,
@@ -54,64 +55,166 @@ export default function Home() {
               laborum sunt impedit! Voluptates fuga, ipsam veniam, dolore ipsum odio, nobis molestiae incidunt tenetur
               consequatur iste.
             </p>
-            <Link href="/">Read More</Link>
+            <Button text="Read More" width="9rem" height="2.5rem" href="/" />
           </div>
         </article>
 
-        <article className={styles.recentPostsList}>
-          <div className={styles.recentPostCard}>
-            <div className={styles.recentPostCardImgBox}>
-              {/* <Image src="/imgs/card_img_1.jpg" alt="recent_post_card" fill={true} className={styles.image} /> */}
+        <article className={styles.recentPostsListMostPopular}>
+          <div className={styles.recentPostsList}>
+            <div className={styles.recentPostCard}>
+              <div className={styles.recentPostCardImgBox}>
+                <Image
+                  objectFit="cover"
+                  src="/imgs/card_img_1.jpg"
+                  alt="recent_post_card"
+                  fill={true}
+                  className={styles.image}
+                />
+              </div>
+              <div className={styles.desc}>
+                <h1>Title 1</h1>
+                <span>Mon Apr 03 2023</span>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe laboriosam ullam ea necessitatibus, hic
+                  soluta consectetur ad veniam praesentium a possimus enim dolores. Magni necessitatibus voluptatem
+                  doloribus cupiditate, sint cumque?
+                </p>
+              </div>
             </div>
-            <h1>Title 1</h1>
-            <span>Mon Apr 03 2023</span>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe laboriosam ullam ea necessitatibus, hic
-              soluta consectetur ad veniam praesentium a possimus enim dolores. Magni necessitatibus voluptatem
-              doloribus cupiditate, sint cumque?
-            </p>
-          </div>
 
-          <div className={styles.recentPostCard}>
-            <div className={styles.recentPostCardImgBox}>
-              {/* <Image src="/imgs/card_img_2.jpg" alt="recent_post_card" fill={true} className={styles.image} /> */}
+            <div className={styles.recentPostCard}>
+              <div className={styles.recentPostCardImgBox}>
+                <Image
+                  objectFit="cover"
+                  src="/imgs/card_img_2.jpg"
+                  alt="recent_post_card"
+                  fill={true}
+                  className={styles.image}
+                />
+              </div>
+              <div className={styles.desc}>
+                <h1>Title 2</h1>
+                <span>Mon Apr 03 2023</span>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe laboriosam ullam ea necessitatibus, hic
+                  soluta consectetur ad veniam praesentium a possimus enim dolores. Magni necessitatibus voluptatem
+                  doloribus cupiditate, sint cumque?
+                </p>
+              </div>
             </div>
-            <h1>Title 2</h1>
-            <span>Mon Apr 03 2023</span>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe laboriosam ullam ea necessitatibus, hic
-              soluta consectetur ad veniam praesentium a possimus enim dolores. Magni necessitatibus voluptatem
-              doloribus cupiditate, sint cumque?
-            </p>
-          </div>
 
-          <div className={styles.recentPostCard}>
-            <div className={styles.recentPostCardImgBox}>
-              {/* <Image src="/imgs/card_img_3.jpg" alt="recent_post_card" fill={true} className={styles.image} /> */}
+            <div className={styles.recentPostCard}>
+              <div className={styles.recentPostCardImgBox}>
+                <Image
+                  objectFit="cover"
+                  src="/imgs/card_img_3.jpg"
+                  alt="recent_post_card"
+                  fill={true}
+                  className={styles.image}
+                />
+              </div>
+              <div className={styles.desc}>
+                <h1>Title 3</h1>
+                <span>Mon Apr 03 2023</span>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe laboriosam ullam ea necessitatibus, hic
+                  soluta consectetur ad veniam praesentium a possimus enim dolores. Magni necessitatibus voluptatem
+                  doloribus cupiditate, sint cumque?
+                </p>
+              </div>
             </div>
-            <h1>Title 3</h1>
-            <span>Mon Apr 03 2023</span>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe laboriosam ullam ea necessitatibus, hic
-              soluta consectetur ad veniam praesentium a possimus enim dolores. Magni necessitatibus voluptatem
-              doloribus cupiditate, sint cumque?
-            </p>
-          </div>
 
-          <div className={styles.recentPostCard}>
-            <div className={styles.recentPostCardImgBox}>
-              {/* <Image src="/imgs/card_img_4.jpg" alt="recent_post_card" fill={true} className={styles.image} /> */}
+            <div className={styles.recentPostCard}>
+              <div className={styles.recentPostCardImgBox}>
+                <Image
+                  objectFit="cover"
+                  src="/imgs/card_img_4.jpg"
+                  alt="recent_post_card"
+                  fill={true}
+                  className={styles.image}
+                />
+              </div>
+              <div className={styles.desc}>
+                <h1>Title 4</h1>
+                <span>Mon Apr 03 2023</span>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe laboriosam ullam ea necessitatibus, hic
+                  soluta consectetur ad veniam praesentium a possimus enim dolores. Magni necessitatibus voluptatem
+                  doloribus cupiditate, sint cumque?
+                </p>
+              </div>
             </div>
-            <h1>Title 4</h1>
-            <span>Mon Apr 03 2023</span>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe laboriosam ullam ea necessitatibus, hic
-              soluta consectetur ad veniam praesentium a possimus enim dolores. Magni necessitatibus voluptatem
-              doloribus cupiditate, sint cumque?
-            </p>
+          </div>
+          <div className={styles.mostPopularPosts}>
+            <h3>What&apos;s Hot</h3>
+            <h1>Most Popular</h1>
+            <ul>
+              <Link href={'/'} className={styles.mostPopularPost}>
+                <li>
+                  <span className={styles.categoryBtn}>HTML / Git</span>
+                  <p className={styles.details}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                  <div className={styles.author}>
+                    <p>
+                      Seong Eun Lee <span>- 10.03.2023</span>
+                    </p>
+                  </div>
+                </li>
+              </Link>
+
+              <Link href={'/'} className={styles.mostPopularPost}>
+                <li>
+                  <span className={styles.categoryBtn}>CSS</span>
+                  <p className={styles.details}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                  <div className={styles.author}>
+                    <p>
+                      Seong Eun Lee <span>- 10.03.2023</span>
+                    </p>
+                  </div>
+                </li>
+              </Link>
+
+              <Link href={'/'} className={styles.mostPopularPost}>
+                <li>
+                  <span className={styles.categoryBtn}>JavaScript</span>
+                  <p className={styles.details}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                  <div className={styles.author}>
+                    <p>
+                      Seong Eun Lee <span>- 10.03.2023</span>
+                    </p>
+                  </div>
+                </li>
+              </Link>
+
+              <Link href={'/'} className={styles.mostPopularPost}>
+                <li>
+                  <span className={styles.categoryBtn}>Front-End</span>
+                  <p className={styles.details}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                  <div className={styles.author}>
+                    <p>
+                      Seong Eun Lee <span>- 10.03.2023</span>
+                    </p>
+                  </div>
+                </li>
+              </Link>
+
+              <Link href={'/'} className={styles.mostPopularPost}>
+                <li>
+                  <span className={styles.categoryBtn}>Back-End</span>
+                  <p className={styles.details}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                  <div className={styles.author}>
+                    <p>
+                      Seong Eun Lee <span>- 10.03.2023</span>
+                    </p>
+                  </div>
+                </li>
+              </Link>
+            </ul>
           </div>
         </article>
       </main>
+      <footer>
+        <div className={styles.pagination}>pagination</div>
+      </footer>
     </section>
   );
 }

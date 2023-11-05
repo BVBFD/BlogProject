@@ -1,0 +1,16 @@
+.button {
+  button {
+    background-color: goldenrod;
+    color: white;
+    border-radius: 0.4rem;
+
+    &:hover {
+      color: black;
+      background-color: gold;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
