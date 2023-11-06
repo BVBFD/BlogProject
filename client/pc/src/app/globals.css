@@ -12,9 +12,34 @@ li {
   list-style: none;
 }
 
+html {
+  padding: 0;
+  margin: 0;
+}
+
+html::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+html::-webkit-scrollbar-track {
+  background: white;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: black;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 .container {
   width: 100%;
-  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   margin: 0 4rem 0 4rem;
@@ -22,11 +47,19 @@ li {
 }
 
 .light {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: black;
   background-color: white;
 }
 
 .dark {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
   background-color: black;
 }

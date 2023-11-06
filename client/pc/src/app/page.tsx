@@ -6,9 +6,10 @@ import dynamic from 'next/dynamic';
 import { useContext, useRef } from 'react';
 import { ThemeContext } from '@common/src/context/ThemeContext';
 
-import styles from './page.module.scss';
 import Button from 'src/common/Button/Button';
 import Link from 'next/link';
+
+import styles from './page.module.scss';
 
 const DynamicTyped = dynamic(() => import('../common/Typedjs/Typedjs'), {
   ssr: true,
@@ -55,7 +56,7 @@ export default function Home() {
               laborum sunt impedit! Voluptates fuga, ipsam veniam, dolore ipsum odio, nobis molestiae incidunt tenetur
               consequatur iste.
             </p>
-            <Button text="Read More" width="9rem" height="2.5rem" href="/" />
+            <Button fontSize="1.2rem" height="2.5rem" href="/" text="Read More" width="9rem" />
           </div>
         </article>
 
@@ -64,11 +65,11 @@ export default function Home() {
             <div className={styles.recentPostCard}>
               <div className={styles.recentPostCardImgBox}>
                 <Image
+                  alt="recent_post_card"
+                  className={styles.image}
+                  fill
                   objectFit="cover"
                   src="/imgs/card_img_1.jpg"
-                  alt="recent_post_card"
-                  fill={true}
-                  className={styles.image}
                 />
               </div>
               <div className={styles.desc}>
@@ -85,11 +86,11 @@ export default function Home() {
             <div className={styles.recentPostCard}>
               <div className={styles.recentPostCardImgBox}>
                 <Image
+                  alt="recent_post_card"
+                  className={styles.image}
+                  fill
                   objectFit="cover"
                   src="/imgs/card_img_2.jpg"
-                  alt="recent_post_card"
-                  fill={true}
-                  className={styles.image}
                 />
               </div>
               <div className={styles.desc}>
@@ -106,11 +107,11 @@ export default function Home() {
             <div className={styles.recentPostCard}>
               <div className={styles.recentPostCardImgBox}>
                 <Image
+                  alt="recent_post_card"
+                  className={styles.image}
+                  fill
                   objectFit="cover"
                   src="/imgs/card_img_3.jpg"
-                  alt="recent_post_card"
-                  fill={true}
-                  className={styles.image}
                 />
               </div>
               <div className={styles.desc}>
@@ -127,11 +128,11 @@ export default function Home() {
             <div className={styles.recentPostCard}>
               <div className={styles.recentPostCardImgBox}>
                 <Image
+                  alt="recent_post_card"
+                  className={styles.image}
+                  fill
                   objectFit="cover"
                   src="/imgs/card_img_4.jpg"
-                  alt="recent_post_card"
-                  fill={true}
-                  className={styles.image}
                 />
               </div>
               <div className={styles.desc}>
@@ -149,9 +150,9 @@ export default function Home() {
             <h3>What&apos;s Hot</h3>
             <h1>Most Popular</h1>
             <ul>
-              <Link href={'/'} className={styles.mostPopularPost}>
+              <Link className={styles.mostPopularPost} href="/">
                 <li>
-                  <span className={styles.categoryBtn}>HTML / Git</span>
+                  <span className={styles.categoryBtn}>HTML / GIT</span>
                   <p className={styles.details}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                   <div className={styles.author}>
                     <p>
@@ -161,7 +162,7 @@ export default function Home() {
                 </li>
               </Link>
 
-              <Link href={'/'} className={styles.mostPopularPost}>
+              <Link className={styles.mostPopularPost} href="/">
                 <li>
                   <span className={styles.categoryBtn}>CSS</span>
                   <p className={styles.details}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -173,7 +174,7 @@ export default function Home() {
                 </li>
               </Link>
 
-              <Link href={'/'} className={styles.mostPopularPost}>
+              <Link className={styles.mostPopularPost} href="/">
                 <li>
                   <span className={styles.categoryBtn}>JavaScript</span>
                   <p className={styles.details}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -185,7 +186,7 @@ export default function Home() {
                 </li>
               </Link>
 
-              <Link href={'/'} className={styles.mostPopularPost}>
+              <Link className={styles.mostPopularPost} href="/">
                 <li>
                   <span className={styles.categoryBtn}>Front-End</span>
                   <p className={styles.details}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -197,7 +198,7 @@ export default function Home() {
                 </li>
               </Link>
 
-              <Link href={'/'} className={styles.mostPopularPost}>
+              <Link className={styles.mostPopularPost} href="/">
                 <li>
                   <span className={styles.categoryBtn}>Back-End</span>
                   <p className={styles.details}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>

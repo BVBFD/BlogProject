@@ -7,6 +7,8 @@ import Link from 'next/link';
 
 import { ThemeContext } from '@common/src/context/ThemeContext';
 
+import Button from 'src/common/Button/Button';
+
 import styles from './Navbar.module.scss';
 
 const Navbar = () => {
@@ -52,18 +54,17 @@ const Navbar = () => {
         <Link className={styles.menuLink} href="/">
           Home
         </Link>
-        <Link className={styles.menuLink} href="/portfolio">
-          Portfolio
-        </Link>
-        <Link className={styles.menuLink} href="/blog">
-          Blog
-        </Link>
         <Link className={styles.menuLink} href="/about">
           About
+        </Link>
+        <Link className={styles.menuLink} href="/write">
+          Write
         </Link>
         <Link className={styles.menuLink} href="/contact">
           Contact
         </Link>
+        <Button className={styles.menuLink} height="2rem" href="/login" text="Log-In" width="4.8rem" />
+        <Button className={styles.menuLink} height="2rem" href="/signup" text="Sign-Up" width="4.8rem" />
       </main>
     </nav>
   );

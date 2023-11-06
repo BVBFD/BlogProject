@@ -2,12 +2,12 @@ import React from 'react';
 
 import styles from './page.module.scss';
 
-const Portfolio = () => {
+const Write = () => {
   return (
     <section className={styles.container}>
-      <span>Portfolio</span>
+      <span>write</span>
     </section>
   );
 };
 
-export default Portfolio;
+export default Write;

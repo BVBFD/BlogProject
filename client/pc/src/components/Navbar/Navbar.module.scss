@@ -3,6 +3,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 999;
+  height: 5vh;
 
   .logoLink {
     display: flex;
@@ -29,6 +31,7 @@
 
   main {
     display: flex;
+    align-items: center;
 
     .theme {
       width: fit-content;
@@ -53,7 +56,9 @@
     }
 
     .menuLink {
-      margin: 0 1rem;
+      margin: 0 0.8rem;
+      font-size: 1rem;
+      font-weight: lighter;
 
       &:hover {
         font-weight: bolder;
