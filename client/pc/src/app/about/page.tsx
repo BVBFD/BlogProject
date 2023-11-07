@@ -1,9 +1,11 @@
 'use client';
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import Image from 'next/image';
+
 import styles from './page.module.scss';
 
 const About = () => {
