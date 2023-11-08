@@ -4,11 +4,8 @@ import React, { useContext } from 'react';
 import Image from 'next/image';
 import logo from 'public/imgs/logo.png';
 import Link from 'next/link';
-
-import { ThemeContext } from '@common/src/context/ThemeContext';
-
+import { ThemeContext } from 'src/common/context/ThemeContext';
 import Button from 'src/common/Button/Button';
-
 import styles from './Navbar.module.scss';
 
 const Navbar = () => {
