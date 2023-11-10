@@ -8,7 +8,6 @@ const DynamicEditor = dynamic(() => import('src/components/Write/Editor/Editor')
 const Write = () => {
   return (
     <section className={styles.container}>
-      <span>write</span>
       <DynamicEditor />
     </section>
   );

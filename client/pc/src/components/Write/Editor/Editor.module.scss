@@ -1,0 +1,13 @@
+.container {
+  width: 100%;
+  height: calc(100vh - 5vh - 2rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  global {
+    .toastui-editor-defaultUI {
+      width: 82vw;
+    }
+  }
+}

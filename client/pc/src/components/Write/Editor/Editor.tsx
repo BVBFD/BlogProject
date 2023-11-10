@@ -1,28 +1,27 @@
 'use client';
 
 import React from 'react';
-
-import 'prismjs/themes/prism.css';
-import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
-
 import Prism from 'prismjs';
+import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
+import chart from '@toast-ui/editor-plugin-chart';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
+import styles from './Editor.module.scss';
 
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-tsx';
 
+import 'prismjs/themes/prism.css';
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
-import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
-
-import styles from './Editor.module.scss';
+import '@toast-ui/chart/dist/toastui-chart.css';
 
 const Editor = () => {
   return (
     <div className={styles.container}>
       <ToastUIEditor
-        height="50vh"
+        height="80vh"
         hooks={{
           addImageBlobHook() // fileBlob, imgUrlCallback as params inside of callback function
           {
@@ -37,7 +36,10 @@ const Editor = () => {
         }}
         initialEditType="markdown"
         initialValue="Tell Me Your Story..."
-        plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
+        plugins={[
+          [codeSyntaxHighlight, { highlighter: Prism }],
+          [chart, { minWidth: 100, maxWidth: 700, minHeight: 100, maxHeight: 500 }],
+        ]}
         previewStyle="vertical"
         useCommandShortcut
       />
