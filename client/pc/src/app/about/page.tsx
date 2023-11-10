@@ -3,8 +3,10 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useState } from 'react';
-import styles from './page.module.scss';
+
 import Book from 'src/components/About/Book/Book';
+
+import styles from './page.module.scss';
 
 const About = () => {
   const [imgLoadedProp, setImgLoadedProp] = useState(false);

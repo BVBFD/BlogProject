@@ -3,6 +3,7 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import Typed from 'typed.js';
 import { ThemeContext } from 'src/common/context/ThemeContext';
+
 import styles from './Typedjs.module.scss';
 
 type TypedjsPropsType = {

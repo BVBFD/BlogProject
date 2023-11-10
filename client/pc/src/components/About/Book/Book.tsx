@@ -1,10 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import styles from './Book.module.scss';
 import React, { useState } from 'react';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+
 import Wood from '../../../../public/imgs/wood.jpg';
+
+import styles from './Book.module.scss';
 
 type BookPropsType = {
   setImgLoadedProp: (imgLoaded: boolean) => void;
@@ -25,11 +27,11 @@ const Book = ({ setImgLoadedProp }: BookPropsType) => {
   return (
     <section className={styles.container}>
       <Image
-        src={Wood}
         alt="wood_desk"
-        objectFit="cover"
         fill
+        objectFit="cover"
         onLoad={handleWoodLoad}
+        src={Wood}
         style={imgLoaded ? { border: '0.6rem ridge #703f2b', borderRadius: '1rem' } : { border: 'none' }}
       />
       {/* @ts-ignore */}

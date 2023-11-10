@@ -3,6 +3,7 @@ import { didot } from 'src/common/font/font';
 import './globals.css';
 import { ThemeContextProvider } from 'src/common/context/ThemeContext';
 import { homeMeta } from 'src/common/meta/meta';
+
 import Navbar from '../components/Navbar/Navbar';
 
 export const metadata: Metadata = homeMeta;

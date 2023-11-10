@@ -1,16 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
 import { useContext, useRef } from 'react';
 import { ThemeContext } from 'src/common/context/ThemeContext';
 import Button from 'src/common/Button/Button';
 import Link from 'next/link';
+import DynamicTyped from 'src/common/Typedjs/Typedjs';
 import styles from './page.module.scss';
-
-const DynamicTyped = dynamic(() => import('src/common/Typedjs/Typedjs'), {
-  ssr: true,
-});
 
 export default function Home() {
   const { mode } = useContext(ThemeContext);
