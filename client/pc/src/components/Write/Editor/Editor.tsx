@@ -12,6 +12,7 @@ import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-tsx';
 
+import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
