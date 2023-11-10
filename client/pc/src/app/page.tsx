@@ -6,6 +6,7 @@ import { ThemeContext } from 'src/common/context/ThemeContext';
 import Button from 'src/common/Button/Button';
 import Link from 'next/link';
 import DynamicTyped from 'src/common/Typedjs/Typedjs';
+
 import styles from './page.module.scss';
 
 export default function Home() {
