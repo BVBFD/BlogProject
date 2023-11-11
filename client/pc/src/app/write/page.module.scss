@@ -1,6 +1,33 @@
 .container {
-  :global {
-    .toastui-editor-md-code-block-line-background {
+  padding: 4vh 0;
+
+  .mainImgBox {
+    position: relative;
+    width: 100%;
+    height: 55vh;
+    background-color: rgb(169, 169, 169, 0.2);
+    border-radius: 1rem;
+  }
+
+  .titleInputMainImgBox {
+    display: flex;
+    width: 100%;
+    height: 5vh;
+    justify-content: space-between;
+    margin: 2rem 0;
+
+    .mainImgUploadBtn {
+      flex: 1;
+      position: relative;
+
+      img {
+        transform: scale(0.7);
+      }
+    }
+
+    .inputTitle {
+      flex: 12;
+      font-size: 2.4rem;
     }
   }
 }

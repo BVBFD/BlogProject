@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Prism from 'prismjs';
 
 import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
@@ -29,8 +29,12 @@ import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin
 import '@toast-ui/chart/dist/toastui-chart.css';
 import '@toast-ui/editor-plugin-table-merged-cell/dist/toastui-editor-plugin-table-merged-cell.css';
 
-const Editor = () => {
+const Editor = ({ getShowEditorBoolean }) => {
   const { mode } = useContext(ThemeContext);
+
+  useEffect(() => {
+    getShowEditorBoolean(true);
+  }, []);
 
   const codeSyntaxHighlightOption = { highlighter: Prism };
   const chartOption = { minWidth: 100, maxWidth: 700, minHeight: 100, maxHeight: 500 };
