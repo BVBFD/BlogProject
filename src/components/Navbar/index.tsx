@@ -103,9 +103,6 @@ const Navbar = () => {
         <Link href="/about" passHref>
           About
         </Link>
-        <Link href="/contact" passHref>
-          Contact
-        </Link>
         <Link href="/write" passHref>
           Write
         </Link>
