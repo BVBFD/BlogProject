@@ -1,10 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import dynamic from 'next/dynamic';
-import styles from './page.module.scss';
+
 import Image from 'next/image';
 import Button from 'src/common/Button/Button';
+import { ThemeContext } from 'src/common/context/ThemeContext';
+
+import styles from './page.module.scss';
 
 // ReferenceError: self is not defined 에러
 // Tui Editor 자체가 서버사이드 렌더링이 아니라 브라우저 렌더링이기 때문에
@@ -14,6 +17,7 @@ import Button from 'src/common/Button/Button';
 const DynamicEditor = dynamic(() => import('src/components/Write/Editor/Editor'), { ssr: false });
 
 const Write = () => {
+  const { mode } = useContext(ThemeContext);
   const [toggleEditor, setToggleEditor] = useState(false);
   const getShowEditorBoolean = (showEditorBoolean: boolean) => {
     setToggleEditor(showEditorBoolean);
@@ -26,18 +30,35 @@ const Write = () => {
       {toggleEditor ? (
         <>
           <div className={styles.mainImgBox}>
-            <Image src="/imgs/aboutMeBg.jpg" alt="main_img" fill objectFit="contain" />
+            <Image alt="main_img" fill objectFit="contain" src="/imgs/aboutMeBg.jpg" />
           </div>
           <div className={styles.titleInputMainImgBox}>
-            <button type="button" className={styles.mainImgUploadBtn}>
-              <Image src="/svg/image-solid.svg" alt="image_upload" fill />
+            <button
+              className={mode === 'light' ? `${styles.mainImgUploadBtn}` : `${styles.mainImgUploadBtn} ${styles.dark}`}
+              type="button"
+            >
+              <Image
+                alt="image_upload"
+                fill
+                objectFit="cover"
+                src={mode === 'light' ? '/svg/image-regular.svg' : '/svg/image-solid.svg'}
+              />
             </button>
-            <input className={styles.inputTitle} type="text" placeholder="Title..." />
-            <Button href="" width="5rem" height="2.5rem" className={styles.publish} text="publish" />
+            <input
+              className={styles.inputTitle}
+              placeholder="Title..."
+              style={
+                mode === 'light'
+                  ? { color: 'black', backgroundColor: 'white' }
+                  : { color: 'white', backgroundColor: 'black' }
+              }
+              type="text"
+            />
+            <Button className={styles.publish} height="2.5rem" href="" text="publish" width="5rem" />
           </div>
         </>
       ) : (
-        <div></div>
+        <div />
       )}
       <DynamicEditor getShowEditorBoolean={getShowEditorBoolean} />
     </section>
