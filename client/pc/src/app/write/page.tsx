@@ -1,6 +1,8 @@
 import React from 'react';
-import styles from './page.module.scss';
+
 import dynamic from 'next/dynamic';
+
+import styles from './page.module.scss';
 
 // ReferenceError: self is not defined 에러
 // Tui Editor 자체가 서버사이드 렌더링이 아니라 브라우저 렌더링이기 때문에

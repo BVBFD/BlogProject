@@ -9,6 +9,8 @@ import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 import tableMergedCell from '@toast-ui/editor-plugin-table-merged-cell';
 
+import { ThemeContext } from 'src/common/context/ThemeContext';
+
 import styles from './Editor.module.scss';
 
 import 'prismjs/themes/prism.css';
@@ -26,7 +28,6 @@ import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
 import '@toast-ui/chart/dist/toastui-chart.css';
 import '@toast-ui/editor-plugin-table-merged-cell/dist/toastui-editor-plugin-table-merged-cell.css';
-import { ThemeContext } from 'src/common/context/ThemeContext';
 
 const Editor = () => {
   const { mode } = useContext(ThemeContext);
