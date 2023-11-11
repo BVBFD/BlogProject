@@ -43,7 +43,7 @@ export const getStaticProps = async () => {
     props: {
       ps: {
         imgSrc: 'https://res.cloudinary.com/dewa3t2gi/image/upload/v1675172408/a1pdcxclbrvilga2cebl.gif',
-        linkHref: 'https://bvbfd.github.io/CSS-JS-Animation-Effects-Collection/',
+        linkHref: 'https://lsevina126portfolioreact.netlify.app/',
       },
     },
   };
