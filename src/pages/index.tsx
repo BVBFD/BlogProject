@@ -151,7 +151,7 @@ const Home = () => {
       <div className={styles.totalSearchBox}>
         {(catname !== '' || searchText !== '') && (
           <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
-            TOTAL
+            SEE TOTAL POSTS (전체 포스트 보기)
           </BasicButton>
         )}
         <input
@@ -186,7 +186,7 @@ const Home = () => {
             <div>CATEGORIES</div>
             {(catname !== '' || searchText !== '') && (
               <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
-                TOTAL
+                SEE TOTAL POSTS (전체 포스트 보기)
               </BasicButton>
             )}
           </header>
