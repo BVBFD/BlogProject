@@ -1,0 +1,48 @@
+.container {
+  padding: 4vh 0;
+
+  .mainImgBox {
+    position: relative;
+    width: 100%;
+    height: 55vh;
+    background-color: rgb(169, 169, 169, 0.2);
+    border-radius: 1rem;
+  }
+
+  .titleInputMainImgBox {
+    display: flex;
+    width: 100%;
+    height: 5vh;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 0 2rem;
+
+    .mainImgUploadBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      position: relative;
+      width: 2.5rem;
+      height: 2rem;
+
+      &.dark {
+        width: 3rem;
+        height: 2rem;
+      }
+    }
+
+    .publish {
+    }
+
+    .inputTitle {
+      flex: 12;
+      font-size: 2.4rem;
+      height: 100%;
+      padding: 1rem;
+      border: none;
+      outline: none;
+    }
+  }
+}

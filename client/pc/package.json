@@ -1,0 +1,39 @@
+{
+  "name": "blog-project-app-router",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@toast-ui/chart": "^4.6.1",
+    "@toast-ui/editor": "^3.2.2",
+    "@toast-ui/editor-plugin-chart": "^3.0.1",
+    "@toast-ui/editor-plugin-code-syntax-highlight": "^3.1.0",
+    "@toast-ui/editor-plugin-color-syntax": "^3.1.0",
+    "@toast-ui/editor-plugin-table-merged-cell": "^3.1.0",
+    "@toast-ui/react-editor": "^3.2.3",
+    "@types/node": "20.5.0",
+    "@types/react": "18.2.20",
+    "@types/react-dom": "18.2.7",
+    "autoprefixer": "10.4.15",
+    "next": "13.4.17",
+    "postcss": "8.4.28",
+    "prismjs": "^1.29.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-pageflip": "^2.0.3",
+    "sass": "^1.65.1",
+    "tailwindcss": "3.3.3",
+    "tui-color-picker": "^2.2.8",
+    "typed.js": "^2.0.16",
+    "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@types/prismjs": "^1.26.3",
+    "@types/typed.js": "^2.0.9"
+  }
+}
