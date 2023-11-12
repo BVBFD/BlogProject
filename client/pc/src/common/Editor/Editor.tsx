@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Prism from 'prismjs';
 
 import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
@@ -10,6 +10,8 @@ import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 import tableMergedCell from '@toast-ui/editor-plugin-table-merged-cell';
 
 import { ThemeContext } from 'src/common/context/ThemeContext';
+
+import { PreviewStyle } from '@toast-ui/editor';
 
 import styles from './Editor.module.scss';
 
@@ -31,6 +33,29 @@ import '@toast-ui/editor-plugin-table-merged-cell/dist/toastui-editor-plugin-tab
 
 const Editor = ({ getShowEditorBoolean }) => {
   const { mode } = useContext(ThemeContext);
+
+  // 1. 브라우저 사이즈변경에 따른 상태변경을 위해 state작성
+  const [preview, setPreview] = useState<PreviewStyle>(window.innerWidth > 1000 ? 'vertical' : 'tab');
+
+  // 2. 함수 실행시 마다 브라우저 사이즈에 따라 preview 상태 변경
+  const handleResize = () => {
+    setPreview(window.innerWidth > 1000 ? 'vertical' : 'tab');
+  };
+
+  // 3. resize이벤트 구독
+  // ReactJS, NextJS에서는 코드 수정, 업데이트시 기존의 Virtual DOM(가상의 DOM)과 새로운 Virtual DOM을
+  // 비교하여 실제 변경된 부분을 식별하고, 그 변경된 부분만 식별하여, 실제 DOM을 업데이트하는 방식임.
+
+  // 그래서 useEffect내부의 return 내부 clean up(정리) 함수를 통해서, 실제 DOM에 바인딩된 이벤트 리스너를
+  // 제거해야함. 그렇지 않으면 가상의 DOM이 생성될 때마다 실제 DOM에 바인딩된 이벤트 리스너 콜백함수가
+  // 생성이되고, 메모리를 차지함으로써, 불필요한 메모리 차지 현상과 누수 현상이 발생하게됨.
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     getShowEditorBoolean(true);
@@ -96,7 +121,7 @@ const Editor = ({ getShowEditorBoolean }) => {
           [colorSyntax, colorSyntaxPresetOption],
           [tableMergedCell, {}],
         ]}
-        previewStyle="vertical"
+        previewStyle={preview} // state값으로 반응형으로 작아질 때 tab으로 설정.
         theme="light" // 다크모드 속성 먹히지 않음. 라이브러리 문제.
         toolbarItems={toolbarOption}
         usageStatistics={false} // 통계 수집 거부
