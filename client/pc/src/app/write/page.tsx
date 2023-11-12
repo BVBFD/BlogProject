@@ -25,6 +25,8 @@ const Write = () => {
     setToggleEditor(showEditorBoolean);
   };
 
+  console.log(mode);
+
   return (
     <section className={styles.container}>
       {/* 에디터가 늦게 렌더링되는 경향 */}
