@@ -28,10 +28,18 @@ const Select = ({ className, height, width, margin, padding, options }: SelectPr
       }
     >
       {options.map((option) => (
-        <option value={option}>{option}</option>
+        <option key={option} value={option}>
+          {option}
+        </option>
       ))}
     </select>
   );
+};
+
+Select.defaultProps = {
+  className: '',
+  margin: '',
+  padding: '',
 };
 
 export default Select;
