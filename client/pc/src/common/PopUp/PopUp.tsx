@@ -1,10 +1,14 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import styles from './PopUp.module.scss';
-import Overlay from '../Overlay/Overlay';
-import CustomScroll from '../CustomScroll/CustomScroll';
+
 import Image from 'next/image';
+
+import Overlay from '../Overlay/Overlay';
+
+import CustomScroll from '../CustomScroll/CustomScroll';
+
+import styles from './PopUp.module.scss';
 
 const PopUp = ({
   title,
@@ -54,7 +58,7 @@ const PopUp = ({
             type="button"
           >
             <div style={{ pointerEvents: 'none' }}>
-              <Image alt="icon_close" className={styles.closeIconImg} src="/svg/icon_x_18.svg" fill />
+              <Image alt="icon_close" className={styles.closeIconImg} fill src="/svg/icon_x_18.svg" />
             </div>
           </button>
         )}
