@@ -1,0 +1,25 @@
+.customScroll {
+  width: 100%;
+  text-align: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0 10px;
+
+  scrollbar-width: thin;
+  scrollbar-color: #fff #000;
+
+  &::-webkit-scrollbar {
+    min-width: 0.4rem;
+    max-width: 0.4rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #fff;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #000;
+    border-radius: 10px;
+  }
+}
