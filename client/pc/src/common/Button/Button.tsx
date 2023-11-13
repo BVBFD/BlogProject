@@ -1,9 +1,11 @@
+'use client';
+
 import Link from 'next/link';
 import React from 'react';
 
 import styles from './Button.module.scss';
 
-type ButtonPropsType = {
+interface ButtonPropsType {
   className?: string;
   href: string;
   text: string;
@@ -11,11 +13,17 @@ type ButtonPropsType = {
   height: string;
   fontSize?: string;
   openInNewTab?: boolean;
-};
+  onClick?: (() => Record<never, string>) | (() => void);
+}
 
-const Button = ({ className, href, text, width, height, fontSize, openInNewTab }: ButtonPropsType) => {
+const Button = ({ className, href, text, width, height, fontSize, openInNewTab, onClick }: ButtonPropsType) => {
   return (
-    <Link className={`${className} ${styles.button}`} href={href} target={openInNewTab ? '_blank' : '_self'}>
+    <Link
+      className={`${className} ${styles.button}`}
+      href={href}
+      onClick={onClick}
+      target={openInNewTab ? '_blank' : '_self'}
+    >
       <button style={{ width: `${width}`, height: `${height}`, fontSize: `${fontSize}` }} type="button">
         {text}
       </button>
@@ -27,6 +35,7 @@ Button.defaultProps = {
   className: '',
   fontSize: '1rem',
   openInNewTab: false,
+  onClick: () => {},
 };
 
 export default Button;

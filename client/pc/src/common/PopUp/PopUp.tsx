@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import Image from 'next/image';
 
 import Overlay from '../Overlay/Overlay';
 
 import CustomScroll from '../CustomScroll/CustomScroll';
+
+import { ThemeContext } from '../context/ThemeContext';
 
 import styles from './PopUp.module.scss';
 
@@ -20,6 +22,8 @@ const PopUp = ({
   isCloseIcon,
   closeIconLocation,
 }) => {
+  const { mode } = useContext(ThemeContext);
+
   useEffect(() => {
     const body = document.querySelector('body');
     if (body) {
@@ -41,7 +45,15 @@ const PopUp = ({
           e.stopPropagation();
         }}
         role="presentation"
-        style={{ maxWidth: `${maxWidth !== undefined ? `${maxWidth}px` : 'fit-content'}` }}
+        style={
+          mode === 'light'
+            ? { maxWidth: `${maxWidth !== undefined ? `${maxWidth}px` : 'fit-content'}` }
+            : {
+                maxWidth: `${maxWidth !== undefined ? `${maxWidth}px` : 'fit-content'}`,
+                color: 'white',
+                backgroundColor: 'black',
+              }
+        }
       >
         {isCloseIcon && (
           <button
@@ -58,7 +70,7 @@ const PopUp = ({
             type="button"
           >
             <div style={{ pointerEvents: 'none' }}>
-              <Image alt="icon_close" className={styles.closeIconImg} fill src="/svg/icon_x_18.svg" />
+              <Image alt="icon_close" className={styles.closeIconImg} fill src="svg/close-button.svg" />
             </div>
           </button>
         )}

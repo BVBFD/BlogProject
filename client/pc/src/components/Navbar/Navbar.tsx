@@ -7,10 +7,14 @@ import Link from 'next/link';
 import { ThemeContext } from 'src/common/context/ThemeContext';
 import Button from 'src/common/Button/Button';
 
+import { usePopUp } from 'src/common/context/UsePopUp';
+import PopUp from 'src/common/PopUp/PopUp';
+
 import styles from './Navbar.module.scss';
 
 const Navbar = () => {
   const { toggle, mode } = useContext(ThemeContext);
+  const { showPopUp, closePopUp } = usePopUp();
 
   return (
     <nav className={styles.navbar}>
@@ -61,7 +65,16 @@ const Navbar = () => {
         <Link className={styles.menuLink} href="/contact">
           Contact
         </Link>
-        <Button className={styles.menuLink} height="2rem" href="/login" text="Log-In" width="4.8rem" />
+        <Button
+          className={styles.menuLink}
+          height="2rem"
+          href=""
+          onClick={() =>
+            showPopUp(<PopUp content="Test PopUp Screen" onClose={closePopUp} title="Test PopUp Screen" />)
+          }
+          text="Log-In"
+          width="4.8rem"
+        />
         <Button className={styles.menuLink} height="2rem" href="/signup" text="Sign-Up" width="4.8rem" />
       </main>
     </nav>
