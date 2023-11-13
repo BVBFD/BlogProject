@@ -3,7 +3,7 @@
     url('../../../public/imgs/gallery-10.jpg');
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +26,7 @@
     position: relative;
 
     .imgBox {
-      flex: 4;
+      flex: 5;
 
       img {
         height: 100%;
@@ -37,15 +37,24 @@
     .aboutExplainBox {
       flex: 5;
       padding: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
 
       header {
         font-size: 2.4rem;
         font-weight: bolder;
+        align-self: flex-start;
       }
 
       p {
         font-size: 1.2rem;
         margin-top: 2rem;
+      }
+
+      a {
+        align-self: flex-end;
       }
 
       button {
@@ -57,9 +66,7 @@
         font-weight: bold;
         border: none;
         box-shadow: 8px 8px 0.4rem #3f3f3f;
-        position: absolute;
-        bottom: -2rem;
-        right: -2rem;
+        margin-top: 1.2rem;
         cursor: pointer;
 
         &:hover {
@@ -103,6 +110,10 @@
 
 @media screen and (max-width: 480px) {
   /* 320px - 480px - mobile devices */
+  .about {
+    padding: 2rem 0;
+  }
+
   .about .aboutIntroBox .aboutExplainBox header {
     font-size: 1.4rem;
   }
