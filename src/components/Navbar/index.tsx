@@ -51,11 +51,11 @@ const Navbar = () => {
           <Link href="/about" passHref>
             About
           </Link>
-          <Link href="/contact" passHref>
-            Contact
-          </Link>
           <Link href="/write" passHref>
             Write
+          </Link>
+          <Link href="/contact" passHref>
+            Contact
           </Link>
         </ul>
 
@@ -106,11 +106,11 @@ const Navbar = () => {
         <Link href="/about" passHref>
           About
         </Link>
-        <Link href="/contact" passHref>
-          Contact
-        </Link>
         <Link href="/write" passHref>
           Write
+        </Link>
+        <Link href="/contact" passHref>
+          Contact
         </Link>
         {id === '' ? (
           <div className={styles.settingsBox}>
