@@ -51,6 +51,9 @@ const Navbar = () => {
           <Link href="/about" passHref>
             About
           </Link>
+          <Link href="/contact" passHref>
+            Contact
+          </Link>
           <Link href="/write" passHref>
             Write
           </Link>
@@ -102,6 +105,9 @@ const Navbar = () => {
         </Link>
         <Link href="/about" passHref>
           About
+        </Link>
+        <Link href="/contact" passHref>
+          Contact
         </Link>
         <Link href="/write" passHref>
           Write
