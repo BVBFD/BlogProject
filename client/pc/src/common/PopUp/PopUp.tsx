@@ -1,13 +1,10 @@
 'use client';
 
 import React, { useContext, useEffect } from 'react';
-
 import Image from 'next/image';
 
 import Overlay from '../Overlay/Overlay';
-
 import CustomScroll from '../CustomScroll/CustomScroll';
-
 import { ThemeContext } from '../context/ThemeContext';
 
 import styles from './PopUp.module.scss';
@@ -52,6 +49,7 @@ const PopUp = ({
                 maxWidth: `${maxWidth !== undefined ? `${maxWidth}px` : 'fit-content'}`,
                 color: 'white',
                 backgroundColor: 'black',
+                border: '2px solid white',
               }
         }
       >
@@ -69,7 +67,7 @@ const PopUp = ({
             tabIndex={0}
             type="button"
           >
-            <div style={{ pointerEvents: 'none' }}>
+            <div>
               <Image alt="icon_close" className={styles.closeIconImg} fill src="svg/close-button.svg" />
             </div>
           </button>
