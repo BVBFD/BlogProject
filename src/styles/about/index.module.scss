@@ -49,7 +49,7 @@
       }
 
       p {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         margin-top: 2rem;
       }
 
@@ -85,12 +85,17 @@
 
 @media screen and (max-width: 1200px) {
   /* 1025px - 1200px - Desktops, large screens */
+  .about {
+    padding: 4rem 0;
+  }
+
   .about .pageTitle {
     display: none;
   }
 
   .about .aboutIntroBox {
     flex-direction: column;
+    max-height: none;
   }
 }
 
