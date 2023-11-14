@@ -106,12 +106,26 @@ const Editor = ({ getShowEditorBoolean }) => {
     ['code', 'codeblock'],
   ];
 
+  useEffect(() => {
+    // Toast UI Editor 내부적으로 width 속성 지정해주는 것이 없음.
+    // 그래서 부득이하게 이렇게 설정.
+    const parentNodeOfToastuiEditorDefaultUI = document.querySelector('.toastui-editor-defaultUI');
+    const parentStyle = parentNodeOfToastuiEditorDefaultUI.parentElement.style;
+    parentStyle.width = '100%';
+    parentStyle.height = '100vh';
+
+    return () => {
+      // 만약 컴포넌트가 unmount 되고 초기 style로 돌아가야한다면,
+      // 여기에서 다시 위와 같이 원래 style을 정의해줘야함.
+    };
+  }, []);
+
   // toastui-editor-dark toastui-editor-defaultUI
   return (
     // dark 다크모드 속성이 먹히지 않음.. 그래서 이렇게 설정하여 구현
     <div className={mode === 'light' ? `${styles.container}` : `${styles.container} toastui-editor-dark`}>
       <ToastUIEditor
-        height="80vh"
+        height="100vh"
         hooks={hookOption}
         initialEditType="markdown"
         initialValue="Tell Me Your Story..."
