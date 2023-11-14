@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { ThemeContext } from '../context/ThemeContext';
 
 import styles from './CustomScroll.module.scss';
 
@@ -15,9 +17,15 @@ const CustomScroll = ({
   marginRight,
   marginLeft,
 }) => {
+  const { mode } = useContext(ThemeContext);
+
   return (
     <div
-      className={`${styles.customScroll} ${className} pt-[${paddingTop}px] pb-[${paddingBottom}px] pl-[${paddingLeft}px] pr-[${paddingRight}px] mt-[${marginTop}px] mb-[${marginBottom}px] ml-[${marginLeft}px] mr-[${marginRight}px]`}
+      className={
+        mode === 'light'
+          ? `${styles.customScroll} ${className} pt-[${paddingTop}px] pb-[${paddingBottom}px] pl-[${paddingLeft}px] pr-[${paddingRight}px] mt-[${marginTop}px] mb-[${marginBottom}px] ml-[${marginLeft}px] mr-[${marginRight}px]`
+          : `${styles.customScroll} ${styles.dark} ${className} pt-[${paddingTop}px] pb-[${paddingBottom}px] pl-[${paddingLeft}px] pr-[${paddingRight}px] mt-[${marginTop}px] mb-[${marginBottom}px] ml-[${marginLeft}px] mr-[${marginRight}px]`
+      }
       style={{ maxHeight: `${maxHeight}px` }}
     >
       {children}

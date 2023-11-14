@@ -8,6 +8,18 @@
   scrollbar-width: thin;
   scrollbar-color: #fff #000;
 
+  &.dark {
+    scrollbar-color: #000 #fff;
+
+    &::-webkit-scrollbar-track {
+      background: #000;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #fff;
+    }
+  }
+
   &::-webkit-scrollbar {
     min-width: 0.4rem;
     max-width: 0.4rem;
