@@ -22,6 +22,7 @@ const Button = ({ className, href, text, width, height, fontSize, openInNewTab, 
       className={`${className} ${styles.button}`}
       href={href}
       onClick={onClick}
+      style={{ width: `${width}` }}
       target={openInNewTab ? '_blank' : '_self'}
     >
       <button style={{ width: `${width}`, height: `${height}`, fontSize: `${fontSize}` }} type="button">

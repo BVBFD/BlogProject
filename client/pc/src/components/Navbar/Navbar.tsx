@@ -6,15 +6,15 @@ import logo from 'public/imgs/logo.png';
 import Link from 'next/link';
 import { ThemeContext } from 'src/common/context/ThemeContext';
 import Button from 'src/common/Button/Button';
-
 import { usePopUp } from 'src/common/context/UsePopUp';
-import PopUp from 'src/common/PopUp/PopUp';
 
 import styles from './Navbar.module.scss';
+import LoginPopUp from './LoginPopUp/LoginPopUp';
+import SignUpPopUp from './SignUpPopUp/SignUpPopUp';
 
 const Navbar = () => {
   const { toggle, mode } = useContext(ThemeContext);
-  const { showPopUp, closePopUp } = usePopUp();
+  const { showPopUp } = usePopUp();
 
   return (
     <nav className={styles.navbar}>
@@ -69,13 +69,18 @@ const Navbar = () => {
           className={styles.menuLink}
           height="2rem"
           href=""
-          onClick={() =>
-            showPopUp(<PopUp content="Test PopUp Screen" onClose={closePopUp} title="Test PopUp Screen" />)
-          }
+          onClick={() => showPopUp(<LoginPopUp />)}
           text="Log-In"
           width="4.8rem"
         />
-        <Button className={styles.menuLink} height="2rem" href="/signup" text="Sign-Up" width="4.8rem" />
+        <Button
+          className={styles.menuLink}
+          height="2rem"
+          href=""
+          onClick={() => showPopUp(<SignUpPopUp />)}
+          text="Sign-Up"
+          width="4.8rem"
+        />
       </main>
     </nav>
   );
