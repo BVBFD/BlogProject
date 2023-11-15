@@ -8,8 +8,10 @@ import Link from 'next/link';
 import DynamicTyped from 'src/common/Typedjs/Typedjs';
 
 import styles from './page.module.scss';
+// import { useSession } from 'next-auth/react';
 
 export default function Home() {
+  // const { data, status } = useSession();
   const { mode } = useContext(ThemeContext);
   const headerImgRef = useRef(null);
   const handleOnComplete = () => {
@@ -28,7 +30,7 @@ export default function Home() {
             'What Is It?',
             'This is My Tech Blog!',
             'So, Who you are?',
-            'The Web Developer Leo LEE!',
+            'The Developer Leo LEE!',
           ]}
         />
       </header>

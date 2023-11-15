@@ -4,13 +4,15 @@ import Button from 'src/common/Button/Button';
 import { usePopUp } from 'src/common/context/UsePopUp';
 import PopUp from 'src/common/PopUp/PopUp';
 
+import { signIn } from 'next-auth/react';
+
 import styles from './LoginPopUp.module.scss';
 
 const LoginPopUp = () => {
   const { closePopUp } = usePopUp();
 
   return (
-    <div className={styles.popUpContainer}>
+    <section className={styles.popUpContainer}>
       <PopUp
         content={
           <form className={styles.loginBox}>
@@ -25,7 +27,29 @@ const LoginPopUp = () => {
               <span>Password</span>
               <input placeholder="Enter your Password" type="password" />
             </div>
-            <Button fontSize="1rem" height="2.1rem" href="" text="Login" width="4.2rem" />
+            <Button
+              className={styles.loginFormBtn}
+              fontSize="1rem"
+              height="2.1rem"
+              href=""
+              text="Login"
+              width="4.2rem"
+            />
+            <div className={styles.oauthProvider}>
+              <button
+                type="button"
+                className={`${styles.socialButton} ${styles.google}`}
+                onClick={() => signIn('google')}
+              >
+                Log in with Google
+              </button>
+              <button type="button" className={`${styles.socialButton} ${styles.github}`}>
+                Log in with Github
+              </button>
+              <button type="button" className={`${styles.socialButton} ${styles.facebook}`}>
+                Log in With Facebook
+              </button>
+            </div>
           </form>
         }
         footer={
@@ -42,7 +66,7 @@ const LoginPopUp = () => {
         onClose={() => closePopUp()}
         title={<header />}
       />
-    </div>
+    </section>
   );
 };
 

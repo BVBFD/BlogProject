@@ -8,9 +8,11 @@ import { ThemeContext } from 'src/common/context/ThemeContext';
 import Button from 'src/common/Button/Button';
 import { usePopUp } from 'src/common/context/UsePopUp';
 
+import { signOut } from 'next-auth/react';
+
 import styles from './Navbar.module.scss';
 import LoginPopUp from './LoginPopUp/LoginPopUp';
-import SignUpPopUp from './SignUpPopUp/SignUpPopUp';
+// import SignUpPopUp from './SignUpPopUp/SignUpPopUp';
 
 const Navbar = () => {
   const { toggle, mode } = useContext(ThemeContext);
@@ -77,7 +79,8 @@ const Navbar = () => {
           className={styles.menuLink}
           height="2rem"
           href=""
-          onClick={() => showPopUp(<SignUpPopUp />)}
+          // onClick={() => showPopUp(<SignUpPopUp />)}
+          onClick={() => signOut()}
           text="Sign-Up"
           width="4.8rem"
         />

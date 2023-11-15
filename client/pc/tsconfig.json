@@ -20,8 +20,16 @@
     "baseUrl": "./",
     "paths": {
       "@common/*": ["../common/*"]
-    }
+    },
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/utils/auth.js",
+    "src/app/api/auth/[...nextauth]/route.ts"
+  ],
   "exclude": ["node_modules"]
 }
