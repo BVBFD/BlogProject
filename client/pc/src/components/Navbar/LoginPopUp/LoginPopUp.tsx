@@ -37,16 +37,16 @@ const LoginPopUp = () => {
             />
             <div className={styles.oauthProvider}>
               <button
-                type="button"
                 className={`${styles.socialButton} ${styles.google}`}
                 onClick={() => signIn('google')}
+                type="button"
               >
                 Log in with Google
               </button>
-              <button type="button" className={`${styles.socialButton} ${styles.github}`}>
+              <button className={`${styles.socialButton} ${styles.github}`} type="button">
                 Log in with Github
               </button>
-              <button type="button" className={`${styles.socialButton} ${styles.facebook}`}>
+              <button className={`${styles.socialButton} ${styles.facebook}`} type="button">
                 Log in With Facebook
               </button>
             </div>
