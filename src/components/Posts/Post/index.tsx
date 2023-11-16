@@ -21,7 +21,7 @@ const Post = ({ post }: { post: PostType }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.imgBox}>
-        <Image alt="postImg" crossOrigin="anonymous" src={post?.imgUrl} fill objectFit="contain" />
+        <Image alt="postImg" crossOrigin="anonymous" fill objectFit="contain" src={post?.imgUrl} />
       </div>
       <div className={styles.content}>
         <header>{post?.title}</header>
