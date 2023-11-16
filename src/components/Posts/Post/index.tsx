@@ -20,7 +20,9 @@ const Post = ({ post }: { post: PostType }) => {
 
   return (
     <div className={styles.wrapper}>
-      <Image alt="postImg" crossOrigin="anonymous" height={300} src={post?.imgUrl} width={300} />
+      <div className={styles.imgBox}>
+        <Image alt="postImg" crossOrigin="anonymous" src={post?.imgUrl} fill objectFit="contain" />
+      </div>
       <div className={styles.content}>
         <header>{post?.title}</header>
         <span>{new Date(post?.updatedAt).toDateString()}</span>
