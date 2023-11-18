@@ -111,6 +111,7 @@ const Home = () => {
   };
 
   const handleCatName = (e: React.MouseEvent<HTMLSpanElement>) => {
+    setSearchText('');
     setCatName(e.currentTarget.innerText);
     const getPostsByCatName = async () => {
       setOnProgress(true);
