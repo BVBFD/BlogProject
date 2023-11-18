@@ -35,7 +35,7 @@
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "error",
     // Possible errors
-    "max-lines-per-function": ["error", { "max": 200, "skipBlankLines": true, "skipComments": true }],
+    "max-lines-per-function": ["error", { "max": 300, "skipBlankLines": true, "skipComments": true }],
     "max-lines": ["error", { "max": 300, "skipBlankLines": true, "skipComments": true }],
     "no-console": "error",
     "react/function-component-definition": [

@@ -23,110 +23,115 @@ interface PostType {
 }
 
 const Home = () => {
-  const [posts, setPosts] = useState<PostType[]>([]);
-  const [rowsPerPage, setRowsPerPage] = useState<number>(4);
-  const [catPost, setCatPost] = useState<PostType[]>([]);
-  const [selectedPost, setSelectedPost] = useState<PostType[]>([]);
-  const [catname, setCatname] = useState<string>('');
-  const [page, setPage] = useState<number>(1);
-  const [paginationNum, setPaginationNum] = useState<number>(0);
-
-  const [searchText, setSearchText] = useState<string>();
-  const [searchPosts, setSearchPosts] = useState<PostType[]>([]);
+  const [postsVar, setPostsVar] = useState<PostType[]>([]);
+  const [postsPerSize, setPostsPerSize] = useState<number>(4);
+  const [paginationTotalNum, setPaginationTotalNum] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [onProgress, setOnProgress] = useState<boolean>(false);
+
+  const [searchText, setSearchText] = useState<string>('');
+  const [catName, setCatName] = useState<string>('');
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
-  useEffect(() => {
-    const getPosts = async () => {
-      setOnProgress(true);
-      const res = await publicRequest.get(`/posts`);
-      const ps = res.data.reverse();
-      setPosts(ps);
-      setPaginationNum(ps.length);
-      setSelectedPost([ps[0], ps[1], ps[2], ps[3]]);
-      return setOnProgress(false);
-    };
+  const getPosts = async () => {
+    setOnProgress(true);
+    const res = await publicRequest.get(`/posts`);
+    const { posts, totalPostsCount } = await res.data;
+    setPostsVar(posts);
+    setPaginationTotalNum(totalPostsCount);
+    setPostsPerSize(4);
+    setCurrentPage(1);
 
+    return setOnProgress(false);
+  };
+
+  useEffect(() => {
     getPosts();
-    setRowsPerPage(4);
   }, []);
 
   const handleTotal = () => {
-    setCatPost([]);
-    setCatname('');
-    setPage(1);
-    setPaginationNum(posts.length);
     setSearchText('');
-    setSearchPosts([]);
-    setSelectedPost([posts[0], posts[1], posts[2], posts[3]]);
-    searchInputRef.current.value = '';
+    setCatName('');
+    getPosts();
   };
 
-  const goToPage = (pageNum: number) => {
-    setPage(pageNum);
+  const handleKeywordSearch = () => {
+    const getPostsByKeyword = async () => {
+      setOnProgress(true);
+      const res = await publicRequest.get(`/posts?text=${searchText}`);
+      const { posts, totalPostsCount } = await res.data;
+      setPostsVar(posts);
+      setPaginationTotalNum(totalPostsCount);
+      setCurrentPage(1);
 
-    const startIndex = (pageNum - 1) * rowsPerPage;
-    const endIndex = pageNum * rowsPerPage;
+      return setOnProgress(false);
+    };
 
-    if (catname === '' && searchPosts.length === 0) {
-      setSelectedPost(posts.slice(startIndex, endIndex));
-    } else if (searchPosts.length !== 0) {
-      setSelectedPost(searchPosts.slice(startIndex, endIndex));
-    } else {
-      setSelectedPost(catPost.slice(startIndex, endIndex));
+    getPostsByKeyword();
+  };
+
+  const goToPage = async (pageNum: number) => {
+    if (searchText !== '') {
+      setCurrentPage(pageNum);
+      setOnProgress(true);
+      const res = await publicRequest.get(`/posts?page=${pageNum}&text=${searchText}`);
+      const { posts } = await res.data;
+      setPostsVar(posts);
+
+      return setOnProgress(false);
     }
+    if (catName !== '') {
+      setCurrentPage(pageNum);
+      setOnProgress(true);
+      const res = await publicRequest.get(`/posts?page=${pageNum}&cat=${catName}`);
+      const { posts, totalPostsCount } = await res.data;
+      setPostsVar(posts);
+      setPaginationTotalNum(totalPostsCount);
+
+      return setOnProgress(false);
+    }
+    if (searchText !== '' && catName !== '') {
+      setCurrentPage(pageNum);
+      setOnProgress(true);
+      const res = await publicRequest.get(`/posts?page=${pageNum}&cat=${catName}&text=${searchText}`);
+      const { posts, totalPostsCount } = await res.data;
+      setPostsVar(posts);
+      setPaginationTotalNum(totalPostsCount);
+
+      return setOnProgress(false);
+    }
+    setCurrentPage(pageNum);
+    setOnProgress(true);
+    const res = await publicRequest.get(`/posts?page=${pageNum}`);
+    const { posts } = await res.data;
+    setPostsVar(posts);
+
+    return setOnProgress(false);
   };
 
   const handleCatName = (e: React.MouseEvent<HTMLSpanElement>) => {
-    handleTotal();
-    const { innerText } = e.target as HTMLSpanElement;
-    setCatname(innerText);
-    const newArray = posts.filter((post) => post.catName === innerText);
-    setCatPost(newArray);
-    setPaginationNum(newArray.length);
-    setSelectedPost([newArray[0], newArray[1], newArray[2], newArray[3]]);
-    setPage(1);
+    setCatName(e.currentTarget.innerText);
+    const getPostsByCatName = async () => {
+      setOnProgress(true);
+      const res = await publicRequest.get(`/posts?cat=${e.currentTarget.innerText}`);
+      const { posts, totalPostsCount } = await res.data;
+      setPostsVar(posts);
+      setPaginationTotalNum(totalPostsCount);
+      setCurrentPage(1);
+
+      return setOnProgress(false);
+    };
+
+    getPostsByCatName();
   };
 
-  useEffect(() => {
-    let filtered = [];
-    let postTitle = '';
-
-    const handleFilteredCatname = () => {
-      filtered = catPost.filter((post: PostType) => {
-        postTitle = post.title.replace(/(\s*)/g, '').toLowerCase();
-        return postTitle.includes(searchText as string);
-      });
-      setSearchPosts(filtered);
-      setPaginationNum(filtered.length);
-      setSelectedPost([filtered[0], filtered[1], filtered[2], filtered[3]]);
-      setPage(1);
-    };
-
-    const handleFilteredNonCatname = () => {
-      filtered = posts.filter((post: PostType) => {
-        postTitle = post.title.replace(/(\s*)/g, '').toLowerCase();
-        return postTitle.includes(searchText as string);
-      });
-      setSearchPosts(filtered);
-      setPaginationNum(filtered.length);
-      setSelectedPost([filtered[0], filtered[1], filtered[2], filtered[3]]);
-      setPage(1);
-    };
-
-    if (searchText) {
-      if (catname !== '') {
-        handleFilteredCatname();
-      } else {
-        handleFilteredNonCatname();
-      }
-    } else if (catname !== '') {
-      handleFilteredCatname();
-    } else {
-      handleTotal();
+  const handleSearchText = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+    if (e.target.value === '') {
+      getPosts();
     }
-  }, [searchText]);
+  };
 
   return (
     <section className={styles.homeSec}>
@@ -149,18 +154,34 @@ const Home = () => {
       </Head>
       <Banner />
       <div className={styles.totalSearchBox}>
-        {(catname !== '' || searchText !== '') && (
+        {searchText !== '' ||
+          (catName !== '' && (
+            <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
+              SEE TOTAL POSTS (전체 포스트 보기)
+            </BasicButton>
+          ))}
+        {catName === '' && (
+          <input
+            className={styles.searchInput}
+            onChange={handleSearchText}
+            // onChange={(e) => setSearchText(e.target.value)}
+            placeholder="Searching Posts..."
+            ref={searchInputRef}
+            type="text"
+            value={searchText}
+          />
+        )}
+        {searchText !== '' && (
+          <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleKeywordSearch}>
+            Keyword Search (키워드 검색)
+          </BasicButton>
+        )}
+
+        {searchText !== '' && (
           <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
             SEE TOTAL POSTS (전체 포스트 보기)
           </BasicButton>
         )}
-        <input
-          className={styles.searchInput}
-          onChange={(e) => setSearchText(e.target.value)}
-          placeholder="Searching Posts..."
-          ref={searchInputRef}
-          type="text"
-        />
       </div>
       <div className={styles.container}>
         {onProgress ? (
@@ -168,7 +189,7 @@ const Home = () => {
             <Spin />
           </div>
         ) : (
-          <Posts selectedPost={Array.from({ length: 4 }, (value, index) => selectedPost[index])} />
+          <Posts selectedPost={Array.from({ length: postsPerSize }, (_value, index) => postsVar[index])} />
         )}
         <div className={styles.sidebar}>
           <header>About Me</header>
@@ -184,11 +205,6 @@ const Home = () => {
           </div>
           <header className={styles.catHead}>
             <div>CATEGORIES</div>
-            {(catname !== '' || searchText !== '') && (
-              <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
-                SEE TOTAL POSTS (전체 포스트 보기)
-              </BasicButton>
-            )}
           </header>
           <div className={styles.categoriesBox}>
             <button onClick={handleCatName} type="button">
@@ -224,13 +240,13 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {posts.length !== 0 && (
+      {postsVar?.length !== 0 && (
         <BasicPagination
-          current={page}
+          current={currentPage}
           defaultCurrent={1}
           onChange={(changePageNum) => goToPage(changePageNum)}
-          pageSize={4}
-          total={paginationNum}
+          pageSize={postsPerSize}
+          total={paginationTotalNum}
         />
       )}
     </section>
