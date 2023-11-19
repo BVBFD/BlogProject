@@ -241,7 +241,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {postsVar?.length !== 0 && (
+      {postsVar?.length !== 0 && !onProgress && (
         <BasicPagination
           current={currentPage}
           defaultCurrent={1}
