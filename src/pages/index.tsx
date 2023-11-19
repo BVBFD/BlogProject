@@ -227,7 +227,7 @@ const Home = () => {
               TypeScript
             </button>
             <button onClick={handleCatName} type="button">
-              Game
+              Life
             </button>
             <button onClick={handleCatName} type="button">
               Book / Learn

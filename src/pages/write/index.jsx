@@ -354,7 +354,7 @@ const Write = ({ post }) => {
               <option value="Front-End">Front-End</option>
               <option value="Back-End">Back-End</option>
               <option value="TypeScript">TypeScript</option>
-              <option value="Game">Game</option>
+              <option value="Life">Life</option>
               <option value="Book / Learn">Book / Learn</option>
             </select>
             <BasicButton
