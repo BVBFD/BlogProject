@@ -25,7 +25,7 @@ const Post = ({ post }: { post: PostType }) => {
       </div>
       <div className={styles.content}>
         <header>{post?.title}</header>
-        <span>{new Date(post?.updatedAt).toDateString()}</span>
+        <span>{new Date(post?.createdAt).toDateString()}</span>
         <div dangerouslySetInnerHTML={inputText()} />
       </div>
     </div>
