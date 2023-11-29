@@ -11,6 +11,16 @@ import styles from './LoginPopUp.module.scss';
 const LoginPopUp = () => {
   const { closePopUp } = usePopUp();
 
+  const handleOAuth = (provider: string) => {
+    signIn(
+      provider,
+      { redirect: false },
+      {
+        prompt: 'select_account',
+      }
+    );
+  };
+
   return (
     <section className={styles.popUpContainer}>
       <PopUp
@@ -38,16 +48,27 @@ const LoginPopUp = () => {
             <div className={styles.oauthProvider}>
               <button
                 className={`${styles.socialButton} ${styles.google}`}
-                onClick={() => signIn('google')}
+                onClick={() => handleOAuth('google')}
                 type="button"
               >
+                <img src="imgs/google.png" alt="google-logo" />
                 Log in with Google
               </button>
-              <button className={`${styles.socialButton} ${styles.github}`} type="button">
+              <button
+                className={`${styles.socialButton} ${styles.github}`}
+                onClick={() => handleOAuth('github')}
+                type="button"
+              >
+                <img src="imgs/github-dark.png" alt="github-logo" />
                 Log in with Github
               </button>
-              <button className={`${styles.socialButton} ${styles.facebook}`} type="button">
-                Log in With Facebook
+              <button
+                className={`${styles.socialButton} ${styles.kakao}`}
+                onClick={() => handleOAuth('kakao')}
+                type="button"
+              >
+                <img src="imgs/kakao.png" alt="kakao-logo" />
+                Log in with Kakao
               </button>
             </div>
           </form>

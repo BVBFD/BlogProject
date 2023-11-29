@@ -81,23 +81,60 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 12rem;
+        width: 14rem;
         height: 3rem;
         color: white;
         border-radius: 0.5rem;
         cursor: pointer;
 
+        img {
+          width: 2.5rem;
+          height: 2.5rem;
+          margin-right: 0.8rem;
+          object-fit: cover;
+        }
+
         &.google {
-          background: darkred;
+          background: #ffffff;
+          color: #111111;
+
+          &:hover {
+            background: #3c1e1e;
+            color: #ffffff;
+          }
+
+          &:active {
+            transform: scale(0.95);
+          }
         }
 
         &.github {
-          background: darkorange;
+          background: #34363b;
+          color: #ffffff;
           margin: 1.4rem 0;
+
+          &:hover {
+            background: #000000;
+            color: whitesmoke;
+          }
+
+          &:active {
+            transform: scale(0.95);
+          }
         }
 
-        &.facebook {
-          background: darkblue;
+        &.kakao {
+          background: #fae100;
+          color: #3c1e1e;
+
+          &:hover {
+            color: #fae100;
+            background: #3c1e1e;
+          }
+
+          &:active {
+            transform: scale(0.95);
+          }
         }
       }
     }
