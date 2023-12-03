@@ -51,7 +51,7 @@ const LoginPopUp = () => {
                 onClick={() => handleOAuth('google')}
                 type="button"
               >
-                <img src="imgs/google.png" alt="google-logo" />
+                <img alt="google-logo" src="imgs/google.png" />
                 Log in with Google
               </button>
               <button
@@ -59,7 +59,7 @@ const LoginPopUp = () => {
                 onClick={() => handleOAuth('github')}
                 type="button"
               >
-                <img src="imgs/github-dark.png" alt="github-logo" />
+                <img alt="github-logo" src="imgs/github-dark.png" />
                 Log in with Github
               </button>
               <button
@@ -67,7 +67,7 @@ const LoginPopUp = () => {
                 onClick={() => handleOAuth('kakao')}
                 type="button"
               >
-                <img src="imgs/kakao.png" alt="kakao-logo" />
+                <img alt="kakao-logo" src="imgs/kakao.png" />
                 Log in with Kakao
               </button>
             </div>

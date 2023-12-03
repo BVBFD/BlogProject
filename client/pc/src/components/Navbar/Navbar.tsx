@@ -97,7 +97,7 @@ const Navbar = () => {
               onClick={() => signOut()}
               text="Sign-Out"
               width="4.8rem"
-            ></Button>
+            />
           </div>
         </main>
       </nav>

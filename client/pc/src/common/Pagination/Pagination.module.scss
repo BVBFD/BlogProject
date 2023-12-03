@@ -1,0 +1,94 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 2rem 0;
+
+  button {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.6rem;
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+    border-radius: 0.4rem;
+
+    &.clicked {
+      color: white;
+      background-color: black;
+    }
+
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &.darkMode {
+      color: white;
+      background-color: black;
+      border: 1px solid white;
+
+      &.clicked {
+        color: black;
+        background-color: white;
+      }
+
+      &:hover {
+        background-color: white;
+        color: black;
+      }
+    }
+
+    span {
+      width: fit-content;
+      height: fit-content;
+      padding: 0.2rem 0.8rem;
+    }
+  }
+
+  .next,
+  .prev,
+  .toStart,
+  .toEnd {
+    border: none;
+    margin: 0.8rem;
+
+    &:disabled {
+      color: darkgray;
+
+      &:hover {
+        cursor: default;
+        font-weight: 500;
+      }
+
+      &:active {
+        transform: none !important;
+      }
+    }
+
+    &:hover {
+      font-weight: bolder;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    span {
+      padding: 0;
+      font-size: 1rem;
+    }
+  }
+}

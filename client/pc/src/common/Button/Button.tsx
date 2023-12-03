@@ -5,7 +5,7 @@ import React from 'react';
 
 import styles from './Button.module.scss';
 
-interface ButtonPropsType {
+interface ButtonPropsType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   href: string;
   text: string;
@@ -14,6 +14,7 @@ interface ButtonPropsType {
   fontSize?: string;
   openInNewTab?: boolean;
   onClick?: (() => Record<never, string>) | (() => void);
+  // style?: React.CSSProperties;
 }
 
 const Button = ({ className, href, text, width, height, fontSize, openInNewTab, onClick }: ButtonPropsType) => {
@@ -37,6 +38,7 @@ Button.defaultProps = {
   fontSize: '1rem',
   openInNewTab: false,
   onClick: () => {},
+  // style: {},
 };
 
 export default Button;

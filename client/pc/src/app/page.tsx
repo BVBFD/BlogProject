@@ -1,22 +1,34 @@
 'use client';
 
 import Image from 'next/image';
-import { useContext, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { ThemeContext } from 'src/common/context/ThemeContext';
 import Button from 'src/common/Button/Button';
 import Link from 'next/link';
 import DynamicTyped from 'src/common/Typedjs/Typedjs';
 
-import styles from './page.module.scss';
 import { useSession } from 'next-auth/react';
+
+import Pagination from 'src/common/Pagination/Pagination';
+
+import data from 'public/json/posts.json';
+
+import styles from './page.module.scss';
 
 export default function Home() {
   const { status } = useSession();
   const { mode } = useContext(ThemeContext);
+  const [currentPage, setCurrentPage] = useState(1);
   const headerImgRef = useRef(null);
   const handleOnComplete = () => {
     headerImgRef.current.style.filter = 'opacity(1) grayscale(0)';
   };
+
+  const getCurrentPage = (pageNum) => {
+    setCurrentPage(pageNum);
+  };
+
+  useEffect(() => {}, [currentPage]);
 
   return (
     status !== 'loading' && (
@@ -211,7 +223,7 @@ export default function Home() {
           </article>
         </main>
         <footer>
-          <div className={styles.pagination}>pagination</div>
+          <Pagination data={data} getCurrentPage={getCurrentPage} />
         </footer>
       </section>
     )
