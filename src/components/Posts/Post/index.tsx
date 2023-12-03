@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import styles from './index.module.scss';
 import { Dispatch, SetStateAction } from 'react';
+import styles from './index.module.scss';
 
 interface PostType {
   _id: string;
@@ -27,9 +27,9 @@ const Post = ({ post, setOnProgress }: { post: PostType; setOnProgress: Dispatch
           crossOrigin="anonymous"
           fill
           objectFit="contain"
-          src={post?.imgUrl}
-          onLoadStart={() => setOnProgress(true)}
           onLoad={() => setOnProgress(false)}
+          onLoadStart={() => setOnProgress(true)}
+          src={post?.imgUrl}
         />
       </div>
       <div className={styles.content}>

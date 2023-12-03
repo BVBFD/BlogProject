@@ -1,7 +1,7 @@
 import Link from 'next/link';
+import { Dispatch, SetStateAction } from 'react';
 import styles from './index.module.scss';
 import Post from './Post';
-import { Dispatch, SetStateAction } from 'react';
 
 interface PostType {
   _id: string;
