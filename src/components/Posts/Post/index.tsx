@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import styles from './index.module.scss';
+import { Dispatch, SetStateAction } from 'react';
 
 interface PostType {
   _id: string;
@@ -13,7 +14,7 @@ interface PostType {
   author: string;
 }
 
-const Post = ({ post }: { post: PostType }) => {
+const Post = ({ post, setOnProgress }: { post: PostType; setOnProgress: Dispatch<SetStateAction<boolean>> }) => {
   const inputText = () => {
     return { __html: `${post?.text}` };
   };
@@ -21,7 +22,15 @@ const Post = ({ post }: { post: PostType }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.imgBox}>
-        <Image alt="postImg" crossOrigin="anonymous" fill objectFit="contain" src={post?.imgUrl} />
+        <Image
+          alt="postImg"
+          crossOrigin="anonymous"
+          fill
+          objectFit="contain"
+          src={post?.imgUrl}
+          onLoadStart={() => setOnProgress(true)}
+          onLoad={() => setOnProgress(false)}
+        />
       </div>
       <div className={styles.content}>
         <header>{post?.title}</header>

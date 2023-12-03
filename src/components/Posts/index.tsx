@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import styles from './index.module.scss';
 import Post from './Post';
+import { Dispatch, SetStateAction } from 'react';
 
 interface PostType {
   _id: string;
@@ -14,7 +15,13 @@ interface PostType {
   author: string;
 }
 
-const Posts = ({ selectedPost }: { selectedPost: PostType[] }) => {
+const Posts = ({
+  selectedPost,
+  setOnProgress,
+}: {
+  selectedPost: PostType[];
+  setOnProgress: Dispatch<SetStateAction<boolean>>;
+}) => {
   return (
     <div className={styles.wrapper}>
       {selectedPost?.map((post: PostType) =>
@@ -31,7 +38,7 @@ const Posts = ({ selectedPost }: { selectedPost: PostType[] }) => {
             }}
             key={post._id}
           >
-            <Post key={post._id} post={post} />
+            <Post key={post._id} post={post} setOnProgress={setOnProgress} />
           </Link>
         ) : (
           /* eslint-disable-next-line */

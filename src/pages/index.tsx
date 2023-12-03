@@ -190,7 +190,10 @@ const Home = () => {
             <Spin />
           </div>
         ) : (
-          <Posts selectedPost={Array.from({ length: postsPerSize }, (_value, index) => postsVar[index])} />
+          <Posts
+            setOnProgress={setOnProgress}
+            selectedPost={Array.from({ length: postsPerSize }, (_value, index) => postsVar[index])}
+          />
         )}
         <div className={styles.sidebar}>
           <header>About Me</header>
