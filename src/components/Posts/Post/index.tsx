@@ -26,11 +26,11 @@ const Post = ({ post, setOnProgress }: { post: PostType; setOnProgress: Dispatch
           alt="postImg"
           crossOrigin="anonymous"
           fill
+          loading="lazy"
           objectFit="contain"
           onLoad={() => setOnProgress(false)}
-          onLoadStart={() => setOnProgress(true)}
-          loading={'lazy'}
           onLoadingComplete={() => setOnProgress(false)}
+          onLoadStart={() => setOnProgress(true)}
           src={post?.imgUrl}
         />
       </div>
