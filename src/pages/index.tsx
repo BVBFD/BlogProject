@@ -140,6 +140,18 @@ const Home = () => {
     setBolImgShowUp(imgShowUp);
   };
 
+  const renderPagination = () => {
+    return (
+      <BasicPagination
+        current={currentPage}
+        defaultCurrent={1}
+        onChange={(changePageNum) => goToPage(changePageNum)}
+        pageSize={postsPerSize}
+        total={paginationTotalNum}
+      />
+    );
+  };
+
   return (
     <section className={styles.homeSec}>
       <Head>
@@ -251,15 +263,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {postsVar && postsVar.length !== 0 && !onProgress && bolImgShowUp && (
-        <BasicPagination
-          current={currentPage}
-          defaultCurrent={1}
-          onChange={(changePageNum) => goToPage(changePageNum)}
-          pageSize={postsPerSize}
-          total={paginationTotalNum}
-        />
-      )}
+      {postsVar && postsVar.length !== 0 && !onProgress && bolImgShowUp && renderPagination()}
     </section>
   );
 };
