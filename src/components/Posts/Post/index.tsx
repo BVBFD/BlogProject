@@ -15,9 +15,9 @@ interface PostType {
 }
 
 const Post = ({ post, setOnProgress }: { post: PostType; setOnProgress: Dispatch<SetStateAction<boolean>> }) => {
-  const inputText = () => {
-    return { __html: `${post?.text}` };
-  };
+  // const inputText = () => {
+  //   return { __html: `${post?.text}` };
+  // };
 
   return (
     <div className={styles.wrapper}>
@@ -34,7 +34,7 @@ const Post = ({ post, setOnProgress }: { post: PostType; setOnProgress: Dispatch
           // 사용자가 스크롤하거나 특정 위치에 도달할 때 필요한 이미지만 다운로드되기
           // 때문에 초기에 로딩 속도가 빠릅니다.
           // 페이지의 모든 이미지가 필요하지 않다면 자원을 절약할 수 있습니다.
-          loading="lazy"
+          loading="eager"
           objectFit="contain"
           onLoad={() => setOnProgress(false)}
           onLoadStart={() => setOnProgress(true)}
@@ -44,7 +44,7 @@ const Post = ({ post, setOnProgress }: { post: PostType; setOnProgress: Dispatch
       <div className={styles.content}>
         <header>{post?.title}</header>
         <span>{new Date(post?.createdAt).toDateString()}</span>
-        <div dangerouslySetInnerHTML={inputText()} />
+        {/* <div dangerouslySetInnerHTML={inputText()} /> */}
       </div>
     </div>
   );
