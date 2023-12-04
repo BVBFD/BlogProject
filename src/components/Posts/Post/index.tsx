@@ -14,16 +14,18 @@ interface PostType {
   author: string;
 }
 
-const Post = ({ post, setOnProgress }: { post: PostType; setOnProgress: Dispatch<SetStateAction<boolean>> }) => {
+const Post = ({
+  post,
+  setOnProgress,
+  onProgress,
+}: {
+  post: PostType;
+  setOnProgress: Dispatch<SetStateAction<boolean>>;
+  onProgress: boolean;
+}) => {
   // const inputText = () => {
   //   return { __html: `${post?.text}` };
   // };
-
-  if (!post) {
-    setOnProgress(true);
-  } else {
-    setOnProgress(false);
-  }
 
   return (
     post && (
@@ -48,11 +50,13 @@ const Post = ({ post, setOnProgress }: { post: PostType; setOnProgress: Dispatch
             src={post.imgUrl}
           />
         </div>
-        <div className={styles.content}>
-          <header>{post.title}</header>
-          <span>{new Date(post.createdAt).toDateString()}</span>
-          {/* <div dangerouslySetInnerHTML={inputText()} /> */}
-        </div>
+        {!onProgress && (
+          <div className={styles.content}>
+            <header>{post.title}</header>
+            <span>{new Date(post.createdAt).toDateString()}</span>
+            {/* <div dangerouslySetInnerHTML={inputText()} /> */}
+          </div>
+        )}
       </div>
     )
   );

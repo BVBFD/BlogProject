@@ -18,9 +18,11 @@ interface PostType {
 const Posts = ({
   selectedPost,
   setOnProgress,
+  onProgress,
 }: {
   selectedPost: PostType[];
   setOnProgress: Dispatch<SetStateAction<boolean>>;
+  onProgress: boolean;
 }) => {
   return (
     <div className={styles.wrapper}>
@@ -38,7 +40,7 @@ const Posts = ({
             }}
             key={post._id}
           >
-            <Post key={post._id} post={post} setOnProgress={setOnProgress} />
+            <Post key={post._id} post={post} setOnProgress={setOnProgress} onProgress={onProgress} />
           </Link>
         ) : (
           /* eslint-disable-next-line */
