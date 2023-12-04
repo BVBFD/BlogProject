@@ -143,21 +143,11 @@ const PostPage = ({ ps }: { ps: PostType }) => {
 export default PostPage;
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-  // const res = await fetch(
-  //   `https://api.lsevina126.asia/posts/${params.id}?meta=true`
-  // );
-  // const ps = await res.json();
-  const { PostSeo } = await import('../../postSeo');
-  const post = PostSeo.filter((p: PostType) => p._id === params.id);
-
   let ps;
-  if (post[0] == null) {
-    const res = await fetch(`https://api.lsevina126.asia/posts/${params.id}?meta=true`);
-    ps = await res.json();
-  } else {
-    const { text, ...others } = post[0] as PostType;
-    ps = others;
-  }
+  const res = await fetch(`https://api.lsevina126.asia/posts/${params.id}?meta=true`);
+  ps = await res.json();
+  const { text, ...others } = ps as PostType;
+  ps = others;
 
   return {
     props: {
