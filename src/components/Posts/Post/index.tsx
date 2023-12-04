@@ -18,10 +18,12 @@ const Post = ({
   post,
   imgShowUp,
   setImgShowUp,
+  setOnProgress,
 }: {
   post: PostType;
   imgShowUp: boolean;
   setImgShowUp: React.Dispatch<React.SetStateAction<boolean>>;
+  setOnProgress: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   // const inputText = () => {
   //   return { __html: `${post?.text}` };
@@ -55,7 +57,9 @@ const Post = ({
           objectFit="contain"
           onLoad={() => {
             setImgShowUp(true);
+            setOnProgress(false);
           }}
+          onLoadStart={() => setOnProgress(true)}
           priority
           quality={1}
           src={post.imgUrl}

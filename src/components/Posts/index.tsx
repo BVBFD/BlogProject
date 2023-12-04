@@ -15,7 +15,13 @@ interface PostType {
   author: string;
 }
 
-const Posts = ({ selectedPost }: { selectedPost: PostType[] }) => {
+const Posts = ({
+  selectedPost,
+  setOnProgress,
+}: {
+  selectedPost: PostType[];
+  setOnProgress: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [imgShowUp, setImgShowUp] = useState(false);
 
   return (
@@ -34,7 +40,13 @@ const Posts = ({ selectedPost }: { selectedPost: PostType[] }) => {
             }}
             key={post._id}
           >
-            <Post key={post._id} post={post} imgShowUp={imgShowUp} setImgShowUp={setImgShowUp} />
+            <Post
+              imgShowUp={imgShowUp}
+              key={post._id}
+              post={post}
+              setImgShowUp={setImgShowUp}
+              setOnProgress={setOnProgress}
+            />
           </Link>
         ) : (
           /* eslint-disable-next-line */
