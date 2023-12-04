@@ -122,13 +122,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
                     <span>{new Date(post.createdAt).toDateString()}</span>
                   </div>
                   <div className="ql-snow">
-                    <div
-                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                      // @ts-ignore
-                      class="ql-editor"
-                      className={styles.postContentText}
-                      dangerouslySetInnerHTML={inputText()}
-                    />
+                    <div className={`${styles.postContentText} ql-editor`} dangerouslySetInnerHTML={inputText()} />
                   </div>
                 </div>
               </div>
