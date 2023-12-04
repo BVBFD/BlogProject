@@ -40,7 +40,7 @@ const Posts = ({
             }}
             key={post._id}
           >
-            <Post key={post._id} post={post} setOnProgress={setOnProgress} onProgress={onProgress} />
+            <Post key={post._id} onProgress={onProgress} post={post} setOnProgress={setOnProgress} />
           </Link>
         ) : (
           /* eslint-disable-next-line */
