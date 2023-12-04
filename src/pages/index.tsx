@@ -32,6 +32,8 @@ const Home = () => {
   const [searchText, setSearchText] = useState<string>('');
   const [catName, setCatName] = useState<string>('');
 
+  const [imgShowUp, setImgShowUp] = useState(false);
+
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   const getPosts = async () => {
@@ -191,7 +193,9 @@ const Home = () => {
           </div>
         ) : (
           <Posts
+            imgShowUp={imgShowUp}
             selectedPost={Array.from({ length: postsPerSize }, (_value, index) => postsVar[index])}
+            setImgShowUp={setImgShowUp}
             setOnProgress={setOnProgress}
           />
         )}
@@ -244,7 +248,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {postsVar?.length !== 0 && !onProgress && (
+      {postsVar?.length !== 0 && !onProgress && imgShowUp && (
         <BasicPagination
           current={currentPage}
           defaultCurrent={1}

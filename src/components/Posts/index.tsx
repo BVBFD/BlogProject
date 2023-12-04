@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useState } from 'react';
 import styles from './index.module.scss';
 import Post from './Post';
 
@@ -18,12 +17,14 @@ interface PostType {
 const Posts = ({
   selectedPost,
   setOnProgress,
+  setImgShowUp,
+  imgShowUp,
 }: {
   selectedPost: PostType[];
   setOnProgress: React.Dispatch<React.SetStateAction<boolean>>;
+  setImgShowUp: React.Dispatch<React.SetStateAction<boolean>>;
+  imgShowUp: boolean;
 }) => {
-  const [imgShowUp, setImgShowUp] = useState(false);
-
   return (
     <div className={styles.wrapper}>
       {selectedPost?.map((post: PostType) =>
