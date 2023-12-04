@@ -191,8 +191,8 @@ const Home = () => {
           </div>
         ) : (
           <Posts
-            setOnProgress={setOnProgress}
             selectedPost={Array.from({ length: postsPerSize }, (_value, index) => postsVar[index])}
+            setOnProgress={setOnProgress}
           />
         )}
         <div className={styles.sidebar}>
