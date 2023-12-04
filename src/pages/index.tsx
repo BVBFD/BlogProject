@@ -32,7 +32,7 @@ const Home = () => {
   const [searchText, setSearchText] = useState<string>('');
   const [catName, setCatName] = useState<string>('');
 
-  const [imgShowUp, setImgShowUp] = useState(false);
+  const [bolImgShowUp, setBolImgShowUp] = useState<boolean>();
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
@@ -136,6 +136,10 @@ const Home = () => {
     }
   };
 
+  const getImgShowUp = (imgShowUp: boolean) => {
+    setBolImgShowUp(imgShowUp);
+  };
+
   return (
     <section className={styles.homeSec}>
       <Head>
@@ -193,9 +197,8 @@ const Home = () => {
           </div>
         ) : (
           <Posts
-            imgShowUp={imgShowUp}
+            getImgShowUp={getImgShowUp}
             selectedPost={Array.from({ length: postsPerSize }, (_value, index) => postsVar[index])}
-            setImgShowUp={setImgShowUp}
             setOnProgress={setOnProgress}
           />
         )}
@@ -248,7 +251,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {postsVar?.length !== 0 && !onProgress && imgShowUp && (
+      {postsVar?.length !== 0 && !onProgress && bolImgShowUp && (
         <BasicPagination
           current={currentPage}
           defaultCurrent={1}
