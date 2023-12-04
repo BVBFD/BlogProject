@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useMemo } from 'react';
 import styles from './index.module.scss';
 
 interface PostType {
@@ -14,22 +14,13 @@ interface PostType {
   author: string;
 }
 
-const Post = ({
-  post,
-  setOnProgress,
-  onProgress,
-}: {
-  post: PostType;
-  setOnProgress: Dispatch<SetStateAction<boolean>>;
-  onProgress: boolean;
-}) => {
+const Post = ({ post }: { post: PostType }) => {
   // const inputText = () => {
   //   return { __html: `${post?.text}` };
   // };
-  const [afterImgLoaded, setAfterImgLoaded] = useState(false);
 
-  return !onProgress ? (
-    post && (
+  const renderPage = useMemo(() => {
+    return (
       <div className={styles.wrapper}>
         <div className={styles.imgBox}>
           {/* loading="eager"
@@ -43,32 +34,23 @@ const Post = ({
             alt="postImg"
             crossOrigin="anonymous"
             fill
-            objectFit="contain"
             loading="eager"
-            onLoad={() => {
-              setAfterImgLoaded(true);
-              setOnProgress(false);
-            }}
-            onLoadStart={() => {
-              setOnProgress(true);
-            }}
+            objectFit="contain"
             priority
             quality={1}
-            src={afterImgLoaded ? post.imgUrl : ''}
+            src={post.imgUrl}
           />
         </div>
-        {afterImgLoaded && (
-          <div className={styles.content}>
-            <header>{post.title}</header>
-            <span>{new Date(post.createdAt).toDateString()}</span>
-            {/* <div dangerouslySetInnerHTML={inputText()} /> */}
-          </div>
-        )}
+        <div className={styles.content}>
+          <header>{post.title}</header>
+          <span>{new Date(post.createdAt).toDateString()}</span>
+          {/* <div dangerouslySetInnerHTML={inputText()} /> */}
+        </div>
       </div>
-    )
-  ) : (
-    <div className={styles.wrapper} />
-  );
+    );
+  }, [post]);
+
+  return renderPage || <div />;
 };
 
 export default Post;
