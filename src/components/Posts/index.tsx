@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useState } from 'react';
 import styles from './index.module.scss';
 import Post from './Post';
 
@@ -15,6 +16,8 @@ interface PostType {
 }
 
 const Posts = ({ selectedPost }: { selectedPost: PostType[] }) => {
+  const [imgShowUp, setImgShowUp] = useState(false);
+
   return (
     <div className={styles.wrapper}>
       {selectedPost?.map((post: PostType) =>
@@ -31,7 +34,7 @@ const Posts = ({ selectedPost }: { selectedPost: PostType[] }) => {
             }}
             key={post._id}
           >
-            <Post key={post._id} post={post} />
+            <Post key={post._id} post={post} imgShowUp={imgShowUp} setImgShowUp={setImgShowUp} />
           </Link>
         ) : (
           /* eslint-disable-next-line */

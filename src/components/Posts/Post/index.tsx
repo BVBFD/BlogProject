@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import styles from './index.module.scss';
 
 interface PostType {
@@ -14,11 +14,18 @@ interface PostType {
   author: string;
 }
 
-const Post = ({ post }: { post: PostType }) => {
+const Post = ({
+  post,
+  imgShowUp,
+  setImgShowUp,
+}: {
+  post: PostType;
+  imgShowUp: boolean;
+  setImgShowUp: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   // const inputText = () => {
   //   return { __html: `${post?.text}` };
   // };
-  const [imgShowUp, setImgShowUp] = useState(false);
 
   const renderPage = useMemo(() => {
     return (
@@ -46,12 +53,12 @@ const Post = ({ post }: { post: PostType }) => {
           fill
           loading="eager"
           objectFit="contain"
-          priority
-          quality={1}
-          src={post.imgUrl}
           onLoad={() => {
             setImgShowUp(true);
           }}
+          priority
+          quality={1}
+          src={post.imgUrl}
         />
       </div>
       {imgShowUp && renderPage}
