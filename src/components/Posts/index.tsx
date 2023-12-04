@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './index.module.scss';
 import Post from './Post';
 
@@ -26,9 +26,7 @@ const Posts = ({
 }) => {
   const [imgShowUp, setImgShowUp] = useState(false);
 
-  useEffect(() => {
-    getImgShowUp(imgShowUp);
-  }, [imgShowUp]);
+  getImgShowUp(imgShowUp);
 
   return (
     <div className={styles.wrapper}>
