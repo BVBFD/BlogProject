@@ -183,38 +183,38 @@ const Home = () => {
         <link href="https://lsevina126.netlify.app" rel="canonical" />
         {/* SEO */}
       </Head>
-      <section className={styles.homeSec}>
-        <Banner />
-        <div className={styles.totalSearchBox}>
-          {searchText !== '' ||
-            (catName !== '' && (
-              <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
-                SEE TOTAL POSTS (전체 포스트 보기)
-              </BasicButton>
-            ))}
-          {catName === '' && (
-            <input
-              className={styles.searchInput}
-              onChange={handleSearchText}
-              // onChange={(e) => setSearchText(e.target.value)}
-              placeholder="Searching Posts..."
-              ref={searchInputRef}
-              type="text"
-              value={searchText}
-            />
-          )}
-          {searchText !== '' && (
-            <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleKeywordSearch}>
-              Keyword Search (키워드 검색)
-            </BasicButton>
-          )}
-
-          {searchText !== '' && (
+      <Banner />
+      <div className={styles.totalSearchBox}>
+        {searchText !== '' ||
+          (catName !== '' && (
             <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
               SEE TOTAL POSTS (전체 포스트 보기)
             </BasicButton>
-          )}
-        </div>
+          ))}
+        {catName === '' && (
+          <input
+            className={styles.searchInput}
+            onChange={handleSearchText}
+            // onChange={(e) => setSearchText(e.target.value)}
+            placeholder="Searching Posts..."
+            ref={searchInputRef}
+            type="text"
+            value={searchText}
+          />
+        )}
+        {searchText !== '' && (
+          <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleKeywordSearch}>
+            Keyword Search (키워드 검색)
+          </BasicButton>
+        )}
+
+        {searchText !== '' && (
+          <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
+            SEE TOTAL POSTS (전체 포스트 보기)
+          </BasicButton>
+        )}
+      </div>
+      <section className={styles.homeSec}>
         <div className={styles.container}>
           {onProgress ? (
             <div className={styles.circularProgress} style={{ flex: 3 }}>

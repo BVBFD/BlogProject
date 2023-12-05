@@ -1,28 +1,28 @@
-.homeSec {
-  min-height: 90vh;
+.totalSearchBox {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
 
-  .totalSearchBox {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    gap: 1rem;
+  .totalBtn {
+    cursor: pointer;
 
-    .totalBtn {
-      cursor: pointer;
-
-      &:active {
-        transform: scale(0.8);
-      }
-    }
-
-    .searchInput {
-      padding: 0.2rem 0.4rem;
-      font-size: 1.2rem;
-      border: 1px solid black;
-      border-radius: 4px;
-      max-height: 30px;
+    &:active {
+      transform: scale(0.8);
     }
   }
+
+  .searchInput {
+    padding: 0.2rem 0.4rem;
+    font-size: 1.2rem;
+    border: 1px solid black;
+    border-radius: 4px;
+    max-height: 30px;
+  }
+}
+
+.homeSec {
+  min-height: 80vh;
 
   .container {
     display: flex;
