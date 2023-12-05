@@ -113,10 +113,7 @@ const Home = () => {
     };
   }, []);
 
-  // useEffect를 쓰면 불필요한 rendering 자꾸 생겨서 이렇게 바꿈
   useMemo(() => {
-    // useMemo로 전달된 함수는 렌더링 중에 발생하게됨.
-    // useEffect는 렌더링 후에 함수가 발생하게됨.
     renderPagination();
     return pagination;
   }, [currentPage, paginationTotalNum, postsVar]);
@@ -129,32 +126,27 @@ const Home = () => {
     getPosts();
   }, []);
 
-  const handleKeywordSearch = async () => {
+  const handleSearch = useCallback(async (url: string) => {
     setOnProgress(true);
-    const res = await publicRequest.get(`/posts?text=${searchText}`);
+    const res = await publicRequest.get(url);
     const { posts, totalPostsCount } = await res.data;
     setPostsVar(posts);
     setPaginationTotalNum(totalPostsCount);
     setCurrentPage(1);
+    setOnProgress(false);
+  }, []);
 
-    return setOnProgress(false);
+  const handleKeywordSearch = async () => {
+    // 공백이 아닌 실제 문자열인지 확인
+    if (searchText.trim() !== '') {
+      handleSearch(`/posts?text=${searchText}`);
+    }
   };
 
-  const handleCatName = useCallback((e: React.MouseEvent<HTMLSpanElement>) => {
+  const handleCatName = useCallback(async (e: React.MouseEvent<HTMLSpanElement>) => {
     setSearchText('');
     setCatName(e.currentTarget.innerText);
-    const getPostsByCatName = async () => {
-      setOnProgress(true);
-      const res = await publicRequest.get(`/posts?cat=${e.currentTarget.innerText}`);
-      const { posts, totalPostsCount } = await res.data;
-      setPostsVar(posts);
-      setPaginationTotalNum(totalPostsCount);
-      setCurrentPage(1);
-
-      return setOnProgress(false);
-    };
-
-    getPostsByCatName();
+    handleSearch(`/posts?cat=${e.currentTarget.innerText}`);
   }, []);
 
   const handleSearchText = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
