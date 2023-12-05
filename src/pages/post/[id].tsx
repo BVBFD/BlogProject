@@ -32,6 +32,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
   const { id } = router.query;
   const user = useSelector((state: RootState) => state.user);
   const Write = dynamic(() => import('../write'));
+  const [onLoad, setOnLoad] = useState(false);
 
   useEffect(() => {
     document.querySelectorAll('.videoImgs').forEach((img) => img.setAttribute('style', ''));
@@ -88,37 +89,47 @@ const PostPage = ({ ps }: { ps: PostType }) => {
             <div className={styles.postBox}>
               <div className={styles.postImgTextBox}>
                 <div className={styles.postTitleImgBox}>
-                  <Image alt="" crossOrigin="anonymous" height={1080} src={`${ps.imgUrl}`} width={1920} />
+                  <Image
+                    alt=""
+                    crossOrigin="anonymous"
+                    fill
+                    objectFit="contain"
+                    onLoad={() => setOnLoad(true)}
+                    quality={20}
+                    src={`${ps.imgUrl}`}
+                  />
                 </div>
-                <div className={styles.postTextBox}>
-                  <header className={styles.postHeader}>
-                    <p>
-                      Category: <span>{ps.catName}</span>
-                    </p>
-                    <span>{ps.title}</span>
-                    <div>
-                      <EditFilled
-                        onClick={() => {
-                          if (!editBtnIndex) {
-                            setEditBtnIndex(true);
-                          } else {
-                            setEditBtnIndex(false);
-                          }
-                        }}
-                      />
-                      <DeleteFilled onClick={deletePost} />
+                {onLoad && (
+                  <div className={styles.postTextBox}>
+                    <header className={styles.postHeader}>
+                      <p>
+                        Category: <span>{ps.catName}</span>
+                      </p>
+                      <span>{ps.title}</span>
+                      <div>
+                        <EditFilled
+                          onClick={() => {
+                            if (!editBtnIndex) {
+                              setEditBtnIndex(true);
+                            } else {
+                              setEditBtnIndex(false);
+                            }
+                          }}
+                        />
+                        <DeleteFilled onClick={deletePost} />
+                      </div>
+                    </header>
+                    <div className={styles.authorAndDate}>
+                      <p>
+                        Author: <span>{ps.author}</span>
+                      </p>
+                      <span>{new Date(ps.createdAt).toDateString()}</span>
                     </div>
-                  </header>
-                  <div className={styles.authorAndDate}>
-                    <p>
-                      Author: <span>{ps.author}</span>
-                    </p>
-                    <span>{new Date(ps.createdAt).toDateString()}</span>
+                    <div className="ql-snow">
+                      <div className={`${styles.postContentText} ql-editor`} dangerouslySetInnerHTML={inputText()} />
+                    </div>
                   </div>
-                  <div className="ql-snow">
-                    <div className={`${styles.postContentText} ql-editor`} dangerouslySetInnerHTML={inputText()} />
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           ) : (

@@ -30,14 +30,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: fit-content;
-  /* width: 95vw; */
-}
-
-.postPage .postBox .postImgTextBox .postTitleImgBox img {
-  width: 95vw;
-  object-fit: cover;
-  border-radius: 0.4rem;
+  position: relative;
+  width: 96vw;
+  height: 50vh;
+  background-color: #e4e4e4;
+  border-radius: 1rem;
 }
 
 .postPage .postBox .postImgTextBox .postTextBox {

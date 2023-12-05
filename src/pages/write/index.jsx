@@ -48,6 +48,8 @@ const Write = ({ post }) => {
   const user = useSelector((state) => state.user);
   const router = useRouter();
 
+  const [imgLoad, setImgLoad] = useState(false);
+
   const check = () => {
     if (editorRef.current) {
       return editorRef.current;
@@ -294,9 +296,15 @@ const Write = ({ post }) => {
   };
 
   useEffect(() => {
+    if (post) {
+      setCatName(post.catName);
+    }
+
     setFirstSubmit(true);
     return () => {
       setFirstSubmit(true);
+      setCatName('HTML / Git');
+      setImgLoad(false);
     };
   }, []);
 
@@ -307,83 +315,89 @@ const Write = ({ post }) => {
           {titleImg ? (
             <Image
               alt=""
-              crossOrigin="anonymous"
-              height={1080}
+              fill
+              objectFit="contain"
+              onLoad={() => setImgLoad(true)}
+              quality={20}
               /* eslint-disable no-nested-ternary */
               src={id ? (!writePageImgURL ? `${post.imgUrl}` : `${writePageImgURL}`) : `${writePageImgURL}`}
-              width={1920}
+              crossOrigin="anonymous"
             />
           ) : (
             <Image
               alt=""
               crossOrigin="anonymous"
-              height={1080}
+              fill
+              objectFit="contain"
+              onLoad={() => setImgLoad(true)}
+              quality={20}
               src="https://res.cloudinary.com/dewa3t2gi/image/upload/v1675150372/omlojqzvdujpd3hhtpap.png"
-              width={1920}
             />
           )}
         </div>
       ) : (
         <div />
       )}
-      <form className={styles.titleImgAddBox}>
-        <div className={styles.titleInputBox}>
-          <div className={styles.imgFileTitleInputBox}>
-            <label className={styles.imgFileLabel} htmlFor="imgFileInput">
-              <PictureFilled />
-              <input id="imgFileInput" onChange={selectImg} style={{ display: 'none' }} type="file" />
-            </label>
-            <input
-              className={styles.titleInput}
-              defaultValue={!post ? '' : post.title}
-              onChange={(e) => setPostTitle(e.target.value)}
-              placeholder="Title"
-              type="text"
-            />
+      {imgLoad && (
+        <form className={styles.titleImgAddBox}>
+          <div className={styles.titleInputBox}>
+            <div className={styles.imgFileTitleInputBox}>
+              <label className={styles.imgFileLabel} htmlFor="imgFileInput">
+                <PictureFilled />
+                <input id="imgFileInput" onChange={selectImg} style={{ display: 'none' }} type="file" />
+              </label>
+              <input
+                className={styles.titleInput}
+                defaultValue={!post ? '' : post.title}
+                onChange={(e) => setPostTitle(e.target.value)}
+                placeholder="Title"
+                type="text"
+              />
+            </div>
+            <div className={styles.catnameUploadBox}>
+              <select
+                className={styles.selectCategory}
+                defaultValue={!post ? 'HTML / Git' : post.catName}
+                name="Category"
+                onChange={(e) => setCatName(e.target.value)}
+              >
+                <option value="HTML / Git">HTML / Git</option>
+                <option value="CSS">CSS</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="Front-End">Front-End</option>
+                <option value="Back-End">Back-End</option>
+                <option value="TypeScript">TypeScript</option>
+                <option value="Life">Life</option>
+                <option value="Book / Learn">Book / Learn</option>
+              </select>
+              <BasicButton
+                BasicButtonType="medium"
+                className={styles.uploadBtn}
+                disabled={!firstSubmit}
+                onClick={!id ? handleSubmit : handleEdit}
+              >
+                Upload
+              </BasicButton>
+            </div>
           </div>
-          <div className={styles.catnameUploadBox}>
-            <select
-              className={styles.selectCategory}
-              defaultValue={!post ? 'HTML / Git' : post.catName}
-              name="Category"
-              onChange={(e) => setCatName(e.target.value)}
-            >
-              <option value="HTML / Git">HTML / Git</option>
-              <option value="CSS">CSS</option>
-              <option value="JavaScript">JavaScript</option>
-              <option value="Front-End">Front-End</option>
-              <option value="Back-End">Back-End</option>
-              <option value="TypeScript">TypeScript</option>
-              <option value="Life">Life</option>
-              <option value="Book / Learn">Book / Learn</option>
-            </select>
-            <BasicButton
-              BasicButtonType="medium"
-              className={styles.uploadBtn}
-              disabled={!firstSubmit}
-              onClick={!id ? handleSubmit : handleEdit}
-            >
-              Upload
-            </BasicButton>
-          </div>
-        </div>
-        <ReactQuill
-          defaultValue={!post ? '' : post.text}
-          formats={formats}
-          forwardedRef={editorRef}
-          modules={modules}
-          onChange={setValue}
-          style={{ width: '100%', height: '90vh' }}
-          theme="snow"
-        />
-        {!isFetching ? (
-          ''
-        ) : (
-          <div className={styles.loader}>
-            <Spin />
-          </div>
-        )}
-      </form>
+          <ReactQuill
+            defaultValue={!post ? '' : post.text}
+            formats={formats}
+            forwardedRef={editorRef}
+            modules={modules}
+            onChange={setValue}
+            style={{ width: '100%', height: '90vh' }}
+            theme="snow"
+          />
+          {!isFetching ? (
+            ''
+          ) : (
+            <div className={styles.loader}>
+              <Spin />
+            </div>
+          )}
+        </form>
+      )}
     </section>
   );
 };

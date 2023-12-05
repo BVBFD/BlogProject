@@ -3,7 +3,7 @@ import Banner from '@/components/Banner';
 import { FacebookFilled, InstagramFilled, TwitterCircleFilled } from '@ant-design/icons';
 
 import BasicPagination from '@/common/BasicPagination';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Spin } from 'antd';
 import BasicButton from '@/common/BasicButton';
 import { publicRequest } from '../../config';
@@ -49,10 +49,6 @@ const Home = () => {
 
     return setOnProgress(false);
   };
-
-  useEffect(() => {
-    getPosts();
-  }, []);
 
   const handleTotal = () => {
     setSearchText('');
@@ -155,6 +151,8 @@ const Home = () => {
   };
 
   useEffect(() => {
+    getPosts();
+
     renderPagination();
     setShowPagination(true);
 
@@ -162,7 +160,15 @@ const Home = () => {
       setPagination(null);
       setShowPagination(false);
     };
+  }, []);
+
+  // useEffect를 쓰면 불필요한 rendering 자꾸 생겨서 이렇게 바꿈
+  useMemo(() => {
+    renderPagination();
+    return pagination;
   }, [currentPage, paginationTotalNum]);
+
+  useMemo(() => showPagination, [currentPage, paginationTotalNum]);
 
   return (
     <div>
