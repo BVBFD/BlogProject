@@ -3,7 +3,7 @@ import Banner from '@/components/Banner';
 import { FacebookFilled, InstagramFilled, TwitterCircleFilled } from '@ant-design/icons';
 
 import BasicPagination from '@/common/BasicPagination';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Spin } from 'antd';
 import BasicButton from '@/common/BasicButton';
 import { publicRequest } from '../../config';
@@ -33,7 +33,7 @@ const Home = () => {
   const [catName, setCatName] = useState<string>('');
 
   const [bolImgShowUp, setBolImgShowUp] = useState<boolean>();
-  const [pagination, setPagination] = useState<React.ReactNode>();
+  const [pagination, setPagination] = useState<React.ReactNode | null>(null);
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
@@ -153,10 +153,9 @@ const Home = () => {
     );
   };
 
-  useMemo(() => {
+  useEffect(() => {
     renderPagination();
-    return postsVar;
-  }, [postsVar]);
+  }, [currentPage, paginationTotalNum]);
 
   return (
     <section className={styles.homeSec}>
