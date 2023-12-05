@@ -34,6 +34,7 @@ const Home = () => {
 
   const [bolImgShowUp, setBolImgShowUp] = useState<boolean>();
   const [pagination, setPagination] = useState<React.ReactNode | null>(null);
+  const [showPagination, setShowPagination] = useState<boolean>(false);
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
@@ -155,6 +156,7 @@ const Home = () => {
 
   useEffect(() => {
     renderPagination();
+    setShowPagination(true);
   }, [currentPage, paginationTotalNum]);
 
   return (
@@ -268,7 +270,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {postsVar && postsVar.length !== 0 && !onProgress && bolImgShowUp && pagination}
+      {postsVar && postsVar.length !== 0 && !onProgress && bolImgShowUp && showPagination && pagination}
     </section>
   );
 };
