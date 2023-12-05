@@ -88,7 +88,10 @@ const PostPage = ({ ps }: { ps: PostType }) => {
           {ps ? (
             <div className={styles.postBox}>
               <div className={styles.postImgTextBox}>
-                <div className={styles.postTitleImgBox}>
+                <div
+                  className={styles.postTitleImgBox}
+                  style={onLoad ? { backgroundColor: '#e4e4e4' } : { backgroundColor: 'unset' }}
+                >
                   <Image
                     alt=""
                     crossOrigin="anonymous"

@@ -311,7 +311,10 @@ const Write = ({ post }) => {
   return (
     <section className={styles.write}>
       {!isFetching ? (
-        <div className={styles.titleImgBox}>
+        <div
+          className={styles.titleImgBox}
+          style={imgLoad ? { backgroundColor: '#e4e4e4' } : { backgroundColor: 'unset' }}
+        >
           {titleImg ? (
             <Image
               alt=""
