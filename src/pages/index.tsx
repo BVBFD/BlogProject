@@ -33,6 +33,7 @@ const Home = () => {
   const [catName, setCatName] = useState<string>('');
 
   const [bolImgShowUp, setBolImgShowUp] = useState<boolean>();
+  const [pagination, setPagination] = useState<React.ReactNode>();
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
@@ -141,7 +142,7 @@ const Home = () => {
   };
 
   const renderPagination = () => {
-    return (
+    setPagination(
       <BasicPagination
         current={currentPage}
         defaultCurrent={1}
@@ -151,6 +152,10 @@ const Home = () => {
       />
     );
   };
+
+  useEffect(() => {
+    renderPagination();
+  }, [postsVar]);
 
   return (
     <section className={styles.homeSec}>
@@ -263,7 +268,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {postsVar && postsVar.length !== 0 && !onProgress && bolImgShowUp && renderPagination()}
+      {postsVar && postsVar.length !== 0 && !onProgress && bolImgShowUp && pagination}
     </section>
   );
 };
