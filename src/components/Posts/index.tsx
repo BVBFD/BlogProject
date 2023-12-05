@@ -54,7 +54,7 @@ const Posts = ({
           </Link>
         ) : (
           /* eslint-disable-next-line */
-          <a>
+          <a className={styles.emptyBox}>
             <div />
           </a>
         )

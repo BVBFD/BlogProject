@@ -5,6 +5,20 @@
     align-items: center;
   }
 
+  .emptyBox {
+    div {
+      width: 50%;
+      height: 90%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 2rem;
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(30vw, 1fr));
   flex: 3;
