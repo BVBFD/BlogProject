@@ -3,7 +3,7 @@ import Banner from '@/components/Banner';
 import { FacebookFilled, InstagramFilled, TwitterCircleFilled } from '@ant-design/icons';
 
 import BasicPagination from '@/common/BasicPagination';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Spin } from 'antd';
 import BasicButton from '@/common/BasicButton';
 import { publicRequest } from '../../config';
@@ -38,40 +38,7 @@ const Home = () => {
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
-  const getPosts = async () => {
-    setOnProgress(true);
-    const res = await publicRequest.get(`/posts`);
-    const { posts, totalPostsCount } = await res.data;
-    setPostsVar(posts);
-    setPaginationTotalNum(totalPostsCount);
-    setPostsPerSize(4);
-    setCurrentPage(1);
-
-    return setOnProgress(false);
-  };
-
-  const handleTotal = () => {
-    setSearchText('');
-    setCatName('');
-    getPosts();
-  };
-
-  const handleKeywordSearch = () => {
-    const getPostsByKeyword = async () => {
-      setOnProgress(true);
-      const res = await publicRequest.get(`/posts?text=${searchText}`);
-      const { posts, totalPostsCount } = await res.data;
-      setPostsVar(posts);
-      setPaginationTotalNum(totalPostsCount);
-      setCurrentPage(1);
-
-      return setOnProgress(false);
-    };
-
-    getPostsByKeyword();
-  };
-
-  const goToPage = async (pageNum: number) => {
+  const goToPage = useCallback(async (pageNum: number) => {
     if (searchText !== '') {
       setCurrentPage(pageNum);
       setOnProgress(true);
@@ -108,35 +75,7 @@ const Home = () => {
     setPostsVar(posts);
 
     return setOnProgress(false);
-  };
-
-  const handleCatName = (e: React.MouseEvent<HTMLSpanElement>) => {
-    setSearchText('');
-    setCatName(e.currentTarget.innerText);
-    const getPostsByCatName = async () => {
-      setOnProgress(true);
-      const res = await publicRequest.get(`/posts?cat=${e.currentTarget.innerText}`);
-      const { posts, totalPostsCount } = await res.data;
-      setPostsVar(posts);
-      setPaginationTotalNum(totalPostsCount);
-      setCurrentPage(1);
-
-      return setOnProgress(false);
-    };
-
-    getPostsByCatName();
-  };
-
-  const handleSearchText = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
-    if (e.target.value === '') {
-      getPosts();
-    }
-  };
-
-  const getImgShowUp = (imgShowUp: boolean) => {
-    setBolImgShowUp(imgShowUp);
-  };
+  }, []);
 
   const renderPagination = () => {
     setPagination(
@@ -149,6 +88,18 @@ const Home = () => {
       />
     );
   };
+
+  const getPosts = useCallback(async () => {
+    setOnProgress(true);
+    const res = await publicRequest.get(`/posts`);
+    const { posts, totalPostsCount } = await res.data;
+    setPostsVar(posts);
+    setPaginationTotalNum(totalPostsCount);
+    setPostsPerSize(4);
+    setCurrentPage(1);
+
+    return setOnProgress(false);
+  }, []);
 
   useEffect(() => {
     getPosts();
@@ -164,11 +115,58 @@ const Home = () => {
 
   // useEffect를 쓰면 불필요한 rendering 자꾸 생겨서 이렇게 바꿈
   useMemo(() => {
+    // useMemo로 전달된 함수는 렌더링 중에 발생하게됨.
+    // useEffect는 렌더링 후에 함수가 발생하게됨.
     renderPagination();
     return pagination;
-  }, [currentPage, paginationTotalNum]);
+  }, [currentPage, paginationTotalNum, postsVar]);
 
   useMemo(() => showPagination, [currentPage, paginationTotalNum]);
+
+  const handleTotal = useCallback(() => {
+    setSearchText('');
+    setCatName('');
+    getPosts();
+  }, []);
+
+  const handleKeywordSearch = async () => {
+    setOnProgress(true);
+    const res = await publicRequest.get(`/posts?text=${searchText}`);
+    const { posts, totalPostsCount } = await res.data;
+    setPostsVar(posts);
+    setPaginationTotalNum(totalPostsCount);
+    setCurrentPage(1);
+
+    return setOnProgress(false);
+  };
+
+  const handleCatName = useCallback((e: React.MouseEvent<HTMLSpanElement>) => {
+    setSearchText('');
+    setCatName(e.currentTarget.innerText);
+    const getPostsByCatName = async () => {
+      setOnProgress(true);
+      const res = await publicRequest.get(`/posts?cat=${e.currentTarget.innerText}`);
+      const { posts, totalPostsCount } = await res.data;
+      setPostsVar(posts);
+      setPaginationTotalNum(totalPostsCount);
+      setCurrentPage(1);
+
+      return setOnProgress(false);
+    };
+
+    getPostsByCatName();
+  }, []);
+
+  const handleSearchText = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+    if (e.target.value === '') {
+      getPosts();
+    }
+  }, []);
+
+  const getImgShowUp = useCallback((imgShowUp: boolean) => {
+    setBolImgShowUp(imgShowUp);
+  }, []);
 
   return (
     <div>
