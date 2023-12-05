@@ -28,17 +28,15 @@
   .circularProgress {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(30vw, 1fr));
-    flex: 3;
-    text-align: center;
 
-    .spinBox {
+    div {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
 
-      svg {
-        transform: scale(3);
-      }
+    svg {
+      transform: scale(3);
     }
   }
 
@@ -183,19 +181,22 @@
   }
 
   .circularProgress {
-    margin-top: 25%;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center;
+    align-items: center;
 
-    svg {
-      transform: none;
+    div {
+      height: 80vh;
+      svg {
+        transform: none;
+      }
     }
   }
 }
 
 @media screen and (max-width: 768px) {
   /* 481px - 768px - ipads, tablets */
-  .circularProgress {
-    margin-top: 35%;
-  }
 }
 
 @media screen and (max-width: 480px) {
@@ -212,15 +213,8 @@
   .searchInput {
     margin: 0.3rem 1rem;
   }
-
-  .circularProgress {
-    margin-top: 50%;
-  }
 }
 
 @media screen and (max-width: 390px) {
   /* 319px below - folder screens */
-  .circularProgress {
-    margin-top: 70%;
-  }
 }
