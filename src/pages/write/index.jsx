@@ -315,13 +315,13 @@ const Write = ({ post }) => {
           {titleImg ? (
             <Image
               alt=""
+              crossOrigin="anonymous"
               fill
               objectFit="contain"
               onLoad={() => setImgLoad(true)}
               quality={20}
               /* eslint-disable no-nested-ternary */
               src={id ? (!writePageImgURL ? `${post.imgUrl}` : `${writePageImgURL}`) : `${writePageImgURL}`}
-              crossOrigin="anonymous"
             />
           ) : (
             <Image
