@@ -3,7 +3,7 @@ import Banner from '@/components/Banner';
 import { FacebookFilled, InstagramFilled, TwitterCircleFilled } from '@ant-design/icons';
 
 import BasicPagination from '@/common/BasicPagination';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Spin } from 'antd';
 import BasicButton from '@/common/BasicButton';
 import { publicRequest } from '../../config';
@@ -153,8 +153,9 @@ const Home = () => {
     );
   };
 
-  useEffect(() => {
+  useMemo(() => {
     renderPagination();
+    return postsVar;
   }, [postsVar]);
 
   return (
