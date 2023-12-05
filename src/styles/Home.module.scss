@@ -26,12 +26,19 @@
   padding: 0 1rem;
 
   .circularProgress {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30vw, 1fr));
+    flex: 3;
+    text-align: center;
 
-    svg {
-      transform: scale(3);
+    .spinBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg {
+        transform: scale(3);
+      }
     }
   }
 

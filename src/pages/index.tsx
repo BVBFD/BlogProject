@@ -216,8 +216,19 @@ const Home = () => {
       </div>
       <div className={styles.container}>
         {onProgress ? (
-          <div className={styles.circularProgress} style={{ flex: 3 }}>
-            <Spin />
+          <div className={styles.circularProgress}>
+            <div className={styles.spinBox}>
+              <Spin />
+            </div>
+            <div className={styles.spinBox}>
+              <Spin />
+            </div>
+            <div className={styles.spinBox}>
+              <Spin />
+            </div>
+            <div className={styles.spinBox}>
+              <Spin />
+            </div>
           </div>
         ) : (
           <Posts
