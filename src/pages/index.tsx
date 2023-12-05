@@ -157,6 +157,11 @@ const Home = () => {
   useEffect(() => {
     renderPagination();
     setShowPagination(true);
+
+    return () => {
+      setPagination(null);
+      setShowPagination(false);
+    };
   }, [currentPage, paginationTotalNum]);
 
   return (
