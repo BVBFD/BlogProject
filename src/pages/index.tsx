@@ -165,7 +165,7 @@ const Home = () => {
   }, [currentPage, paginationTotalNum]);
 
   return (
-    <section className={styles.homeSec}>
+    <div>
       <Head>
         {/* SEO */}
         <title>Blog Project</title>
@@ -183,102 +183,104 @@ const Home = () => {
         <link href="https://lsevina126.netlify.app" rel="canonical" />
         {/* SEO */}
       </Head>
-      <Banner />
-      <div className={styles.totalSearchBox}>
-        {searchText !== '' ||
-          (catName !== '' && (
+      <section className={styles.homeSec}>
+        <Banner />
+        <div className={styles.totalSearchBox}>
+          {searchText !== '' ||
+            (catName !== '' && (
+              <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
+                SEE TOTAL POSTS (전체 포스트 보기)
+              </BasicButton>
+            ))}
+          {catName === '' && (
+            <input
+              className={styles.searchInput}
+              onChange={handleSearchText}
+              // onChange={(e) => setSearchText(e.target.value)}
+              placeholder="Searching Posts..."
+              ref={searchInputRef}
+              type="text"
+              value={searchText}
+            />
+          )}
+          {searchText !== '' && (
+            <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleKeywordSearch}>
+              Keyword Search (키워드 검색)
+            </BasicButton>
+          )}
+
+          {searchText !== '' && (
             <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
               SEE TOTAL POSTS (전체 포스트 보기)
             </BasicButton>
-          ))}
-        {catName === '' && (
-          <input
-            className={styles.searchInput}
-            onChange={handleSearchText}
-            // onChange={(e) => setSearchText(e.target.value)}
-            placeholder="Searching Posts..."
-            ref={searchInputRef}
-            type="text"
-            value={searchText}
-          />
-        )}
-        {searchText !== '' && (
-          <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleKeywordSearch}>
-            Keyword Search (키워드 검색)
-          </BasicButton>
-        )}
-
-        {searchText !== '' && (
-          <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
-            SEE TOTAL POSTS (전체 포스트 보기)
-          </BasicButton>
-        )}
-      </div>
-      <div className={styles.container}>
-        {onProgress ? (
-          <div className={styles.circularProgress} style={{ flex: 3 }}>
-            <div>
-              <Spin />
+          )}
+        </div>
+        <div className={styles.container}>
+          {onProgress ? (
+            <div className={styles.circularProgress} style={{ flex: 3 }}>
+              <div>
+                <Spin />
+              </div>
+            </div>
+          ) : (
+            <Posts
+              getImgShowUp={getImgShowUp}
+              selectedPost={Array.from({ length: postsPerSize }, (_value, index) => postsVar[index])}
+              setOnProgress={setOnProgress}
+            />
+          )}
+          <div className={styles.sidebar}>
+            <header>About Me</header>
+            <div className={styles.imgBox}>
+              <img
+                alt="sidebarImg"
+                height={30}
+                src="https://res.cloudinary.com/dewa3t2gi/image/upload/v1675172408/a1pdcxclbrvilga2cebl.gif"
+                width={30}
+              />
+              <p>Front-End, Back-End, Web Developer</p>
+              <p>Sharing My Value and Knowledge For Others</p>
+            </div>
+            <header className={styles.catHead}>
+              <div>CATEGORIES</div>
+            </header>
+            <div className={styles.categoriesBox}>
+              <button onClick={handleCatName} type="button">
+                HTML / Git
+              </button>
+              <button onClick={handleCatName} type="button">
+                CSS
+              </button>
+              <button onClick={handleCatName} type="button">
+                JavaScript
+              </button>
+              <button onClick={handleCatName} type="button">
+                Front-End
+              </button>
+              <button onClick={handleCatName} type="button">
+                Back-End
+              </button>
+              <button onClick={handleCatName} type="button">
+                TypeScript
+              </button>
+              <button onClick={handleCatName} type="button">
+                Life
+              </button>
+              <button onClick={handleCatName} type="button">
+                Book / Learn
+              </button>
+            </div>
+            <footer>FOLLOW US</footer>
+            <div className={styles.logoBox}>
+              <FacebookFilled />
+              <TwitterCircleFilled />
+              <InstagramFilled />
             </div>
           </div>
-        ) : (
-          <Posts
-            getImgShowUp={getImgShowUp}
-            selectedPost={Array.from({ length: postsPerSize }, (_value, index) => postsVar[index])}
-            setOnProgress={setOnProgress}
-          />
-        )}
-        <div className={styles.sidebar}>
-          <header>About Me</header>
-          <div className={styles.imgBox}>
-            <img
-              alt="sidebarImg"
-              height={30}
-              src="https://res.cloudinary.com/dewa3t2gi/image/upload/v1675172408/a1pdcxclbrvilga2cebl.gif"
-              width={30}
-            />
-            <p>Front-End, Back-End, Web Developer</p>
-            <p>Sharing My Value and Knowledge For Others</p>
-          </div>
-          <header className={styles.catHead}>
-            <div>CATEGORIES</div>
-          </header>
-          <div className={styles.categoriesBox}>
-            <button onClick={handleCatName} type="button">
-              HTML / Git
-            </button>
-            <button onClick={handleCatName} type="button">
-              CSS
-            </button>
-            <button onClick={handleCatName} type="button">
-              JavaScript
-            </button>
-            <button onClick={handleCatName} type="button">
-              Front-End
-            </button>
-            <button onClick={handleCatName} type="button">
-              Back-End
-            </button>
-            <button onClick={handleCatName} type="button">
-              TypeScript
-            </button>
-            <button onClick={handleCatName} type="button">
-              Life
-            </button>
-            <button onClick={handleCatName} type="button">
-              Book / Learn
-            </button>
-          </div>
-          <footer>FOLLOW US</footer>
-          <div className={styles.logoBox}>
-            <FacebookFilled />
-            <TwitterCircleFilled />
-            <InstagramFilled />
-          </div>
         </div>
-      </div>
+      </section>
       {postsVar && postsVar.length !== 0 && !onProgress && bolImgShowUp && showPagination && pagination}
-    </section>
+    </div>
   );
 };
 
