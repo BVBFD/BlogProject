@@ -38,44 +38,47 @@ const Home = () => {
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
-  const goToPage = useCallback(async (pageNum: number) => {
-    if (searchText !== '') {
+  const goToPage = useCallback(
+    async (pageNum: number) => {
+      if (searchText !== '') {
+        setCurrentPage(pageNum);
+        setOnProgress(true);
+        const res = await publicRequest.get(`/posts?page=${pageNum}&text=${searchText}`);
+        const { posts } = await res.data;
+        setPostsVar(posts);
+
+        return setOnProgress(false);
+      }
+      if (catName !== '') {
+        setCurrentPage(pageNum);
+        setOnProgress(true);
+        const res = await publicRequest.get(`/posts?page=${pageNum}&cat=${catName}`);
+        const { posts, totalPostsCount } = await res.data;
+        setPostsVar(posts);
+        setPaginationTotalNum(totalPostsCount);
+
+        return setOnProgress(false);
+      }
+      if (searchText !== '' && catName !== '') {
+        setCurrentPage(pageNum);
+        setOnProgress(true);
+        const res = await publicRequest.get(`/posts?page=${pageNum}&cat=${catName}&text=${searchText}`);
+        const { posts, totalPostsCount } = await res.data;
+        setPostsVar(posts);
+        setPaginationTotalNum(totalPostsCount);
+
+        return setOnProgress(false);
+      }
       setCurrentPage(pageNum);
       setOnProgress(true);
-      const res = await publicRequest.get(`/posts?page=${pageNum}&text=${searchText}`);
+      const res = await publicRequest.get(`/posts?page=${pageNum}`);
       const { posts } = await res.data;
       setPostsVar(posts);
 
       return setOnProgress(false);
-    }
-    if (catName !== '') {
-      setCurrentPage(pageNum);
-      setOnProgress(true);
-      const res = await publicRequest.get(`/posts?page=${pageNum}&cat=${catName}`);
-      const { posts, totalPostsCount } = await res.data;
-      setPostsVar(posts);
-      setPaginationTotalNum(totalPostsCount);
-
-      return setOnProgress(false);
-    }
-    if (searchText !== '' && catName !== '') {
-      setCurrentPage(pageNum);
-      setOnProgress(true);
-      const res = await publicRequest.get(`/posts?page=${pageNum}&cat=${catName}&text=${searchText}`);
-      const { posts, totalPostsCount } = await res.data;
-      setPostsVar(posts);
-      setPaginationTotalNum(totalPostsCount);
-
-      return setOnProgress(false);
-    }
-    setCurrentPage(pageNum);
-    setOnProgress(true);
-    const res = await publicRequest.get(`/posts?page=${pageNum}`);
-    const { posts } = await res.data;
-    setPostsVar(posts);
-
-    return setOnProgress(false);
-  }, []);
+    },
+    [searchText, catName]
+  );
 
   const renderPagination = () => {
     setPagination(
