@@ -28,7 +28,15 @@
     "es6": true,
     "node": true
   },
-  "ignorePatterns": ["dist", "node_modules", "examples", "scripts", "src/common/redux/endpoints"],
+  "ignorePatterns": [
+    "dist",
+    "node_modules",
+    "examples",
+    "scripts",
+    "src/common/redux/endpoints",
+    "src/pages/api",
+    "src/utils"
+  ],
   "rules": {
     "no-underscore-dangle": "off",
     "no-param-reassign": ["error", { "props": false }],

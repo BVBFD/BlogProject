@@ -46,7 +46,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
 
   const deletePost = async () => {
     try {
-      const res = await fetch(`https://api.lsevina126.asia/posts/${id}`, {
+      const res = await fetch(`https://lsevina126.netlify.app/api/posts/${id}`, {
         method: 'DELETE',
         credentials: 'include',
         headers: {
@@ -151,7 +151,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
 export default PostPage;
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-  const res = await fetch(`https://api.lsevina126.asia/posts/${params.id}`);
+  const res = await fetch(`https://lsevina126.netlify.app/api/posts/${params.id}`);
   const ps = await res.json();
 
   return {

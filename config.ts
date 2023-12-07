@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 const TEST_BASE_URL = `${process.env.NEXT_PUBLIC_TEST_BASE_URL}`;
+const NEXT_API_BASE_URL = `${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}`;
 // const BASE_URL = 'http://localhost:8800';
 // const USER = JSON.parse(localStorage?.getItem('persist:root') as string)?.user;
 // const TOKEN = USER
@@ -15,7 +16,7 @@ let Origin =
   'https://blog-project-rose.vercel.app';
 
 export const publicRequest = axios.create({
-  baseURL: BASE_URL,
+  baseURL: NEXT_API_BASE_URL,
   withCredentials: true,
   headers: {
     Origin,

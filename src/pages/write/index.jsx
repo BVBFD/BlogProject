@@ -96,48 +96,48 @@ const Write = ({ post }) => {
     });
   };
 
-  const videoHandler = () => {
-    const editorRefInside = check();
-    const input = document.createElement('input');
+  // const videoHandler = () => {
+  //   const editorRefInside = check();
+  //   const input = document.createElement('input');
 
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'video/*');
-    input.click();
+  //   input.setAttribute('type', 'file');
+  //   input.setAttribute('accept', 'video/*');
+  //   input.click();
 
-    input.addEventListener('change', async () => {
-      const file = input.files[0];
+  //   input.addEventListener('change', async () => {
+  //     const file = input.files[0];
 
-      const formData = new FormData();
-      const filename = `${Date.now()}${file.name}`;
-      formData.append('name', filename);
-      formData.append('file', file);
+  //     const formData = new FormData();
+  //     const filename = `${Date.now()}${file.name}`;
+  //     formData.append('name', filename);
+  //     formData.append('file', file);
 
-      try {
-        setIsFetching(true);
-        const result = await publicRequest.post('/video/upload', formData);
-        const updatedVidURL = result.data;
+  //     try {
+  //       setIsFetching(true);
+  //       const result = await publicRequest.post('/video/upload', formData);
+  //       const updatedVidURL = result.data;
 
-        const VID_URL = updatedVidURL;
-        const editor = editorRefInside.getEditor();
-        const imgUrl = VID_URL.slice(0, -3).concat('png');
+  //       const VID_URL = updatedVidURL;
+  //       const editor = editorRefInside.getEditor();
+  //       const imgUrl = VID_URL.slice(0, -3).concat('png');
 
-        editor.root.innerHTML = `${editor.root.innerHTML}<p>
-          <a href="${VID_URL}" style="text-decoration: none;cusor:pointer;display:flex;flex-direction:column;">
-            <img class="videoImgs" style="width: 500px;" src="${imgUrl}" crossOrigin></img>
-            <span>
-              ✅Click to play above Video🎦
-            </span>
-          </a>
-        </p>`;
-        // `<video controls src="${VID_URL}" crossorigin />`;
+  //       editor.root.innerHTML = `${editor.root.innerHTML}<p>
+  //         <a href="${VID_URL}" style="text-decoration: none;cusor:pointer;display:flex;flex-direction:column;">
+  //           <img class="videoImgs" style="width: 500px;" src="${imgUrl}" crossOrigin></img>
+  //           <span>
+  //             ✅Click to play above Video🎦
+  //           </span>
+  //         </a>
+  //       </p>`;
+  //       // `<video controls src="${VID_URL}" crossorigin />`;
 
-        setIsFetching(false);
-      } catch (error) {
-        window.alert('Fail!!');
-        setIsFetching(false);
-      }
-    });
-  };
+  //       setIsFetching(false);
+  //     } catch (error) {
+  //       window.alert('Fail!!');
+  //       setIsFetching(false);
+  //     }
+  //   });
+  // };
 
   hljs.configure({
     languages: ['javascript', 'html', 'css', 'react', 'sass', 'typescript'],
@@ -152,7 +152,7 @@ const Write = ({ post }) => {
         container: [
           ['bold', 'italic', 'underline', 'strike'], // toggled buttons
           ['blockquote', 'code-block'],
-          ['link', 'image', 'video'],
+          ['link', 'image'],
 
           [{ header: 1 }, { header: 2 }], // custom button values
           [{ list: 'ordered' }, { list: 'bullet' }],
@@ -171,7 +171,6 @@ const Write = ({ post }) => {
         ],
         handlers: {
           image: imageHandler,
-          video: videoHandler,
         },
       },
       clipboard: {
