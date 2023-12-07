@@ -60,12 +60,13 @@ const PostPage = () => {
   const deletePost = async () => {
     try {
       const res = await publicRequest.post(`/posts/${id}`, {
-        author: user,
+        user_id: user.id,
+        editable: user.editable,
       });
       if (res.status === 204) {
         router.push('/');
       } else if (res.status === 401) {
-        window.alert(`${res.statusText} This is private Blog. Onle The Admin can edit!!`);
+        window.alert(`${res.statusText} This is a private Blog. Only the Admin can edit!!`);
       }
     } catch (err) {
       window.alert(err);

@@ -29,4 +29,4 @@ const LoginDatasSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model('LoginDatas', LoginDatasSchema);
+export default mongoose.models.LoginDatas || mongoose.model('LoginDatas', LoginDatasSchema);
