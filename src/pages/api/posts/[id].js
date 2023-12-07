@@ -66,10 +66,8 @@ export default async function handler(req, res) {
 
   if (method === 'POST') {
     try {
-      const foundPost = await PostDatasModel.findById(id);
-
       if (req.body.author === foundPost.author) {
-        await foundPost.remove();
+        await PostDatasModel.findByIdAndDelete(id);
         res.status(204).json('The Post has been deleted!');
       } else {
         res.status(401).json('Failed to delete!');
