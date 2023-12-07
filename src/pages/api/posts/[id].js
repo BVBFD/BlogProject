@@ -72,7 +72,7 @@ export default async function handler(req, res) {
         await foundPost.remove();
         res.status(204).json('The Post has been deleted!');
       } else {
-        res.status(204).json('Failed to delete!');
+        res.status(401).json('Failed to delete!');
       }
     } catch (err) {
       res.status(500).json(err);
