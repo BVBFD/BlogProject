@@ -1,30 +1,36 @@
+// Import necessary modules
 import mongoose from 'mongoose';
 
+// Define the schema
 const postDatasSchema = new mongoose.Schema(
   {
     imgUrl: {
       type: String,
-      require: false,
+      required: false,
       unique: false,
     },
     title: {
       type: String,
-      require: true,
+      required: true,
     },
     text: {
       type: String,
-      require: true,
+      required: true,
     },
     catName: {
       type: String,
-      require: true,
+      required: true,
     },
     author: {
       type: String,
-      require: true,
+      required: true,
     },
   },
   { timestamps: true }
 );
 
-export default mongoose.models.PostDatas || mongoose.model('PostDatas', postDatasSchema);
+// Check if the model already exists
+const PostDatas = mongoose.models.PostDatas || mongoose.model('PostDatas', postDatasSchema);
+
+// Export the model
+export default PostDatas;
