@@ -86,9 +86,7 @@ const Setting = () => {
 
   const deleteUserData = async () => {
     try {
-      await publicRequest.delete(`/loginDatas/delete`, {
-        data: { userId: id },
-      });
+      await publicRequest.post(`/loginDatas/delete`, { user_Id: id });
       dispatch(logoutReduce());
       router.push('/');
     } catch (err) {

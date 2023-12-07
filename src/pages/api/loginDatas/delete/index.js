@@ -1,6 +1,5 @@
 import dbConnect from '@/utils/db.js';
 import LoginDatasModel from '../../../../../models/loginDatasModel';
-import bcrypt from 'bcryptjs';
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -11,18 +10,11 @@ export default async function handler(req, res) {
     res.status(500).json(error);
   }
 
-  if (method === 'DELETE') {
+  if (method === 'POST') {
     try {
-      const foundUserData = await LoginDatasModel.findOne({
-        userId: req.body.userId,
-      });
-      !foundUserData && res.status(400).json('Bad request!');
-      if (req.body.userId === foundUserData.userId) {
-        foundUserData.delete();
-        res.status(204).json('UserData has been deleted!');
-      } else {
-        res.status(401).json('You can delete own your login data!');
-      }
+      const { user_id } = req.body;
+      await LoginDatasModel.findOneAndDelete({ userId: user_id });
+      res.status(204).json('UserData has been deleted!');
     } catch (err) {
       res.status(500).json(err);
     }
