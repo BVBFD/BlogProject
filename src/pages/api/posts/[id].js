@@ -66,18 +66,8 @@ export default async function handler(req, res) {
 
   if (method === 'DELETE') {
     try {
-      const foundPost = await PostDatasModel.findById(id);
-
-      if (!foundPost) {
-        return res.status(404).json('Post not found');
-      }
-
-      if (req.body.author === foundPost.author) {
-        await foundPost.remove();
-        res.status(204).json('The Post has been deleted!');
-      } else {
-        res.status(404).json('You can update and delete your own posts!');
-      }
+      await PostDatasModel.findOneAndDelete({ _id: id, author: `${process.env.Authority}` });
+      res.status(204).json('The Post has been deleted!');
     } catch (err) {
       res.status(500).json(err);
     }
