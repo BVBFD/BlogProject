@@ -64,10 +64,16 @@ export default async function handler(req, res) {
     }
   }
 
-  if (method === 'DELETE') {
+  if (method === 'POST') {
     try {
-      await PostDatasModel.findOneAndDelete({ _id: id, author: `${process.env.Authority}` });
-      res.status(204).json('The Post has been deleted!');
+      const foundPost = await PostDatasModel.findById(id);
+
+      if (req.body.author === foundPost.author) {
+        await foundPost.remove();
+        res.status(204).json('The Post has been deleted!');
+      } else {
+        res.status(204).json('Failed to delete!');
+      }
     } catch (err) {
       res.status(500).json(err);
     }

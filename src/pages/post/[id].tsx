@@ -6,7 +6,9 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { Spin } from 'antd';
 
+import { useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
+import { RootState } from '../../redux/user';
 
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
@@ -29,6 +31,7 @@ const PostPage = () => {
   const [editBtnIndex, setEditBtnIndex] = useState<boolean>(false);
   const router = useRouter();
   const { id } = router.query;
+  const user = useSelector((state: RootState) => state.user);
   const Write = dynamic(() => import('../write'));
   const [onLoad, setOnLoad] = useState(false);
 
@@ -56,7 +59,9 @@ const PostPage = () => {
 
   const deletePost = async () => {
     try {
-      const res = await publicRequest.delete(`/posts/${id}`);
+      const res = await publicRequest.post(`/posts/${id}`, {
+        author: user,
+      });
       if (res.status === 204) {
         router.push('/');
       } else if (res.status === 401) {
