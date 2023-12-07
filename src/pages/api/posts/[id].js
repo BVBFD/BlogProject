@@ -4,8 +4,7 @@ import PostDatasModel from '../../../../models/postDatasModel';
 export default async function handler(req, res) {
   const {
     method,
-    params: { id },
-    query: { meta },
+    query: { id, meta },
   } = req;
 
   try {
