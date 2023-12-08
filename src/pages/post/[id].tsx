@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { Spin } from 'antd';
@@ -26,7 +26,7 @@ interface PostType {
   author: string;
 }
 
-const PostPage = ({ ps }: { ps: PostType }) => {
+const PostPage = memo(({ ps }: { ps: PostType }) => {
   const [editBtnIndex, setEditBtnIndex] = useState<boolean>(false);
   const router = useRouter();
   const { id } = router.query;
@@ -139,7 +139,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
       )}
     </>
   );
-};
+});
 
 export default PostPage;
 
