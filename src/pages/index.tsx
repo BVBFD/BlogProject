@@ -1,14 +1,14 @@
+import React, { useCallback, useEffect, useRef, useMemo, useState } from 'react';
+// 코드상단에 우선순위가 높은 순으로 필요한 컴포넌트 및 함수를 미리 import 시켜야 속도가 빨라짐
+import { Spin } from 'antd';
+import { FacebookFilled, InstagramFilled, TwitterCircleFilled } from '@ant-design/icons';
 import Head from 'next/head';
 import Banner from '@/components/Banner';
-import { FacebookFilled, InstagramFilled, TwitterCircleFilled } from '@ant-design/icons';
-
 import BasicPagination from '@/common/BasicPagination';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Spin } from 'antd';
 import BasicButton from '@/common/BasicButton';
+import Posts from '../components/Posts';
 import { publicRequest } from '../../config';
 import styles from '../styles/Home.module.scss';
-import Posts from '../components/Posts';
 
 interface PostType {
   _id: string;
@@ -38,6 +38,10 @@ const Home = () => {
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
+  // 만약 [searchText, catName]이 없다면 useCallback 같은 경우 한번 생성된 콜백함수를
+  // 그대로 메모리에 저장해서 계속 쓰기 때문에 (새로 생성없이...) searchText, catName 이 바뀜에 따라,
+  // 페이지네이션도 변해야 하는데 변하질 않게됨... why? 최초 생성된 콜백함수를 메모리에 저장해서 계속 써서
+  // 성능최적화를 하기 때문... 그래서 외부 변수에 영향 받는 콜백 함수는 외부 변수를 array deps안에 다 써야한다.
   const goToPage = useCallback(
     async (pageNum: number) => {
       if (searchText !== '') {
@@ -80,18 +84,6 @@ const Home = () => {
     [searchText, catName]
   );
 
-  const renderPagination = () => {
-    setPagination(
-      <BasicPagination
-        current={currentPage}
-        defaultCurrent={1}
-        onChange={(changePageNum) => goToPage(changePageNum)}
-        pageSize={postsPerSize}
-        total={paginationTotalNum}
-      />
-    );
-  };
-
   const getPosts = useCallback(async () => {
     setOnProgress(true);
     const res = await publicRequest.get(`/posts`);
@@ -106,8 +98,6 @@ const Home = () => {
 
   useEffect(() => {
     getPosts();
-
-    renderPagination();
     setShowPagination(true);
 
     return () => {
@@ -116,10 +106,7 @@ const Home = () => {
     };
   }, []);
 
-  useMemo(() => {
-    renderPagination();
-    return pagination;
-  }, [currentPage, paginationTotalNum, postsVar]);
+  useMemo(() => pagination, [currentPage, paginationTotalNum, postsVar]);
 
   useMemo(() => showPagination, [currentPage, paginationTotalNum]);
 
@@ -127,7 +114,7 @@ const Home = () => {
     setSearchText('');
     setCatName('');
     getPosts();
-  }, []);
+  }, [getPosts]);
 
   const handleSearch = useCallback(async (url: string) => {
     setOnProgress(true);
@@ -140,7 +127,6 @@ const Home = () => {
   }, []);
 
   const handleKeywordSearch = async () => {
-    // 공백이 아닌 실제 문자열인지 확인
     if (searchText.trim() !== '') {
       handleSearch(`/posts?text=${searchText}`);
     }
@@ -224,7 +210,12 @@ const Home = () => {
           ) : (
             <Posts
               getImgShowUp={getImgShowUp}
-              selectedPost={Array.from({ length: postsPerSize }, (_value, index) => postsVar[index])}
+              selectedPost={
+                // slice가 Array.from 보다 더 빠름
+                postsVar.length === postsPerSize
+                  ? postsVar.slice(0, postsPerSize)
+                  : Array.from({ length: postsPerSize }, (_value, index) => postsVar[index])
+              }
               setOnProgress={setOnProgress}
             />
           )}
@@ -278,7 +269,15 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {postsVar && postsVar.length !== 0 && !onProgress && bolImgShowUp && showPagination && pagination}
+      {postsVar.length !== 0 && !onProgress && bolImgShowUp && showPagination && (
+        <BasicPagination
+          current={currentPage}
+          defaultCurrent={1}
+          onChange={(changePageNum) => goToPage(changePageNum)}
+          pageSize={postsPerSize}
+          total={paginationTotalNum}
+        />
+      )}
     </div>
   );
 };
