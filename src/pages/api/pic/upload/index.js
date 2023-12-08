@@ -26,7 +26,7 @@ export default async function handler(req, res) {
   console.log(req.file.buffer);
   const stream = await cloudinary.uploader.upload_stream(
     {
-      folder: 'demo',
+      folder: 'myportfolioblogproject',
     },
     (error, result) => {
       if (error) return console.error(error);
