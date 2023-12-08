@@ -26,8 +26,7 @@ interface PostType {
   author: string;
 }
 
-const PostPage = () => {
-  const [ps, setPs] = useState<PostType>();
+const PostPage = ({ ps }: { ps: PostType }) => {
   const [editBtnIndex, setEditBtnIndex] = useState<boolean>(false);
   const router = useRouter();
   const { id } = router.query;
@@ -36,18 +35,6 @@ const PostPage = () => {
   const [onLoad, setOnLoad] = useState(false);
 
   useEffect(() => {
-    const getPostById = async () => {
-      const res = await publicRequest.get(`/posts/${id}`);
-      const { data } = res;
-      setPs(data);
-    };
-
-    try {
-      getPostById();
-    } catch (error) {
-      window.alert(error);
-    }
-
     document.querySelectorAll('.videoImgs').forEach((img) => img.setAttribute('style', ''));
 
     document.querySelectorAll('img').forEach((img) => img.setAttribute('crossOrigin', 'anonymous'));
@@ -156,16 +143,16 @@ const PostPage = () => {
 
 export default PostPage;
 
-// export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-//   const res = await fetch(`http://localhost:3000/api/posts/${params.id}`);
-//   const ps = await res.json();
+export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
+  const res = await publicRequest.get(`/posts/${params.id}`);
+  const ps = res.data;
 
-//   return {
-//     props: {
-//       ps,
-//     },
-//   };
-// };
+  return {
+    props: {
+      ps,
+    },
+  };
+};
 
 // export const getStaticPaths = async () => {
 //   const res = await fetch(`https://api.lsevina126.asia/posts`);
