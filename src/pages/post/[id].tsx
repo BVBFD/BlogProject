@@ -1,9 +1,8 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { Suspense, lazy, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import { Spin } from 'antd';
 import { RootState } from '../../redux/user';
@@ -25,12 +24,15 @@ interface PostType {
 }
 
 const PostPage = memo(({ ps }: { ps: PostType }) => {
+  // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
+  const Write = lazy(() => import('../write'));
   const [editBtnIndex, setEditBtnIndex] = useState<boolean>(false);
   const router = useRouter();
   const { id } = router.query;
   const user = useSelector((state: RootState) => state.user);
-  const Write = dynamic(() => import('../write'));
   const [onLoad, setOnLoad] = useState(false);
+
+  useMemo(() => Write, [ps, editBtnIndex]);
 
   useEffect(() => {
     document.querySelectorAll('.videoImgs').forEach((img) => img.setAttribute('style', ''));
@@ -135,7 +137,8 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
           )}
         </section>
       ) : (
-        <Write post={ps} setEditBtnIndex={setEditBtnIndex} />
+        // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
+        <Suspense fallback={<Spin />}>{editBtnIndex && <Write post={ps} setEditBtnIndex={setEditBtnIndex} />}</Suspense>
       )}
     </>
   );
@@ -155,8 +158,8 @@ export const getServerSideProps = async ({ params }: { params: { id: string } })
 };
 
 // export const getStaticPaths = async () => {
-//   const res = await fetch(`https://api.lsevina126.asia/posts`);
-//   const posts = await res.json();
+//   const res = await publicRequest.get(`/posts`);
+//   const posts = res.data;
 
 //   const paths = posts.map((post: any) => ({
 //     params: {
@@ -168,9 +171,8 @@ export const getServerSideProps = async ({ params }: { params: { id: string } })
 // };
 
 // export const getStaticProps = async ({ params }: any) => {
-//   const id = params.id;
-//   const res = await fetch(`https://api.lsevina126.asia/posts/${id}`);
-//   const ps = await res.json();
+//   const res = await publicRequest.get(`/posts/${params.id}`);
+//   const ps = res.data;
 
 //   return {
 //     props: {
