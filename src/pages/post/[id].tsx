@@ -1,12 +1,12 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/user';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import { Spin } from 'antd';
+import { RootState } from '../../redux/user';
 import { publicRequest } from '../../../config';
 
 import styles from '../../styles/post/index.module.scss';
@@ -96,11 +96,11 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
                     alt=""
                     crossOrigin="anonymous"
                     fill
+                    loading="lazy"
                     objectFit="contain"
                     onLoad={() => setOnLoad(true)}
                     quality={20}
                     src={`${ps.imgUrl}`}
-                    loading="lazy"
                   />
                 </div>
                 {onLoad && (
