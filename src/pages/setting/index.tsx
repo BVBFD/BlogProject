@@ -27,12 +27,8 @@ const Setting = () => {
       data.append('file', (e.target.files as FileList)[0]);
       try {
         setIsFetching(true);
-        const response = await fetch(`https://api.lsevina126.asia/pic/upload`, {
-          method: 'POST',
-          mode: 'cors',
-          body: data,
-        });
-        const updatedPicURL = await response.json();
+        const result = await publicRequest.post('/pic/upload', data);
+        const updatedPicURL = result.data;
         setNewProfileImgURL(updatedPicURL);
         setIsFetching(false);
       } catch (err) {
