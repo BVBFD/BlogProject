@@ -10,11 +10,11 @@ export default async function handler(req, res) {
     res.status(500).json(error);
   }
 
-  if (method === 'POST') {
+  if (method === 'DELETE') {
     try {
-      const { user_id } = req.body;
-      await LoginDatasModel.findOneAndDelete({ userId: user_id });
-      res.status(204).json('UserData has been deleted!');
+      const { query } = req;
+      await LoginDatasModel.findOneAndDelete({ userId: `${query.userId}` });
+      res.status(204).json();
     } catch (err) {
       res.status(500).json(err);
     }
