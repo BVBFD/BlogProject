@@ -1,18 +1,16 @@
-import Image from 'next/image';
-import { DeleteFilled, EditFilled } from '@ant-design/icons';
-
-import { memo, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/user';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { Spin } from 'antd';
-
-import { useSelector } from 'react-redux';
+import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { RootState } from '../../redux/user';
+import { DeleteFilled, EditFilled } from '@ant-design/icons';
+import { Spin } from 'antd';
+import { publicRequest } from '../../../config';
 
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
-import { publicRequest } from '../../../config';
 
 interface PostType {
   _id: string;
@@ -36,7 +34,6 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
 
   useEffect(() => {
     document.querySelectorAll('.videoImgs').forEach((img) => img.setAttribute('style', ''));
-
     document.querySelectorAll('img').forEach((img) => img.setAttribute('crossOrigin', 'anonymous'));
   }, [editBtnIndex, id]);
 
@@ -44,7 +41,7 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
     return { __html: `${ps?.text}` };
   };
 
-  const deletePost = async () => {
+  const deletePost = useCallback(async () => {
     // 확인 다이얼로그 표시
     const userConfirmed = window.confirm('정말로 삭제하시겠습니까?');
 
@@ -66,7 +63,9 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
     } else {
       window.alert('삭제가 취소되었습니다.');
     }
-  };
+  }, [user.id, user.editable, id, router]);
+
+  const toggleEditBtnIndex = () => setEditBtnIndex((prevState) => !prevState);
 
   return (
     <>
@@ -101,6 +100,7 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
                     onLoad={() => setOnLoad(true)}
                     quality={20}
                     src={`${ps.imgUrl}`}
+                    loading="lazy"
                   />
                 </div>
                 {onLoad && (
@@ -111,15 +111,7 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
                       </p>
                       <span>{ps.title}</span>
                       <div>
-                        <EditFilled
-                          onClick={() => {
-                            if (!editBtnIndex) {
-                              setEditBtnIndex(true);
-                            } else {
-                              setEditBtnIndex(false);
-                            }
-                          }}
-                        />
+                        <EditFilled onClick={toggleEditBtnIndex} />
                         <DeleteFilled onClick={deletePost} />
                       </div>
                     </header>
