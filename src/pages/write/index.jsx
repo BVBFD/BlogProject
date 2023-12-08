@@ -15,7 +15,6 @@ import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 
 import BasicButton from '@/common/BasicButton';
-import axios from 'axios';
 import { publicRequest } from '../../../config';
 import styles from '../../styles/write/index.module.scss';
 
@@ -77,7 +76,7 @@ const Write = ({ post }) => {
 
       try {
         setIsFetching(true);
-        const result = await axios.post('https://api.lsevina126.asia/pic/upload', formData);
+        const result = await publicRequest.post('/pic/upload', formData);
         const updatedPicURL = result.data;
 
         const IMG_URL = updatedPicURL;
@@ -217,7 +216,7 @@ const Write = ({ post }) => {
       data.append('file', e.target.files[0]);
       try {
         setIsFetching(true);
-        const result = await axios.post('https://api.lsevina126.asia/pic/upload', data);
+        const result = await publicRequest.post('/pic/upload', data);
         const updatedPicURL = result.data;
         setWritePageImgURL(updatedPicURL);
         setIsFetching(false);

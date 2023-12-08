@@ -15,7 +15,7 @@ const postDatasSchema = new mongoose.Schema(
     },
     text: {
       type: String,
-      required: true,
+      required: false,
     },
     catName: {
       type: String,
