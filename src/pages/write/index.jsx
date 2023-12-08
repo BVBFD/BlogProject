@@ -30,7 +30,7 @@ const ReactQuill = dynamic(
   }
 );
 
-const Write = ({ post }) => {
+const Write = ({ post, setEditBtnIndex }) => {
   const [value, setValue] = useState(post?.text);
   const [isFetching, setIsFetching] = useState(false);
   const editorRef = useRef();
@@ -276,7 +276,7 @@ const Write = ({ post }) => {
         });
 
         if (res.status === 201) {
-          window.location.reload(`/post/${res?.data._id}`);
+          setEditBtnIndex(false);
         } else if (res.status === 401) {
           window.alert(`${res.statusText} This is private Blog. Onle The Admin can edit!!`);
         }

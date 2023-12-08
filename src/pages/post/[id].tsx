@@ -135,7 +135,7 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
           )}
         </section>
       ) : (
-        <Write post={ps} />
+        <Write post={ps} setEditBtnIndex={setEditBtnIndex} />
       )}
     </>
   );
