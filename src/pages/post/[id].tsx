@@ -45,18 +45,26 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
   };
 
   const deletePost = async () => {
-    try {
-      const res = await publicRequest.post(`/posts/${id}`, {
-        user_id: user.id,
-        editable: user.editable,
-      });
-      if (res.status === 204) {
-        router.push('/');
-      } else if (res.status === 401) {
-        window.alert(`${res.statusText} This is a private Blog. Only the Admin can edit!!`);
+    // 확인 다이얼로그 표시
+    const userConfirmed = window.confirm('정말로 삭제하시겠습니까?');
+
+    // 사용자가 확인을 선택한 경우에만 삭제 진행
+    if (userConfirmed) {
+      try {
+        const res = await publicRequest.post(`/posts/${id}`, {
+          user_id: user.id,
+          editable: user.editable,
+        });
+        if (res.status === 204) {
+          router.push('/');
+        } else if (res.status === 401) {
+          window.alert(`${res.statusText} This is a private Blog. Only the Admin can edit!!`);
+        }
+      } catch (err) {
+        window.alert(err);
       }
-    } catch (err) {
-      window.alert(err);
+    } else {
+      window.alert('삭제가 취소되었습니다.');
     }
   };
 
