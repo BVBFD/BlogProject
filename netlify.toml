@@ -6,7 +6,7 @@
   package = "@netlify/plugin-nextjs"
 
 [[plugins]]
-  package = "@netlify/plugin-functions"
+  package = "@netlify/functions"
 
   [plugins.inputs]
     schedule = "*/10 * * * *"
