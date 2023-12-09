@@ -1,17 +1,4 @@
-export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-  // const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
-  // const ps = res.data;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}/posts/${params.id}?meta=true`);
-  const ps = await res.json();
-
-  return {
-    props: {
-      ps,
-    },
-  };
-};
-
-import { lazy, memo, Suspense, useCallback, useState } from 'react';
+import { lazy, Suspense, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -26,6 +13,19 @@ import { publicRequest } from '../../../config';
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
 
+export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
+  // const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
+  // const ps = res.data;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}/posts/${params.id}?meta=true`);
+  const ps = await res.json();
+
+  return {
+    props: {
+      ps,
+    },
+  };
+};
+
 interface PostType {
   _id: string;
   __v: number;
@@ -38,7 +38,7 @@ interface PostType {
   author: string;
 }
 
-const PostPage = memo(({ ps }: { ps: PostType }) => {
+const PostPage = ({ ps }: { ps: PostType }) => {
   const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const router = useRouter();
   const { data } = useSWR(`/posts/${router.query.id}`, fetcher);
@@ -154,7 +154,7 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
       )}
     </>
   );
-});
+};
 
 export default PostPage;
 
