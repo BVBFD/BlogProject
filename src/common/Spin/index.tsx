@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Spin as Spinner } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import LoadingOutlined from '@ant-design/icons/LoadingOutlined';
 import { useRouter } from 'next/router';
 
 const Spin = () => {

@@ -26,8 +26,7 @@ export default async function handler(req, res) {
         const { text, ...others } = foundPost.toObject();
         return res.status(200).json(others);
       } else {
-        const { text } = foundPost.toObject();
-        return res.status(200).json(text);
+        return res.status(200).json(foundPost);
       }
     } catch (err) {
       console.error('GET request error:', err);
@@ -73,11 +72,4 @@ export default async function handler(req, res) {
   }
 
   return res.status(405).json({ error: 'Method Not Allowed' });
-}
-
-export async function getPostDataById(baseURL, id) {
-  const res = await fetch(`${baseURL}/posts/${id}?meta=true`);
-  const ps = await res.json();
-
-  return ps;
 }

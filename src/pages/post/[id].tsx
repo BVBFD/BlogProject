@@ -1,4 +1,4 @@
-import { lazy, memo, Suspense, useCallback, useEffect, useState } from 'react';
+import { lazy, memo, Suspense, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -25,7 +25,6 @@ interface PostType {
 }
 
 const PostPage = memo(({ ps }: { ps: PostType }) => {
-  // const [texts, setTexts] = useState<string>();
   // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
   const Write = lazy(() => import('../write'));
   const [editBtnIndex, setEditBtnIndex] = useState<boolean>(false);
@@ -33,16 +32,6 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
   const { id } = router.query;
   const user = useSelector((state: RootState) => state.user);
   const [onLoad, setOnLoad] = useState(false);
-
-  useEffect(() => {
-    // const getPostOnClient = async () => {
-    //   const res = await publicRequest.get(`/posts/${id}`);
-    //   setTexts(res.data);
-    // };
-    // getPostOnClient();
-    // document.querySelectorAll('.videoImgs').forEach((img) => img.setAttribute('style', ''));
-    // document.querySelectorAll('img').forEach((img) => img.setAttribute('crossOrigin', 'anonymous'));
-  }, [editBtnIndex, id]);
 
   const inputText = () => {
     return { __html: `${ps.text}` };
@@ -152,12 +141,8 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
 export default PostPage;
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-  const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
+  const res = await publicRequest.get(`/posts/${params.id}`);
   const ps = res.data;
-  // const res = await publicRequest.get(`/posts/${params.id}`);
-  // const res = await fetch(`${process.env.NEXT_PUBLIC_TEST_BASE_URL}/posts/${params.id}?meta=true`);
-  // const ps = await res.json();
-  // const ps = await getPostDataById(NEXT_API_BASE_URL, `${params.id}`);
 
   return {
     props: {

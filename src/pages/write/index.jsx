@@ -1,11 +1,11 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable max-lines */
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { PictureFilled } from '@ant-design/icons';
+import PictureFilled from '@ant-design/icons/PictureFilled';
+import Spin from '@/common/Spin';
 import { useRouter } from 'next/router';
-import { Spin } from 'antd';
 import { useSelector } from 'react-redux';
 
 import hljs from 'highlight.js';

@@ -16,7 +16,7 @@ let Origin =
   'https://blog-project-rose.vercel.app';
 
 export const publicRequest = axios.create({
-  baseURL: BASE_URL,
+  baseURL: NEXT_API_BASE_URL,
   withCredentials: true,
   headers: {
     Origin,
@@ -25,7 +25,6 @@ export const publicRequest = axios.create({
   },
 });
 
-export { BASE_URL, TEST_BASE_URL, NEXT_API_BASE_URL };
 // export const userRequest = axios.create({
 //   baseURL: BASE_URL,
 //   withCredentials: true,
