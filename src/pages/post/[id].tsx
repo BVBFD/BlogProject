@@ -35,11 +35,11 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
   const [onLoad, setOnLoad] = useState(false);
 
   useEffect(() => {
-    const getPostOnClient = async () => {
-      const res = await publicRequest.get(`/posts/${id}`);
-      setTexts(res.data);
-    };
-    getPostOnClient();
+    // const getPostOnClient = async () => {
+    //   const res = await publicRequest.get(`/posts/${id}`);
+    //   setTexts(res.data);
+    // };
+    // getPostOnClient();
     // document.querySelectorAll('.videoImgs').forEach((img) => img.setAttribute('style', ''));
     // document.querySelectorAll('img').forEach((img) => img.setAttribute('crossOrigin', 'anonymous'));
   }, [editBtnIndex, id]);
