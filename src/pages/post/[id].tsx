@@ -34,7 +34,7 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
   const user = useSelector((state: RootState) => state.user);
   const [onLoad, setOnLoad] = useState(false);
 
-  useMemo(() => Write, [ps, editBtnIndex]);
+  useMemo(() => Write, [ps, editBtnIndex, texts]);
 
   useEffect(() => {
     const getPostOnClient = async () => {
@@ -95,7 +95,7 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
       </Head>
       {!editBtnIndex ? (
         <section className={styles.postPage}>
-          {ps ? (
+          {texts ? (
             <div className={styles.postBox}>
               <div className={styles.postImgTextBox}>
                 <div
