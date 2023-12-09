@@ -1,4 +1,4 @@
-import dbConnect from '@/utils/db.js';
+import dbConnect, { dbDisConnect } from '@/utils/db.js';
 import PostDatasModel from '../../../../models/postDatasModel';
 
 export default async function handler(req, res) {
@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     await dbConnect();
   } catch (error) {
     console.error('Database connection error:', error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 
   if (method === 'GET') {
@@ -19,18 +19,17 @@ export default async function handler(req, res) {
       const foundPost = await PostDatasModel.findById(id);
 
       if (!foundPost) {
-        return res.status(404).json({ error: 'Post not found' });
+        res.status(404).json({ error: 'Post not found' });
       }
 
       if (meta) {
         const { text, updatedAt, createdAt, catName, author, _v, ...others } = foundPost.toObject();
-        return res.status(200).json(others);
+        res.status(200).json(others);
       } else {
-        return res.status(200).json(foundPost);
+        res.status(200).json(foundPost);
       }
     } catch (err) {
       console.error('GET request error:', err);
-      return;
     }
   }
 
@@ -39,19 +38,19 @@ export default async function handler(req, res) {
       const foundPost = await PostDatasModel.findById(id);
 
       if (!foundPost) {
-        return res.status(404).json({ error: 'Post not found' });
+        res.status(404).json({ error: 'Post not found' });
       }
 
       if (req.body.author === foundPost.author) {
         const updatedPost = await PostDatasModel.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
 
-        return res.status(201).json(updatedPost);
+        res.status(201).json(updatedPost);
       } else {
-        return res.status(401).json({ error: 'You can update and delete your own posts!' });
+        res.status(401).json({ error: 'You can update and delete your own posts!' });
       }
     } catch (err) {
       console.error('PUT request error:', err);
-      return res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).json({ error: 'Internal Server Error' });
     }
   }
 
@@ -61,15 +60,16 @@ export default async function handler(req, res) {
 
       if (user_id === `${process.env.Authority}` && editable) {
         await PostDatasModel.findByIdAndDelete(id);
-        return res.status(204).json('The Post has been deleted!');
+        res.status(204).json('The Post has been deleted!');
       } else {
-        return res.status(401).json('Failed to delete!');
+        res.status(401).json('Failed to delete!');
       }
     } catch (err) {
       console.error('POST request error:', err);
-      return res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).json({ error: 'Internal Server Error' });
     }
   }
 
-  return res.status(405).json({ error: 'Method Not Allowed' });
+  res.status(405).json({ error: 'Method Not Allowed' });
+  return dbDisConnect();
 }

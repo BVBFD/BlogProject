@@ -1,4 +1,4 @@
-import dbConnect from '@/utils/db.js';
+import dbConnect, { dbDisConnect } from '@/utils/db.js';
 import PostDatasModel from '../../../../models/postDatasModel';
 
 export default async function handler(req, res) {
@@ -68,4 +68,6 @@ export default async function handler(req, res) {
       res.status(500).json(err);
     }
   }
+
+  return dbDisConnect();
 }

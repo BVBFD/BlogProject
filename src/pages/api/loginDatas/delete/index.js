@@ -1,4 +1,4 @@
-import dbConnect from '@/utils/db.js';
+import dbConnect, { dbDisConnect } from '@/utils/db.js';
 import LoginDatasModel from '../../../../../models/loginDatasModel';
 
 export default async function handler(req, res) {
@@ -19,4 +19,6 @@ export default async function handler(req, res) {
       res.status(500).json(err);
     }
   }
+
+  return dbDisConnect();
 }

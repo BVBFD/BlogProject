@@ -1,4 +1,4 @@
-import dbConnect from '@/utils/db.js';
+import dbConnect, { dbDisConnect } from '@/utils/db.js';
 import LoginDatasModel from '../../../../../models/loginDatasModel';
 import bcrypt from 'bcryptjs';
 
@@ -57,4 +57,6 @@ export default async function handler(req, res) {
       }
     }
   }
+
+  return dbDisConnect();
 }
