@@ -17,7 +17,7 @@ interface PostType {
   __v: number;
   updatedAt: string;
   title: string;
-  text: string;
+  text?: string;
   imgUrl: string;
   createdAt: string;
   catName: string;
@@ -25,6 +25,7 @@ interface PostType {
 }
 
 const PostPage = memo(({ ps }: { ps: PostType }) => {
+  const [texts, setTexts] = useState<string>();
   // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
   const Write = lazy(() => import('../write'));
   const [editBtnIndex, setEditBtnIndex] = useState<boolean>(false);
@@ -36,12 +37,18 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
   useMemo(() => Write, [ps, editBtnIndex]);
 
   useEffect(() => {
+    const getPostOnClient = async () => {
+      const res = await publicRequest.get(`/posts/${id}`);
+      setTexts(res.data);
+    };
+    getPostOnClient();
+
     document.querySelectorAll('.videoImgs').forEach((img) => img.setAttribute('style', ''));
     document.querySelectorAll('img').forEach((img) => img.setAttribute('crossOrigin', 'anonymous'));
   }, [editBtnIndex, id]);
 
   const inputText = () => {
-    return { __html: `${ps?.text}` };
+    return { __html: `${texts}` };
   };
 
   const deletePost = useCallback(async () => {
@@ -139,7 +146,9 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
         </section>
       ) : (
         // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
-        <Suspense fallback={<Spin />}>{editBtnIndex && <Write post={ps} setEditBtnIndex={setEditBtnIndex} />}</Suspense>
+        <Suspense fallback={<Spin />}>
+          {editBtnIndex && <Write post={ps} texts={texts} setEditBtnIndex={setEditBtnIndex} />}
+        </Suspense>
       )}
     </>
   );
@@ -148,7 +157,7 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
 export default PostPage;
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-  const res = await publicRequest.get(`/posts/${params.id}`);
+  const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
   const ps = res.data;
 
   return {

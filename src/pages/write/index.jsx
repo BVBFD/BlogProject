@@ -30,7 +30,7 @@ const ReactQuill = dynamic(
   }
 );
 
-const Write = ({ post, setEditBtnIndex }) => {
+const Write = ({ post, setEditBtnIndex, texts }) => {
   const [value, setValue] = useState(post?.text);
   const [isFetching, setIsFetching] = useState(false);
   const editorRef = useRef();
@@ -379,7 +379,7 @@ const Write = ({ post, setEditBtnIndex }) => {
             </div>
           </div>
           <ReactQuill
-            defaultValue={!post ? '' : post.text}
+            defaultValue={!texts ? '' : texts}
             formats={formats}
             forwardedRef={editorRef}
             modules={modules}

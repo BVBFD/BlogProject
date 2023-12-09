@@ -23,10 +23,11 @@ export default async function handler(req, res) {
       }
 
       if (meta) {
-        const { text, catName, author, createdAt, updatedAt, ...others } = foundPost.toObject();
+        const { text, ...others } = foundPost.toObject();
         return res.status(200).json(others);
       } else {
-        return res.status(200).json(foundPost);
+        const { text } = foundPost.toObject();
+        return res.status(200).json(text);
       }
     } catch (err) {
       console.error('GET request error:', err);
