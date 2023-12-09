@@ -7,10 +7,11 @@ import DeleteFilled from '@ant-design/icons/DeleteFilled';
 import EditFilled from '@ant-design/icons/EditFilled';
 import Spin from '@/common/Spin/index';
 import { RootState } from '../../redux/user';
-import { publicRequest } from '../../../config';
+import { NEXT_API_BASE_URL, publicRequest } from '../../../config';
 
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
+import { getPostDataById } from '../api/posts/[id]';
 
 interface PostType {
   _id: string;
@@ -42,9 +43,8 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
       setTexts(res.data);
     };
     getPostOnClient();
-
-    document.querySelectorAll('.videoImgs').forEach((img) => img.setAttribute('style', ''));
-    document.querySelectorAll('img').forEach((img) => img.setAttribute('crossOrigin', 'anonymous'));
+    // document.querySelectorAll('.videoImgs').forEach((img) => img.setAttribute('style', ''));
+    // document.querySelectorAll('img').forEach((img) => img.setAttribute('crossOrigin', 'anonymous'));
   }, [editBtnIndex, id]);
 
   const inputText = () => {
@@ -157,8 +157,11 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
 export default PostPage;
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-  const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
-  const ps = res.data;
+  // const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
+  // const res = await publicRequest.get(`/posts/${params.id}`);
+  // const res = await fetch(`${process.env.NEXT_PUBLIC_TEST_BASE_URL}/posts/${params.id}?meta=true`);
+  // const ps = await res.json();
+  const ps = await getPostDataById(NEXT_API_BASE_URL, `${params.id}`);
 
   return {
     props: {

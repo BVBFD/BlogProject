@@ -31,7 +31,7 @@ const ReactQuill = dynamic(
 );
 
 const Write = ({ post, setEditBtnIndex, texts }) => {
-  const [value, setValue] = useState(post?.text);
+  const [value, setValue] = useState(texts);
   const [isFetching, setIsFetching] = useState(false);
   const editorRef = useRef();
   const [titleImg, setTitleImg] = useState(true);

@@ -25,6 +25,7 @@ export const publicRequest = axios.create({
   },
 });
 
+export { BASE_URL, TEST_BASE_URL, NEXT_API_BASE_URL };
 // export const userRequest = axios.create({
 //   baseURL: BASE_URL,
 //   withCredentials: true,

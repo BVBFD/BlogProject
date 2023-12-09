@@ -74,3 +74,10 @@ export default async function handler(req, res) {
 
   return res.status(405).json({ error: 'Method Not Allowed' });
 }
+
+export async function getPostDataById(baseURL, id) {
+  const res = await fetch(`${baseURL}/posts/${id}?meta=true`);
+  const ps = await res.json();
+
+  return ps;
+}
