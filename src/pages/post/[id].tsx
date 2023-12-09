@@ -3,8 +3,9 @@ import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Image from 'next/image';
-import { DeleteFilled, EditFilled } from '@ant-design/icons';
-import { Spin } from 'antd';
+import DeleteFilled from '@ant-design/icons/DeleteFilled';
+import EditFilled from '@ant-design/icons/EditFilled';
+import Spin from '@/common/Spin/index';
 import { RootState } from '../../redux/user';
 import { publicRequest } from '../../../config';
 
