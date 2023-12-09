@@ -1,13 +1,16 @@
 [build]
   command = "next build"
-  publish = ".next"	
-
-[build.environment]
-  WAKEUP_URL = "https://lsevina126.netlify.app/post/635bc5867d980050320932ff"
+  publish = ".next"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-  [plugins.inputs]
-    schedule = "*/15 * * * *"
-    command = "curl $WAKEUP_URL"
+[[plugins]]
+  package = "@netlify/plugin-functions"
+
+[build.environment]
+  WAKEUP_FUNCTION_PATH = "netlify/functions/wakeup.js"
+
+[[plugins.inputs]]
+  schedule = "*/10 * * * *"
+  command = "curl $WAKEUP_FUNCTION_PATH"
