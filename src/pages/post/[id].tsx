@@ -11,30 +11,21 @@ import { publicRequest } from '../../../config';
 
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
+import useSWR from 'swr';
 
-interface PostType {
-  _id: string;
-  __v: number;
-  updatedAt: string;
-  title: string;
-  text?: string;
-  imgUrl: string;
-  createdAt: string;
-  catName: string;
-  author: string;
-}
-
-const PostPage = memo(({ ps }: { ps: PostType }) => {
+const PostPage = memo(() => {
+  const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
+  const router = useRouter();
+  const { data } = useSWR(`/posts/${router.query.id}`, fetcher);
   // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
   const Write = lazy(() => import('../write'));
   const [editBtnIndex, setEditBtnIndex] = useState<boolean>(false);
-  const router = useRouter();
   const { id } = router.query;
   const user = useSelector((state: RootState) => state.user);
   const [onLoad, setOnLoad] = useState(false);
 
   const inputText = () => {
-    return { __html: `${ps.text}` };
+    return { __html: `${data.text}` };
   };
 
   const deletePost = useCallback(async () => {
@@ -67,21 +58,21 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
     <>
       <Head>
         {/* SEO */}
-        <title>{ps?.title}</title>
+        <title>{data?.title}</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <meta content={ps?.title} name="description" />
-        <meta content={ps?.title} property="og:title" />
-        <meta content={`https://lsevina126.netlify.app/ps/${ps?.title}/${ps?._id}`} property="og:url" />
+        <meta content={data?.title} name="description" />
+        <meta content={data?.title} property="og:title" />
+        <meta content={`https://lsevina126.netlify.app/data/${data?.title}/${data?._id}`} property="og:url" />
         <meta content="website" property="og:type" />
-        <meta content={ps?.title} property="og:site_name" />
-        <meta content={ps?.imgUrl} property="og:image" />
-        <meta content={ps?.title} property="og:description" />
-        <link href={`https://lsevina126.netlify.app/ps/${ps?.title}/${ps?._id}`} rel="canonical" />
+        <meta content={data?.title} property="og:site_name" />
+        <meta content={data?.imgUrl} property="og:image" />
+        <meta content={data?.title} property="og:description" />
+        <link href={`https://lsevina126.netlify.app/data/${data?.title}/${data?._id}`} rel="canonical" />
         {/* SEO */}
       </Head>
       {!editBtnIndex ? (
         <section className={styles.postPage}>
-          {ps ? (
+          {data ? (
             <div className={styles.postBox}>
               <div className={styles.postImgTextBox}>
                 <div
@@ -96,16 +87,16 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
                     objectFit="contain"
                     onLoad={() => setOnLoad(true)}
                     quality={20}
-                    src={`${ps.imgUrl}`}
+                    src={`${data.imgUrl}`}
                   />
                 </div>
                 {onLoad && (
                   <div className={styles.postTextBox}>
                     <header className={styles.postHeader}>
                       <p>
-                        Category: <span>{ps.catName}</span>
+                        Category: <span>{data.catName}</span>
                       </p>
-                      <span>{ps.title}</span>
+                      <span>{data.title}</span>
                       <div>
                         <EditFilled onClick={toggleEditBtnIndex} />
                         <DeleteFilled onClick={deletePost} />
@@ -113,9 +104,9 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
                     </header>
                     <div className={styles.authorAndDate}>
                       <p>
-                        Author: <span>{ps.author}</span>
+                        Author: <span>{data.author}</span>
                       </p>
-                      <span>{new Date(ps.createdAt).toDateString()}</span>
+                      <span>{new Date(data.createdAt).toDateString()}</span>
                     </div>
                     <div className="ql-snow">
                       <div className={`${styles.postContentText} ql-editor`} dangerouslySetInnerHTML={inputText()} />
@@ -132,7 +123,9 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
         </section>
       ) : (
         // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
-        <Suspense fallback={<Spin />}>{editBtnIndex && <Write post={ps} setEditBtnIndex={setEditBtnIndex} />}</Suspense>
+        <Suspense fallback={<Spin />}>
+          {editBtnIndex && <Write post={data} setEditBtnIndex={setEditBtnIndex} />}
+        </Suspense>
       )}
     </>
   );
@@ -140,16 +133,16 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
 
 export default PostPage;
 
-export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-  const res = await publicRequest.get(`/posts/${params.id}`);
-  const ps = res.data;
+// export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
+//   const res = await publicRequest.get(`/posts/${params.id}`);
+//   const ps = res.data;
 
-  return {
-    props: {
-      ps,
-    },
-  };
-};
+//   return {
+//     props: {
+//       ps,
+//     },
+//   };
+// };
 
 // export const getStaticPaths = async () => {
 //   const res = await publicRequest.get(`/posts`);
