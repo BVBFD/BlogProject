@@ -8,9 +8,9 @@
 [[plugins]]
   package = "@netlify/plugin-functions"
 
+  [plugins.inputs]
+    schedule = "*/10 * * * *"
+    command = "curl $WAKEUP_FUNCTION_PATH"
+
 [build.environment]
   WAKEUP_FUNCTION_PATH = "netlify/functions/wakeup.js"
-
-[[plugins.inputs]]
-  schedule = "*/10 * * * *"
-  command = "curl $WAKEUP_FUNCTION_PATH"
