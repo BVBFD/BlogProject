@@ -13,7 +13,19 @@ import { publicRequest } from '../../../config';
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
 
-const PostPage = memo(() => {
+interface PostType {
+  _id: string;
+  __v: number;
+  updatedAt: string;
+  title: string;
+  text?: string;
+  imgUrl: string;
+  createdAt: string;
+  catName: string;
+  author: string;
+}
+
+const PostPage = memo(({ ps }: { ps: PostType }) => {
   const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const router = useRouter();
   const { data } = useSWR(`/posts/${router.query.id}`, fetcher);
@@ -58,16 +70,16 @@ const PostPage = memo(() => {
     <>
       <Head>
         {/* SEO */}
-        <title>{data?.title}</title>
+        <title>{ps?.title}</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <meta content={data?.title} name="description" />
-        <meta content={data?.title} property="og:title" />
-        <meta content={`https://lsevina126.netlify.app/data/${data?.title}/${data?._id}`} property="og:url" />
+        <meta content={ps?.title} name="description" />
+        <meta content={ps?.title} property="og:title" />
+        <meta content={`https://lsevina126.netlify.app/ps/${ps?.title}/${ps?._id}`} property="og:url" />
         <meta content="website" property="og:type" />
-        <meta content={data?.title} property="og:site_name" />
-        <meta content={data?.imgUrl} property="og:image" />
-        <meta content={data?.title} property="og:description" />
-        <link href={`https://lsevina126.netlify.app/data/${data?.title}/${data?._id}`} rel="canonical" />
+        <meta content={ps?.title} property="og:site_name" />
+        <meta content={ps?.imgUrl} property="og:image" />
+        <meta content={ps?.title} property="og:description" />
+        <link href={`https://lsevina126.netlify.app/ps/${ps?.title}/${ps?._id}`} rel="canonical" />
         {/* SEO */}
       </Head>
       {!editBtnIndex ? (
@@ -133,16 +145,16 @@ const PostPage = memo(() => {
 
 export default PostPage;
 
-// export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-//   const res = await publicRequest.get(`/posts/${params.id}`);
-//   const ps = res.data;
+export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
+  const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
+  const ps = res.data;
 
-//   return {
-//     props: {
-//       ps,
-//     },
-//   };
-// };
+  return {
+    props: {
+      ps,
+    },
+  };
+};
 
 // export const getStaticPaths = async () => {
 //   const res = await publicRequest.get(`/posts`);

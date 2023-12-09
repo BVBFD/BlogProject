@@ -23,7 +23,7 @@ export default async function handler(req, res) {
       }
 
       if (meta) {
-        const { text, ...others } = foundPost.toObject();
+        const { text, updatedAt, createdAt, catName, author, _v, ...others } = foundPost.toObject();
         return res.status(200).json(others);
       } else {
         return res.status(200).json(foundPost);
