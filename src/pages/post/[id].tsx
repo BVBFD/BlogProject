@@ -25,7 +25,7 @@ interface PostType {
 }
 
 const PostPage = memo(({ ps }: { ps: PostType }) => {
-  const [texts, setTexts] = useState<string>();
+  // const [texts, setTexts] = useState<string>();
   // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
   const Write = lazy(() => import('../write'));
   const [editBtnIndex, setEditBtnIndex] = useState<boolean>(false);
@@ -45,7 +45,7 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
   }, [editBtnIndex, id]);
 
   const inputText = () => {
-    return { __html: `${texts}` };
+    return { __html: `${ps.text}` };
   };
 
   const deletePost = useCallback(async () => {
@@ -92,7 +92,7 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
       </Head>
       {!editBtnIndex ? (
         <section className={styles.postPage}>
-          {texts ? (
+          {ps ? (
             <div className={styles.postBox}>
               <div className={styles.postImgTextBox}>
                 <div
@@ -143,9 +143,7 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
         </section>
       ) : (
         // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
-        <Suspense fallback={<Spin />}>
-          {editBtnIndex && <Write post={ps} setEditBtnIndex={setEditBtnIndex} texts={texts} />}
-        </Suspense>
+        <Suspense fallback={<Spin />}>{editBtnIndex && <Write post={ps} setEditBtnIndex={setEditBtnIndex} />}</Suspense>
       )}
     </>
   );
