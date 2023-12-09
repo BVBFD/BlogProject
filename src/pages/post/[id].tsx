@@ -1,4 +1,4 @@
-import { lazy, memo, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
+import { lazy, memo, Suspense, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -7,11 +7,10 @@ import DeleteFilled from '@ant-design/icons/DeleteFilled';
 import EditFilled from '@ant-design/icons/EditFilled';
 import Spin from '@/common/Spin/index';
 import { RootState } from '../../redux/user';
-import { NEXT_API_BASE_URL, publicRequest } from '../../../config';
+import { publicRequest } from '../../../config';
 
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
-import { getPostDataById } from '../api/posts/[id]';
 
 interface PostType {
   _id: string;
@@ -34,8 +33,6 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
   const { id } = router.query;
   const user = useSelector((state: RootState) => state.user);
   const [onLoad, setOnLoad] = useState(false);
-
-  useMemo(() => Write, [ps, editBtnIndex, texts]);
 
   useEffect(() => {
     const getPostOnClient = async () => {
@@ -157,11 +154,12 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
 export default PostPage;
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-  // const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
+  const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
+  const ps = res.data;
   // const res = await publicRequest.get(`/posts/${params.id}`);
   // const res = await fetch(`${process.env.NEXT_PUBLIC_TEST_BASE_URL}/posts/${params.id}?meta=true`);
   // const ps = await res.json();
-  const ps = await getPostDataById(NEXT_API_BASE_URL, `${params.id}`);
+  // const ps = await getPostDataById(NEXT_API_BASE_URL, `${params.id}`);
 
   return {
     props: {
