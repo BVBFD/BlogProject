@@ -379,7 +379,7 @@ const Write = ({ post, setEditBtnIndex }) => {
             </div>
           </div>
           <ReactQuill
-            defaultValue={!post.text ? '' : post.text}
+            defaultValue={!post?.text ? '' : post.text}
             formats={formats}
             forwardedRef={editorRef}
             modules={modules}
