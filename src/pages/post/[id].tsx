@@ -6,12 +6,12 @@ import Image from 'next/image';
 import DeleteFilled from '@ant-design/icons/DeleteFilled';
 import EditFilled from '@ant-design/icons/EditFilled';
 import Spin from '@/common/Spin/index';
+import useSWR from 'swr';
 import { RootState } from '../../redux/user';
 import { publicRequest } from '../../../config';
 
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
-import useSWR from 'swr';
 
 const PostPage = memo(() => {
   const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
