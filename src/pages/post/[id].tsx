@@ -147,7 +147,7 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
       ) : (
         // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
         <Suspense fallback={<Spin />}>
-          {editBtnIndex && <Write post={ps} texts={texts} setEditBtnIndex={setEditBtnIndex} />}
+          {editBtnIndex && <Write post={ps} setEditBtnIndex={setEditBtnIndex} texts={texts} />}
         </Suspense>
       )}
     </>
