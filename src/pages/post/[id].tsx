@@ -1,3 +1,14 @@
+export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
+  const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
+  const ps = res.data;
+
+  return {
+    props: {
+      ps,
+    },
+  };
+};
+
 import { lazy, memo, Suspense, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -144,17 +155,6 @@ const PostPage = memo(({ ps }: { ps: PostType }) => {
 });
 
 export default PostPage;
-
-export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-  const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
-  const ps = res.data;
-
-  return {
-    props: {
-      ps,
-    },
-  };
-};
 
 // export const getStaticPaths = async () => {
 //   const res = await publicRequest.get(`/posts`);
