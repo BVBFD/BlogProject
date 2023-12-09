@@ -1,9 +1,13 @@
 [build]
-command = "next build"
-publish = ".next"	
+  command = "next build"
+  publish = ".next"	
+
+[build.environment]
+  WAKEUP_URL = "https://lsevina126.netlify.app/post/635bc5867d980050320932ff"
 
 [[plugins]]
-package = "@netlify/plugin-nextjs"
+  package = "@netlify/plugin-nextjs"
 
-[functions."test-scheduled-function"]
-schedule = "@hourly"
+  [plugins.inputs]
+    schedule = "*/15 * * * *"
+    command = "curl $WAKEUP_URL"
