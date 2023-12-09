@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import PictureFilled from '@ant-design/icons/PictureFilled';
-import Spin from '@/common/Spin';
+import { Spin } from 'antd';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
