@@ -1,6 +1,12 @@
 import dbConnect, { dbDisConnect } from '@/utils/db.js';
 import PostDatasModel from '../../../../models/postDatasModel';
 
+export async function getMetaData(id) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}/posts/${id}?meta=true`);
+  const ps = await res.json();
+  return ps;
+}
+
 export default async function handler(req, res) {
   const {
     method,

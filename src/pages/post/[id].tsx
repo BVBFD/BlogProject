@@ -1,4 +1,18 @@
-import { lazy, Suspense, useCallback, useState } from 'react';
+import { getMetaData } from '../api/posts/[id]';
+
+export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
+  // const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
+  // const ps = res.data;
+  const ps = await getMetaData(params.id);
+
+  return {
+    props: {
+      ps,
+    },
+  };
+};
+
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -12,19 +26,6 @@ import { publicRequest } from '../../../config';
 
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
-
-export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-  // const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
-  // const ps = res.data;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}/posts/${params.id}?meta=true`);
-  const ps = await res.json();
-
-  return {
-    props: {
-      ps,
-    },
-  };
-};
 
 interface PostType {
   _id: string;
@@ -43,17 +44,17 @@ const PostPage = ({ ps }: { ps: PostType }) => {
   const router = useRouter();
   const { data } = useSWR(`/posts/${router.query.id}`, fetcher);
   // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
-  const Write = lazy(() => import('../write'));
-  const [editBtnIndex, setEditBtnIndex] = useState<boolean>(false);
+  const Write = React.lazy(() => import('../write'));
+  const [editBtnIndex, setEditBtnIndex] = React.useState<boolean>(false);
   const { id } = router.query;
   const user = useSelector((state: RootState) => state.user);
-  const [onLoad, setOnLoad] = useState(false);
+  const [onLoad, setOnLoad] = React.useState(false);
 
   const inputText = () => {
     return { __html: `${data.text}` };
   };
 
-  const deletePost = useCallback(async () => {
+  const deletePost = React.useCallback(async () => {
     // 확인 다이얼로그 표시
     const userConfirmed = window.confirm('정말로 삭제하시겠습니까?');
 
@@ -148,9 +149,9 @@ const PostPage = ({ ps }: { ps: PostType }) => {
         </section>
       ) : (
         // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
-        <Suspense fallback={<Spin />}>
+        <React.Suspense fallback={<Spin />}>
           {editBtnIndex && <Write post={data} setEditBtnIndex={setEditBtnIndex} />}
-        </Suspense>
+        </React.Suspense>
       )}
     </>
   );
