@@ -148,9 +148,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
         </section>
       ) : (
         // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
-        <React.Suspense fallback={<Spin />}>
-          {editBtnIndex && <Write post={data} setEditBtnIndex={setEditBtnIndex} />}
-        </React.Suspense>
+        <React.Suspense fallback={<div />}>{editBtnIndex && <Write post={data} />}</React.Suspense>
       )}
     </>
   );

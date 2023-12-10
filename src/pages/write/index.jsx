@@ -30,7 +30,7 @@ const ReactQuill = dynamic(
   }
 );
 
-const Write = ({ post, setEditBtnIndex }) => {
+const Write = ({ post }) => {
   const [value, setValue] = useState(post?.text);
   const [isFetching, setIsFetching] = useState(false);
   const editorRef = useRef();
@@ -278,9 +278,7 @@ const Write = ({ post, setEditBtnIndex }) => {
         if (res.status === 201) {
           // eslint-disable-next-line @typescript-eslint/naming-convention
           const { _id } = res.data;
-          setEditBtnIndex(false);
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          router.push(`/post/${_id}`);
+          window.location.reload(`/post/${_id}`);
         } else if (res.status === 401) {
           window.alert(`${res.statusText} This is private Blog. Onle The Admin can edit!!`);
         }
