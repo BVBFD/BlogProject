@@ -100,46 +100,44 @@ const PostPage = ({ ps }: { ps: PostType }) => {
           {data ? (
             <div className={styles.postBox}>
               <div className={styles.postImgTextBox}>
-                <div className={styles.postImgTextBox}>
-                  <div
-                    className={styles.postTitleImgBox}
-                    style={onLoad ? { backgroundColor: '#e4e4e4' } : { backgroundColor: 'unset' }}
-                  >
-                    <Image
-                      alt=""
-                      crossOrigin="anonymous"
-                      fill
-                      loading="lazy"
-                      objectFit="contain"
-                      onLoad={() => setOnLoad(true)}
-                      quality={20}
-                      src={`${data.imgUrl}`}
-                    />
-                  </div>
-                  {onLoad && (
-                    <div className={styles.postTextBox}>
-                      <header className={styles.postHeader}>
-                        <p>
-                          Category: <span>{data.catName}</span>
-                        </p>
-                        <span>{data.title}</span>
-                        <div>
-                          <EditFilled onClick={toggleEditBtnIndex} />
-                          <DeleteFilled onClick={deletePost} />
-                        </div>
-                      </header>
-                      <div className={styles.authorAndDate}>
-                        <p>
-                          Author: <span>{data.author}</span>
-                        </p>
-                        <span>{new Date(data.createdAt).toDateString()}</span>
-                      </div>
-                      <div className="ql-snow">
-                        <div className={`${styles.postContentText} ql-editor`} dangerouslySetInnerHTML={inputText()} />
-                      </div>
-                    </div>
-                  )}
+                <div
+                  className={styles.postTitleImgBox}
+                  style={onLoad ? { backgroundColor: '#e4e4e4' } : { backgroundColor: 'unset' }}
+                >
+                  <Image
+                    alt=""
+                    crossOrigin="anonymous"
+                    fill
+                    loading="lazy"
+                    objectFit="contain"
+                    onLoad={() => setOnLoad(true)}
+                    quality={20}
+                    src={`${data.imgUrl}`}
+                  />
                 </div>
+                {onLoad && (
+                  <div className={styles.postTextBox}>
+                    <header className={styles.postHeader}>
+                      <p>
+                        Category: <span>{data.catName}</span>
+                      </p>
+                      <span>{data.title}</span>
+                      <div>
+                        <EditFilled onClick={toggleEditBtnIndex} />
+                        <DeleteFilled onClick={deletePost} />
+                      </div>
+                    </header>
+                    <div className={styles.authorAndDate}>
+                      <p>
+                        Author: <span>{data.author}</span>
+                      </p>
+                      <span>{new Date(data.createdAt).toDateString()}</span>
+                    </div>
+                    <div className="ql-snow">
+                      <div className={`${styles.postContentText} ql-editor`} dangerouslySetInnerHTML={inputText()} />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           ) : (
@@ -149,6 +147,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
           )}
         </section>
       ) : (
+        // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
         <React.Suspense fallback={<div />}>{editBtnIndex && <Write post={data} />}</React.Suspense>
       )}
     </>
