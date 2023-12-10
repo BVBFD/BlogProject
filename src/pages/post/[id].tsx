@@ -6,7 +6,6 @@ import Image from 'next/image';
 import DeleteFilled from '@ant-design/icons/DeleteFilled';
 import EditFilled from '@ant-design/icons/EditFilled';
 import { Spin } from 'antd';
-import useSWR from 'swr';
 // import { getMetaData } from '../api/posts/[id]';
 import { RootState } from '../../redux/user';
 import { publicRequest } from '../../../config';
@@ -15,7 +14,7 @@ import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-  const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
+  const res = await publicRequest.get(`/posts/${params.id}`);
   const ps = res.data;
   // const ps = await getMetaData(params.id);
   // const res = await fetch(`${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}/posts/${params.id}?meta=true`);
@@ -41,9 +40,9 @@ interface PostType {
 }
 
 const PostPage = ({ ps }: { ps: PostType }) => {
-  const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
+  // const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const router = useRouter();
-  const { data } = useSWR(`/posts/${router.query.id}`, fetcher);
+  // const { data } = useSWR(`/posts/${router.query.id}`, fetcher);
   // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
   const Write = React.lazy(() => import('../write'));
   const [editBtnIndex, setEditBtnIndex] = React.useState<boolean>(false);
@@ -52,7 +51,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
   const [onLoad, setOnLoad] = React.useState(false);
 
   const inputText = () => {
-    return { __html: `${data.text}` };
+    return { __html: `${ps.text}` };
   };
 
   const deletePost = React.useCallback(async () => {
@@ -99,7 +98,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
       </Head>
       {!editBtnIndex ? (
         <section className={styles.postPage}>
-          {data ? (
+          {ps ? (
             <div className={styles.postBox}>
               <div className={styles.postImgTextBox}>
                 <div
@@ -114,16 +113,16 @@ const PostPage = ({ ps }: { ps: PostType }) => {
                     objectFit="contain"
                     onLoad={() => setOnLoad(true)}
                     quality={20}
-                    src={`${data.imgUrl}`}
+                    src={`${ps.imgUrl}`}
                   />
                 </div>
                 {onLoad && (
                   <div className={styles.postTextBox}>
                     <header className={styles.postHeader}>
                       <p>
-                        Category: <span>{data.catName}</span>
+                        Category: <span>{ps.catName}</span>
                       </p>
-                      <span>{data.title}</span>
+                      <span>{ps.title}</span>
                       <div>
                         <EditFilled onClick={toggleEditBtnIndex} />
                         <DeleteFilled onClick={deletePost} />
@@ -131,9 +130,9 @@ const PostPage = ({ ps }: { ps: PostType }) => {
                     </header>
                     <div className={styles.authorAndDate}>
                       <p>
-                        Author: <span>{data.author}</span>
+                        Author: <span>{ps.author}</span>
                       </p>
-                      <span>{new Date(data.createdAt).toDateString()}</span>
+                      <span>{new Date(ps.createdAt).toDateString()}</span>
                     </div>
                     <div className="ql-snow">
                       <div className={`${styles.postContentText} ql-editor`} dangerouslySetInnerHTML={inputText()} />
@@ -150,7 +149,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
         </section>
       ) : (
         // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
-        <React.Suspense fallback={<div />}>{editBtnIndex && <Write post={data} />}</React.Suspense>
+        <React.Suspense fallback={<div />}>{editBtnIndex && <Write post={ps} />}</React.Suspense>
       )}
     </>
   );

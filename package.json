@@ -39,7 +39,6 @@
     "redux-persist": "^6.0.0",
     "sass": "^1.62.1",
     "streamifier": "^0.1.1",
-    "swr": "^2.2.4",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"
   },
