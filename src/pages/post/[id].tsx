@@ -149,7 +149,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
           )}
         </section>
       ) : (
-        <React.Suspense fallback={<div></div>}>{editBtnIndex && <Write post={data} />}</React.Suspense>
+        <React.Suspense fallback={<div />}>{editBtnIndex && <Write post={data} />}</React.Suspense>
       )}
     </>
   );
