@@ -1,6 +1,4 @@
-import { getMetaData } from '../api/posts/[id]';
 import React from 'react';
-import { publicRequest } from '../../../config';
 import useSWR from 'swr';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -9,6 +7,8 @@ import Image from 'next/image';
 import DeleteFilled from '@ant-design/icons/DeleteFilled';
 import EditFilled from '@ant-design/icons/EditFilled';
 import { Spin } from 'antd';
+import { publicRequest } from '../../../config';
+import { getMetaData } from '../api/posts/[id]';
 import { RootState } from '../../redux/user';
 
 import styles from '../../styles/post/index.module.scss';
