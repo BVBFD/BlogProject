@@ -6,6 +6,7 @@ async function dbConnect() {
 
   while (currentRetry < maxRetries) {
     try {
+      // 원래는 await 비동기 작업 넣어주는 것이 맞지만 netlify 10s timed-out error 해결을 위해 어쩔수 없이 이렇게 씀.
       mongoose.connect(process.env.MONGO_DB_URL, {
         dbName: 'myFirstDatabase',
         connectTimeoutMS: 1000,
@@ -30,8 +31,9 @@ async function dbConnect() {
   }
 }
 
-async function dbDisConnect() {
-  return await mongoose.disconnect();
+function dbDisConnect() {
+  // 원래는 await 비동기 작업 넣어주는 것이 맞지만 netlify 10s timed-out error 해결을 위해 어쩔수 없이 이렇게 씀.
+  return mongoose.disconnect();
 }
 
 export { dbDisConnect };
