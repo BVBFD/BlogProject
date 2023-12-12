@@ -6,8 +6,7 @@ async function dbConnect() {
 
   while (currentRetry < maxRetries) {
     try {
-      // await 쓰는게 맞지만, netlify timeout error 해결을 위해 부득이하게 이렇게 test 중
-      mongoose.connect(`${process.env.MONGO_DB_URL}`, {
+      await mongoose.connect(`${process.env.MONGO_DB_URL}`, {
         dbName: 'myFirstDatabase',
         connectTimeoutMS: 1000,
         serverSelectionTimeoutMS: 1000,
