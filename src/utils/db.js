@@ -20,7 +20,7 @@ async function dbConnect() {
       currentRetry++;
       console.log('MongoDB connect failed!!');
       // Add some delay before retrying
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // await new Promise((resolve) => setTimeout(resolve, 1000));
     }
   }
 
