@@ -6,8 +6,8 @@ async function cleanupAndRespond(res, statusCode, data) {
   return res.status(statusCode).json(data);
 }
 
-export async function getMetaData(id) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}/posts/${id}?meta=true`);
+export async function getData(id) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}/posts/${id}`);
   const ps = await res.json();
   return ps;
 }
