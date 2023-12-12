@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 async function dbConnect() {
   let maxRetries = 10;
   let currentRetry = 0;
@@ -27,3 +29,10 @@ async function dbConnect() {
     console.error('Max retries reached. MongoDB connection failed.');
   }
 }
+
+async function dbDisConnect() {
+  return await mongoose.disconnect();
+}
+
+export { dbDisConnect };
+export default dbConnect;
