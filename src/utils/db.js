@@ -6,7 +6,7 @@ async function dbConnect() {
 
   while (currentRetry < maxRetries) {
     try {
-      await mongoose.connect(process.env.MONGO_DB_URL, {
+      mongoose.connect(process.env.MONGO_DB_URL, {
         dbName: 'myFirstDatabase',
         connectTimeoutMS: 1000,
         serverSelectionTimeoutMS: 1000,
@@ -20,7 +20,7 @@ async function dbConnect() {
       currentRetry++;
       console.log('MongoDB connect failed!!');
       // Add some delay before retrying
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 200));
     }
   }
 
