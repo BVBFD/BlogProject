@@ -8,8 +8,8 @@ async function dbConnect() {
     try {
       await mongoose.connect(`${process.env.MONGO_DB_URL}`, {
         dbName: 'myFirstDatabase',
-        connectTimeoutMS: 500,
-        serverSelectionTimeoutMS: 500,
+        connectTimeoutMS: 800,
+        serverSelectionTimeoutMS: 800,
         maxPoolSize: 10,
         minPoolSize: 1,
       });
@@ -20,7 +20,7 @@ async function dbConnect() {
       currentRetry++;
       console.log('MongoDB connect failed!!');
       // Add some delay before retrying
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 800));
     }
   }
 
