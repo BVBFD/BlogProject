@@ -7,16 +7,16 @@ import DeleteFilled from '@ant-design/icons/DeleteFilled';
 import EditFilled from '@ant-design/icons/EditFilled';
 import { Spin } from 'antd';
 import { publicRequest } from '../../../config';
-// import { getData } from '../api/posts/[id]';
+import { getData } from '../api/posts/[id]';
 import { RootState } from '../../redux/user';
 
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-  const res = await publicRequest.get(`/posts/${params.id}`);
-  const ps = res.data;
-  // const ps = await getData(params.id);
+  // const res = await publicRequest.get(`/posts/${params.id}`);
+  // const ps = res.data;
+  const ps = await getData(params.id);
   // const res = await fetch(`${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}/posts/${params.id}?meta=true`);
   // const ps = await res.json();
 
