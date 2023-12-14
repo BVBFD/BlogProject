@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
 
 async function dbConnect() {
-  let maxRetries = 25;
+  let maxRetries = 50;
   let currentRetry = 0;
 
   while (currentRetry < maxRetries) {
     try {
       await mongoose.connect(`${process.env.MONGO_DB_URL}`, {
         dbName: 'myFirstDatabase',
-        connectTimeoutMS: 800,
-        serverSelectionTimeoutMS: 800,
+        connectTimeoutMS: 600,
+        serverSelectionTimeoutMS: 600,
         maxPoolSize: 10,
         minPoolSize: 1,
       });
@@ -20,7 +20,7 @@ async function dbConnect() {
       currentRetry++;
       console.log('MongoDB connect failed!!');
       // Add some delay before retrying
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      await new Promise((resolve) => setTimeout(resolve, 600));
     }
   }
 
