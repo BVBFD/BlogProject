@@ -87,7 +87,7 @@ const Home = () => {
   const getPosts = useCallback(async () => {
     setOnProgress(true);
     const res = await publicRequest.get(`/posts`);
-    const { posts, totalPostsCount } = await res.data;
+    const { posts, totalPostsCount } = res.data;
     setPostsVar(posts);
     setPaginationTotalNum(totalPostsCount);
     setPostsPerSize(4);
