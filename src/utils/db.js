@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 async function dbConnect() {
-  let maxRetries = 50;
+  let maxRetries = 25;
   let currentRetry = 0;
 
   while (currentRetry < maxRetries) {
