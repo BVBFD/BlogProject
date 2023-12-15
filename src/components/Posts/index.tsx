@@ -18,15 +18,11 @@ interface PostType {
 const Posts = ({
   selectedPost,
   setOnProgress,
-  getImgShowUp,
 }: {
   selectedPost: PostType[];
   setOnProgress: React.Dispatch<React.SetStateAction<boolean>>;
-  getImgShowUp: (bolImgShowUp: boolean) => void;
 }) => {
   const [imgShowUp, setImgShowUp] = useState(false);
-
-  getImgShowUp(imgShowUp);
 
   return (
     <div className={styles.wrapper}>

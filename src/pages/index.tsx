@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 // 코드상단에 우선순위가 높은 순으로 필요한 컴포넌트 및 함수를 미리 import 시켜야 속도가 빨라짐
 import { Spin } from 'antd';
 import { FacebookFilled, InstagramFilled, TwitterCircleFilled } from '@ant-design/icons';
@@ -31,10 +31,6 @@ const Home = () => {
 
   const [searchText, setSearchText] = useState<string>('');
   const [catName, setCatName] = useState<string>('');
-
-  const [bolImgShowUp, setBolImgShowUp] = useState<boolean>();
-  const [pagination, setPagination] = useState<React.ReactNode | null>(null);
-  const [showPagination, setShowPagination] = useState<boolean>(false);
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
@@ -98,17 +94,7 @@ const Home = () => {
 
   useEffect(() => {
     getPosts();
-    setShowPagination(true);
-
-    return () => {
-      setPagination(null);
-      setShowPagination(false);
-    };
   }, []);
-
-  useMemo(() => pagination, [currentPage, paginationTotalNum, postsVar]);
-
-  useMemo(() => showPagination, [currentPage, paginationTotalNum]);
 
   const handleTotal = useCallback(() => {
     setSearchText('');
@@ -118,6 +104,7 @@ const Home = () => {
 
   const handleSearch = useCallback(async (url: string) => {
     setOnProgress(true);
+    setPaginationTotalNum(0);
     const res = await publicRequest.get(url);
     const { posts, totalPostsCount } = await res.data;
     setPostsVar(posts);
@@ -140,13 +127,6 @@ const Home = () => {
 
   const handleSearchText = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
-    if (e.target.value === '') {
-      getPosts();
-    }
-  }, []);
-
-  const getImgShowUp = useCallback((imgShowUp: boolean) => {
-    setBolImgShowUp(imgShowUp);
   }, []);
 
   return (
@@ -209,7 +189,6 @@ const Home = () => {
             </div>
           ) : (
             <Posts
-              getImgShowUp={getImgShowUp}
               selectedPost={
                 // slice가 Array.from 보다 더 빠름
                 postsVar.length === postsPerSize
@@ -269,7 +248,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {postsVar.length !== 0 && !onProgress && bolImgShowUp && showPagination && (
+      {paginationTotalNum !== 0 ? (
         <BasicPagination
           current={currentPage}
           defaultCurrent={1}
@@ -277,6 +256,8 @@ const Home = () => {
           pageSize={postsPerSize}
           total={paginationTotalNum}
         />
+      ) : (
+        <div style={{ height: '100px' }} />
       )}
     </div>
   );
