@@ -96,6 +96,7 @@ const Home = () => {
   }, [homeMenu]);
 
   const handleTotal = useCallback(() => {
+    setPaginationTotalNum(0);
     setSearchText('');
     setCatName('');
     getPosts();
@@ -256,7 +257,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {paginationTotalNum !== 0 && !onProgress ? (
+      {paginationTotalNum !== 0 ? (
         <BasicPagination
           current={currentPage}
           defaultCurrent={1}
