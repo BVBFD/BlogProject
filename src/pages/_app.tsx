@@ -1,7 +1,7 @@
 import Spin from '@/common/Spin';
 import { PopUpProvider } from '@/common/UsePopUp';
 import Layout from '@/components/Layout';
-import { persistor, store } from '@/redux/user';
+import { persistor, store } from '@/redux/sliceStore';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';

@@ -6,6 +6,8 @@ import Head from 'next/head';
 import Banner from '@/components/Banner';
 import BasicPagination from '@/common/BasicPagination';
 import BasicButton from '@/common/BasicButton';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/sliceStore';
 import Posts from '../components/Posts';
 import { publicRequest } from '../../config';
 import styles from '../styles/Home.module.scss';
@@ -33,6 +35,7 @@ const Home = () => {
   const [catName, setCatName] = useState<string>('');
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const { homeMenu } = useSelector((state: RootState) => state);
 
   // 만약 [searchText, catName]이 없다면 useCallback 같은 경우 한번 생성된 콜백함수를
   // 그대로 메모리에 저장해서 계속 쓰기 때문에 (새로 생성없이...) searchText, catName 이 바뀜에 따라,
@@ -90,17 +93,22 @@ const Home = () => {
     setCurrentPage(1);
 
     return setOnProgress(false);
-  }, []);
-
-  useEffect(() => {
-    getPosts();
-  }, []);
+  }, [homeMenu]);
 
   const handleTotal = useCallback(() => {
     setSearchText('');
     setCatName('');
     getPosts();
-  }, [getPosts]);
+  }, [getPosts, homeMenu]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getPosts();
+      handleTotal();
+    };
+
+    fetchData();
+  }, [homeMenu]);
 
   const handleSearch = useCallback(async (url: string) => {
     setOnProgress(true);
@@ -248,7 +256,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {paginationTotalNum !== 0 ? (
+      {paginationTotalNum !== 0 && !onProgress ? (
         <BasicPagination
           current={currentPage}
           defaultCurrent={1}

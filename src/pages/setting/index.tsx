@@ -2,7 +2,7 @@ import { Spin } from 'antd';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/user';
+import { RootState } from '@/redux/sliceStore';
 import { loginReduce, logoutReduce } from '@/redux/userSlice';
 import BasicButton from '@/common/BasicButton';
 import styles from '../../styles/setting/index.module.scss';

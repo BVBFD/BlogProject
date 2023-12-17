@@ -8,7 +8,7 @@ import EditFilled from '@ant-design/icons/EditFilled';
 import { Spin } from 'antd';
 import { publicRequest } from '../../../config';
 // import { getData } from '../api/posts/[id]';
-import { RootState } from '../../redux/user';
+import { RootState } from '../../redux/sliceStore';
 
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';

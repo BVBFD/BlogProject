@@ -3,11 +3,12 @@ import { CloseOutlined, GithubFilled, UnorderedListOutlined } from '@ant-design/
 
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/user';
+import { RootState } from '@/redux/sliceStore';
 
 import { logoutReduce } from '@/redux/userSlice';
 import BasicButton from '@/common/BasicButton';
 import { usePopUp } from '@/common/UsePopUp';
+import { toggle } from '@/redux/homeMemuSlice';
 import styles from './index.module.scss';
 import LoginPopup from './LoginPopup';
 import SignupPopUp from './SignupPopup';
@@ -45,7 +46,7 @@ const Navbar = () => {
         </Link>
 
         <ul>
-          <Link href="/" passHref>
+          <Link href="/" onClick={() => dispatch(toggle())} passHref>
             Home
           </Link>
           <Link href="/about" passHref>

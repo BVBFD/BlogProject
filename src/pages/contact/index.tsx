@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/user';
+import { RootState } from '@/redux/sliceStore';
 import BasicButton from '@/common/BasicButton';
 import emailjs from '@emailjs/browser';
 import styles from '../../styles/contact/index.module.scss';
