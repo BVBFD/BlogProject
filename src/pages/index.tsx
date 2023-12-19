@@ -104,6 +104,9 @@ const Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setPaginationTotalNum(0);
+      setSearchText('');
+      setCatName('');
       await getPosts();
       handleTotal();
     };

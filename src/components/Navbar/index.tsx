@@ -9,6 +9,7 @@ import { logoutReduce } from '@/redux/userSlice';
 import BasicButton from '@/common/BasicButton';
 import { usePopUp } from '@/common/UsePopUp';
 import { toggle } from '@/redux/homeMemuSlice';
+import { useRouter } from 'next/router';
 import styles from './index.module.scss';
 import LoginPopup from './LoginPopup';
 import SignupPopUp from './SignupPopup';
@@ -20,6 +21,7 @@ const Navbar = () => {
   const [mounted, setMounted] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { showPopUp } = usePopUp();
+  const router = useRouter();
 
   const onLogout = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -46,7 +48,16 @@ const Navbar = () => {
         </Link>
 
         <ul>
-          <Link href="/" onClick={() => dispatch(toggle())} passHref>
+          <Link
+            href="/"
+            onClick={(e) => {
+              if (router.route === '/') {
+                e.preventDefault();
+              }
+              dispatch(toggle());
+            }}
+            passHref
+          >
             Home
           </Link>
           <Link href="/about" passHref>
