@@ -52,7 +52,7 @@ export default async function handler(req, res) {
         _id: post._id,
         title: post.title,
         imgUrl: post.imgUrl,
-        created_at: post.createdAt,
+        createdAt: post.createdAt,
       }));
 
       res.status(200).json({ posts: simplifiedPosts, totalPostsCount });

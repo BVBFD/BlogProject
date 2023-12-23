@@ -25,16 +25,11 @@ const Post = ({
   setImgShowUp: React.Dispatch<React.SetStateAction<boolean>>;
   setOnProgress: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  // const inputText = () => {
-  //   return { __html: `${post?.text}` };
-  // };
-
   const renderPage = useMemo(() => {
     return (
       <div className={styles.content}>
         <header>{post.title}</header>
         <span>{new Date(post.createdAt).toDateString()}</span>
-        {/* <div dangerouslySetInnerHTML={inputText()} /> */}
       </div>
     );
   }, [post]);
