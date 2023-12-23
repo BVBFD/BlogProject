@@ -46,7 +46,16 @@ export default async function handler(req, res) {
 
       totalPostsCount = await PostDatasModel.countDocuments(query);
 
-      res.status(200).json({ posts: foundPosts, totalPostsCount });
+      // 첫 index page 로딩이 너무 오래걸려서,
+      // 본문 text영역(너무 길다)은 받아오지 않게끔 하기 위함.
+      const simplifiedPosts = foundPosts.map((post) => ({
+        _id: post._id,
+        title: post.title,
+        imgUrl: post.imgUrl,
+        created_at: post.created_at,
+      }));
+
+      res.status(200).json({ posts: simplifiedPosts, totalPostsCount });
     } catch (err) {
       res.status(500).json(err);
     }
