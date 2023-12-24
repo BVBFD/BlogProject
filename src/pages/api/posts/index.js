@@ -25,8 +25,6 @@ export default async function handler(req, res) {
 
       let query = {};
 
-      let totalPostsCount;
-
       if (catName) {
         query.catName = catName;
       }
@@ -41,21 +39,34 @@ export default async function handler(req, res) {
         skipAmount = (page - 1) * pageSize;
       }
 
-      // 해당 쿼리에 맞는 포스트를 찾음
-      let foundPosts = await PostDatasModel.find(query).sort(sortOptions).skip(skipAmount).limit(pageSize);
+      // // 해당 쿼리에 맞는 포스트를 찾음
+      // let foundPosts = await PostDatasModel.find(query, 'title imgUrl createdAt')
+      //   .sort(sortOptions)
+      //   .skip(skipAmount)
+      //   .limit(pageSize)
+      //   .lean();
 
-      totalPostsCount = await PostDatasModel.countDocuments(query);
+      // totalPostsCount = await PostDatasModel.countDocuments(query);
 
-      // 첫 index page 로딩이 너무 오래걸려서,
-      // 본문 text영역(너무 길다)은 받아오지 않게끔 하기 위함.
-      const simplifiedPosts = foundPosts.map((post) => ({
-        _id: post._id,
-        title: post.title,
-        imgUrl: post.imgUrl,
-        createdAt: post.createdAt,
-      }));
+      // // 첫 index page 로딩이 너무 오래걸려서,
+      // // 본문 text영역(너무 길다)은 받아오지 않게끔 하기 위함.
+      // const simplifiedPosts = foundPosts.map((post) => ({
+      //   _id: post._id,
+      //   title: post.title,
+      //   imgUrl: post.imgUrl,
+      //   createdAt: post.createdAt,
+      // }));
 
-      res.status(200).json({ posts: simplifiedPosts, totalPostsCount });
+      let [foundPosts, totalPostsCount] = await Promise.all([
+        PostDatasModel.find(query, '_id title imgUrl createdAt')
+          .sort(sortOptions)
+          .skip(skipAmount)
+          .limit(pageSize)
+          .lean(),
+        PostDatasModel.countDocuments(query),
+      ]);
+
+      res.status(200).json({ posts: foundPosts, totalPostsCount });
     } catch (err) {
       res.status(500).json(err);
     }
