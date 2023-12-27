@@ -6,8 +6,9 @@ import Head from 'next/head';
 import Banner from '@/components/Banner';
 import BasicPagination from '@/common/BasicPagination';
 import BasicButton from '@/common/BasicButton';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/sliceStore';
+import { setFalse, setTrue } from '@/redux/searchTextSlice';
 import Posts from '../components/Posts';
 import { publicRequest } from '../../config';
 import styles from '../styles/Home.module.scss';
@@ -36,7 +37,8 @@ const Home = () => {
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const { homeMenu } = useSelector((state: RootState) => state);
-
+  const { searchTextBol } = useSelector((state: RootState) => state.searchTextBol);
+  const dispatch = useDispatch();
   // 만약 [searchText, catName]이 없다면 useCallback 같은 경우 한번 생성된 콜백함수를
   // 그대로 메모리에 저장해서 계속 쓰기 때문에 (새로 생성없이...) searchText, catName 이 바뀜에 따라,
   // 페이지네이션도 변해야 하는데 변하질 않게됨... why? 최초 생성된 콜백함수를 메모리에 저장해서 계속 써서
@@ -96,11 +98,12 @@ const Home = () => {
   }, [homeMenu]);
 
   const handleTotal = useCallback(() => {
+    dispatch(setFalse());
     setPaginationTotalNum(0);
     setSearchText('');
     setCatName('');
     getPosts();
-  }, [getPosts, homeMenu]);
+  }, [homeMenu]);
 
   useEffect(() => {
     handleTotal();
@@ -121,6 +124,7 @@ const Home = () => {
     if (searchText.trim() !== '') {
       handleSearch(`/posts?text=${searchText}`);
     }
+    dispatch(setTrue());
   };
 
   const handleCatName = useCallback(async (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -129,13 +133,19 @@ const Home = () => {
     handleSearch(`/posts?cat=${e.currentTarget.innerText}`);
   }, []);
 
-  const handleSearchText = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value !== '') {
+  const handleSearchText = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchText(e.target.value);
-    } else {
-      handleTotal();
-    }
-  }, []);
+      if (e.target.value === '') {
+        if (searchTextBol) {
+          handleTotal();
+        }
+      }
+    },
+    // useCallback으로 감싼 함수 내에서 참조하는 searchTextBol은 해당 함수가 최초로 생성될 때의 값으로 고정됩니다.
+    // 이걸 몰라서 자꾸 에러가 생겼음
+    [searchTextBol, homeMenu, handleTotal]
+  );
 
   return (
     <div>

@@ -5,6 +5,7 @@ import { combineReducers } from 'redux';
 import storage from './storage';
 import userReducer from './userSlice';
 import homeMemuSlice from './homeMemuSlice';
+import searchTextSlice from './searchTextSlice';
 
 const persistConfig = {
   key: 'root',
@@ -15,6 +16,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userReducer,
   homeMenu: homeMemuSlice,
+  searchTextBol: searchTextSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
