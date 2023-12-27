@@ -103,15 +103,7 @@ const Home = () => {
   }, [getPosts, homeMenu]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setPaginationTotalNum(0);
-      setSearchText('');
-      setCatName('');
-      await getPosts();
-      handleTotal();
-    };
-
-    fetchData();
+    handleTotal();
   }, [homeMenu]);
 
   const handleSearch = useCallback(async (url: string) => {
@@ -138,7 +130,11 @@ const Home = () => {
   }, []);
 
   const handleSearchText = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
+    if (e.target.value !== '') {
+      setSearchText(e.target.value);
+    } else {
+      handleTotal();
+    }
   }, []);
 
   return (
