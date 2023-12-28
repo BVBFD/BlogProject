@@ -25,6 +25,8 @@ const Home = () => {
   );
   const dispatch = useDispatch();
   const [renderPosts, setRenderPosts] = useState<React.ReactNode>();
+  const [renderSidebar, setRenderSidebar] = useState<React.ReactNode>();
+
   const [postsPerSize, setPostsPerSize] = useState<number>(4);
   const [onProgress, setOnProgress] = useState<boolean>(false);
 
@@ -97,27 +99,6 @@ const Home = () => {
     getPosts();
   }, [homeMenu]);
 
-  useEffect(() => {
-    if (postsVar.length === 0) {
-      handleTotal();
-    }
-  }, [homeMenu]);
-
-  useEffect(() => {
-    // redux 전역 데이터 관리를 쓰다보니 hydraion 에러가 나서 부득이하게 이렇게 하였음
-    setRenderPosts(
-      <Posts
-        selectedPost={
-          // slice가 Array.from 보다 더 빠름
-          postsVar.length === postsPerSize
-            ? postsVar.slice(0, postsPerSize)
-            : Array.from({ length: postsPerSize }, (_value, index) => postsVar[index])
-        }
-        setOnProgress={setOnProgress}
-      />
-    );
-  }, [postsVar]);
-
   const handleSearch = useCallback(async (url: string) => {
     setOnProgress(true);
     dispatch(setPaginationTotalNum(0));
@@ -155,6 +136,78 @@ const Home = () => {
     // 이걸 몰라서 자꾸 에러가 생겼음
     [searchTextBol, homeMenu, handleTotal]
   );
+
+  useEffect(() => {
+    // redux 전역 데이터 관리를 쓰다보니 hydraion 에러가 나서 부득이하게 이렇게 하였음
+    setRenderPosts(
+      <Posts
+        selectedPost={
+          // slice가 Array.from 보다 더 빠름
+          postsVar.length === postsPerSize
+            ? postsVar.slice(0, postsPerSize)
+            : Array.from({ length: postsPerSize }, (_value, index) => postsVar[index])
+        }
+        setOnProgress={setOnProgress}
+      />
+    );
+  }, [postsVar]);
+
+  useEffect(() => {
+    if (postsVar.length === 0) {
+      handleTotal();
+    }
+
+    setRenderSidebar(
+      <div className={styles.sidebar}>
+        <header>About Me</header>
+        <div className={styles.imgBox}>
+          <img
+            alt="sidebarImg"
+            height={30}
+            src="https://res.cloudinary.com/dewa3t2gi/image/upload/v1675172408/a1pdcxclbrvilga2cebl.gif"
+            width={30}
+          />
+          <p>Front-End, Back-End, Web Developer</p>
+          <p>Sharing My Value and Knowledge For Others</p>
+        </div>
+        <header className={styles.catHead}>
+          <div>CATEGORIES</div>
+        </header>
+        <div className={styles.categoriesBox}>
+          <button onClick={handleCatName} type="button">
+            HTML / Git
+          </button>
+          <button onClick={handleCatName} type="button">
+            CSS
+          </button>
+          <button onClick={handleCatName} type="button">
+            JavaScript
+          </button>
+          <button onClick={handleCatName} type="button">
+            Front-End
+          </button>
+          <button onClick={handleCatName} type="button">
+            Back-End
+          </button>
+          <button onClick={handleCatName} type="button">
+            TypeScript
+          </button>
+          <button onClick={handleCatName} type="button">
+            Life
+          </button>
+          <button onClick={handleCatName} type="button">
+            Book / Learn
+          </button>
+        </div>
+        <footer>FOLLOW US</footer>
+        <div className={styles.logoBox}>
+          <FacebookFilled />
+          <TwitterCircleFilled />
+          <InstagramFilled />
+        </div>
+      </div>
+    );
+  }, [homeMenu]);
 
   return (
     <div>
@@ -217,54 +270,7 @@ const Home = () => {
           ) : (
             renderPosts
           )}
-          <div className={styles.sidebar}>
-            <header>About Me</header>
-            <div className={styles.imgBox}>
-              <img
-                alt="sidebarImg"
-                height={30}
-                src="https://res.cloudinary.com/dewa3t2gi/image/upload/v1675172408/a1pdcxclbrvilga2cebl.gif"
-                width={30}
-              />
-              <p>Front-End, Back-End, Web Developer</p>
-              <p>Sharing My Value and Knowledge For Others</p>
-            </div>
-            <header className={styles.catHead}>
-              <div>CATEGORIES</div>
-            </header>
-            <div className={styles.categoriesBox}>
-              <button onClick={handleCatName} type="button">
-                HTML / Git
-              </button>
-              <button onClick={handleCatName} type="button">
-                CSS
-              </button>
-              <button onClick={handleCatName} type="button">
-                JavaScript
-              </button>
-              <button onClick={handleCatName} type="button">
-                Front-End
-              </button>
-              <button onClick={handleCatName} type="button">
-                Back-End
-              </button>
-              <button onClick={handleCatName} type="button">
-                TypeScript
-              </button>
-              <button onClick={handleCatName} type="button">
-                Life
-              </button>
-              <button onClick={handleCatName} type="button">
-                Book / Learn
-              </button>
-            </div>
-            <footer>FOLLOW US</footer>
-            <div className={styles.logoBox}>
-              <FacebookFilled />
-              <TwitterCircleFilled />
-              <InstagramFilled />
-            </div>
-          </div>
+          {renderSidebar}
         </div>
       </section>
       {paginationTotalNum !== 0 ? (
