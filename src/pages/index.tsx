@@ -8,37 +8,29 @@ import BasicPagination from '@/common/BasicPagination';
 import BasicButton from '@/common/BasicButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/sliceStore';
-import { setFalse, setTrue } from '@/redux/searchTextSlice';
-import Posts from '../components/Posts';
-import { publicRequest } from '../../config';
+import { setFalse, setTrue } from '@/redux/searchTextBolSlice';
+import { setPostsVar } from '@/redux/postsVarSlice';
+import { setPaginationTotalNum } from '@/redux/paginationTotalNumSlice';
+import { setCurrentPage } from '@/redux/currentPageNumSlice';
+import { setSearchText } from '@/redux/searchTextStringSlice';
+import { setCatName } from '@/redux/catNameSlice';
 import styles from '../styles/Home.module.scss';
-
-interface PostType {
-  _id: string;
-  __v: number;
-  updatedAt: string;
-  title: string;
-  text: string;
-  imgUrl: string;
-  createdAt: string;
-  catName: string;
-  author: string;
-}
+import { publicRequest } from '../../config';
+import Posts from '../components/Posts';
 
 const Home = () => {
-  const [postsVar, setPostsVar] = useState<PostType[]>([]);
+  // 포스트를 보고 그 해당 포스트 목파 페이지네이션으로 돌아가게끔 하기 위해 redux안에 넣음
+  const { postsVar, paginationTotalNum, currentPageNum, searchText, catName } = useSelector(
+    (state: RootState) => state
+  );
+  const dispatch = useDispatch();
+  const [renderPosts, setRenderPosts] = useState<React.ReactNode>();
   const [postsPerSize, setPostsPerSize] = useState<number>(4);
-  const [paginationTotalNum, setPaginationTotalNum] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState(1);
   const [onProgress, setOnProgress] = useState<boolean>(false);
-
-  const [searchText, setSearchText] = useState<string>('');
-  const [catName, setCatName] = useState<string>('');
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const { homeMenu } = useSelector((state: RootState) => state);
   const { searchTextBol } = useSelector((state: RootState) => state.searchTextBol);
-  const dispatch = useDispatch();
   // 만약 [searchText, catName]이 없다면 useCallback 같은 경우 한번 생성된 콜백함수를
   // 그대로 메모리에 저장해서 계속 쓰기 때문에 (새로 생성없이...) searchText, catName 이 바뀜에 따라,
   // 페이지네이션도 변해야 하는데 변하질 않게됨... why? 최초 생성된 콜백함수를 메모리에 저장해서 계속 써서
@@ -46,39 +38,39 @@ const Home = () => {
   const goToPage = useCallback(
     async (pageNum: number) => {
       if (searchText !== '') {
-        setCurrentPage(pageNum);
+        dispatch(setCurrentPage(pageNum));
         setOnProgress(true);
         const res = await publicRequest.get(`/posts?page=${pageNum}&text=${searchText}`);
         const { posts } = await res.data;
-        setPostsVar(posts);
+        dispatch(setPostsVar(posts));
 
         return setOnProgress(false);
       }
       if (catName !== '') {
-        setCurrentPage(pageNum);
+        dispatch(setCurrentPage(pageNum));
         setOnProgress(true);
         const res = await publicRequest.get(`/posts?page=${pageNum}&cat=${catName}`);
         const { posts, totalPostsCount } = await res.data;
-        setPostsVar(posts);
-        setPaginationTotalNum(totalPostsCount);
+        dispatch(setPostsVar(posts));
+        dispatch(setPaginationTotalNum(totalPostsCount));
 
         return setOnProgress(false);
       }
       if (searchText !== '' && catName !== '') {
-        setCurrentPage(pageNum);
+        dispatch(setCurrentPage(pageNum));
         setOnProgress(true);
         const res = await publicRequest.get(`/posts?page=${pageNum}&cat=${catName}&text=${searchText}`);
         const { posts, totalPostsCount } = await res.data;
-        setPostsVar(posts);
-        setPaginationTotalNum(totalPostsCount);
+        dispatch(setPostsVar(posts));
+        dispatch(setPaginationTotalNum(totalPostsCount));
 
         return setOnProgress(false);
       }
-      setCurrentPage(pageNum);
+      dispatch(setCurrentPage(pageNum));
       setOnProgress(true);
       const res = await publicRequest.get(`/posts?page=${pageNum}`);
       const { posts } = await res.data;
-      setPostsVar(posts);
+      dispatch(setPostsVar(posts));
 
       return setOnProgress(false);
     },
@@ -89,34 +81,51 @@ const Home = () => {
     setOnProgress(true);
     const res = await publicRequest.get(`/posts`);
     const { posts, totalPostsCount } = res.data;
-    setPostsVar(posts);
-    setPaginationTotalNum(totalPostsCount);
+    dispatch(setPostsVar(posts));
+    dispatch(setPaginationTotalNum(totalPostsCount));
     setPostsPerSize(4);
-    setCurrentPage(1);
+    dispatch(setCurrentPage(1));
 
     return setOnProgress(false);
   }, [homeMenu]);
 
   const handleTotal = useCallback(() => {
     dispatch(setFalse());
-    setPaginationTotalNum(0);
-    setSearchText('');
-    setCatName('');
+    dispatch(setPaginationTotalNum(0));
+    dispatch(setSearchText(''));
+    dispatch(setCatName(''));
     getPosts();
   }, [homeMenu]);
 
   useEffect(() => {
-    handleTotal();
+    if (postsVar.length === 0) {
+      handleTotal();
+    }
   }, [homeMenu]);
+
+  useEffect(() => {
+    // redux 전역 데이터 관리를 쓰다보니 hydraion 에러가 나서 부득이하게 이렇게 하였음
+    setRenderPosts(
+      <Posts
+        selectedPost={
+          // slice가 Array.from 보다 더 빠름
+          postsVar.length === postsPerSize
+            ? postsVar.slice(0, postsPerSize)
+            : Array.from({ length: postsPerSize }, (_value, index) => postsVar[index])
+        }
+        setOnProgress={setOnProgress}
+      />
+    );
+  }, [postsVar]);
 
   const handleSearch = useCallback(async (url: string) => {
     setOnProgress(true);
-    setPaginationTotalNum(0);
+    dispatch(setPaginationTotalNum(0));
     const res = await publicRequest.get(url);
     const { posts, totalPostsCount } = await res.data;
-    setPostsVar(posts);
-    setPaginationTotalNum(totalPostsCount);
-    setCurrentPage(1);
+    dispatch(setPostsVar(posts));
+    dispatch(setPaginationTotalNum(totalPostsCount));
+    dispatch(setCurrentPage(1));
     setOnProgress(false);
   }, []);
 
@@ -128,14 +137,14 @@ const Home = () => {
   };
 
   const handleCatName = useCallback(async (e: React.MouseEvent<HTMLSpanElement>) => {
-    setSearchText('');
-    setCatName(e.currentTarget.innerText);
+    dispatch(setSearchText(''));
+    dispatch(setCatName(e.currentTarget.innerText));
     handleSearch(`/posts?cat=${e.currentTarget.innerText}`);
   }, []);
 
   const handleSearchText = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSearchText(e.target.value);
+      dispatch(setSearchText(e.target.value));
       if (e.target.value === '') {
         if (searchTextBol) {
           handleTotal();
@@ -206,15 +215,7 @@ const Home = () => {
               </div>
             </div>
           ) : (
-            <Posts
-              selectedPost={
-                // slice가 Array.from 보다 더 빠름
-                postsVar.length === postsPerSize
-                  ? postsVar.slice(0, postsPerSize)
-                  : Array.from({ length: postsPerSize }, (_value, index) => postsVar[index])
-              }
-              setOnProgress={setOnProgress}
-            />
+            renderPosts
           )}
           <div className={styles.sidebar}>
             <header>About Me</header>
@@ -268,7 +269,7 @@ const Home = () => {
       </section>
       {paginationTotalNum !== 0 ? (
         <BasicPagination
-          current={currentPage}
+          current={currentPageNum}
           defaultCurrent={1}
           onChange={(changePageNum) => goToPage(changePageNum)}
           pageSize={postsPerSize}

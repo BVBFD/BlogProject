@@ -338,6 +338,7 @@ const Write = ({ post }) => {
         <form className={styles.titleImgAddBox}>
           <div className={styles.titleInputBox}>
             <div className={styles.imgFileTitleInputBox}>
+              {/* eslint-disable jsx-a11y/label-has-associated-control */}
               <label className={styles.imgFileLabel} htmlFor="imgFileInput">
                 <PictureFilled />
                 <input id="imgFileInput" onChange={selectImg} style={{ display: 'none' }} type="file" />
