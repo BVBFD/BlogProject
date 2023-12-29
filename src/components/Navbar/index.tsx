@@ -13,6 +13,11 @@ import { useRouter } from 'next/router';
 import styles from './index.module.scss';
 import LoginPopup from './LoginPopup';
 import SignupPopUp from './SignupPopup';
+import { setCatName } from '@/redux/catNameSlice';
+import { setPaginationTotalNum } from '@/redux/paginationTotalNumSlice';
+import { setPostClientY } from '@/redux/postClientYSlice';
+import { setPostsVar } from '@/redux/postsVarSlice';
+import { setSearchText } from '@/redux/searchTextStringSlice';
 
 const Navbar = () => {
   const [boolean, setBoolean] = useState<boolean>(false);
@@ -55,6 +60,11 @@ const Navbar = () => {
                 e.preventDefault();
               }
               dispatch(toggle());
+              dispatch(setPaginationTotalNum(0));
+              dispatch(setSearchText(''));
+              dispatch(setCatName(''));
+              dispatch(setPostClientY(0));
+              dispatch(setPostsVar([]));
             }}
             passHref
           >
