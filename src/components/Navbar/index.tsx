@@ -8,12 +8,13 @@ import { RootState } from '@/redux/sliceStore';
 import { logoutReduce } from '@/redux/userSlice';
 import BasicButton from '@/common/BasicButton';
 import { usePopUp } from '@/common/UsePopUp';
-import { toggle } from '@/redux/homeMemuSlice';
+
 import { useRouter } from 'next/router';
 
 import SignupPopUp from './SignupPopup';
 import LoginPopup from './LoginPopup';
 import styles from './index.module.scss';
+import { setPostsVar } from '@/redux/postsVarSlice';
 
 const Navbar = () => {
   const [boolean, setBoolean] = useState<boolean>(false);
@@ -55,7 +56,7 @@ const Navbar = () => {
               if (router.route === '/') {
                 e.preventDefault();
               }
-              dispatch(toggle());
+              dispatch(setPostsVar([]));
             }}
             passHref
           >

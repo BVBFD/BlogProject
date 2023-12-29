@@ -4,7 +4,6 @@ import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, R
 import { combineReducers } from 'redux';
 import storage from './storage';
 import userReducer from './userSlice';
-import homeMemuSlice from './homeMemuSlice';
 import searchTextBolSlice from './searchTextBolSlice';
 import postsVarSlice from './postsVarSlice';
 import paginationTotalNumSlice from './paginationTotalNumSlice';
@@ -21,7 +20,6 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: userReducer,
-  homeMenu: homeMemuSlice,
   searchTextBol: searchTextBolSlice,
   postsVar: postsVarSlice,
   paginationTotalNum: paginationTotalNumSlice,

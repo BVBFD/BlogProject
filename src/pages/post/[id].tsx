@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -12,6 +12,7 @@ import { RootState } from '../../redux/sliceStore';
 
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
+import { setPostsVar } from '@/redux/postsVarSlice';
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
   const res = await publicRequest.get(`/posts/${params.id}`);
@@ -48,6 +49,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
   const [editBtnIndex, setEditBtnIndex] = React.useState<boolean>(false);
   const { id } = router.query;
   const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
   const [onLoad, setOnLoad] = React.useState(false);
 
   const inputText = () => {
@@ -67,6 +69,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
           },
         });
         if (res.status === 204) {
+          dispatch(setPostsVar([]));
           router.push('/');
         } else if (res.status === 401) {
           window.alert(`${res.statusText} This is a private Blog. Only the Admin can edit!!`);
