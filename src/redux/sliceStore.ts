@@ -11,6 +11,7 @@ import paginationTotalNumSlice from './paginationTotalNumSlice';
 import currentPageNumSlice from './currentPageNumSlice';
 import catNameSlice from './catNameSlice';
 import searchTextStringSlice from './searchTextStringSlice';
+import postClientYSlice from './postClientYSlice';
 
 const persistConfig = {
   key: 'root',
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   currentPageNum: currentPageNumSlice,
   catName: catNameSlice,
   searchText: searchTextStringSlice,
+  postClientY: postClientYSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

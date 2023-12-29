@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import { useMemo } from 'react';
+import { useDispatch } from 'react-redux';
+import { setPostClientY } from '@/redux/postClientYSlice';
 import styles from './index.module.scss';
 
 interface PostType {
@@ -25,6 +27,7 @@ const Post = ({
   setImgShowUp: React.Dispatch<React.SetStateAction<boolean>>;
   setOnProgress: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const dispatch = useDispatch();
   const renderPage = useMemo(() => {
     return (
       <div className={styles.content}>
@@ -35,7 +38,13 @@ const Post = ({
   }, [post]);
 
   return (
-    <div className={styles.wrapper}>
+    /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
+    <div
+      className={styles.wrapper}
+      onClick={(e) => {
+        dispatch(setPostClientY(e.clientY));
+      }}
+    >
       <div className={styles.imgBox}>
         {/* loading="eager"
             페이지가 로드될 때 모든 이미지가 미리 다운로드되므로

@@ -14,18 +14,20 @@ import { setPaginationTotalNum } from '@/redux/paginationTotalNumSlice';
 import { setCurrentPage } from '@/redux/currentPageNumSlice';
 import { setSearchText } from '@/redux/searchTextStringSlice';
 import { setCatName } from '@/redux/catNameSlice';
+import { setPostClientY } from '@/redux/postClientYSlice';
 import styles from '../styles/Home.module.scss';
 import { publicRequest } from '../../config';
 import Posts from '../components/Posts';
 
 const Home = () => {
   // 포스트를 보고 그 해당 포스트 목파 페이지네이션으로 돌아가게끔 하기 위해 redux안에 넣음
-  const { postsVar, paginationTotalNum, currentPageNum, searchText, catName } = useSelector(
+  const { postsVar, paginationTotalNum, currentPageNum, searchText, catName, postClientY } = useSelector(
     (state: RootState) => state
   );
   const dispatch = useDispatch();
   const [renderPosts, setRenderPosts] = useState<React.ReactNode>();
   const [renderSidebar, setRenderSidebar] = useState<React.ReactNode>();
+  const scrollContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const [postsPerSize, setPostsPerSize] = useState<number>(4);
   const [onProgress, setOnProgress] = useState<boolean>(false);
@@ -150,6 +152,29 @@ const Home = () => {
         setOnProgress={setOnProgress}
       />
     );
+
+    const handleBeforeUnload = () => {
+      dispatch(setFalse());
+      dispatch(setPaginationTotalNum(0));
+      dispatch(setSearchText(''));
+      dispatch(setCatName(''));
+      dispatch(setPostClientY(0));
+      dispatch(setPostsVar([]));
+    };
+
+    // 블로그 사이트 둘러보고 다른 사이트 이동시 redux storage 데이터 초기화
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // index home page에서 post click시 포스트를 보고, 뒤로가기 버튼을 클릭해도 해당 y 좌표 유지하게끔 하였음
+    const handleScrollYofPostClick = () => {
+      window.scrollBy(0, postClientY);
+    };
+
+    handleScrollYofPostClick();
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
   }, [postsVar]);
 
   useEffect(() => {
@@ -210,7 +235,7 @@ const Home = () => {
   }, [homeMenu]);
 
   return (
-    <div>
+    <div ref={scrollContainerRef}>
       <Head>
         {/* SEO */}
         <title>Blog Project</title>
