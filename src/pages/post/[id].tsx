@@ -62,9 +62,9 @@ const PostPage = ({ ps }: { ps: PostType }) => {
     if (userConfirmed) {
       try {
         const res = await publicRequest.delete(`/posts/${id}`, {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          author: user.id,
+          data: {
+            author: user.id,
+          },
         });
         if (res.status === 204) {
           router.push('/');
