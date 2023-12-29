@@ -11,10 +11,10 @@ import { usePopUp } from '@/common/UsePopUp';
 
 import { useRouter } from 'next/router';
 
+import { setPostsVar } from '@/redux/postsVarSlice';
 import SignupPopUp from './SignupPopup';
 import LoginPopup from './LoginPopup';
 import styles from './index.module.scss';
-import { setPostsVar } from '@/redux/postsVarSlice';
 
 const Navbar = () => {
   const [boolean, setBoolean] = useState<boolean>(false);
