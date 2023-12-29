@@ -15,9 +15,9 @@ import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 
 import BasicButton from '@/common/BasicButton';
+import { setPostsVar } from '@/redux/postsVarSlice';
 import { publicRequest } from '../../../config';
 import styles from '../../styles/write/index.module.scss';
-import { setPostsVar } from '@/redux/postsVarSlice';
 
 const ReactQuill = dynamic(
   async () => {
