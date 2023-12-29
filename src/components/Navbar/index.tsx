@@ -51,6 +51,8 @@ const Navbar = () => {
             onClick={(e) => {
               if (router.route === '/') {
                 e.preventDefault();
+              } else if (router.route.includes('/post')) {
+                router.push('/');
               } else {
                 dispatch(setPostsVar([]));
               }

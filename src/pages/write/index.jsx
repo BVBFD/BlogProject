@@ -6,7 +6,7 @@ import Image from 'next/image';
 import PictureFilled from '@ant-design/icons/PictureFilled';
 import { Spin } from 'antd';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import hljs from 'highlight.js';
 import 'highlight.js/styles/vs2015.css';
@@ -17,6 +17,7 @@ import 'react-quill/dist/quill.bubble.css';
 import BasicButton from '@/common/BasicButton';
 import { publicRequest } from '../../../config';
 import styles from '../../styles/write/index.module.scss';
+import { setPostsVar } from '@/redux/postsVarSlice';
 
 const ReactQuill = dynamic(
   async () => {
@@ -47,6 +48,7 @@ const Write = ({ post }) => {
   const [catName, setCatName] = useState('HTML / Git');
   const user = useSelector((state) => state.user);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [imgLoad, setImgLoad] = useState(false);
 
@@ -254,6 +256,7 @@ const Write = ({ post }) => {
           }
         );
 
+        dispatch(setPostsVar([]));
         router.push(`/post/${res.data?.savedNewPost?._id}`);
       } catch (error) {
         window.alert(error);
