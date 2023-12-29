@@ -1,20 +1,16 @@
 import Link from 'next/link';
 import { CloseOutlined, GithubFilled, UnorderedListOutlined } from '@ant-design/icons';
-
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/sliceStore';
-
 import { logoutReduce } from '@/redux/userSlice';
 import BasicButton from '@/common/BasicButton';
 import { usePopUp } from '@/common/UsePopUp';
-
 import { useRouter } from 'next/router';
-
 import { setPostsVar } from '@/redux/postsVarSlice';
-import SignupPopUp from './SignupPopup';
-import LoginPopup from './LoginPopup';
 import styles from './index.module.scss';
+import LoginPopup from './LoginPopup';
+import SignupPopUp from './SignupPopup';
 
 const Navbar = () => {
   const [boolean, setBoolean] = useState<boolean>(false);
@@ -55,8 +51,9 @@ const Navbar = () => {
             onClick={(e) => {
               if (router.route === '/') {
                 e.preventDefault();
+              } else {
+                dispatch(setPostsVar([]));
               }
-              dispatch(setPostsVar([]));
             }}
             passHref
           >
