@@ -61,9 +61,10 @@ const PostPage = ({ ps }: { ps: PostType }) => {
     // 사용자가 확인을 선택한 경우에만 삭제 진행
     if (userConfirmed) {
       try {
-        const res = await publicRequest.post(`/posts/${id}`, {
-          user_id: user.id,
-          editable: user.editable,
+        const res = await publicRequest.delete(`/posts/${id}`, {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          author: user.id,
         });
         if (res.status === 204) {
           router.push('/');

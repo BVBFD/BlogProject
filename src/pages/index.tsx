@@ -33,7 +33,6 @@ const Home = () => {
   const [onProgress, setOnProgress] = useState<boolean>(false);
 
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const { homeMenu } = useSelector((state: RootState) => state);
   const { searchTextBol } = useSelector((state: RootState) => state.searchTextBol);
   // 만약 [searchText, catName]이 없다면 useCallback 같은 경우 한번 생성된 콜백함수를
   // 그대로 메모리에 저장해서 계속 쓰기 때문에 (새로 생성없이...) searchText, catName 이 바뀜에 따라,
@@ -91,7 +90,7 @@ const Home = () => {
     dispatch(setCurrentPage(1));
 
     return setOnProgress(false);
-  }, [homeMenu]);
+  }, []);
 
   const handleTotal = useCallback(() => {
     dispatch(setFalse());
@@ -99,7 +98,7 @@ const Home = () => {
     dispatch(setSearchText(''));
     dispatch(setCatName(''));
     getPosts();
-  }, [homeMenu]);
+  }, []);
 
   const handleSearch = useCallback(async (url: string) => {
     setOnProgress(true);
@@ -136,7 +135,7 @@ const Home = () => {
     },
     // useCallback으로 감싼 함수 내에서 참조하는 searchTextBol은 해당 함수가 최초로 생성될 때의 값으로 고정됩니다.
     // 이걸 몰라서 자꾸 에러가 생겼음
-    [searchTextBol, homeMenu, handleTotal]
+    [searchTextBol, handleTotal]
   );
 
   useEffect(() => {
@@ -232,7 +231,7 @@ const Home = () => {
         </div>
       </div>
     );
-  }, [homeMenu]);
+  }, []);
 
   return (
     <div ref={scrollContainerRef}>
