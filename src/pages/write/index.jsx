@@ -363,7 +363,7 @@ const Write = ({ post }) => {
                 <option value="JavaScript">JavaScript</option>
                 <option value="Front-End">Front-End</option>
                 <option value="Back-End">Back-End</option>
-                <option value="TypeScript">TypeScript</option>
+                <option value="Algorithm">Algorithm</option>
                 <option value="Life">Life</option>
                 <option value="Book / Learn">Book / Learn</option>
               </select>

@@ -214,7 +214,7 @@ const Home = () => {
             Back-End
           </button>
           <button onClick={handleCatName} type="button">
-            TypeScript
+            Algorithm
           </button>
           <button onClick={handleCatName} type="button">
             Life
