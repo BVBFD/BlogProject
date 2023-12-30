@@ -152,7 +152,16 @@ const Home = () => {
       />
     );
 
-    const handleBeforeUnload = () => {
+    // index home page에서 post click시 포스트를 보고, 뒤로가기 버튼을 클릭해도 해당 y 좌표 유지하게끔 하였음
+    const handleScrollYofPostClick = () => {
+      window.scrollBy(0, postClientY);
+    };
+
+    handleScrollYofPostClick();
+  }, [postsVar]);
+
+  useEffect(() => {
+    const handleBeforeUnloadOnload = () => {
       dispatch(setFalse());
       dispatch(setPaginationTotalNum(0));
       dispatch(setSearchText(''));
@@ -162,19 +171,12 @@ const Home = () => {
     };
 
     // 블로그 사이트 둘러보고 다른 사이트 이동시 redux storage 데이터 초기화
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    // index home page에서 post click시 포스트를 보고, 뒤로가기 버튼을 클릭해도 해당 y 좌표 유지하게끔 하였음
-    const handleScrollYofPostClick = () => {
-      window.scrollBy(0, postClientY);
-    };
-
-    handleScrollYofPostClick();
+    window.addEventListener('beforeunload', handleBeforeUnloadOnload);
 
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('beforeunload', handleBeforeUnloadOnload);
     };
-  }, [postsVar]);
+  }, []);
 
   useEffect(() => {
     if (postsVar.length === 0) {
