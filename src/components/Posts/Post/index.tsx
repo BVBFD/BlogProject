@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { setPostClientY } from '@/redux/postClientYSlice';
 import styles from './index.module.scss';
@@ -27,6 +27,7 @@ const Post = ({
   setImgShowUp: React.Dispatch<React.SetStateAction<boolean>>;
   setOnProgress: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const postRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const dispatch = useDispatch();
   const renderPage = useMemo(() => {
     return (
@@ -37,15 +38,42 @@ const Post = ({
     );
   }, [post]);
 
+  useEffect(() => {
+    const handleInteraction = (e: TouchEvent | MouseEvent) => {
+      let offsetY: number;
+
+      if ('touches' in e) {
+        // Touch event
+        offsetY = e.touches[0].pageY;
+      } else {
+        // Mouse event
+        offsetY = e.clientY;
+      }
+
+      dispatch(setPostClientY(offsetY));
+    };
+
+    const postElement = postRef.current;
+
+    if (postElement) {
+      // Add event listener for both click and touch events
+      postElement.addEventListener('click', handleInteraction);
+      postElement.addEventListener('touchstart', handleInteraction);
+
+      // Cleanup: remove event listeners on unmount
+      return () => {
+        postElement.removeEventListener('click', handleInteraction);
+        postElement.removeEventListener('touchstart', handleInteraction);
+      };
+    }
+
+    // postRef does not exist, nothing to clean up
+    return () => {};
+  }, [postRef]);
+
   return (
     /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
-    <div
-      className={styles.wrapper}
-      onClick={(e) => {
-        // post 페이지 클릭하고 해당 post dom 요소의 위쪽 y좌표를 redux storage에 저장
-        dispatch(setPostClientY(e.currentTarget.getBoundingClientRect().top));
-      }}
-    >
+    <div className={styles.wrapper} ref={postRef}>
       <div className={styles.imgBox}>
         {/* loading="eager"
             페이지가 로드될 때 모든 이미지가 미리 다운로드되므로
