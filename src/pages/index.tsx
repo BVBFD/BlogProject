@@ -171,9 +171,11 @@ const Home = () => {
     };
 
     // 블로그 사이트 둘러보고 다른 사이트 이동시 redux storage 데이터 초기화
+    window.addEventListener('unload', handleBeforeUnloadOnload);
     window.addEventListener('beforeunload', handleBeforeUnloadOnload);
 
     return () => {
+      window.removeEventListener('unload', handleBeforeUnloadOnload);
       window.removeEventListener('beforeunload', handleBeforeUnloadOnload);
     };
   }, []);
