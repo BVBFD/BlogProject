@@ -42,7 +42,8 @@ const Post = ({
     <div
       className={styles.wrapper}
       onClick={(e) => {
-        dispatch(setPostClientY(e.clientY));
+        // post 페이지 클릭하고 해당 post dom 요소의 위쪽 y좌표를 redux storage에 저장
+        dispatch(setPostClientY(e.currentTarget.getBoundingClientRect().top));
       }}
     >
       <div className={styles.imgBox}>
