@@ -42,17 +42,11 @@ const Post = ({
     let eventBol = true;
 
     const handleClickEvent = (e: MouseEvent) => {
-      if (eventBol) {
-        // 현재 모바일 스크린의 높이
-        const screenHeight = window.innerHeight;
-        // 모바일 스크린 높이의 반
-        const centerY = screenHeight / 2;
-        const adjustedPageY = e.offsetY + centerY;
-
-        dispatch(setPostClientY(adjustedPageY));
+      if (eventBol && e.currentTarget instanceof Element) {
+        const boundingClientRect = e.currentTarget.getBoundingClientRect();
+        dispatch(setPostClientY(boundingClientRect.top));
       }
 
-      // Add a return statement to satisfy ESLint
       return undefined;
     };
 
@@ -70,18 +64,15 @@ const Post = ({
       }
 
       eventBol = false;
-      // Add a return statement to satisfy ESLint
       return undefined;
     };
 
     const postElement = postRef.current;
 
     if (postElement) {
-      // Add event listener for both click and touch events
       postElement.addEventListener('click', handleClickEvent);
       postElement.addEventListener('touchstart', handleTouchEvent);
 
-      // Cleanup: remove event listeners on unmount
       return () => {
         postElement.removeEventListener('click', handleClickEvent);
         postElement.removeEventListener('touchstart', handleTouchEvent);
