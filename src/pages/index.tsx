@@ -187,7 +187,7 @@ const Home = () => {
   useEffect(() => {
     setTimeout(() => {
       window.scrollTo({ top: postClientY, behavior: 'auto' as ScrollBehavior });
-    }, 20);
+    }, 30);
   }, []);
 
   useEffect(() => {
