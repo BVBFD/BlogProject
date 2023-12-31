@@ -186,8 +186,8 @@ const Home = () => {
   // setTimeout을 사용하여 일정 시간을 지연
   useEffect(() => {
     setTimeout(() => {
-      window.scrollTo({ top: postClientY, behavior: 'instant' as ScrollBehavior });
-    }, 200);
+      window.scrollTo({ top: postClientY, behavior: 'auto' as ScrollBehavior });
+    }, 20);
   }, []);
 
   useEffect(() => {
