@@ -8,6 +8,7 @@ import BasicButton from '@/common/BasicButton';
 import { usePopUp } from '@/common/UsePopUp';
 import { useRouter } from 'next/router';
 import { setPostsVar } from '@/redux/postsVarSlice';
+import { setPostClientY } from '@/redux/postClientYSlice';
 import styles from './index.module.scss';
 import LoginPopup from './LoginPopup';
 import SignupPopUp from './SignupPopup';
@@ -55,6 +56,7 @@ const Navbar = () => {
                 router.push('/');
               } else {
                 dispatch(setPostsVar([]));
+                dispatch(setPostClientY(0));
               }
             }}
             passHref

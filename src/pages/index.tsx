@@ -180,6 +180,16 @@ const Home = () => {
     };
   }, []);
 
+  // window.scrollTo 등의 DOM 조작은 브라우저가
+  // 현재 렌더링 중인 작업을 완료한 후에
+  // 실행되는 것이 안정적으로 동작하기 위해서입니다.
+  // setTimeout을 사용하여 일정 시간을 지연
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({ top: postClientY, behavior: 'instant' });
+    }, 200);
+  }, []);
+
   useEffect(() => {
     if (postsVar.length === 0) {
       handleTotal();
