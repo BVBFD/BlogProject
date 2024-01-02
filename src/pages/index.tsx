@@ -18,6 +18,7 @@ import { setPostClientY } from '@/redux/postClientYSlice';
 import styles from '../styles/Home.module.scss';
 import { publicRequest } from '../../config';
 import Posts from '../components/Posts';
+import Image from 'next/image';
 
 const Home = () => {
   // 포스트를 보고 그 해당 포스트 목파 페이지네이션으로 돌아가게끔 하기 위해 redux안에 넣음
@@ -199,14 +200,7 @@ const Home = () => {
       <div className={styles.sidebar}>
         <header>About Me</header>
         <div className={styles.imgBox}>
-          <img
-            alt="sidebarImg"
-            height={30}
-            src="https://res.cloudinary.com/dewa3t2gi/image/upload/v1675172408/a1pdcxclbrvilga2cebl.gif"
-            width={30}
-          />
-          <p>Front-End, Back-End, Web Developer</p>
-          <p>Sharing My Value and Knowledge For Others</p>
+          <Image src={'/imgs/blog-image.png'} objectFit="cover" fill alt="blog-sidebar-image" />
         </div>
         <header className={styles.catHead}>
           <div>CATEGORIES</div>

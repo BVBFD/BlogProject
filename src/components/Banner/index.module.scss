@@ -1,7 +1,21 @@
 .bannerBox {
   width: 100%;
+  background: #eeeeee;
+  filter: sepia(0.4);
 
   img {
     width: 100%;
+    height: 60vh;
+    object-fit: comparable(1, 2);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  /* 1025px - 1200px - Desktops, large screens */
+  .bannerBox {
+    img {
+      height: unset;
+      object-fit: comparable(1, 2);
+    }
   }
 }
