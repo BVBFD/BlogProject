@@ -200,7 +200,7 @@ const Home = () => {
       <div className={styles.sidebar}>
         <header>About Me</header>
         <div className={styles.imgBox}>
-          <Image alt="blog-sidebar-image" fill objectFit="cover" quality={1} src="/imgs/blog-image.png" />
+          <Image alt="blog-sidebar-image" fill objectFit="cover" quality={1} src="/imgs/sidebar-image.png" />
         </div>
         <header className={styles.catHead}>
           <div>CATEGORIES</div>
