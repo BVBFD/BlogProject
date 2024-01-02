@@ -15,10 +15,10 @@ import { setCurrentPage } from '@/redux/currentPageNumSlice';
 import { setSearchText } from '@/redux/searchTextStringSlice';
 import { setCatName } from '@/redux/catNameSlice';
 import { setPostClientY } from '@/redux/postClientYSlice';
+import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
 import { publicRequest } from '../../config';
 import Posts from '../components/Posts';
-import Image from 'next/image';
 
 const Home = () => {
   // 포스트를 보고 그 해당 포스트 목파 페이지네이션으로 돌아가게끔 하기 위해 redux안에 넣음
@@ -200,7 +200,7 @@ const Home = () => {
       <div className={styles.sidebar}>
         <header>About Me</header>
         <div className={styles.imgBox}>
-          <Image src={'/imgs/blog-image.png'} objectFit="cover" fill alt="blog-sidebar-image" />
+          <Image alt="blog-sidebar-image" fill objectFit="cover" src="/imgs/blog-image.png" />
         </div>
         <header className={styles.catHead}>
           <div>CATEGORIES</div>
