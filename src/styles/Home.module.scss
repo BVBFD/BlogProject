@@ -164,6 +164,11 @@
 }
 
 @media screen and (max-width: 1024px) {
+  .homeIndexContainer {
+    background: linear-gradient(rgb(255, 238, 202, 0.05), rgb(251, 227, 218, 0.2));
+    padding: 0 1rem;
+  }
+
   /* 769px - 1024px - laptops, small screens */
   .homeSec {
     :global(.ant-pagination) {
