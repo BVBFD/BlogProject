@@ -4,15 +4,7 @@ import styles from './index.module.scss';
 const Banner = () => {
   return (
     <div className={styles.bannerBox}>
-      <Image
-        alt="banner"
-        fetchPriority="high"
-        height={1}
-        loading="lazy"
-        quality={15}
-        src="/imgs/banner.png"
-        width={1920}
-      />
+      <Image alt="banner" fetchPriority="high" fill loading="lazy" quality={5} src="/imgs/banner.png" />
     </div>
   );
 };

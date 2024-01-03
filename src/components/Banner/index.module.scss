@@ -1,11 +1,9 @@
 .bannerBox {
-  img {
-    height: 60vh;
-    object-fit: comparable(1, 2);
-  }
+  position: relative;
+  height: 60vh;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1024px) {
   /* 1025px - 1200px - Desktops, large screens */
   .bannerBox {
     display: none;
