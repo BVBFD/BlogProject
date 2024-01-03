@@ -43,8 +43,9 @@ const Post = ({
 
     const handleClickEvent = (e: MouseEvent) => {
       if (eventBol && e.currentTarget instanceof Element) {
-        const boundingClientRect = e.currentTarget.getBoundingClientRect();
-        dispatch(setPostClientY(boundingClientRect.top));
+        const { top, bottom } = e.currentTarget.getBoundingClientRect();
+        const half = (bottom - top) / 2;
+        dispatch(setPostClientY(top + half));
       }
 
       return undefined;
