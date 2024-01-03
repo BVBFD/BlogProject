@@ -97,8 +97,8 @@ const Post = ({
         <Image
           alt="postImg"
           crossOrigin="anonymous"
-          fill
           fetchPriority="high"
+          fill
           loading="lazy"
           objectFit="contain"
           onLoad={() => {
