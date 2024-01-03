@@ -16,6 +16,7 @@ import 'react-quill/dist/quill.bubble.css';
 
 import BasicButton from '@/common/BasicButton';
 import { setPostsVar } from '@/redux/postsVarSlice';
+import { setPaginationTotalNum } from '@/redux/paginationTotalNumSlice';
 import { publicRequest } from '../../../config';
 import styles from '../../styles/write/index.module.scss';
 
@@ -32,6 +33,7 @@ const ReactQuill = dynamic(
 );
 
 const Write = ({ post }) => {
+  const { currentPageNum, searchText: searchTextRedux, catName: catNameRedux } = useSelector((state) => state);
   const [value, setValue] = useState(post?.text);
   const [isFetching, setIsFetching] = useState(false);
   const editorRef = useRef();
@@ -281,6 +283,14 @@ const Write = ({ post }) => {
         if (res.status === 201) {
           // eslint-disable-next-line @typescript-eslint/naming-convention
           const { _id } = res.data;
+
+          const responseAfterEdit = await publicRequest.get(
+            `/posts?page=${currentPageNum}&cat=${catNameRedux}&text=${searchTextRedux}`
+          );
+          const { posts, totalPostsCount } = await responseAfterEdit.data;
+          dispatch(setPostsVar(posts));
+          dispatch(setPaginationTotalNum(totalPostsCount));
+
           window.location.reload(`/post/${_id}`);
         } else if (res.status === 401) {
           window.alert(`${res.statusText} This is private Blog. Onle The Admin can edit!!`);
