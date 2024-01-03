@@ -1,6 +1,14 @@
 .bannerBox {
-  position: relative;
-  height: 60vh;
+  padding: 1rem 0;
+
+  .imgBox {
+    position: relative;
+    height: 60vh;
+
+    img {
+      border-radius: 1rem;
+    }
+  }
 }
 
 @media screen and (max-width: 1024px) {
