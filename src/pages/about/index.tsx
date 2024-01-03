@@ -11,10 +11,9 @@ interface AboutPropsType {
 const About = ({ ps }: AboutPropsType) => {
   return (
     <section className={styles.about}>
-      <header className={styles.pageTitle}>About</header>
       <div className={styles.aboutIntroBox}>
         <div className={styles.imgBox}>
-          <img alt="" height={300} src="/imgs/contact.gif" width={300} />
+          <img alt="" height={300} src="/imgs/blog-image-3.png" width={300} />
         </div>
         <div className={styles.aboutExplainBox}>
           <header>This Blog is ...</header>

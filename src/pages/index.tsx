@@ -242,7 +242,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div ref={scrollContainerRef}>
+    <div ref={scrollContainerRef} className={styles.homeIndexContainer}>
       <Head>
         {/* SEO */}
         <title>Blog Project</title>

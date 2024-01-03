@@ -1,6 +1,6 @@
 .about {
   background: linear-gradient(rgb(153, 153, 153, 0.5), rgb(153, 153, 153, 0.5)),
-    url('../../../public/imgs/gallery-10.jpg');
+    url('../../../public/imgs/blog-image-4.png');
   background-size: cover;
   background-position: center;
   min-height: 100vh;
@@ -9,34 +9,30 @@
   align-items: center;
   flex-direction: column;
 
-  .pageTitle {
-    font-size: 6rem;
-    margin-bottom: 2rem;
-    font-weight: bolder;
-    color: white;
-  }
-
   .aboutIntroBox {
     display: flex;
     flex-direction: row;
     width: 60%;
     border: 1px solid gainsboro;
     color: #fff;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(60px);
     position: relative;
+    border-radius: 1rem;
 
     .imgBox {
       flex: 5;
+      padding: 1rem;
 
       img {
         height: 100%;
         object-fit: cover;
+        border-radius: 1rem;
       }
     }
 
     .aboutExplainBox {
-      flex: 5;
-      padding: 0.8rem;
+      flex: 6;
+      padding: 1rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -87,6 +83,7 @@
   /* 1025px - 1200px - Desktops, large screens */
   .about {
     padding: 4rem 0;
+    background-size: contain;
   }
 
   .about .pageTitle {
@@ -106,6 +103,7 @@
     bottom: 0;
     right: 0;
     margin-top: 2rem;
+    font-size: 1rem;
   }
 }
 
