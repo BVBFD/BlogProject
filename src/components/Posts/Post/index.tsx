@@ -98,14 +98,14 @@ const Post = ({
           alt="postImg"
           crossOrigin="anonymous"
           fill
-          loading="eager"
+          fetchPriority="high"
+          loading="lazy"
           objectFit="contain"
           onLoad={() => {
             setImgShowUp(true);
             setOnProgress(false);
           }}
           onLoadStart={() => setOnProgress(true)}
-          priority
           quality={1}
           src={post.imgUrl}
         />
