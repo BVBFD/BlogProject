@@ -29,7 +29,6 @@ const LoginDatasSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Check if the model already exists
 const LoginDatas = mongoose.models.LoginDatas || mongoose.model('LoginDatas', LoginDatasSchema);
 
 export default LoginDatas;

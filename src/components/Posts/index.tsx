@@ -30,12 +30,6 @@ const Posts = ({
         post ? (
           <Link
             href={{
-              // pathname: `/post/${post.title
-              //   .replace('/', '!!')
-              //   .replace('?', '!!')}`,
-              // query: {
-              //   id: post._id,
-              // },
               pathname: `/post/${post._id}`,
             }}
             key={post._id}

@@ -9,10 +9,6 @@ const PopUpContext = React.createContext<PopUpContextValueType>({
 const PopUpProvider = ({ children }: PopUpProviderPropsType) => {
   const [openPopUp, setOpenPopUp] = useState<React.ReactNode>();
 
-  //   contextAPI에 등록된 value가 매번 렌더링 될때마다 객체가 생성되고
-  //   이렇게 불필요하게 렌더링이 되니깐,
-  //   해당 참조값이 변경이 되어 또 렌더링이 일어나는 성능저하,
-  //   메모리 누수 문제가 발생
   const providerValue = useMemo(() => {
     return {
       showPopUp: (popUp: JSX.Element) => {

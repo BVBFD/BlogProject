@@ -6,12 +6,6 @@ async function cleanupAndRespond(res, statusCode, data) {
   return res.status(statusCode).json(data);
 }
 
-// export async function getData(id) {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}/posts/${id}`);
-//   const ps = await res.json();
-//   return ps;
-// }
-
 export default async function handler(req, res) {
   const {
     method,

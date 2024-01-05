@@ -52,8 +52,6 @@ const Write = ({ post }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const [imgLoad, setImgLoad] = useState(false);
-
   const check = () => {
     if (editorRef.current) {
       return editorRef.current;
@@ -310,103 +308,92 @@ const Write = ({ post }) => {
     return () => {
       setFirstSubmit(true);
       setCatName('HTML / Git');
-      setImgLoad(false);
     };
   }, []);
 
   return (
     <section className={styles.write}>
       {!isFetching ? (
-        <div
-          className={styles.titleImgBox}
-          style={imgLoad ? { backgroundColor: '#e4e4e4' } : { backgroundColor: 'unset' }}
-        >
-          {titleImg ? (
-            <Image
-              alt=""
-              crossOrigin="anonymous"
-              fill
-              objectFit="contain"
-              onLoad={() => setImgLoad(true)}
-              quality={20}
-              /* eslint-disable no-nested-ternary */
-              src={id ? (!writePageImgURL ? `${post.imgUrl}` : `${writePageImgURL}`) : `${writePageImgURL}`}
+        <div>
+          <div className={styles.titleImgBox}>
+            {titleImg ? (
+              <Image
+                alt=""
+                crossOrigin="anonymous"
+                fill
+                objectFit="contain"
+                quality={5}
+                /* eslint-disable no-nested-ternary */
+                src={id ? (!writePageImgURL ? `${post.imgUrl}` : `${writePageImgURL}`) : `${writePageImgURL}`}
+              />
+            ) : (
+              <Image
+                alt=""
+                crossOrigin="anonymous"
+                fill
+                objectFit="contain"
+                quality={1}
+                src="https://res.cloudinary.com/dewa3t2gi/image/upload/v1675150372/omlojqzvdujpd3hhtpap.png"
+              />
+            )}
+          </div>
+          <form className={styles.titleImgAddBox}>
+            <div className={styles.titleInputBox}>
+              <div className={styles.imgFileTitleInputBox}>
+                {/* eslint-disable jsx-a11y/label-has-associated-control */}
+                <label className={styles.imgFileLabel} htmlFor="imgFileInput">
+                  <PictureFilled />
+                  <input id="imgFileInput" onChange={selectImg} style={{ display: 'none' }} type="file" />
+                </label>
+                <input
+                  className={styles.titleInput}
+                  defaultValue={!post ? '' : post.title}
+                  onChange={(e) => setPostTitle(e.target.value)}
+                  placeholder="Title"
+                  type="text"
+                />
+              </div>
+              <div className={styles.catnameUploadBox}>
+                <select
+                  className={styles.selectCategory}
+                  defaultValue={!post ? 'HTML / Git' : post.catName}
+                  name="Category"
+                  onChange={(e) => setCatName(e.target.value)}
+                >
+                  <option value="HTML / Git">HTML / Git</option>
+                  <option value="CSS">CSS</option>
+                  <option value="JavaScript">JavaScript</option>
+                  <option value="Front-End">Front-End</option>
+                  <option value="Back-End">Back-End</option>
+                  <option value="Algorithm">Algorithm</option>
+                  <option value="Life">Life</option>
+                  <option value="Book / Learn">Book / Learn</option>
+                </select>
+                <BasicButton
+                  BasicButtonType="medium"
+                  className={styles.uploadBtn}
+                  disabled={!firstSubmit}
+                  onClick={!id ? handleSubmit : handleEdit}
+                >
+                  Upload
+                </BasicButton>
+              </div>
+            </div>
+            <ReactQuill
+              defaultValue={!post?.text ? '' : post.text}
+              formats={formats}
+              forwardedRef={editorRef}
+              modules={modules}
+              onChange={setValue}
+              style={{ width: '100%', height: '90vh' }}
+              theme="snow"
             />
-          ) : (
-            <Image
-              alt=""
-              crossOrigin="anonymous"
-              fill
-              objectFit="contain"
-              onLoad={() => setImgLoad(true)}
-              quality={20}
-              src="https://res.cloudinary.com/dewa3t2gi/image/upload/v1675150372/omlojqzvdujpd3hhtpap.png"
-            />
-          )}
+          </form>
         </div>
       ) : (
-        <div />
-      )}
-      {imgLoad && (
-        <form className={styles.titleImgAddBox}>
-          <div className={styles.titleInputBox}>
-            <div className={styles.imgFileTitleInputBox}>
-              {/* eslint-disable jsx-a11y/label-has-associated-control */}
-              <label className={styles.imgFileLabel} htmlFor="imgFileInput">
-                <PictureFilled />
-                <input id="imgFileInput" onChange={selectImg} style={{ display: 'none' }} type="file" />
-              </label>
-              <input
-                className={styles.titleInput}
-                defaultValue={!post ? '' : post.title}
-                onChange={(e) => setPostTitle(e.target.value)}
-                placeholder="Title"
-                type="text"
-              />
-            </div>
-            <div className={styles.catnameUploadBox}>
-              <select
-                className={styles.selectCategory}
-                defaultValue={!post ? 'HTML / Git' : post.catName}
-                name="Category"
-                onChange={(e) => setCatName(e.target.value)}
-              >
-                <option value="HTML / Git">HTML / Git</option>
-                <option value="CSS">CSS</option>
-                <option value="JavaScript">JavaScript</option>
-                <option value="Front-End">Front-End</option>
-                <option value="Back-End">Back-End</option>
-                <option value="Algorithm">Algorithm</option>
-                <option value="Life">Life</option>
-                <option value="Book / Learn">Book / Learn</option>
-              </select>
-              <BasicButton
-                BasicButtonType="medium"
-                className={styles.uploadBtn}
-                disabled={!firstSubmit}
-                onClick={!id ? handleSubmit : handleEdit}
-              >
-                Upload
-              </BasicButton>
-            </div>
-          </div>
-          <ReactQuill
-            defaultValue={!post?.text ? '' : post.text}
-            formats={formats}
-            forwardedRef={editorRef}
-            modules={modules}
-            onChange={setValue}
-            style={{ width: '100%', height: '90vh' }}
-            theme="snow"
-          />
-          {!isFetching ? (
-            ''
-          ) : (
-            <div className={styles.loader}>
-              <Spin />
-            </div>
-          )}
-        </form>
+        <div className={styles.loader}>
+          <Spin />
+        </div>
       )}
     </section>
   );

@@ -29,8 +29,6 @@ const postDatasSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Check if the model already exists
 const PostDatas = mongoose.models.PostDatas || mongoose.model('PostDatas', postDatasSchema);
 
-// Export the model
 export default PostDatas;

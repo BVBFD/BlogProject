@@ -5,7 +5,6 @@
 
 .postPage .postBox * {
   overflow-x: scroll;
-  /* when you want to add x-overflow-scroll in code block pre tag */
 }
 
 .postPage .postBox *::-webkit-scrollbar {
@@ -115,20 +114,7 @@
   color: white;
   padding: 1rem;
   font: message-box;
-  /* white-space: pre-wrap; */
-  /* when you want to auto-change line in code block pre tag */
 }
-
-/* .postPage
-      .postBox
-      .postImgTextBox
-      .postTextBox
-      .postContentText
-      p:nth-child(1)::first-letter {
-      font-size: 1.8rem;
-      font-weight: bolder;
-      color: #666;
-    } */
 
 .postPage .postBox .postImgTextBox .postTextBox .postContentText a img {
   width: 500px;
@@ -191,10 +177,6 @@
 
   .postPage .postBox .postImgTextBox .postTextBox .postContentText a img {
     width: 100%;
-  }
-
-  .postPage .postBox .postImgTextBox .postTextBox .postContentText pre {
-    /* padding: 0.5rem 0.2rem; */
   }
 }
 

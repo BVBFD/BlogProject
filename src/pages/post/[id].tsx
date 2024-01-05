@@ -8,7 +8,6 @@ import EditFilled from '@ant-design/icons/EditFilled';
 import { Spin } from 'antd';
 import { setPostsVar } from '@/redux/postsVarSlice';
 import { publicRequest } from '../../../config';
-// import { getData } from '../api/posts/[id]';
 import { RootState } from '../../redux/sliceStore';
 
 import styles from '../../styles/post/index.module.scss';
@@ -17,9 +16,6 @@ import 'highlight.js/styles/vs2015.css';
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
   const res = await publicRequest.get(`/posts/${params.id}`);
   const ps = res.data;
-  // const ps = await getData(params.id);
-  // const res = await fetch(`${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}/posts/${params.id}?meta=true`);
-  // const ps = await res.json();
 
   return {
     props: {
@@ -41,10 +37,7 @@ interface PostType {
 }
 
 const PostPage = ({ ps }: { ps: PostType }) => {
-  // const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const router = useRouter();
-  // const { data } = useSWR(`/posts/${router.query.id}`, fetcher);
-  // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
   const Write = React.lazy(() => import('../write'));
   const [editBtnIndex, setEditBtnIndex] = React.useState<boolean>(false);
   const { id } = router.query;
@@ -57,10 +50,8 @@ const PostPage = ({ ps }: { ps: PostType }) => {
   };
 
   const deletePost = React.useCallback(async () => {
-    // 확인 다이얼로그 표시
     const userConfirmed = window.confirm('정말로 삭제하시겠습니까?');
 
-    // 사용자가 확인을 선택한 경우에만 삭제 진행
     if (userConfirmed) {
       try {
         const res = await publicRequest.delete(`/posts/${id}`, {
@@ -152,35 +143,18 @@ const PostPage = ({ ps }: { ps: PostType }) => {
           )}
         </section>
       ) : (
-        // 초기 렌더링에서 필요하지 않은 무거운 컴포넌트에 대해 동적 임포트를 사용.
-        <React.Suspense fallback={<div />}>{editBtnIndex && <Write post={ps} />}</React.Suspense>
+        <React.Suspense
+          fallback={
+            <div className={styles.circularBox}>
+              <Spin />
+            </div>
+          }
+        >
+          {editBtnIndex && <Write post={ps} />}
+        </React.Suspense>
       )}
     </>
   );
 };
 
 export default PostPage;
-
-// export const getStaticPaths = async () => {
-//   const res = await publicRequest.get(`/posts`);
-//   const posts = res.data;
-
-//   const paths = posts.map((post: any) => ({
-//     params: {
-//       id: post._id,
-//     },
-//   }));
-
-//   return { paths, fallback: true };
-// };
-
-// export const getStaticProps = async ({ params }: any) => {
-//   const res = await publicRequest.get(`/posts/${params.id}`);
-//   const ps = res.data;
-
-//   return {
-//     props: {
-//       ps,
-//     },
-//   };
-// };
