@@ -26,18 +26,14 @@ const Navbar = () => {
   const onLogout = async (event: React.MouseEvent) => {
     event.preventDefault();
     try {
-      const res = await publicRequest.post(`/loginDatas/logout`, {
+      await publicRequest.post(`/loginDatas/logout`, {
         userId: id,
       });
-      if (res.status === 200 && res.statusText === 'OK') {
-        dispatch(logoutReduce());
-      }
-
-      if (res.status === 244 && res.data.message === 'Access forbidden, invalid refreshToken') {
-        dispatch(logoutReduce());
-      }
+      dispatch(logoutReduce());
     } catch (error) {
-      window.alert(error);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      window.alert(error.response.data.message);
     }
   };
 

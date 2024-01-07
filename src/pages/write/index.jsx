@@ -93,7 +93,8 @@ const Write = ({ post }) => {
         editor.setSelection(range.index + 1);
         setIsFetching(false);
       } catch (error) {
-        window.alert('Fail!!');
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        window.alert(error.response.data.message);
         setIsFetching(false);
       }
     });
@@ -135,8 +136,8 @@ const Write = ({ post }) => {
   //       // `<video controls src="${VID_URL}" crossorigin />`;
 
   //       setIsFetching(false);
-  //     } catch (error) {
-  //       window.alert('Fail!!');
+  //     } catch (erroror) {
+  //       window.alert(error.response.data.messageFail!!');
   //       setIsFetching(false);
   //     }
   //   });
@@ -223,8 +224,9 @@ const Write = ({ post }) => {
         const updatedPicURL = result.data;
         setWritePageImgURL(updatedPicURL);
         setIsFetching(false);
-      } catch (err) {
-        window.alert(err);
+      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        window.alert(error.response.data.message);
         setIsFetching(false);
       }
     }
@@ -235,11 +237,11 @@ const Write = ({ post }) => {
     if (firstSubmit) {
       setFirstSubmit(false);
 
-      if (user.id !== 'lse126' || !user.editable) {
-        window.alert('This is private Blog. Onle The Admin can edit!!');
-        setFirstSubmit(true);
-        return;
-      }
+      // if (user.id !== 'lse126' || !user.editable) {
+      //   window.alert('This is private Blog. Onle The Admin can edit!!');
+      //   setFirstSubmit(true);
+      //   return;
+      // }
 
       try {
         const res = await publicRequest.post(
@@ -267,7 +269,8 @@ const Write = ({ post }) => {
           router.push(`/post/${res.data?.savedNewPost?._id}`);
         }
       } catch (error) {
-        window.alert(error);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        window.alert(error.response.data.message);
       }
     }
   };
@@ -311,7 +314,8 @@ const Write = ({ post }) => {
           setFirstSubmit(true);
         }
       } catch (error) {
-        window.alert(error);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        window.alert(error.response.data.message);
       }
     }
   };

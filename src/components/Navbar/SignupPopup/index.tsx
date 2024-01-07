@@ -42,10 +42,12 @@ const SignupPopUp = () => {
           email: res.data.data.email,
         })
       );
+      setLoginSuccess(true);
     } catch (error) {
-      window.alert(error);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      window.alert(error.response.data.message);
     }
-    setLoginSuccess(true);
   };
 
   if (loginSuccess) {

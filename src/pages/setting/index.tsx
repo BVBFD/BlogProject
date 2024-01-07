@@ -31,9 +31,12 @@ const Setting = () => {
         const updatedPicURL = result.data;
         setNewProfileImgURL(updatedPicURL);
         setIsFetching(false);
-      } catch (err) {
+      } catch (error) {
         setIsFetching(false);
-        window.alert(err);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        window.alert(error.response.data.message);
       }
     }
   };
@@ -75,8 +78,11 @@ const Setting = () => {
       }
 
       router.push('/');
-    } catch (err) {
-      window.alert(err);
+    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      window.alert(error.response.data.message);
     }
   };
 
@@ -85,8 +91,11 @@ const Setting = () => {
       await publicRequest.delete(`/loginDatas/delete?userId=${id}`);
       dispatch(logoutReduce());
       router.push('/');
-    } catch (err) {
-      window.alert(err);
+    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      window.alert(error.response.data.message);
     }
   };
 

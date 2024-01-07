@@ -73,8 +73,10 @@ const PostPage = ({ ps }: { ps: PostType }) => {
           window.alert('로그인 ID 유효기간이 만료되었습니다. 다시 로그인 해주세요!!');
           dispatch(logoutReduce());
         }
-      } catch (err) {
-        window.alert(err);
+      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        window.alert(error.response.data.message);
       }
     } else {
       window.alert('삭제가 취소되었습니다.');

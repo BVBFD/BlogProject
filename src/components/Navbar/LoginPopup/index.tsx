@@ -33,7 +33,9 @@ const LoginPopup = () => {
 
       closePopUp();
     } catch (error) {
-      window.alert(error);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      window.alert(error.response.data.message);
     }
   };
 
