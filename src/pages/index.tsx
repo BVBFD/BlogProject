@@ -121,7 +121,7 @@ const Home = () => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       dispatch(setSearchText(e.target.value));
       if (e.target.value === '') {
-        if (searchTextBol) {
+        if (searchTextBol.searchTextBol) {
           handleTotal();
         }
       }
@@ -189,32 +189,28 @@ const Home = () => {
       </Head>
       <Banner />
       <div className={styles.totalSearchBox}>
+        {catName === '' && (
+          <>
+            <input
+              className={styles.searchInput}
+              onChange={handleSearchText}
+              placeholder="Searching Posts..."
+              ref={searchInputRef}
+              type="text"
+              value={searchText}
+            />
+            <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleKeywordSearch}>
+              Keyword Search (키워드 검색)
+            </BasicButton>
+          </>
+        )}
         {(searchText !== '' || catName !== '') && (
           <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
             SEE TOTAL POSTS (전체 포스트 보기)
           </BasicButton>
         )}
-        {catName === '' && (
-          <input
-            className={styles.searchInput}
-            onChange={handleSearchText}
-            placeholder="Searching Posts..."
-            ref={searchInputRef}
-            type="text"
-            value={searchText}
-          />
-        )}
-        {searchText !== '' && (
-          <>
-            <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleKeywordSearch}>
-              Keyword Search (키워드 검색)
-            </BasicButton>
-            <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
-              SEE TOTAL POSTS (전체 포스트 보기)
-            </BasicButton>
-          </>
-        )}
       </div>
+
       <section className={styles.homeSec}>
         <div className={styles.container}>
           {onProgress ? (
