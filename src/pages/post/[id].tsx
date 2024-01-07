@@ -7,12 +7,12 @@ import DeleteFilled from '@ant-design/icons/DeleteFilled';
 import EditFilled from '@ant-design/icons/EditFilled';
 import { Spin } from 'antd';
 import { setPostsVar } from '@/redux/postsVarSlice';
+import { logoutReduce } from '@/redux/userSlice';
 import { publicRequest } from '../../../config';
 import { RootState } from '../../redux/sliceStore';
 
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
-import { logoutReduce } from '@/redux/userSlice';
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
   const res = await publicRequest.get(`/posts/${params.id}`);
