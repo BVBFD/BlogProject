@@ -12,6 +12,7 @@ import { RootState } from '../../redux/sliceStore';
 
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
+import { logoutReduce } from '@/redux/userSlice';
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
   const res = await publicRequest.get(`/posts/${params.id}`);
@@ -62,8 +63,15 @@ const PostPage = ({ ps }: { ps: PostType }) => {
         if (res.status === 204) {
           dispatch(setPostsVar([]));
           router.push('/');
-        } else if (res.status === 401) {
+        }
+
+        if (res.status === 401) {
           window.alert(`${res.statusText} This is a private Blog. Only the Admin can edit!!`);
+        }
+
+        if (res.status === 244 && res.data.message === 'Access forbidden, invalid refreshToken') {
+          window.alert('로그인 ID 유효기간이 만료되었습니다. 다시 로그인 해주세요!!');
+          dispatch(logoutReduce());
         }
       } catch (err) {
         window.alert(err);

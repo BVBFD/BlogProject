@@ -12,6 +12,7 @@ import { setPostClientY } from '@/redux/postClientYSlice';
 import styles from './index.module.scss';
 import LoginPopup from './LoginPopup';
 import SignupPopUp from './SignupPopup';
+import { publicRequest } from '../../../config';
 
 const Navbar = () => {
   const [boolean, setBoolean] = useState<boolean>(false);
@@ -22,9 +23,22 @@ const Navbar = () => {
   const { showPopUp } = usePopUp();
   const router = useRouter();
 
-  const onLogout = (event: React.MouseEvent) => {
+  const onLogout = async (event: React.MouseEvent) => {
     event.preventDefault();
-    dispatch(logoutReduce());
+    try {
+      const res = await publicRequest.post(`/loginDatas/logout`, {
+        userId: id,
+      });
+      if (res.status === 200 && res.statusText === 'OK') {
+        dispatch(logoutReduce());
+      }
+
+      if (res.status === 244 && res.data.message === 'Access forbidden, invalid refreshToken') {
+        dispatch(logoutReduce());
+      }
+    } catch (error) {
+      window.alert(error);
+    }
   };
 
   const handleLogin = () => {

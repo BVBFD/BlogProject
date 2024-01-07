@@ -7,6 +7,7 @@ import PictureFilled from '@ant-design/icons/PictureFilled';
 import { Spin } from 'antd';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
+import { logoutReduce } from '@/redux/userSlice';
 
 import hljs from 'highlight.js';
 import 'highlight.js/styles/vs2015.css';
@@ -236,6 +237,7 @@ const Write = ({ post }) => {
 
       if (user.id !== 'lse126' || !user.editable) {
         window.alert('This is private Blog. Onle The Admin can edit!!');
+        setFirstSubmit(true);
         return;
       }
 
@@ -256,8 +258,14 @@ const Write = ({ post }) => {
           }
         );
 
-        dispatch(setPostsVar([]));
-        router.push(`/post/${res.data?.savedNewPost?._id}`);
+        if (res.status === 244 && res.data.message === 'Access forbidden, invalid refreshToken') {
+          window.alert('로그인 ID 유효기간이 만료되었습니다. 다시 로그인 해주세요!!');
+          dispatch(logoutReduce());
+          setFirstSubmit(true);
+        } else {
+          dispatch(setPostsVar([]));
+          router.push(`/post/${res.data?.savedNewPost?._id}`);
+        }
       } catch (error) {
         window.alert(error);
       }
@@ -290,8 +298,17 @@ const Write = ({ post }) => {
           dispatch(setPaginationTotalNum(totalPostsCount));
 
           window.location.reload(`/post/${_id}`);
-        } else if (res.status === 401) {
+        }
+
+        if (res.status === 401) {
           window.alert(`${res.statusText} This is private Blog. Onle The Admin can edit!!`);
+          setFirstSubmit(true);
+        }
+
+        if (res.status === 244 && res.data.message === 'Access forbidden, invalid refreshToken') {
+          window.alert('로그인 ID 유효기간이 만료되었습니다. 다시 로그인 해주세요!!');
+          dispatch(logoutReduce());
+          setFirstSubmit(true);
         }
       } catch (error) {
         window.alert(error);

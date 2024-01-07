@@ -7,7 +7,7 @@ async function dbConnect() {
   while (currentRetry < maxRetries) {
     try {
       await mongoose.connect(`${process.env.MONGO_DB_URL}`, {
-        dbName: 'myFirstDatabase',
+        dbName: `${process.env.MONGO_DB_DATABASE_NAME}`,
         connectTimeoutMS: 700,
         serverSelectionTimeoutMS: 700,
         maxPoolSize: 10,
