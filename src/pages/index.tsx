@@ -117,8 +117,8 @@ const Home = () => {
   const handleKeywordSearch = async () => {
     if (searchText.trim() !== '') {
       handleSearch(`/posts?text=${searchText}`);
+      dispatch(setTrue());
     }
-    dispatch(setTrue());
   };
 
   const handleCatName = useCallback(
