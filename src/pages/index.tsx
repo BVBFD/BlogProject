@@ -70,10 +70,16 @@ const Home = () => {
 
   const getPosts = useCallback(async () => {
     setOnProgress(true);
-    const res = await publicRequest.get(`/posts`);
-    const { posts, totalPostsCount } = res.data;
-    dispatch(setPostsVar(posts));
-    dispatch(setPaginationTotalNum(totalPostsCount));
+    try {
+      const res = await publicRequest.get(`/posts`);
+      const { posts, totalPostsCount } = res.data;
+      dispatch(setPostsVar(posts));
+      dispatch(setPaginationTotalNum(totalPostsCount));
+    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      window.alert(error.response.data.message);
+    }
     setPostsPerSize(4);
     dispatch(setCurrentPage(1));
     setOnProgress(false);
@@ -91,10 +97,16 @@ const Home = () => {
     async (url: string) => {
       setOnProgress(true);
       dispatch(setPaginationTotalNum(0));
-      const res = await publicRequest.get(url);
-      const { posts, totalPostsCount } = await res.data;
-      dispatch(setPostsVar(posts));
-      dispatch(setPaginationTotalNum(totalPostsCount));
+      try {
+        const res = await publicRequest.get(url);
+        const { posts, totalPostsCount } = await res.data;
+        dispatch(setPostsVar(posts));
+        dispatch(setPaginationTotalNum(totalPostsCount));
+      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        window.alert(error.response.data.message);
+      }
       dispatch(setCurrentPage(1));
       setOnProgress(false);
     },
