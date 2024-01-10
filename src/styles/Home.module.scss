@@ -189,10 +189,14 @@
     button {
       flex: 1;
       padding: 0 0.6rem !important;
+
+      &:last-child {
+        display: none;
+      }
     }
 
     .searchInput {
-      flex: 100;
+      flex: 1;
       margin: 0;
     }
   }
