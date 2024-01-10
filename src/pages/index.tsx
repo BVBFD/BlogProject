@@ -219,7 +219,7 @@ const Home = () => {
         )}
         {(searchText !== '' || catName !== '') && (
           <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
-            전체
+            전체 포스트 보기
           </BasicButton>
         )}
       </div>
