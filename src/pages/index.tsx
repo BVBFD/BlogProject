@@ -213,13 +213,13 @@ const Home = () => {
               value={searchText}
             />
             <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleKeywordSearch}>
-              Keyword Search (키워드 검색)
+              검색
             </BasicButton>
           </>
         )}
         {(searchText !== '' || catName !== '') && (
           <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
-            SEE TOTAL POSTS (전체 포스트 보기)
+            전체
           </BasicButton>
         )}
       </div>

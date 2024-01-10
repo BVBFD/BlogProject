@@ -182,15 +182,16 @@
   .totalSearchBox {
     display: flex;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: row !important;
+    padding: 0.2rem !important;
+    gap: 0.4rem !important;
 
     button {
-      width: 100%;
-      margin-bottom: 0.6rem;
+      flex: 1;
     }
 
     .searchInput {
-      width: 100%;
+      flex: 100;
       margin: 0;
     }
   }
