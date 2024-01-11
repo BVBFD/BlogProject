@@ -1,9 +1,9 @@
 .popUpContainer {
   .signupBox {
-    background: linear-gradient(rgb(153, 153, 153, 0.5), rgb(153, 153, 153, 0.5)),
-      url('../../../../public/imgs/blog-image-2.png');
+    background: linear-gradient(rgb(153, 153, 153, 0.3), rgb(153, 153, 153, 0.3)),
+      url('../../../../public/imgs/signup-image.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: right;
     height: calc(100vh - 2rem);
     display: flex;
     flex-direction: column;

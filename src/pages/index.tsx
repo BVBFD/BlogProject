@@ -249,8 +249,8 @@ const Home = () => {
                 fill
                 loading="eager"
                 objectFit="cover"
-                quality={1}
-                src="/imgs/sidebar-image.png"
+                quality={100}
+                src="/imgs/blog-image-5.jpg"
               />
             </div>
             <header className={styles.catHead}>

@@ -5,7 +5,7 @@ const Banner = () => {
   return (
     <div className={styles.bannerBox}>
       <div className={styles.imgBox}>
-        <Image alt="banner" fetchPriority="high" fill loading="eager" quality={100} src="/imgs/banner.png" />
+        <Image alt="banner" fetchPriority="high" fill loading="eager" quality={100} src="/imgs/sidebar-image.jpg" />
       </div>
     </div>
   );
