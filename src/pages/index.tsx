@@ -18,6 +18,7 @@ import { setCurrentPage } from '@/redux/currentPageNumSlice';
 import { setSearchText } from '@/redux/searchTextStringSlice';
 import { setCatName } from '@/redux/catNameSlice';
 import { setPostClientY } from '@/redux/postClientYSlice';
+import { setOpenPostFalse } from '@/redux/openPostSlice';
 
 import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
@@ -158,6 +159,7 @@ const Home = () => {
       dispatch(setCatName(''));
       dispatch(setPostClientY(0));
       dispatch(setPostsVar([]));
+      dispatch(setOpenPostFalse());
     };
 
     window.addEventListener('unload', handleBeforeUnloadOnload);

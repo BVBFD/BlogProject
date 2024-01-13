@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useEffect, useMemo, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { setPostClientY } from '@/redux/postClientYSlice';
+import { setOpenPostTrue } from '@/redux/openPostSlice';
 import styles from './index.module.scss';
 
 interface PostType {
@@ -83,7 +84,7 @@ const Post = ({
 
   return (
     /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
-    <div className={styles.wrapper} ref={postRef}>
+    <div className={styles.wrapper} onClick={() => dispatch(setOpenPostTrue())} ref={postRef}>
       <div className={styles.imgBox}>
         <Image
           alt="postImg"

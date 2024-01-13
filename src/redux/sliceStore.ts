@@ -11,6 +11,7 @@ import currentPageNumSlice from './currentPageNumSlice';
 import catNameSlice from './catNameSlice';
 import searchTextStringSlice from './searchTextStringSlice';
 import postClientYSlice from './postClientYSlice';
+import openPostSlice from './openPostSlice';
 
 const persistConfig = {
   key: 'root',
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   catName: catNameSlice,
   searchText: searchTextStringSlice,
   postClientY: postClientYSlice,
+  openPostBol: openPostSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

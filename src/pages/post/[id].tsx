@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -6,7 +6,15 @@ import Image from 'next/image';
 import DeleteFilled from '@ant-design/icons/DeleteFilled';
 import EditFilled from '@ant-design/icons/EditFilled';
 import { Spin } from 'antd';
+
 import { setPostsVar } from '@/redux/postsVarSlice';
+import { setFalse } from '@/redux/searchTextBolSlice';
+import { setCatName } from '@/redux/catNameSlice';
+import { setOpenPostFalse } from '@/redux/openPostSlice';
+import { setPaginationTotalNum } from '@/redux/paginationTotalNumSlice';
+import { setPostClientY } from '@/redux/postClientYSlice';
+import { setSearchText } from '@/redux/searchTextStringSlice';
+
 import { logoutReduce } from '@/redux/userSlice';
 import { publicRequest } from '../../../config';
 import { RootState } from '../../redux/sliceStore';
@@ -42,7 +50,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
   const Write = React.lazy(() => import('../write'));
   const [editBtnIndex, setEditBtnIndex] = React.useState<boolean>(false);
   const { id } = router.query;
-  const user = useSelector((state: RootState) => state.user);
+  const { user, openPostBol } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const [onLoad, setOnLoad] = React.useState(false);
 
@@ -84,6 +92,28 @@ const PostPage = ({ ps }: { ps: PostType }) => {
   }, [ps, id, router]);
 
   const toggleEditBtnIndex = () => setEditBtnIndex((prevState) => !prevState);
+
+  useEffect(() => {
+    const handleBeforeUnloadOnload = () => {
+      dispatch(setFalse());
+      dispatch(setPaginationTotalNum(0));
+      dispatch(setSearchText(''));
+      dispatch(setCatName(''));
+      dispatch(setPostClientY(0));
+      dispatch(setPostsVar([]));
+      dispatch(setOpenPostFalse());
+    };
+
+    if (openPostBol) {
+      window.addEventListener('unload', handleBeforeUnloadOnload);
+      window.addEventListener('beforeunload', handleBeforeUnloadOnload);
+    }
+
+    return () => {
+      window.removeEventListener('unload', handleBeforeUnloadOnload);
+      window.removeEventListener('beforeunload', handleBeforeUnloadOnload);
+    };
+  }, [dispatch]);
 
   return (
     <>
