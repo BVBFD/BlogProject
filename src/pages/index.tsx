@@ -162,12 +162,18 @@ const Home = () => {
       dispatch(setOpenPostFalse());
     };
 
+    const handleDomContentLoaded = () => {
+      handleTotal();
+    };
+
     window.addEventListener('unload', handleBeforeUnloadOnload);
     window.addEventListener('beforeunload', handleBeforeUnloadOnload);
+    document.addEventListener('DOMContentLoaded', handleDomContentLoaded);
 
     return () => {
       window.removeEventListener('unload', handleBeforeUnloadOnload);
       window.removeEventListener('beforeunload', handleBeforeUnloadOnload);
+      document.removeEventListener('DOMContentLoaded', handleDomContentLoaded);
     };
   }, [dispatch]);
 
