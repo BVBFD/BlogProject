@@ -143,13 +143,13 @@ const PostPage = ({ ps }: { ps: PostType }) => {
                   <Image
                     alt="postImg"
                     crossOrigin="anonymous"
+                    fetchPriority="high"
                     fill
                     loading="eager"
                     objectFit="contain"
                     onLoad={() => setOnLoad(true)}
                     quality={1}
                     src={`${ps.imgUrl}`}
-                    fetchPriority="high"
                   />
                 </div>
                 {onLoad && (
