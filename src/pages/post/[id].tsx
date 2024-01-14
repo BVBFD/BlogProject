@@ -141,14 +141,15 @@ const PostPage = ({ ps }: { ps: PostType }) => {
                   style={onLoad ? { backgroundColor: '#e4e4e4' } : { backgroundColor: 'unset' }}
                 >
                   <Image
-                    alt=""
+                    alt="postImg"
                     crossOrigin="anonymous"
                     fill
-                    loading="lazy"
+                    loading="eager"
                     objectFit="contain"
                     onLoad={() => setOnLoad(true)}
-                    quality={20}
+                    quality={1}
                     src={`${ps.imgUrl}`}
+                    fetchPriority="high"
                   />
                 </div>
                 {onLoad && (
