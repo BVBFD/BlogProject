@@ -178,6 +178,7 @@ const Home = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    goToPage(currentPageNum);
     setTimeout(() => {
       window.scrollTo({ top: postClientY, behavior: 'auto' as ScrollBehavior });
     }, 30);

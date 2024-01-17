@@ -23,14 +23,29 @@ import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-  const res = await publicRequest.get(`/posts/${params.id}`);
-  const ps = res.data;
+  try {
+    const res = await publicRequest.get(`/posts/${params.id}`);
+    const ps = res.data;
 
-  return {
-    props: {
-      ps,
-    },
-  };
+    return {
+      props: {
+        ps,
+        error: null,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        ps: null,
+        error: {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          message: error.response?.data?.message || 'Something went wrong',
+        },
+      },
+    };
+  }
 };
 
 interface PostType {
@@ -45,7 +60,7 @@ interface PostType {
   author: string;
 }
 
-const PostPage = ({ ps }: { ps: PostType }) => {
+const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) => {
   const router = useRouter();
   const Write = React.lazy(() => import('../write'));
   const [editBtnIndex, setEditBtnIndex] = React.useState<boolean>(false);
@@ -81,10 +96,10 @@ const PostPage = ({ ps }: { ps: PostType }) => {
           window.alert('로그인 ID 유효기간이 만료되었습니다. 다시 로그인 해주세요!!');
           dispatch(logoutReduce());
         }
-      } catch (error) {
+      } catch (err) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        window.alert(error.response.data.message);
+        window.alert(err.response.data.message);
       }
     } else {
       window.alert('삭제가 취소되었습니다.');
@@ -114,6 +129,16 @@ const PostPage = ({ ps }: { ps: PostType }) => {
       window.removeEventListener('beforeunload', handleBeforeUnloadOnload);
     };
   }, [dispatch]);
+
+  useEffect(() => {
+    if (error) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      window.alert(error.message);
+      router.push('/');
+    }
+  }, [error]);
 
   return (
     <>
