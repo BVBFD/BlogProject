@@ -22,11 +22,14 @@ import { RootState } from '../../redux/sliceStore';
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
 
+export const config = {
+  runtime: 'experimental-edge',
+};
+
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
   try {
-    const res = await publicRequest.get(`/posts/${params.id}`);
-    const ps = res.data;
-
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}`);
+    const ps = await res.json();
     return {
       props: {
         ps,
