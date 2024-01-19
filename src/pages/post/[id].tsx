@@ -8,12 +8,12 @@ import EditFilled from '@ant-design/icons/EditFilled';
 import { Spin } from 'antd';
 
 import { setPostsVar } from '@/redux/postsVarSlice';
-import { setFalse } from '@/redux/searchTextBolSlice';
-import { setCatName } from '@/redux/catNameSlice';
-import { setOpenPostFalse } from '@/redux/openPostSlice';
-import { setPaginationTotalNum } from '@/redux/paginationTotalNumSlice';
-import { setPostClientY } from '@/redux/postClientYSlice';
-import { setSearchText } from '@/redux/searchTextStringSlice';
+// import { setFalse } from '@/redux/searchTextBolSlice';
+// import { setCatName } from '@/redux/catNameSlice';
+// import { setOpenPostFalse } from '@/redux/openPostSlice';
+// import { setPaginationTotalNum } from '@/redux/paginationTotalNumSlice';
+// import { setPostClientY } from '@/redux/postClientYSlice';
+// import { setSearchText } from '@/redux/searchTextStringSlice';
 
 import { logoutReduce } from '@/redux/userSlice';
 import { publicRequest } from '../../../config';
@@ -23,7 +23,7 @@ import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
 
 export const config = {
-  runtime: 'experimental-edge',
+  runtime: 'nodejs',
 };
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
@@ -113,13 +113,14 @@ const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) =
 
   useEffect(() => {
     const handleBeforeUnloadOnload = () => {
-      dispatch(setFalse());
-      dispatch(setPaginationTotalNum(0));
-      dispatch(setSearchText(''));
-      dispatch(setCatName(''));
-      dispatch(setPostClientY(0));
-      dispatch(setPostsVar([]));
-      dispatch(setOpenPostFalse());
+      // dispatch(setFalse());
+      // dispatch(setPaginationTotalNum(0));
+      // dispatch(setSearchText(''));
+      // dispatch(setCatName(''));
+      // dispatch(setPostClientY(0));
+      // dispatch(setPostsVar([]));
+      // dispatch(setOpenPostFalse());
+      localStorage.clear();
     };
 
     if (openPostBol) {

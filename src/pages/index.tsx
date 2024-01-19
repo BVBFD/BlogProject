@@ -17,8 +17,8 @@ import { setPaginationTotalNum } from '@/redux/paginationTotalNumSlice';
 import { setCurrentPage } from '@/redux/currentPageNumSlice';
 import { setSearchText } from '@/redux/searchTextStringSlice';
 import { setCatName } from '@/redux/catNameSlice';
-import { setPostClientY } from '@/redux/postClientYSlice';
-import { setOpenPostFalse } from '@/redux/openPostSlice';
+// import { setPostClientY } from '@/redux/postClientYSlice';
+// import { setOpenPostFalse } from '@/redux/openPostSlice';
 
 import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
@@ -153,13 +153,14 @@ const Home = () => {
 
   useEffect(() => {
     const handleBeforeUnloadOnload = () => {
-      dispatch(setFalse());
-      dispatch(setPaginationTotalNum(0));
-      dispatch(setSearchText(''));
-      dispatch(setCatName(''));
-      dispatch(setPostClientY(0));
-      dispatch(setPostsVar([]));
-      dispatch(setOpenPostFalse());
+      // dispatch(setFalse());
+      // dispatch(setPaginationTotalNum(0));
+      // dispatch(setSearchText(''));
+      // dispatch(setCatName(''));
+      // dispatch(setPostClientY(0));
+      // dispatch(setPostsVar([]));
+      // dispatch(setOpenPostFalse());
+      localStorage.clear();
     };
 
     const handleDomContentLoaded = () => {
