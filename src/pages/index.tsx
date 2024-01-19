@@ -142,49 +142,21 @@ const Home = () => {
   );
 
   useEffect(() => {
-    const handleScrollYofPostClick = () => {
-      window.scrollBy(0, postClientY);
-    };
+    if (postsVar.length === 0) {
+      getPosts();
+    }
 
-    handleScrollYofPostClick();
-  }, [postsVar, postsPerSize]);
+    window.scrollBy(0, postClientY);
 
-  useEffect(() => {
     const handleBeforeUnloadOnload = () => {
       localStorage.clear();
     };
 
-    const handleDomContentLoaded = () => {
-      handleTotal();
-    };
-
     window.addEventListener('unload', handleBeforeUnloadOnload);
-    window.addEventListener('beforeunload', handleBeforeUnloadOnload);
-    document.addEventListener('DOMContentLoaded', handleDomContentLoaded);
-
     return () => {
       window.removeEventListener('unload', handleBeforeUnloadOnload);
-      window.removeEventListener('beforeunload', handleBeforeUnloadOnload);
-      document.removeEventListener('DOMContentLoaded', handleDomContentLoaded);
     };
-  }, [dispatch]);
-
-  useEffect(() => {
-    const goTopageAndScroll = async () => {
-      await goToPage(currentPageNum);
-      setTimeout(() => {
-        window.scrollTo({ top: postClientY, behavior: 'auto' as ScrollBehavior });
-      }, 30);
-    };
-
-    goTopageAndScroll();
   }, []);
-
-  useEffect(() => {
-    if (postsVar.length === 0) {
-      handleTotal();
-    }
-  }, [handleTotal, handleCatName, postsVar]);
 
   return (
     <div className={styles.homeIndexContainer} ref={scrollContainerRef}>

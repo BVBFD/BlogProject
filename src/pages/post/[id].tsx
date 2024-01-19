@@ -64,7 +64,6 @@ const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) =
   const { id } = router.query;
   const { user, openPostBol } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
-  const [onLoad, setOnLoad] = React.useState(false);
 
   const inputText = () => {
     return { __html: `${ps.text}` };
@@ -109,27 +108,22 @@ const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) =
     const handleBeforeUnloadOnload = () => {
       localStorage.clear();
     };
-
     if (openPostBol) {
       window.addEventListener('unload', handleBeforeUnloadOnload);
-      window.addEventListener('beforeunload', handleBeforeUnloadOnload);
     }
 
     return () => {
       window.removeEventListener('unload', handleBeforeUnloadOnload);
-      window.removeEventListener('beforeunload', handleBeforeUnloadOnload);
     };
   }, [dispatch]);
 
-  useEffect(() => {
-    if (error) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      window.alert(error.message);
-      router.push('/');
-    }
-  }, [error]);
+  if (error) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    window.alert(error.message);
+    router.push('/');
+  }
 
   return (
     <>
@@ -147,69 +141,54 @@ const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) =
         <link href={`https://lsevina126.netlify.app/ps/${ps?.title}/${ps?._id}`} rel="canonical" />
         {/* SEO */}
       </Head>
-      {!editBtnIndex ? (
-        <section className={styles.postPage}>
-          {ps ? (
-            <div className={styles.postBox}>
-              <div className={styles.postImgTextBox}>
-                <div
-                  className={styles.postTitleImgBox}
-                  style={onLoad ? { backgroundColor: '#e4e4e4' } : { backgroundColor: 'unset' }}
-                >
-                  <Image
-                    alt="postImg"
-                    crossOrigin="anonymous"
-                    fetchPriority="high"
-                    fill
-                    loading="eager"
-                    objectFit="contain"
-                    onLoad={() => setOnLoad(true)}
-                    quality={1}
-                    src={`${ps.imgUrl}`}
-                  />
+      <section className={styles.postPage}>
+        <div className={styles.postBox}>
+          <div className={styles.postImgTextBox}>
+            <div className={styles.postTitleImgBox} style={{ backgroundColor: '#e4e4e4' }}>
+              <Image
+                alt="postImg"
+                crossOrigin="anonymous"
+                fetchPriority="high"
+                fill
+                loading="eager"
+                objectFit="contain"
+                quality={1}
+                src={`${ps.imgUrl}`}
+              />
+            </div>
+            <div className={styles.postTextBox}>
+              <header className={styles.postHeader}>
+                <p>
+                  Category: <span>{ps.catName}</span>
+                </p>
+                <span>{ps.title}</span>
+                <div>
+                  <EditFilled onClick={toggleEditBtnIndex} />
+                  <DeleteFilled onClick={deletePost} />
                 </div>
-                {onLoad && (
-                  <div className={styles.postTextBox}>
-                    <header className={styles.postHeader}>
-                      <p>
-                        Category: <span>{ps.catName}</span>
-                      </p>
-                      <span>{ps.title}</span>
-                      <div>
-                        <EditFilled onClick={toggleEditBtnIndex} />
-                        <DeleteFilled onClick={deletePost} />
-                      </div>
-                    </header>
-                    <div className={styles.authorAndDate}>
-                      <p>
-                        Author: <span>{ps.author}</span>
-                      </p>
-                      <span>{new Date(ps.createdAt).toDateString()}</span>
-                    </div>
-                    <div className="ql-snow">
-                      <div className={`${styles.postContentText} ql-editor`} dangerouslySetInnerHTML={inputText()} />
-                    </div>
-                  </div>
-                )}
+              </header>
+              <div className={styles.authorAndDate}>
+                <p>
+                  Author: <span>{ps.author}</span>
+                </p>
+                <span>{new Date(ps.createdAt).toDateString()}</span>
+              </div>
+              <div className="ql-snow">
+                <div className={`${styles.postContentText} ql-editor`} dangerouslySetInnerHTML={inputText()} />
               </div>
             </div>
-          ) : (
-            <div className={styles.circularBox}>
-              <Spin />
-            </div>
-          )}
-        </section>
-      ) : (
-        <React.Suspense
-          fallback={
-            <div className={styles.circularBox}>
-              <Spin />
-            </div>
-          }
-        >
-          {editBtnIndex && <Write post={ps} />}
-        </React.Suspense>
-      )}
+          </div>
+        </div>
+      </section>
+      <React.Suspense
+        fallback={
+          <div className={styles.circularBox}>
+            <Spin />
+          </div>
+        }
+      >
+        {editBtnIndex && <Write post={ps} />}
+      </React.Suspense>
     </>
   );
 };
