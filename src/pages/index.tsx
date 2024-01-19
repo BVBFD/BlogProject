@@ -146,7 +146,17 @@ const Home = () => {
       getPosts();
     }
 
-    window.scrollBy(0, postClientY);
+    const goToPageAndScroll = async () => {
+      await goToPage(currentPageNum);
+      await new Promise<void>((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 30);
+      });
+      window.scrollBy(0, postClientY);
+    };
+
+    goToPageAndScroll();
 
     const handleBeforeUnloadOnload = () => {
       localStorage.clear();
