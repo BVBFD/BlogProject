@@ -6,6 +6,8 @@ const nextConfig = {
     swcMinify: true,
     bundlePagesExternals: true,
     optimizeServerReact: true,
+    useDeploymentId: true,
+    useDeploymentIdServerActions: true,
   },
   images: {
     remotePatterns: [
