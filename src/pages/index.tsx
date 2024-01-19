@@ -170,10 +170,14 @@ const Home = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    goToPage(currentPageNum);
-    setTimeout(() => {
-      window.scrollTo({ top: postClientY, behavior: 'auto' as ScrollBehavior });
-    }, 30);
+    const goTopageAndScroll = async () => {
+      await goToPage(currentPageNum);
+      setTimeout(() => {
+        window.scrollTo({ top: postClientY, behavior: 'auto' as ScrollBehavior });
+      }, 30);
+    };
+
+    goTopageAndScroll();
   }, []);
 
   useEffect(() => {
