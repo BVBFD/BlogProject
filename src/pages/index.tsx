@@ -153,7 +153,7 @@ const Home = () => {
           resolve();
         }, 30);
       });
-      window.scrollBy(0, postClientY);
+      window.scrollTo({ top: postClientY, behavior: 'auto' as ScrollBehavior });
     };
 
     goToPageAndScroll();
