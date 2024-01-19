@@ -17,7 +17,7 @@ import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
 
 export const config = {
-  runtime: 'experimental-edge',
+  runtime: 'nodejs',
 };
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
