@@ -19,10 +19,10 @@ import { setSearchText } from '@/redux/searchTextStringSlice';
 import { setCatName } from '@/redux/catNameSlice';
 
 import Image from 'next/image';
+import useSWR, { mutate } from 'swr';
 import styles from '../styles/Home.module.scss';
 import { publicRequest } from '../../config';
 import Posts from '../components/Posts';
-import useSWR, { mutate } from 'swr';
 
 const Home = () => {
   const { postsVar, paginationTotalNum, currentPageNum, searchText, catName, postClientY, searchTextBol } = useSelector(
