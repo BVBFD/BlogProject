@@ -9,6 +9,12 @@ import EditFilled from '@ant-design/icons/EditFilled';
 import { Spin } from 'antd';
 
 import { setPostsVar } from '@/redux/postsVarSlice';
+import { setCatName } from '@/redux/catNameSlice';
+import { setOpenPostFalse } from '@/redux/openPostSlice';
+import { setPaginationTotalNum } from '@/redux/paginationTotalNumSlice';
+import { setPostClientY } from '@/redux/postClientYSlice';
+import { setFalse } from '@/redux/searchTextBolSlice';
+import { setSearchText } from '@/redux/searchTextStringSlice';
 
 import { logoutReduce } from '@/redux/userSlice';
 import { publicRequest } from '../../../config';
@@ -110,7 +116,13 @@ const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) =
 
   useEffect(() => {
     const handleBeforeUnloadOnload = () => {
-      localStorage.clear();
+      dispatch(setFalse());
+      dispatch(setPaginationTotalNum(0));
+      dispatch(setSearchText(''));
+      dispatch(setCatName(''));
+      dispatch(setPostClientY(0));
+      dispatch(setPostsVar([]));
+      dispatch(setOpenPostFalse());
     };
     if (openPostBol) {
       window.addEventListener('unload', handleBeforeUnloadOnload);
