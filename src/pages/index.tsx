@@ -22,6 +22,7 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
 import { publicRequest } from '../../config';
 import Posts from '../components/Posts';
+import useSWR, { mutate } from 'swr';
 
 const Home = () => {
   const { postsVar, paginationTotalNum, currentPageNum, searchText, catName, postClientY, searchTextBol } = useSelector(
@@ -34,100 +35,41 @@ const Home = () => {
   const [onProgress, setOnProgress] = useState<boolean>(false);
   const [postsPerSize, setPostsPerSize] = useState<number>(4);
 
-  const goToPage = useCallback(
-    async (pageNum: number) => {
-      let url = `/posts?page=${pageNum}`;
+  const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
+  const swrUrl = `/posts?page=${currentPageNum}&text=${searchText}&cat=${catName}`;
+  const { data, isLoading, error: swrError } = useSWR(swrUrl, fetcher);
 
-      if (searchText !== '') {
-        url += `&text=${searchText}`;
-      }
+  if (swrError) {
+    window.alert(swrError.message);
+  }
 
-      if (catName !== '') {
-        url += `&cat=${catName}`;
-      }
-
-      dispatch(setCurrentPage(pageNum));
-      setOnProgress(true);
-
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${url}`);
-        const { posts, totalPostsCount } = await res.json();
-
-        dispatch(setPostsVar(posts));
-
-        if (catName !== '') {
-          dispatch(setPaginationTotalNum(totalPostsCount));
-        }
-      } catch (error) {
-        setOnProgress(false);
-      } finally {
-        setOnProgress(false);
-      }
-    },
-    [searchText, catName]
-  );
-
-  const getPosts = useCallback(async () => {
-    setOnProgress(true);
-    try {
-      const res = await publicRequest.get(`/posts`);
-      const { posts, totalPostsCount } = res.data;
-      dispatch(setPostsVar(posts));
-      dispatch(setPaginationTotalNum(totalPostsCount));
-    } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      window.alert(error.response.data.message);
-    }
+  useEffect(() => {
     setPostsPerSize(4);
-    dispatch(setCurrentPage(1));
-    setOnProgress(false);
-  }, []);
+    mutate(swrUrl);
+    if (data) {
+      dispatch(setPostsVar(data?.posts));
+      dispatch(setPaginationTotalNum(data?.totalPostsCount));
+    }
+    setOnProgress(isLoading);
+  }, [data, currentPageNum, searchText, catName]);
 
   const handleTotal = useCallback(() => {
     dispatch(setFalse());
     dispatch(setPaginationTotalNum(0));
     dispatch(setSearchText(''));
     dispatch(setCatName(''));
-    getPosts();
   }, []);
-
-  const handleSearch = useCallback(
-    async (url: string) => {
-      setOnProgress(true);
-      dispatch(setPaginationTotalNum(0));
-      try {
-        const res = await publicRequest.get(url);
-        const { posts, totalPostsCount } = await res.data;
-        dispatch(setPostsVar(posts));
-        dispatch(setPaginationTotalNum(totalPostsCount));
-      } catch (error) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        window.alert(error.response.data.message);
-        handleTotal();
-      }
-      dispatch(setCurrentPage(1));
-      setOnProgress(false);
-    },
-    [dispatch]
-  );
 
   const handleKeywordSearch = async () => {
     if (searchText.trim() !== '') {
-      handleSearch(`/posts?text=${searchText}`);
       dispatch(setTrue());
     }
   };
 
-  const handleCatName = useCallback(
-    async (e: React.MouseEvent<HTMLButtonElement>) => {
-      dispatch(setSearchText(''));
-      dispatch(setCatName(e.currentTarget.innerText));
-      handleSearch(`/posts?cat=${e.currentTarget.innerText}`);
-    },
-    [handleSearch]
-  );
+  const handleCatName = useCallback(async (e: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(setSearchText(''));
+    dispatch(setCatName(e.currentTarget.innerText));
+  }, []);
 
   const handleSearchText = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -142,12 +84,7 @@ const Home = () => {
   );
 
   useEffect(() => {
-    if (postsVar.length === 0) {
-      getPosts();
-    }
-
     const goToPageAndScroll = async () => {
-      await goToPage(currentPageNum);
       await new Promise<void>((resolve) => {
         setTimeout(() => {
           resolve();
@@ -163,6 +100,7 @@ const Home = () => {
     };
 
     window.addEventListener('unload', handleBeforeUnloadOnload);
+
     return () => {
       window.removeEventListener('unload', handleBeforeUnloadOnload);
     };
@@ -265,7 +203,7 @@ const Home = () => {
         <BasicPagination
           current={currentPageNum}
           defaultCurrent={1}
-          onChange={(changePageNum) => goToPage(changePageNum)}
+          onChange={(num) => dispatch(setCurrentPage(num))}
           pageSize={postsPerSize}
           total={paginationTotalNum}
         />
