@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -68,7 +68,8 @@ interface PostType {
 const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) => {
   const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const router = useRouter();
-  const { data, error: swrError } = useSWR(`/posts/${router.query.id}`, fetcher);
+  const swrUrl = `/posts/${router.query.id}`;
+  const { data, error: swrError } = useSWR(swrUrl, fetcher);
   const Write = React.lazy(() => import('../write'));
   const [editBtnIndex, setEditBtnIndex] = React.useState<boolean>(false);
   const { id } = router.query;
@@ -124,6 +125,9 @@ const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) =
       dispatch(setPostsVar([]));
       dispatch(setOpenPostFalse());
     };
+
+    mutate(swrUrl);
+
     if (openPostBol) {
       window.addEventListener('unload', handleBeforeUnloadOnload);
     }
@@ -131,7 +135,7 @@ const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) =
     return () => {
       window.removeEventListener('unload', handleBeforeUnloadOnload);
     };
-  }, [dispatch]);
+  }, [dispatch, editBtnIndex]);
 
   if (error) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -210,7 +214,7 @@ const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) =
           </div>
         }
       >
-        {editBtnIndex && <Write post={data} />}
+        {editBtnIndex && <Write post={data} setEditBtnIndex={setEditBtnIndex} />}
       </React.Suspense>
     </>
   );

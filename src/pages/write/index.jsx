@@ -33,7 +33,7 @@ const ReactQuill = dynamic(
   }
 );
 
-const Write = ({ post }) => {
+const Write = ({ post, setEditBtnIndex }) => {
   const { currentPageNum, searchText: searchTextRedux, catName: catNameRedux } = useSelector((state) => state);
   const [value, setValue] = useState(post?.text);
   const [isFetching, setIsFetching] = useState(false);
@@ -290,17 +290,13 @@ const Write = ({ post }) => {
         });
 
         if (res.status === 201) {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          const { _id } = res.data;
-
           const responseAfterEdit = await publicRequest.get(
             `/posts?page=${currentPageNum}&cat=${catNameRedux}&text=${searchTextRedux}`
           );
           const { posts, totalPostsCount } = await responseAfterEdit.data;
           dispatch(setPostsVar(posts));
           dispatch(setPaginationTotalNum(totalPostsCount));
-
-          window.location.reload(`/post/${_id}`);
+          setEditBtnIndex(false);
         }
 
         if (res.status === 401) {
