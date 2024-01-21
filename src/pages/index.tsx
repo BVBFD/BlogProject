@@ -50,8 +50,8 @@ const Home = () => {
       setOnProgress(true);
 
       try {
-        const res = await publicRequest.get(url);
-        const { posts, totalPostsCount } = await res.data;
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${url}`);
+        const { posts, totalPostsCount } = await res.json();
 
         dispatch(setPostsVar(posts));
 

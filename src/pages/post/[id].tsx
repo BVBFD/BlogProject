@@ -23,8 +23,8 @@ export const config = {
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
   try {
-    const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
-    const ps = res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}?meta=true`);
+    const ps = await res.json();
 
     return {
       props: {
