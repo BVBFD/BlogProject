@@ -7,14 +7,6 @@
     padding: 1rem;
     gap: 1rem;
 
-    .totalBtn {
-      cursor: pointer;
-
-      &:active {
-        transform: scale(0.8);
-      }
-    }
-
     .searchInput {
       padding: 0.2rem 0.4rem;
       font-size: 1.2rem;

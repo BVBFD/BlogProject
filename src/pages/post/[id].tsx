@@ -138,15 +138,10 @@ const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) =
   }, [dispatch, editBtnIndex]);
 
   if (error) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    window.alert(error.message);
     router.push('/');
   }
 
   if (swrError) {
-    window.alert(swrError.message);
     router.push('/');
   }
 

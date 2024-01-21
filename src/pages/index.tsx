@@ -11,7 +11,7 @@ import BasicButton from '@/common/BasicButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/sliceStore';
 
-import { setFalse, setTrue } from '@/redux/searchTextBolSlice';
+import { setFalse } from '@/redux/searchTextBolSlice';
 import { setPostsVar } from '@/redux/postsVarSlice';
 import { setPaginationTotalNum } from '@/redux/paginationTotalNumSlice';
 import { setCurrentPage } from '@/redux/currentPageNumSlice';
@@ -37,11 +37,7 @@ const Home = () => {
 
   const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const swrUrl = `/posts?page=${currentPageNum}&text=${searchText}&cat=${catName}`;
-  const { data, isLoading, error: swrError } = useSWR(swrUrl, fetcher);
-
-  if (swrError) {
-    window.alert(swrError.message);
-  }
+  const { data, isLoading } = useSWR(swrUrl, fetcher);
 
   useEffect(() => {
     setPostsPerSize(4);
@@ -58,15 +54,11 @@ const Home = () => {
     dispatch(setPaginationTotalNum(0));
     dispatch(setSearchText(''));
     dispatch(setCatName(''));
+    dispatch(setCurrentPage(1));
   }, []);
 
-  const handleKeywordSearch = async () => {
-    if (searchText.trim() !== '') {
-      dispatch(setTrue());
-    }
-  };
-
   const handleCatName = useCallback(async (e: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(setCurrentPage(1));
     dispatch(setSearchText(''));
     dispatch(setCatName(e.currentTarget.innerText));
   }, []);
@@ -74,11 +66,6 @@ const Home = () => {
   const handleSearchText = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       dispatch(setSearchText(e.target.value));
-      if (e.target.value === '') {
-        if (searchTextBol.searchTextBol) {
-          handleTotal();
-        }
-      }
     },
     [searchTextBol, handleTotal]
   );
@@ -128,19 +115,14 @@ const Home = () => {
       <Banner />
       <div className={styles.totalSearchBox}>
         {catName === '' && (
-          <>
-            <input
-              className={styles.searchInput}
-              onChange={handleSearchText}
-              placeholder="Searching Posts..."
-              ref={searchInputRef}
-              type="text"
-              value={searchText}
-            />
-            <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleKeywordSearch}>
-              검색
-            </BasicButton>
-          </>
+          <input
+            className={styles.searchInput}
+            onChange={handleSearchText}
+            placeholder="Searching Posts..."
+            ref={searchInputRef}
+            type="text"
+            value={searchText}
+          />
         )}
         {(searchText !== '' || catName !== '') && (
           <BasicButton BasicButtonType="small" className={styles.totalBtn} onClick={handleTotal}>
@@ -199,7 +181,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {paginationTotalNum !== 0 ? (
+      {!onProgress && paginationTotalNum !== 0 ? (
         <BasicPagination
           current={currentPageNum}
           defaultCurrent={1}
