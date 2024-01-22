@@ -37,23 +37,18 @@ const Home = () => {
 
   const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const swrUrl = `/posts?page=${currentPageNum}&text=${searchText}&cat=${catName}`;
-  const { data, isLoading, error: swrError } = useSWR(swrUrl, fetcher);
+  const { data, error: swrError } = useSWR(swrUrl, fetcher);
 
   useEffect(() => {
     setPostsPerSize(4);
-    setOnProgress(isLoading);
     mutate(swrUrl);
-
     if (data) {
       dispatch(setPostsVar(data?.posts));
       dispatch(setPaginationTotalNum(data?.totalPostsCount));
     } else {
       dispatch(setPostsVar([]));
-      dispatch(setPaginationTotalNum(0));
-      setOnProgress(false);
       dispatch(setFalse());
     }
-    setOnProgress(isLoading);
   }, [data, currentPageNum, searchText, catName]);
 
   const handleTotal = useCallback(() => {
@@ -75,19 +70,16 @@ const Home = () => {
       dispatch(setSearchText(e.target.value));
 
       if (e.target.value === '') {
-        setOnProgress(false);
         dispatch(setFalse());
       }
-
       if (currentPageNum === 1) {
-        setOnProgress(true);
+        dispatch(setTrue());
+      }
+      if (swrError) {
         dispatch(setTrue());
       }
 
-      if (swrError) {
-        setOnProgress(true);
-        dispatch(setTrue());
-      }
+      dispatch(setFalse());
     },
     [searchTextBol, handleTotal]
   );
@@ -149,7 +141,6 @@ const Home = () => {
           </BasicButton>
         )}
       </div>
-
       <section className={styles.homeSec}>
         <div className={styles.container}>
           {onProgress ? (
@@ -200,7 +191,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {!swrError && postsVar.length !== 0 ? (
+      {searchTextBol && !onProgress && data && (
         <BasicPagination
           current={currentPageNum}
           defaultCurrent={1}
@@ -208,8 +199,6 @@ const Home = () => {
           pageSize={postsPerSize}
           total={paginationTotalNum}
         />
-      ) : (
-        <div style={{ height: '100px' }} />
       )}
     </div>
   );
