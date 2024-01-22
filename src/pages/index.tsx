@@ -11,7 +11,7 @@ import BasicButton from '@/common/BasicButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/sliceStore';
 
-import { setFalse } from '@/redux/searchTextBolSlice';
+import { setFalse, setTrue } from '@/redux/searchTextBolSlice';
 import { setPostsVar } from '@/redux/postsVarSlice';
 import { setPaginationTotalNum } from '@/redux/paginationTotalNumSlice';
 import { setCurrentPage } from '@/redux/currentPageNumSlice';
@@ -37,21 +37,26 @@ const Home = () => {
 
   const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const swrUrl = `/posts?page=${currentPageNum}&text=${searchText}&cat=${catName}`;
-  const { data, isLoading } = useSWR(swrUrl, fetcher);
+  const { data, isLoading, error: swrError } = useSWR(swrUrl, fetcher);
 
   useEffect(() => {
     setPostsPerSize(4);
+    setOnProgress(isLoading);
     mutate(swrUrl);
+
     if (data) {
       dispatch(setPostsVar(data?.posts));
       dispatch(setPaginationTotalNum(data?.totalPostsCount));
+    } else {
+      dispatch(setPostsVar([]));
+      dispatch(setPaginationTotalNum(0));
+      setOnProgress(false);
+      dispatch(setFalse());
     }
     setOnProgress(isLoading);
   }, [data, currentPageNum, searchText, catName]);
 
   const handleTotal = useCallback(() => {
-    dispatch(setFalse());
-    dispatch(setPaginationTotalNum(0));
     dispatch(setSearchText(''));
     dispatch(setCatName(''));
     dispatch(setCurrentPage(1));
@@ -65,7 +70,24 @@ const Home = () => {
 
   const handleSearchText = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch(setCurrentPage(1));
+      dispatch(setTrue());
       dispatch(setSearchText(e.target.value));
+
+      if (e.target.value === '') {
+        setOnProgress(false);
+        dispatch(setFalse());
+      }
+
+      if (currentPageNum === 1) {
+        setOnProgress(true);
+        dispatch(setTrue());
+      }
+
+      if (swrError) {
+        setOnProgress(true);
+        dispatch(setTrue());
+      }
     },
     [searchTextBol, handleTotal]
   );
@@ -79,15 +101,12 @@ const Home = () => {
       });
       window.scrollTo({ top: postClientY, behavior: 'auto' as ScrollBehavior });
     };
-
     goToPageAndScroll();
 
     const handleBeforeUnloadOnload = () => {
       localStorage.clear();
     };
-
     window.addEventListener('unload', handleBeforeUnloadOnload);
-
     return () => {
       window.removeEventListener('unload', handleBeforeUnloadOnload);
     };
@@ -181,7 +200,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {!onProgress && paginationTotalNum !== 0 ? (
+      {!swrError && postsVar.length !== 0 ? (
         <BasicPagination
           current={currentPageNum}
           defaultCurrent={1}
