@@ -37,7 +37,7 @@ const Home = () => {
 
   const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const swrUrl = `/posts?page=${currentPageNum}&text=${searchText}&cat=${catName}`;
-  const { data, error: swrError } = useSWR(swrUrl, fetcher);
+  const { data, isLoading, error: swrError } = useSWR(swrUrl, fetcher);
 
   useEffect(() => {
     setPostsPerSize(4);
@@ -51,6 +51,10 @@ const Home = () => {
     }
   }, [data, currentPageNum, searchText, catName]);
 
+  useEffect(() => {
+    setOnProgress(isLoading);
+  }, [isLoading]);
+
   const handleTotal = useCallback(() => {
     dispatch(setSearchText(''));
     dispatch(setCatName(''));
@@ -58,6 +62,7 @@ const Home = () => {
   }, []);
 
   const handleCatName = useCallback(async (e: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(setPaginationTotalNum(0));
     dispatch(setCurrentPage(1));
     dispatch(setSearchText(''));
     dispatch(setCatName(e.currentTarget.innerText));
@@ -65,6 +70,7 @@ const Home = () => {
 
   const handleSearchText = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch(setPaginationTotalNum(0));
       dispatch(setCurrentPage(1));
       dispatch(setTrue());
       dispatch(setSearchText(e.target.value));
@@ -191,14 +197,19 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {searchTextBol && !onProgress && data && (
+      {!swrError && paginationTotalNum !== 0 ? (
         <BasicPagination
           current={currentPageNum}
-          defaultCurrent={1}
-          onChange={(num) => dispatch(setCurrentPage(num))}
+          defaultCurrent={!swrError && !isLoading ? 1 : 0}
+          onChange={(num) => {
+            dispatch(setPaginationTotalNum(paginationTotalNum));
+            dispatch(setCurrentPage(num));
+          }}
           pageSize={postsPerSize}
           total={paginationTotalNum}
         />
+      ) : (
+        <div style={{ height: '100%' }} />
       )}
     </div>
   );
