@@ -16,13 +16,13 @@
   <img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=fff" />
 </a>
 <a href="링크" target="_blank" style="text-decoration: none">
-  <img src="https://img.shields.io/badge/SWR-000000?style=for-the-badge&logo=SWR&logoColor=fff" />
-</a>
-<a href="링크" target="_blank" style="text-decoration: none">
   <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=fff" />
 </a>
 <a href="링크" target="_blank" style="text-decoration: none">
   <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=fff" />
+</a>
+<a href="링크" target="_blank" style="text-decoration: none">
+  <img src="https://img.shields.io/badge/SWR-000000?style=for-the-badge&logo=SWR&logoColor=fff" />
 </a>
 <a href="링크" target="_blank" style="text-decoration: none">
   <img src="https://img.shields.io/badge/antdesign-0170FE?style=for-the-badge&logo=antdesign&logoColor=fff" />
@@ -31,7 +31,7 @@
   <img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=ESLint&logoColor=fff" />
 </a>
 <a href="링크" target="_blank" style="text-decoration: none">
-  <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=fff" />
+  <img src="https://img.shields.io/badge/Prettier-000000?style=for-the-badge&logo=prettier" />
 </a>
 
 ## 프로젝트 소개
