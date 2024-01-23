@@ -5,34 +5,36 @@
 ![next_eslint_prettier](https://github.com/BVBFD/Blog-project/assets/83178592/1533b501-0375-4aef-a490-a0730aec1147)
 
 ## 사용스킬
+<div style="display: flex; width: 100%;">
+  <span style="flex: 1;" target="_blank">
+    <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=fff" />
+  </span>
+  <span style="flex: 1;" target="_blank">
+    <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=redux&logoColor=fff" />
+  </span>
+  <span style="flex: 1;" target="_blank">
+    <img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=fff" />
+  </span>
+  <span style="flex: 1;" target="_blank">
+    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=fff" />
+  </span>
+  <span style="flex: 1;" target="_blank">
+    <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=fff" />
+  </span>
+  <span style="flex: 1;" target="_blank">
+    <img src="https://img.shields.io/badge/SWR-000000?style=for-the-badge&logo=SWR&logoColor=fff" />
+  </span>
+  <span style="flex: 1;" target="_blank">
+    <img src="https://img.shields.io/badge/antdesign-0170FE?style=for-the-badge&logo=antdesign&logoColor=fff" />
+  </span>
+  <span style="flex: 1;" target="_blank">
+    <img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=ESLint&logoColor=fff" />
+  </span>
+  <span style="flex: 1;" target="_blank">
+    <img src="https://img.shields.io/badge/Prettier-000000?style=for-the-badge&logo=prettier" />
+  </span>
+</div>
 
-<a href="링크" target="_blank" style="text-decoration: none">
-  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=fff" />
-</a>
-<a href="링크" target="_blank" style="text-decoration: none">
-  <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=redux&logoColor=fff" />
-</a>
-<a href="링크" target="_blank" style="text-decoration: none">
-  <img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=fff" />
-</a>
-<a href="링크" target="_blank" style="text-decoration: none">
-  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=fff" />
-</a>
-<a href="링크" target="_blank" style="text-decoration: none">
-  <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=fff" />
-</a>
-<a href="링크" target="_blank" style="text-decoration: none">
-  <img src="https://img.shields.io/badge/SWR-000000?style=for-the-badge&logo=SWR&logoColor=fff" />
-</a>
-<a href="링크" target="_blank" style="text-decoration: none">
-  <img src="https://img.shields.io/badge/antdesign-0170FE?style=for-the-badge&logo=antdesign&logoColor=fff" />
-</a>
-<a href="링크" target="_blank" style="text-decoration: none">
-  <img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=ESLint&logoColor=fff" />
-</a>
-<a href="링크" target="_blank" style="text-decoration: none">
-  <img src="https://img.shields.io/badge/Prettier-000000?style=for-the-badge&logo=prettier" />
-</a>
 
 ## 프로젝트 소개
 
