@@ -145,9 +145,8 @@ const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) =
   return (
     <>
       <NextSeo
-        title={ps?.title}
-        description={ps?.title}
         canonical={`https://lsevina126.netlify.app/ps?/${ps?.title}/${ps?._id}`}
+        description={ps?.title}
         openGraph={{
           url: `https://lsevina126.netlify.app/ps?/${ps?.title}/${ps?._id}`,
           title: `${ps?.title}`,
@@ -161,6 +160,7 @@ const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) =
           ],
           siteName: `${ps?.title}`,
         }}
+        title={ps?.title}
       />
       {!editBtnIndex && data && (
         <section className={styles.postPage}>
