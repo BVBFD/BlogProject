@@ -26,7 +26,7 @@ import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
 
 export const config = {
-  runtime: 'nodejs' || 'experimental-edge',
+  runtime: 'experimental-edge' || 'nodejs',
 };
 
 export const pageConfig = {
