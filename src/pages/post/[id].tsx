@@ -25,10 +25,6 @@ import { RootState } from '../../redux/sliceStore';
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
 
-export const config = {
-  runtime: 'nodejs',
-};
-
 export const pageConfig = {
   disableOnClientSideNavigation: true,
 };
@@ -113,14 +109,14 @@ const PostPage = ({ ps }: { ps: PostType }) => {
   const toggleEditBtnIndex = () => setEditBtnIndex((prevState) => !prevState);
 
   useEffect(() => {
-    // prettier-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const handleBeforePopState = ({ url, as, options }: { url: string; as: string; options: { shallow?: boolean } }) => {
-      options.shallow = true;
-      return true;
-    };
+    // // prettier-ignore
+    // // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // const handleBeforePopState = ({ url, as, options }: { url: string; as: string; options: { shallow?: boolean } }) => {
+    //   options.shallow = true;
+    //   return true;
+    // };
 
-    router.beforePopState(handleBeforePopState);
+    // router.beforePopState(handleBeforePopState);
 
     const handleBeforeUnloadOnload = () => {
       dispatch(setFalse());
@@ -140,7 +136,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
 
     return () => {
       window.removeEventListener('unload', handleBeforeUnloadOnload);
-      router.beforePopState(() => true);
+      // router.beforePopState(() => true);
     };
   }, [dispatch, editBtnIndex]);
 
