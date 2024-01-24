@@ -25,7 +25,7 @@ import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
 
 export const config = {
-  runtime: 'nodejs',
+  runtime: 'experimental-edge',
 };
 
 const fetcherSSR = (url: string) => fetch(url).then((res) => res.json());
