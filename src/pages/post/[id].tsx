@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
+import { NextSeo } from 'next-seo';
 import useSWR, { mutate } from 'swr';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
+
 import Image from 'next/image';
 import DeleteFilled from '@ant-design/icons/DeleteFilled';
 import EditFilled from '@ant-design/icons/EditFilled';
@@ -23,7 +24,45 @@ import { RootState } from '../../redux/sliceStore';
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
 
-const PostPage = () => {
+export const config = {
+  runtime: 'nodejs',
+};
+
+export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}?meta=true`);
+    const ps = await res.json();
+
+    return {
+      props: {
+        ps,
+        error: null,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        ps: null,
+        error: {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          message: error.response?.data?.message || 'Something went wrong',
+        },
+      },
+    };
+  }
+};
+
+interface PostType {
+  _id: string;
+  __v: number;
+  title: string;
+  imgUrl: string;
+  createdAt: string;
+}
+
+const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) => {
   const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const router = useRouter();
   const swrUrl = `/posts/${router.query.id}`;
@@ -69,7 +108,7 @@ const PostPage = () => {
     } else {
       window.alert('삭제가 취소되었습니다.');
     }
-  }, [id, router]);
+  }, [ps, id, router]);
 
   const toggleEditBtnIndex = () => setEditBtnIndex((prevState) => !prevState);
 
@@ -95,28 +134,34 @@ const PostPage = () => {
     };
   }, [dispatch, editBtnIndex]);
 
+  if (error) {
+    router.push('/');
+  }
+
   if (swrError) {
     router.push('/');
   }
 
   return (
     <>
-      {data && (
-        <Head>
-          {/* SEO */}
-          <title>{data.title}</title>
-          <meta content="width=device-width, initial-scale=1" name="viewport" />
-          <meta content={data.title} name="description" />
-          <meta content={data.title} property="og:title" />
-          <meta content={`https://lsevina126.netlify.app/ps/${data.title}/${data._id}`} property="og:url" />
-          <meta content="website" property="og:type" />
-          <meta content={data.title} property="og:site_name" />
-          <meta content={data.imgUrl} property="og:image" />
-          <meta content={data.title} property="og:description" />
-          <link href={`https://lsevina126.netlify.app/ps/${data.title}/${data._id}`} rel="canonical" />
-          {/* SEO */}
-        </Head>
-      )}
+      <NextSeo
+        title={ps?.title}
+        description={ps?.title}
+        canonical={`https://lsevina126.netlify.app/ps?/${ps?.title}/${ps?._id}`}
+        openGraph={{
+          url: `https://lsevina126.netlify.app/ps?/${ps?.title}/${ps?._id}`,
+          title: `${ps?.title}`,
+          description: `${ps?.title}`,
+          images: [
+            {
+              url: ps?.imgUrl,
+              alt: ps?.title,
+              type: 'image/gif',
+            },
+          ],
+          siteName: `${ps?.title}`,
+        }}
+      />
       {!editBtnIndex && data && (
         <section className={styles.postPage}>
           <div className={styles.postBox}>
