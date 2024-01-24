@@ -26,10 +26,6 @@ import 'highlight.js/styles/vs2015.css';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export const pageConfig = {
-  disableOnClientSideNavigation: true,
-};
-
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
   return {
     props: {
