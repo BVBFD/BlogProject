@@ -30,7 +30,7 @@ export const pageConfig = {
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export const getInitialServerSideProps = async ({ params }: { params: { id: string } }) => {
+export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
   const ps = await fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}?meta=true`);
 
   return {
@@ -98,6 +98,15 @@ const PostPage = ({ ps }: { ps: PostType }) => {
   const toggleEditBtnIndex = () => setEditBtnIndex((prevState) => !prevState);
 
   useEffect(() => {
+    // prettier-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const handleBeforePopState = ({ url, as, options }: { url: string; as: string; options: { shallow?: boolean } }) => {
+      options.shallow = true;
+      return true;
+    };
+
+    router.beforePopState(handleBeforePopState);
+
     const handleBeforeUnloadOnload = () => {
       dispatch(setFalse());
       dispatch(setPaginationTotalNum(0));
@@ -116,6 +125,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
 
     return () => {
       window.removeEventListener('unload', handleBeforeUnloadOnload);
+      router.beforePopState(() => true);
     };
   }, [dispatch, editBtnIndex]);
 
