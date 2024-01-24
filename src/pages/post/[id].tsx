@@ -18,11 +18,16 @@ import { setFalse } from '@/redux/searchTextBolSlice';
 import { setSearchText } from '@/redux/searchTextStringSlice';
 
 import { logoutReduce } from '@/redux/userSlice';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { publicRequest } from '../../../config';
 import { RootState } from '../../redux/sliceStore';
 
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
+
+export const config = {
+  runtime: 'nodejs',
+};
 
 export const pageConfig = {
   disableOnClientSideNavigation: true,
@@ -30,7 +35,17 @@ export const pageConfig = {
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
+export const getServerSideProps = async ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  req,
+  res,
+  params,
+}: {
+  req: NextApiRequest;
+  res: NextApiResponse;
+  params: { id: string };
+}) => {
+  res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
   const ps = await fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}?meta=true`);
 
   return {
