@@ -24,14 +24,10 @@ import { RootState } from '../../redux/sliceStore';
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
 
-export const config = {
-  runtime: 'experimental-edge',
-};
-
-const fetcherSSR = (url: string) => fetch(url).then((res) => res.json());
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-  const ps = await fetcherSSR(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}?meta=true`);
+  const ps = await fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}?meta=true`);
 
   return {
     props: {
@@ -49,9 +45,8 @@ interface PostType {
 }
 
 const PostPage = ({ ps }: { ps: PostType }) => {
-  const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const router = useRouter();
-  const swrUrl = `/posts/${router.query.id}`;
+  const swrUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${router.query.id}`;
   const { data, error: swrError } = useSWR(swrUrl, fetcher);
   const Write = React.lazy(() => import('../write'));
   const [editBtnIndex, setEditBtnIndex] = React.useState<boolean>(false);
