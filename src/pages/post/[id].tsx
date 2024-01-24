@@ -25,22 +25,23 @@ import { RootState } from '../../redux/sliceStore';
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
 
+export const config = {
+  runtime: 'nodejs' || 'experimental-edge',
+};
+
 export const pageConfig = {
   disableOnClientSideNavigation: true,
 };
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export const getServerSideProps = async ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  req,
-  res,
-  params,
-}: {
+export const getServerSideProps = async (ctx: {
   req: NextApiRequest;
   res: NextApiResponse;
   params: { id: string };
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { req, res, params } = ctx;
   res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
 
   return {
