@@ -30,7 +30,7 @@ export const pageConfig = {
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
+export const getInitialServerSideProps = async ({ params }: { params: { id: string } }) => {
   const ps = await fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}?meta=true`);
 
   return {
