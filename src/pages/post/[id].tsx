@@ -28,30 +28,16 @@ export const config = {
   runtime: 'nodejs',
 };
 
-export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}?meta=true`);
-    const ps = await res.json();
+const fetcherSSR = (url: string) => fetch(url).then((res) => res.json());
 
-    return {
-      props: {
-        ps,
-        error: null,
-      },
-    };
-  } catch (error) {
-    return {
-      props: {
-        ps: null,
-        error: {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          message: error.response?.data?.message || 'Something went wrong',
-        },
-      },
-    };
-  }
+export const getServerSideProps = async ({ params }: { params: { id: string } }) => {
+  const ps = await fetcherSSR(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}?meta=true`);
+
+  return {
+    props: {
+      ps,
+    },
+  };
 };
 
 interface PostType {
@@ -62,7 +48,7 @@ interface PostType {
   createdAt: string;
 }
 
-const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) => {
+const PostPage = ({ ps }: { ps: PostType }) => {
   const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const router = useRouter();
   const swrUrl = `/posts/${router.query.id}`;
@@ -133,10 +119,6 @@ const PostPage = ({ ps, error }: { ps: PostType; error: { message: string } }) =
       window.removeEventListener('unload', handleBeforeUnloadOnload);
     };
   }, [dispatch, editBtnIndex]);
-
-  if (error) {
-    router.push('/');
-  }
 
   if (swrError) {
     router.push('/');

@@ -105,6 +105,7 @@ const Home = () => {
       localStorage.clear();
     };
     window.addEventListener('unload', handleBeforeUnloadOnload);
+
     return () => {
       window.removeEventListener('unload', handleBeforeUnloadOnload);
     };
