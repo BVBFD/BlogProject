@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    runtime: 'nodejs' | 'edge',
+    runtime: 'nodejs' || 'experimental-edge',
     optimizeCss: true,
     swcMinify: true,
     bundlePagesExternals: true,
