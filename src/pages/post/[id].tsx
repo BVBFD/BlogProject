@@ -40,13 +40,21 @@ export const getServerSideProps = async (ctx: {
   res: NextApiResponse;
   params: { id: string };
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { req, res, params } = ctx;
-  res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
+  const isFirstServerCall = req?.url?.indexOf('/_next/data/') === 0;
+
+  if (isFirstServerCall) {
+    res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
+    return {
+      props: {
+        ps: await fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}?meta=true`),
+      },
+    };
+  }
 
   return {
     props: {
-      ps: await fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}?meta=true`),
+      ps: {},
     },
   };
 };
