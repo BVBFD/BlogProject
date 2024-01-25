@@ -35,26 +35,22 @@ export const pageConfig = {
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
+const isServerReq = (req: NextApiRequest) => !req?.url?.startsWith('/_next');
+
 export const getServerSideProps = async (ctx: {
   req: NextApiRequest;
   res: NextApiResponse;
   params: { id: string };
 }) => {
   const { req, res, params } = ctx;
-  const isFirstServerCall = req?.url?.indexOf('/_next/data/') === 0;
-
-  if (isFirstServerCall) {
-    res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
-    return {
-      props: {
-        ps: await fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}?meta=true`),
-      },
-    };
-  }
+  const initData = isServerReq(req)
+    ? await fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}?meta=true`)
+    : null;
+  res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
 
   return {
     props: {
-      ps: {},
+      ps: initData,
     },
   };
 };
