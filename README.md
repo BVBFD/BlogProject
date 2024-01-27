@@ -106,7 +106,7 @@ blog-project-nextjs
 
 ## 블로그 기록 사항 - 개발 및 유지 보수
 
-- 2024.01.05 : [ 개인 블로그 사이트 성능 개선 및 트러블 슈팅 해결 여정기 ](https://lsevina126.netlify.app/post/65979ed57a920683806df985)
-- 2023.03.29 : [ NextJS, ReactJS - Pagination 구현 ( Feat. 라이브러리 없이 구현 ) ](https://lsevina126.netlify.app/post/642350ca059244411a587631)
-- 2023.03.14 : [ NextJS 프로젝트 환경 세팅하기 - ESLint, Prettier, Airbnb Code Style ](https://lsevina126.netlify.app/post/640fcdaf059244411a581e19)
-- 2023.03.14 : [ husky 에 대하여... ](https://lsevina126.netlify.app/post/640fbf8f059244411a581db4)
+- 2024.01.05 : [ 개인 블로그 사이트 성능 개선 및 트러블 슈팅 해결 여정기 ](https://lsevina126.netlify.app/post/65979ed57a920683806df985){:target="_blank"}
+- 2023.03.29 : [ NextJS, ReactJS - Pagination 구현 ( Feat. 라이브러리 없이 구현 ) ](https://lsevina126.netlify.app/post/642350ca059244411a587631){:target="_blank"}
+- 2023.03.14 : [ NextJS 프로젝트 환경 세팅하기 - ESLint, Prettier, Airbnb Code Style ](https://lsevina126.netlify.app/post/640fcdaf059244411a581e19){:target="_blank"}
+- 2023.03.14 : [ husky 에 대하여... ](https://lsevina126.netlify.app/post/640fbf8f059244411a581db4){:target="_blank"}
