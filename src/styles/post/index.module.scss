@@ -146,9 +146,12 @@
     margin-top: 0.5rem;
   }
 
-  .postPage .postBox .postImgTextBox .postTextBox .postHeader p,
-  .postPage .postBox .postImgTextBox .postTextBox .postHeader div {
+  .postPage .postBox .postImgTextBox .postTextBox .postHeader p {
     display: none;
+  }
+
+  .postPage .postBox .postImgTextBox .postTextBox .postHeader div span svg {
+    font-size: 1.1rem;
   }
 
   .postPage .postBox .postImgTextBox .postTextBox .postHeader span {

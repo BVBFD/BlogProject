@@ -269,6 +269,7 @@ const Write = ({ post, setEditBtnIndex }) => {
           router.push(`/post/${res.data?.savedNewPost?._id}`);
         }
       } catch (error) {
+        setFirstSubmit(true);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         window.alert(error.response.data.message);
       }
@@ -310,6 +311,7 @@ const Write = ({ post, setEditBtnIndex }) => {
           setFirstSubmit(true);
         }
       } catch (error) {
+        setFirstSubmit(true);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         window.alert(error.response.data.message);
       }
