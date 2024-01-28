@@ -33,7 +33,7 @@ const ReactQuill = dynamic(
   }
 );
 
-const Write = ({ post, setEditBtnIndex }) => {
+const Write = ({ post, editBtnIndex, setEditBtnIndex }) => {
   const { currentPageNum, searchText: searchTextRedux, catName: catNameRedux } = useSelector((state) => state);
   const [value, setValue] = useState(post?.text);
   const [isFetching, setIsFetching] = useState(false);
@@ -312,31 +312,15 @@ const Write = ({ post, setEditBtnIndex }) => {
     }
   };
 
-  const browserPreventEvent = (event) => {
-    /* eslint-disable-next-line no-restricted-globals */
-    history.pushState(null, '', location.href);
-    event();
-  };
-
   useEffect(() => {
     if (post) {
       setCatName(post.catName);
     }
     setFirstSubmit(true);
 
-    /* eslint-disable-next-line no-restricted-globals */
-    history.pushState(null, '', location.href);
-    window.addEventListener('popstate', () => {
-      browserPreventEvent(setEditBtnIndex(false));
-    });
-
     return () => {
       setFirstSubmit(true);
       setCatName('HTML / Git');
-
-      window.removeEventListener('popstate', () => {
-        browserPreventEvent(setEditBtnIndex(false));
-      });
     };
   }, []);
 
@@ -408,6 +392,11 @@ const Write = ({ post, setEditBtnIndex }) => {
             >
               Upload
             </BasicButton>
+            {editBtnIndex && (
+              <BasicButton BasicButtonType="medium" className={styles.toPostBtn} onClick={() => setEditBtnIndex(false)}>
+                To Post
+              </BasicButton>
+            )}
           </div>
         </div>
         <ReactQuill

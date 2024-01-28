@@ -27,6 +27,10 @@
 
       .catnameUploadBox {
         display: flex;
+
+        button {
+          margin: 0 0.5rem !important;
+        }
       }
 
       .imgFileLabel {
