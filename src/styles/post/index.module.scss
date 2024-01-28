@@ -128,6 +128,10 @@
 }
 
 @media screen and (max-width: 1400px) {
+  .postPage .postBox {
+    margin: 0.7rem 1.4rem 0 1.4rem;
+  }
+
   .postPage .postBox .postImgTextBox {
     width: 96vw;
     margin: auto;
@@ -152,10 +156,11 @@
 
   .postPage .postBox .postImgTextBox .postTextBox .postHeader div span svg {
     font-size: 1.1rem;
+    margin: 0.05rem !important;
   }
 
   .postPage .postBox .postImgTextBox .postTextBox .postHeader span {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
   .postPage .postBox .postImgTextBox .postTextBox .authorAndDate {
