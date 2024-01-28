@@ -46,7 +46,7 @@ export const getServerSideProps = async (ctx: {
   const initData = isServerReq(req)
     ? await fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}?meta=true`)
     : null;
-  res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
+  res.setHeader('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=86400');
 
   return {
     props: {
