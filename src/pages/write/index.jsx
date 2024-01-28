@@ -237,12 +237,6 @@ const Write = ({ post, setEditBtnIndex }) => {
     if (firstSubmit) {
       setFirstSubmit(false);
 
-      // if (user.id !== 'lse126' || !user.editable) {
-      //   window.alert('This is private Blog. Onle The Admin can edit!!');
-      //   setFirstSubmit(true);
-      //   return;
-      // }
-
       try {
         const res = await publicRequest.post(
           `/posts`,
@@ -318,15 +312,31 @@ const Write = ({ post, setEditBtnIndex }) => {
     }
   };
 
+  const browserPreventEvent = (event) => {
+    /* eslint-disable-next-line no-restricted-globals */
+    history.pushState(null, '', location.href);
+    event();
+  };
+
   useEffect(() => {
     if (post) {
       setCatName(post.catName);
     }
-
     setFirstSubmit(true);
+
+    /* eslint-disable-next-line no-restricted-globals */
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', () => {
+      browserPreventEvent(setEditBtnIndex(false));
+    });
+
     return () => {
       setFirstSubmit(true);
       setCatName('HTML / Git');
+
+      window.removeEventListener('popstate', () => {
+        browserPreventEvent(setEditBtnIndex(false));
+      });
     };
   }, []);
 
