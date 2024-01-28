@@ -216,7 +216,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
           </div>
         }
       >
-        {editBtnIndex && <Write post={data} editBtnIndex={editBtnIndex} setEditBtnIndex={setEditBtnIndex} />}
+        {editBtnIndex && <Write editBtnIndex={editBtnIndex} post={data} setEditBtnIndex={setEditBtnIndex} />}
       </React.Suspense>
     </>
   );
