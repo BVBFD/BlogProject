@@ -60,7 +60,7 @@ export const getStaticProps = async ({ params }: { params: { id: string } }) => 
 };
 
 const PostPage = ({ ps }: { ps: PostType }) => {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const router = useRouter();
   const swrUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${router.query.id}`;
   const { data, error: swrError } = useSWR(swrUrl, fetcher);
