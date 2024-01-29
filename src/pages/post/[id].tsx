@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { NextApiRequest, NextApiResponse } from 'next/types';
 import { NextSeo } from 'next-seo';
 import useSWR, { mutate } from 'swr';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,36 +24,6 @@ import { RootState } from '../../redux/sliceStore';
 import styles from '../../styles/post/index.module.scss';
 import 'highlight.js/styles/vs2015.css';
 
-export const config = {
-  runtime: 'experimental-edge' || 'nodejs',
-};
-
-export const pageConfig = {
-  disableOnClientSideNavigation: true,
-};
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-const isServerReq = (req: NextApiRequest) => !req?.url?.startsWith('/_next');
-
-export const getServerSideProps = async (ctx: {
-  req: NextApiRequest;
-  res: NextApiResponse;
-  params: { id: string };
-}) => {
-  const { req, res, params } = ctx;
-  const initData = isServerReq(req)
-    ? await fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${params.id}?meta=true`)
-    : null;
-  res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
-
-  return {
-    props: {
-      ps: initData,
-    },
-  };
-};
-
 interface PostType {
   _id: string;
   __v: number;
@@ -63,7 +32,35 @@ interface PostType {
   createdAt: string;
 }
 
+export const getStaticPaths = async () => {
+  const res = await publicRequest.get(`/posts`);
+  const posts = res.data;
+
+  const paths = Array.isArray(posts)
+    ? posts.map((post: PostType) => ({
+        params: {
+          id: post._id,
+        },
+      }))
+    : [];
+
+  return { paths, fallback: true };
+};
+
+export const getStaticProps = async ({ params }: { params: { id: string } }) => {
+  const res = await publicRequest.get(`/posts/${params.id}`);
+  const ps = res.data;
+
+  return {
+    props: {
+      ps,
+    },
+    revalidate: 3600,
+  };
+};
+
 const PostPage = ({ ps }: { ps: PostType }) => {
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const router = useRouter();
   const swrUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${router.query.id}`;
   const { data, error: swrError } = useSWR(swrUrl, fetcher);
