@@ -63,7 +63,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
   const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const router = useRouter();
   const swrUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${router.query.id}`;
-  const { data, error: swrError } = useSWR(swrUrl, fetcher);
+  const { data, isLoading, error: swrError } = useSWR(swrUrl, fetcher);
   const Write = React.lazy(() => import('../write'));
   const [editBtnIndex, setEditBtnIndex] = React.useState<boolean>(false);
   const { id } = router.query;
@@ -167,43 +167,49 @@ const PostPage = ({ ps }: { ps: PostType }) => {
       />
       {!editBtnIndex && data && (
         <section className={styles.postPage}>
-          <div className={styles.postBox}>
-            <div className={styles.postImgTextBox}>
-              <div className={styles.postTitleImgBox} style={{ backgroundColor: '#e4e4e4' }}>
-                <Image
-                  alt="postImg"
-                  crossOrigin="anonymous"
-                  fetchPriority="high"
-                  fill
-                  loading="eager"
-                  objectFit="contain"
-                  quality={1}
-                  src={`${data.imgUrl}`}
-                />
-              </div>
-              <div className={styles.postTextBox}>
-                <header className={styles.postHeader}>
-                  <p>
-                    Category: <span>{data.catName}</span>
-                  </p>
-                  <span>{data.title}</span>
-                  <div>
-                    <EditFilled onClick={toggleEditBtnIndex} />
-                    <DeleteFilled onClick={deletePost} />
-                  </div>
-                </header>
-                <div className={styles.authorAndDate}>
-                  <p>
-                    Author: <span>{data.author}</span>
-                  </p>
-                  <span>{new Date(data.createdAt).toDateString()}</span>
+          {!isLoading ? (
+            <div className={styles.postBox}>
+              <div className={styles.postImgTextBox}>
+                <div className={styles.postTitleImgBox} style={{ backgroundColor: '#e4e4e4' }}>
+                  <Image
+                    alt="postImg"
+                    crossOrigin="anonymous"
+                    fetchPriority="high"
+                    fill
+                    loading="eager"
+                    objectFit="contain"
+                    quality={1}
+                    src={`${data.imgUrl}`}
+                  />
                 </div>
-                <div className="ql-snow">
-                  <div className={`${styles.postContentText} ql-editor`} dangerouslySetInnerHTML={inputText()} />
+                <div className={styles.postTextBox}>
+                  <header className={styles.postHeader}>
+                    <p>
+                      Category: <span>{data.catName}</span>
+                    </p>
+                    <span>{data.title}</span>
+                    <div>
+                      <EditFilled onClick={toggleEditBtnIndex} />
+                      <DeleteFilled onClick={deletePost} />
+                    </div>
+                  </header>
+                  <div className={styles.authorAndDate}>
+                    <p>
+                      Author: <span>{data.author}</span>
+                    </p>
+                    <span>{new Date(data.createdAt).toDateString()}</span>
+                  </div>
+                  <div className="ql-snow">
+                    <div className={`${styles.postContentText} ql-editor`} dangerouslySetInnerHTML={inputText()} />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className={styles.circularBox}>
+              <Spin />
+            </div>
+          )}
         </section>
       )}
       <React.Suspense
