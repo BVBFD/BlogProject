@@ -165,50 +165,52 @@ const PostPage = ({ ps }: { ps: PostType }) => {
         }}
         title={ps?.title}
       />
-      {!editBtnIndex && !isLoading ? (
+      {!editBtnIndex && data && (
         <section className={styles.postPage}>
-          <div className={styles.postBox}>
-            <div className={styles.postImgTextBox}>
-              <div className={styles.postTitleImgBox} style={{ backgroundColor: '#e4e4e4' }}>
-                <Image
-                  alt="postImg"
-                  crossOrigin="anonymous"
-                  fetchPriority="high"
-                  fill
-                  loading="eager"
-                  objectFit="contain"
-                  quality={1}
-                  src={`${data.imgUrl}`}
-                />
-              </div>
-              <div className={styles.postTextBox}>
-                <header className={styles.postHeader}>
-                  <p>
-                    Category: <span>{data.catName}</span>
-                  </p>
-                  <span>{data.title}</span>
-                  <div>
-                    <EditFilled onClick={toggleEditBtnIndex} />
-                    <DeleteFilled onClick={deletePost} />
-                  </div>
-                </header>
-                <div className={styles.authorAndDate}>
-                  <p>
-                    Author: <span>{data.author}</span>
-                  </p>
-                  <span>{new Date(data.createdAt).toDateString()}</span>
+          {!isLoading ? (
+            <div className={styles.postBox}>
+              <div className={styles.postImgTextBox}>
+                <div className={styles.postTitleImgBox} style={{ backgroundColor: '#e4e4e4' }}>
+                  <Image
+                    alt="postImg"
+                    crossOrigin="anonymous"
+                    fetchPriority="high"
+                    fill
+                    loading="eager"
+                    objectFit="contain"
+                    quality={1}
+                    src={`${data.imgUrl}`}
+                  />
                 </div>
-                <div className="ql-snow">
-                  <div className={`${styles.postContentText} ql-editor`} dangerouslySetInnerHTML={inputText()} />
+                <div className={styles.postTextBox}>
+                  <header className={styles.postHeader}>
+                    <p>
+                      Category: <span>{data.catName}</span>
+                    </p>
+                    <span>{data.title}</span>
+                    <div>
+                      <EditFilled onClick={toggleEditBtnIndex} />
+                      <DeleteFilled onClick={deletePost} />
+                    </div>
+                  </header>
+                  <div className={styles.authorAndDate}>
+                    <p>
+                      Author: <span>{data.author}</span>
+                    </p>
+                    <span>{new Date(data.createdAt).toDateString()}</span>
+                  </div>
+                  <div className="ql-snow">
+                    <div className={`${styles.postContentText} ql-editor`} dangerouslySetInnerHTML={inputText()} />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className={styles.circularBox}>
+              <Spin />
+            </div>
+          )}
         </section>
-      ) : (
-        <div className={styles.circularBox}>
-          <Spin />
-        </div>
       )}
       <React.Suspense
         fallback={
