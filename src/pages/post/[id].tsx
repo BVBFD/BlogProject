@@ -63,7 +63,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
   const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const router = useRouter();
   const swrUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${router.query.id}`;
-  const { data, error: swrError } = useSWR(swrUrl, fetcher);
+  const { data, isLoading, error: swrError } = useSWR(swrUrl, fetcher);
   const Write = React.lazy(() => import('../write'));
   const [editBtnIndex, setEditBtnIndex] = React.useState<boolean>(false);
   const { id } = router.query;
@@ -165,7 +165,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
         }}
         title={ps?.title}
       />
-      {!editBtnIndex && data && (
+      {!editBtnIndex && !isLoading ? (
         <section className={styles.postPage}>
           <div className={styles.postBox}>
             <div className={styles.postImgTextBox}>
@@ -205,6 +205,10 @@ const PostPage = ({ ps }: { ps: PostType }) => {
             </div>
           </div>
         </section>
+      ) : (
+        <div className={styles.circularBox}>
+          <Spin />
+        </div>
       )}
       <React.Suspense
         fallback={
