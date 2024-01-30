@@ -23,7 +23,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
+      height: 15vh;
 
       .catnameUploadBox {
         display: flex;
@@ -34,22 +34,19 @@
       }
 
       .imgFileLabel {
-        display: inline-block;
-        width: 2rem;
         cursor: pointer;
-        margin-right: 1rem;
         position: relative;
 
         svg {
           transform: scale(1.4);
           position: absolute;
-          top: 0;
-          left: 0;
+          top: -0.2rem;
+          left: -2rem;
         }
       }
 
       .titleInput {
-        width: 80vw;
+        width: 65vw;
         border: none;
         font-size: 2rem;
         margin: 3rem 0;
@@ -105,15 +102,27 @@
 @media screen and (min-width: 1201px) {
 }
 
-@media screen and (max-width: 1600px) {
+@media screen and (max-width: 1023px) {
+  .write .titleImgBox {
+    height: 25vh;
+  }
+
+  .write .titleImgAddBox .titleInputBox {
+    flex-wrap: wrap;
+    height: unset;
+    margin: 1rem 0;
+  }
+
   .write .titleImgAddBox .titleInputBox .catnameUploadBox {
-    width: 100%;
-    justify-content: center;
-    margin: 1rem 4rem;
+  }
+
+  .write .titleImgAddBox .titleInputBox .catnameUploadBox .imgFileLabel {
+    display: inline-block;
+    width: 2rem;
   }
 
   .write .titleImgAddBox .titleInputBox .titleInput {
-    margin: 1rem 0 0 0;
+    margin: 1rem;
   }
 
   .write .titleImgAddBox .titleInputBox .catnameUploadBox .selectCategory {
