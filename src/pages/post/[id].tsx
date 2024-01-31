@@ -48,7 +48,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }: { params: { id: string } }) => {
-  const res = await publicRequest.get(`/posts/${params.id}`);
+  const res = await publicRequest.get(`/posts/${params.id}?meta=true`);
   const ps = res.data;
 
   return {
@@ -165,7 +165,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
         }}
         title={ps?.title}
       />
-      {!editBtnIndex && data && (
+      {!editBtnIndex && (
         <section className={styles.postPage}>
           {!isLoading ? (
             <div className={styles.postBox}>
