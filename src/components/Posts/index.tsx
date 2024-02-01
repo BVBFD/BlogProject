@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import styles from './index.module.scss';
 import Post from './Post';
-import Image from 'next/image';
 
 interface PostType {
   _id: string;
@@ -59,7 +59,7 @@ const Posts = ({
         )
       ) : (
         <div className={styles.notFoundBox}>
-          <Image src={'/imgs/post-not-found.gif'} alt="post-not-found" fill />
+          <Image alt="post-not-found" fill src="/imgs/post-not-found.gif" />
         </div>
       )}
     </div>
