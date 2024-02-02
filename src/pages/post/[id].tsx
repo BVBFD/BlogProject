@@ -187,7 +187,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
                     <p>
                       Category: <span>{data.catName}</span>
                     </p>
-                    <span>{data.title}</span>
+                    <span className={styles.title}>{data.title}</span>
                     <div>
                       <EditFilled onClick={toggleEditBtnIndex} />
                       <DeleteFilled onClick={deletePost} />

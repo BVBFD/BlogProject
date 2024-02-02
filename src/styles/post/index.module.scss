@@ -1,6 +1,12 @@
+.postPage {
+  width: 85%;
+  margin: auto;
+}
+
 .postPage .postBox {
   display: flex;
   margin: 2rem 2rem 0 2rem;
+  justify-content: center;
 }
 
 .postPage .postBox * {
@@ -26,7 +32,7 @@
 }
 
 .postPage .postBox .postImgTextBox .postTextBox {
-  width: 96vw;
+  width: 100%;
   margin: 1.5rem auto auto auto;
 }
 
@@ -36,22 +42,20 @@
   align-items: center;
   position: relative;
   width: 100%;
-  height: 50vh;
+  height: 35vh;
   border-radius: 1rem;
 }
 
 .postPage .postBox .postImgTextBox .postTextBox .postHeader {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  position: relative;
+  margin-top: 1rem;
 }
 
 .postPage .postBox .postImgTextBox .postTextBox .postHeader p {
   font-size: 1rem;
   font-weight: bold;
-  position: absolute;
-  left: 0;
 }
 
 .postPage .postBox .postImgTextBox .postTextBox .postHeader p span {
@@ -61,14 +65,9 @@
   text-transform: capitalize;
 }
 
-.postPage .postBox .postImgTextBox .postTextBox .postHeader span {
-  font-size: 2rem;
+.postPage .postBox .postImgTextBox .postTextBox .postHeader .title {
+  font-size: 1.4rem;
   font-weight: bold;
-}
-
-.postPage .postBox .postImgTextBox .postTextBox .postHeader div {
-  position: absolute;
-  right: 0;
 }
 
 .postPage .postBox .postImgTextBox .postTextBox .postHeader div svg {
@@ -88,7 +87,7 @@
 .postPage .postBox .postImgTextBox .postTextBox .authorAndDate {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.8rem;
+  margin-bottom: 2rem;
   font-size: 1.1rem;
   color: darkgrey;
 }
@@ -125,6 +124,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (max-width: 1600px) {
+  .postPage .postBox .postImgTextBox .postTextBox .postHeader .title {
+    font-size: 1.35rem;
+    font-weight: bold;
+  }
 }
 
 @media screen and (max-width: 1400px) {
@@ -185,6 +191,13 @@
 
   .postPage .postBox .postImgTextBox .postTextBox .postContentText a img {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .postPage {
+    width: 95%;
+    margin: auto;
   }
 }
 

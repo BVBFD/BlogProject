@@ -39,6 +39,10 @@ img {
   height: auto;
 }
 
+.ql-editor {
+  padding: 1rem 0 !important;
+}
+
 .ql-snow .ql-editor img {
   width: fit-content !important;
 }
