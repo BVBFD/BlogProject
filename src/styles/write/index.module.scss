@@ -13,6 +13,8 @@
   }
 
   .titleImgAddBox {
+    width: 80%;
+    margin: auto;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -35,13 +37,11 @@
 
       .imgFileLabel {
         cursor: pointer;
-        position: relative;
 
         svg {
           transform: scale(1.4);
-          position: absolute;
-          top: -0.2rem;
-          left: -2rem;
+          position: relative;
+          top: -0.3rem;
         }
       }
 
@@ -50,6 +50,7 @@
         border: none;
         font-size: 2rem;
         margin: 3rem 0;
+        padding: 0 1.2rem;
 
         &:focus {
           outline: none;
@@ -99,12 +100,14 @@
   }
 }
 
-@media screen and (min-width: 1201px) {
-}
-
 @media screen and (max-width: 1023px) {
   .write .titleImgBox {
     height: 25vh;
+  }
+
+  .write .titleImgAddBox {
+    width: 90% !important;
+    margin: auto !important;
   }
 
   .write .titleImgAddBox .titleInputBox {
@@ -134,10 +137,15 @@
   }
 }
 
-@media screen and (max-width: 1024px) {
-}
-
 @media screen and (max-width: 768px) {
+  .write .titleImgAddBox {
+    width: 100% !important;
+    margin: auto !important;
+  }
+
+  .titleInput {
+    padding: 0 0.2rem !important;
+  }
 }
 
 @media screen and (max-width: 480px) {

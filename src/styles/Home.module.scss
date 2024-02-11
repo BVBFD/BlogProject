@@ -1,4 +1,6 @@
 .homeIndexContainer {
+  width: 80%;
+  margin: auto;
   padding: 0 3rem;
 
   .totalSearchBox {
@@ -30,7 +32,7 @@
 
       .circularProgress {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(30vw, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(25vw, 1fr));
 
         div {
           display: flex;
