@@ -153,12 +153,12 @@
   }
 }
 
-@media screen and (min-width: 1201px) {
+@media screen and (max-width: 1920px) {
   /* 1201px and more - Extra large screens, TV */
-}
-
-@media screen and (max-width: 1200px) {
-  /* 1025px - 1200px - Desktops, large screens */
+  .homeIndexContainer {
+    width: unset !important;
+    margin: unset !important;
+  }
 }
 
 @media screen and (max-width: 1024px) {
