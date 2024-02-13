@@ -100,15 +100,6 @@ const Home = () => {
       window.scrollTo({ top: postClientY, behavior: 'auto' as ScrollBehavior });
     };
     goToPageAndScroll();
-
-    const handleBeforeUnloadOnload = () => {
-      localStorage.clear();
-    };
-    window.addEventListener('unload', handleBeforeUnloadOnload);
-
-    return () => {
-      window.removeEventListener('unload', handleBeforeUnloadOnload);
-    };
   }, []);
 
   return (
