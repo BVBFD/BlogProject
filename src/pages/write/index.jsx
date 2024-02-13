@@ -405,7 +405,7 @@ const Write = ({ post, editBtnIndex, setEditBtnIndex }) => {
           forwardedRef={editorRef}
           modules={modules}
           onChange={setValue}
-          style={{ width: '100%', height: '90vh' }}
+          style={{ width: '100%', height: '90vh', marginBottom: '10vh' }}
           theme="snow"
         />
         {!isFetching ? (
