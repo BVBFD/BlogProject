@@ -6,15 +6,12 @@
     align-items: center;
     margin-top: 1rem;
     position: relative;
-    width: 96vw;
     height: 50vh;
     border-radius: 1rem;
     margin: 1rem auto auto auto;
   }
 
   .titleImgAddBox {
-    width: 80%;
-    margin: auto;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -46,7 +43,7 @@
       }
 
       .titleInput {
-        width: 65vw;
+        width: 1024px;
         border: none;
         font-size: 2rem;
         margin: 3rem 0;
@@ -100,7 +97,7 @@
   }
 }
 
-@media screen and (max-width: 1919px) {
+@media screen and (max-width: 1399px) {
   .write .titleImgBox {
     height: 25vh;
   }
@@ -116,15 +113,13 @@
     margin: 1rem 0;
   }
 
-  .write .titleImgAddBox .titleInputBox .catnameUploadBox {
-  }
-
   .write .titleImgAddBox .titleInputBox .catnameUploadBox .imgFileLabel {
     display: inline-block;
     width: 2rem;
   }
 
   .write .titleImgAddBox .titleInputBox .titleInput {
+    width: 65vw !important;
     margin: 1rem;
   }
 

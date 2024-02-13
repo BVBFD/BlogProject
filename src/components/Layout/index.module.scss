@@ -1,0 +1,11 @@
+.layout {
+  width: 1400px;
+  margin: 5vh auto;
+}
+
+@media screen and (max-width: 1399px) {
+  .layout {
+    width: unset !important;
+    margin: unset !important;
+  }
+}

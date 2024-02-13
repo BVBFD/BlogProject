@@ -1,4 +1,5 @@
 import Navbar from '../Navbar';
+import styles from './index.module.scss';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,7 +9,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Navbar />
-      <div>{children}</div>
+      <div className={styles.layout}>{children}</div>
     </>
   );
 };
