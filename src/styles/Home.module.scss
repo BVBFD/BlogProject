@@ -162,6 +162,9 @@
 
   /* 769px - 1024px - laptops, small screens */
   .homeSec {
+    width: 100%;
+    min-height: 80vh;
+
     :global(.ant-pagination) {
       transform: scale(0.85) !important;
     }
