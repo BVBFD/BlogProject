@@ -108,6 +108,10 @@
 
 @media screen and (max-width: 1024px) {
   /* 769px - 1024px - laptops, small screens */
+  .about {
+    position: unset;
+  }
+
   .about .aboutIntroBox .aboutExplainBox button {
     position: relative;
     bottom: 0;

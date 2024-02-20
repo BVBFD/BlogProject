@@ -101,6 +101,9 @@
 
 @media screen and (max-width: 1024px) {
   /* 769px - 1024px - laptops, small screens */
+  .contact {
+    position: unset;
+  }
 }
 
 @media screen and (max-width: 768px) {
