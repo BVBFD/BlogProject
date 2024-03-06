@@ -19,8 +19,8 @@ import BasicButton from '@/common/BasicButton';
 import { setPostsVar } from '@/redux/postsVarSlice';
 import { setPaginationTotalNum } from '@/redux/paginationTotalNumSlice';
 import { publicRequest } from '@/api/config';
-import styles from '../../styles/write/index.module.scss';
 import { categories } from '@/constants/categories';
+import styles from '../../styles/write/index.module.scss';
 
 const ReactQuill = dynamic(
   async () => {
@@ -360,7 +360,7 @@ const Write = ({ post, editBtnIndex, setEditBtnIndex }) => {
           forwardedRef={editorRef}
           modules={modules}
           onChange={setValue}
-          style={{ width: '100%', height: '80vh', marginBottom: '10vh' }}
+          style={{ width: '100%', height: '70vh', marginBottom: '5vh' }}
           theme="snow"
         />
         {!isFetching ? (
