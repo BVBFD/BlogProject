@@ -26,11 +26,11 @@ interface SwrUrlType {
 
 export const getSwrUrl = ({ currentPageNum, searchText, catName, postId }: SwrUrlType) => {
   if (postId) {
-    return `/posts/${postId}`;
+    return `${BASE_URL || TEST_BASE_URL}/posts/${postId}`;
   }
-  return `/posts?${currentPageNum && `page=${currentPageNum}`}${searchText && `&text=${searchText}`}${
-    catName && `&cat=${catName}`
-  }`;
+  return `${BASE_URL || TEST_BASE_URL}/posts?${currentPageNum && `page=${currentPageNum}`}${
+    searchText && `&text=${searchText}`
+  }${catName && `&cat=${catName}`}`;
 };
 
 export const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
