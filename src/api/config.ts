@@ -26,9 +26,9 @@ interface SwrUrlType {
 
 export const getSwrUrl = ({ currentPageNum, searchText, catName, postId }: SwrUrlType) => {
   if (postId) {
-    return `${BASE_URL || TEST_BASE_URL}/posts/${postId}`;
+    return `${BASE_URL || TEST_BASE_URL || NEXT_API_BASE_URL}/posts/${postId}`;
   }
-  return `${BASE_URL || TEST_BASE_URL}/posts?${currentPageNum && `page=${currentPageNum}`}${
+  return `${BASE_URL || TEST_BASE_URL || NEXT_API_BASE_URL}/posts?${currentPageNum && `page=${currentPageNum}`}${
     searchText && `&text=${searchText}`
   }${catName && `&cat=${catName}`}`;
 };

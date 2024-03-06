@@ -41,7 +41,7 @@ const useInitPosts = () => {
     }
   }, [data, isLoading, swrError, currentPageNum, searchText, catName]);
 
-  return { postsPerSize, swrUrl, isLoading, swrError };
+  return { data, postsPerSize, swrUrl, isLoading, swrError };
 };
 
 export default useInitPosts;

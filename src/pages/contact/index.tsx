@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/sliceStore';
 import BasicButton from '@/common/BasicButton';
-import emailjs from '@emailjs/browser';
 import styles from '../../styles/contact/index.module.scss';
+import useEmail from '@/hooks/useEmail';
 
 const Contact = () => {
   const [name, setName] = useState('');
@@ -14,51 +14,15 @@ const Contact = () => {
   const [originEmail, setOriginEmail] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(false);
 
+  const { onSendEmail } = useEmail();
+
+  const handeleSendEmail = (event: React.MouseEvent) => {
+    return onSendEmail(event, name, customerEmail, originEmail, message, number, setBtnDisabled);
+  };
+
   useEffect(() => {
     setOriginEmail(email);
   }, [email]);
-
-  const onSendEmail = async (event: React.MouseEvent) => {
-    event.preventDefault();
-    setBtnDisabled(true);
-
-    function isEmailValid(emailValidVar: string) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValidVar) && emailValidVar.includes('.');
-    }
-
-    if (!isEmailValid(customerEmail)) {
-      window.alert(`정확한 이메일 형식 부탁해요. 이메일이 보내기가 실패했습니다!`);
-      setBtnDisabled(false);
-      return;
-    }
-
-    if (name !== '' && (customerEmail !== '' || originEmail !== '') && message !== '') {
-      emailjs
-        .send(
-          `${process.env.NEXT_PUBLIC_Gmail_Service_ID}`,
-          `${process.env.NEXT_PUBLIC_Gamil_Template_ID}`,
-          {
-            from_name: name,
-            from_email: originEmail || customerEmail,
-            message: `${message} Number is ${number}`,
-          },
-          process.env.NEXT_PUBLIC_Gmail_Public_Key
-        )
-        .then(
-          function onSuccess() {
-            window.alert('이메일이 성공적으로 보내어졌습니다!!!');
-            setBtnDisabled(false);
-          },
-          function onFailure() {
-            window.alert(`이메일이 보내기가 실패했습니다!!!`);
-            setBtnDisabled(false);
-          }
-        );
-    } else {
-      window.alert(`이메일이 보내기가 실패했습니다!!!`);
-      setBtnDisabled(false);
-    }
-  };
 
   return (
     <section className={styles.contact} id="contact">
@@ -95,7 +59,7 @@ const Contact = () => {
             placeholder="Type your message to me..."
             required
           />
-          <BasicButton BasicButtonType="medium" disabled={btnDisabled} onClick={onSendEmail}>
+          <BasicButton BasicButtonType="medium" disabled={btnDisabled} onClick={handeleSendEmail}>
             Send Message
           </BasicButton>
         </form>
