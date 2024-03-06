@@ -31,7 +31,7 @@ export interface WriteProps {
 
 const Editor = ({ post, setEditBtnIndex }: WriteProps) => {
   const { id } = useRouter().query;
-  const { text: defaultValue } = post;
+  const defaultValue = post ? post.text : '';
   const { setIsFetching, setChagneValue } = useWrite(post, setEditBtnIndex, id as string);
 
   const editorRef = useRef();
