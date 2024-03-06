@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { NextSeo } from 'next-seo';
-import useSWR, { mutate } from 'swr';
+import useSWR from 'swr';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
@@ -18,7 +18,7 @@ import { setFalse } from '@/redux/searchTextBolSlice';
 import { setSearchText } from '@/redux/searchTextStringSlice';
 
 import { logoutReduce } from '@/redux/userSlice';
-import { publicRequest } from '../../../config';
+import { fetcher, getSwrUrl, publicRequest, runSwrMutate } from '../../api/config';
 import { RootState } from '../../redux/sliceStore';
 
 import styles from '../../styles/post/index.module.scss';
@@ -60,13 +60,14 @@ export const getStaticProps = async ({ params }: { params: { id: string } }) => 
 };
 
 const PostPage = ({ ps }: { ps: PostType }) => {
-  const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const router = useRouter();
-  const swrUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${router.query.id}`;
+  const { id: postId } = router.query;
+  const swrUrl = getSwrUrl({ postId });
   const { data, isLoading, error: swrError } = useSWR(swrUrl, fetcher);
+
   const Write = React.lazy(() => import('../write'));
   const [editBtnIndex, setEditBtnIndex] = React.useState<boolean>(false);
-  const { id } = router.query;
+
   const { user, openPostBol } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
@@ -79,7 +80,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
 
     if (userConfirmed) {
       try {
-        const res = await publicRequest.delete(`/posts/${id}`, {
+        const res = await publicRequest.delete(`/posts/${postId}`, {
           data: {
             author: user.id,
           },
@@ -98,14 +99,13 @@ const PostPage = ({ ps }: { ps: PostType }) => {
           dispatch(logoutReduce());
         }
       } catch (err) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         window.alert(err.response.data.message);
       }
     } else {
       window.alert('삭제가 취소되었습니다.');
     }
-  }, [ps, id, router]);
+  }, [ps, postId, router]);
 
   const toggleEditBtnIndex = () => setEditBtnIndex((prevState) => !prevState);
 
@@ -129,7 +129,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
       dispatch(setOpenPostFalse());
     };
 
-    mutate(swrUrl);
+    runSwrMutate(swrUrl);
 
     if (openPostBol) {
       window.addEventListener('unload', handleBeforeUnloadOnload);

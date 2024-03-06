@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { usePopUp } from '@/common/UsePopUp';
 import BasicButton from '@/common/BasicButton';
 import { loginReduce } from '@/redux/userSlice';
-import { publicRequest } from '../../../../config';
+import { publicRequest } from '../../../api/config';
 import styles from './index.module.scss';
 
 type UserDataType = {

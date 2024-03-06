@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Spin } from 'antd';
 import { FacebookFilled, InstagramFilled, TwitterCircleFilled } from '@ant-design/icons';
@@ -10,95 +10,38 @@ import BasicButton from '@/common/BasicButton';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/sliceStore';
-
-import { setFalse, setTrue } from '@/redux/searchTextBolSlice';
-import { setPostsVar } from '@/redux/postsVarSlice';
 import { setPaginationTotalNum } from '@/redux/paginationTotalNumSlice';
 import { setCurrentPage } from '@/redux/currentPageNumSlice';
-import { setSearchText } from '@/redux/searchTextStringSlice';
-import { setCatName } from '@/redux/catNameSlice';
 
 import Image from 'next/image';
-import useSWR, { mutate } from 'swr';
-import styles from '../styles/Home.module.scss';
-import { publicRequest } from '../../config';
+import useFilter from '@/hooks/useFilter';
+import useGoToPageAndScroll from '@/hooks/useGoToPageAndScroll';
+import usePosts from '@/hooks/usePosts';
+import { categories } from '@/constants/categories';
+import { runSwrMutate } from '@/api/config';
 import Posts from '../components/Posts';
+import styles from '../styles/Home.module.scss';
 
 const Home = () => {
-  const { postsVar, paginationTotalNum, currentPageNum, searchText, catName, postClientY, searchTextBol } = useSelector(
+  const { postsVar, paginationTotalNum, currentPageNum, searchText, catName } = useSelector(
     (state: RootState) => state
   );
   const dispatch = useDispatch();
+  const { handleTotal, handleCatName, handleSearchText } = useFilter();
+  const { postsPerSize, swrUrl, isLoading, swrError } = usePosts();
+  const { goToPageAndScroll } = useGoToPageAndScroll();
+
   const scrollContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   const [onProgress, setOnProgress] = useState<boolean>(false);
-  const [postsPerSize, setPostsPerSize] = useState<number>(4);
-
-  const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
-  const swrUrl = `/posts?page=${currentPageNum}&text=${searchText}&cat=${catName}`;
-  const { data, isLoading, error: swrError } = useSWR(swrUrl, fetcher);
 
   useEffect(() => {
-    setPostsPerSize(4);
-    mutate(swrUrl);
-    if (data) {
-      dispatch(setPostsVar(data?.posts));
-      dispatch(setPaginationTotalNum(data?.totalPostsCount));
-    } else {
-      dispatch(setPostsVar([]));
-      dispatch(setFalse());
-    }
-  }, [data, currentPageNum, searchText, catName]);
-
-  useEffect(() => {
+    runSwrMutate(swrUrl);
     setOnProgress(isLoading);
-  }, [isLoading]);
-
-  const handleTotal = useCallback(() => {
-    dispatch(setSearchText(''));
-    dispatch(setCatName(''));
-    dispatch(setCurrentPage(1));
-  }, []);
-
-  const handleCatName = useCallback(async (e: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(setPaginationTotalNum(0));
-    dispatch(setCurrentPage(1));
-    dispatch(setSearchText(''));
-    dispatch(setCatName(e.currentTarget.innerText));
-  }, []);
-
-  const handleSearchText = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(setPaginationTotalNum(0));
-      dispatch(setCurrentPage(1));
-      dispatch(setTrue());
-      dispatch(setSearchText(e.target.value));
-
-      if (e.target.value === '') {
-        dispatch(setFalse());
-      }
-      if (currentPageNum === 1) {
-        dispatch(setTrue());
-      }
-      if (swrError) {
-        dispatch(setTrue());
-      }
-
-      dispatch(setFalse());
-    },
-    [searchTextBol, handleTotal]
-  );
+  }, [swrUrl, isLoading]);
 
   useEffect(() => {
-    const goToPageAndScroll = async () => {
-      await new Promise<void>((resolve) => {
-        setTimeout(() => {
-          resolve();
-        }, 30);
-      });
-      window.scrollTo({ top: postClientY, behavior: 'auto' as ScrollBehavior });
-    };
     goToPageAndScroll();
   }, []);
 
@@ -126,7 +69,7 @@ const Home = () => {
         {catName === '' && (
           <input
             className={styles.searchInput}
-            onChange={handleSearchText}
+            onChange={(e) => handleSearchText(e, swrError)}
             placeholder="Searching Posts..."
             ref={searchInputRef}
             type="text"
@@ -172,13 +115,11 @@ const Home = () => {
               <div>CATEGORIES</div>
             </header>
             <div className={styles.categoriesBox}>
-              {['HTML / Git', 'CSS', 'JavaScript', 'Front-End', 'Back-End', 'Algorithm', 'Life', 'Book / Learn'].map(
-                (category) => (
-                  <button key={category} onClick={handleCatName} type="button">
-                    {category}
-                  </button>
-                )
-              )}
+              {categories.map((category) => (
+                <button key={category} onClick={handleCatName} type="button">
+                  {category}
+                </button>
+              ))}
             </div>
             <footer>FOLLOW US</footer>
             <div className={styles.logoBox}>

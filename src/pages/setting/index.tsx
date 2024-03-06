@@ -6,7 +6,7 @@ import { RootState } from '@/redux/sliceStore';
 import { loginReduce, logoutReduce } from '@/redux/userSlice';
 import BasicButton from '@/common/BasicButton';
 import styles from '../../styles/setting/index.module.scss';
-import { publicRequest } from '../../../config';
+import { publicRequest } from '../../api/config';
 
 const Setting = () => {
   const { id, email, profilePic } = useSelector((state: RootState) => state.user);

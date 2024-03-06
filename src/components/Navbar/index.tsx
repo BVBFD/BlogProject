@@ -12,7 +12,7 @@ import { setPostClientY } from '@/redux/postClientYSlice';
 import styles from './index.module.scss';
 import LoginPopup from './LoginPopup';
 import SignupPopUp from './SignupPopup';
-import { publicRequest } from '../../../config';
+import { publicRequest } from '../../api/config';
 
 const Navbar = () => {
   const [boolean, setBoolean] = useState<boolean>(false);

@@ -4,7 +4,7 @@ import { loginReduce } from '@/redux/userSlice';
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import BasicButton from '@/common/BasicButton';
-import { publicRequest } from '../../../../config';
+import { publicRequest } from '../../../api/config';
 import styles from './index.module.scss';
 
 const LoginPopup = () => {
