@@ -18,7 +18,7 @@ import { setFalse } from '@/redux/searchTextBolSlice';
 import { setSearchText } from '@/redux/searchTextStringSlice';
 
 import { logoutReduce } from '@/redux/userSlice';
-import { fetcher, getSwrUrl, publicRequest, runSwrMutate } from '../../api/config';
+import { publicRequest, runSwrMutate } from '../../api/config';
 import { RootState } from '../../redux/sliceStore';
 
 import styles from '../../styles/post/index.module.scss';
@@ -60,9 +60,9 @@ export const getStaticProps = async ({ params }: { params: { id: string } }) => 
 };
 
 const PostPage = ({ ps }: { ps: PostType }) => {
+  const fetcher = (url: string) => publicRequest.get(url).then((res) => res.data);
   const router = useRouter();
-  const { id: postId } = router.query;
-  const swrUrl = getSwrUrl({ postId });
+  const swrUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${router.query.id}`;
   const { data, isLoading, error: swrError } = useSWR(swrUrl, fetcher);
 
   const Write = React.lazy(() => import('../write'));
@@ -80,7 +80,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
 
     if (userConfirmed) {
       try {
-        const res = await publicRequest.delete(`/posts/${postId}`, {
+        const res = await publicRequest.delete(`/posts/${router.query.id}`, {
           data: {
             author: user.id,
           },
@@ -105,7 +105,7 @@ const PostPage = ({ ps }: { ps: PostType }) => {
     } else {
       window.alert('삭제가 취소되었습니다.');
     }
-  }, [ps, postId, router]);
+  }, [ps, router.query.id, router]);
 
   const toggleEditBtnIndex = () => setEditBtnIndex((prevState) => !prevState);
 
