@@ -8,7 +8,7 @@ const NEXT_API_BASE_URL = `${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}`;
 const Origin = 'http://localhost:3000' || 'https://lsevina126.netlify.app';
 
 export const publicRequest = axios.create({
-  baseURL: BASE_URL,
+  baseURL: BASE_URL || TEST_BASE_URL || NEXT_API_BASE_URL,
   withCredentials: true,
   headers: {
     Origin,
