@@ -94,6 +94,9 @@ blog-project-nextjs
 │  ├─ components     // 페이지에 공통적으로 들어가는 부분적인 컴포넌트 요소 정의
 │  ├─ pages          // 페이지 URL에 따른 렌더링될 페이지 요서 정의
 │  ├─ redux          // 전역 데이터 다루는 redux-storage 구현
+│  ├─ models         // response 데이터 타입 정의
+│  ├─ api            // http 네트워크 axios 및 swr 관련 설정 정의
+│  ├─ hooks          // 함수형 컴포넌트 상태(useState) 및 생명주기(useEffect) 사용한 custom hooks 정의, 모아둔 곳
 │  └─ styles         // pages의 css 파일 정의
 ├─ package.json      // 사용한 라이브러리 모듈 및 버전 정보
 ├─ .eslintrc.json    // eslint 규칙 정의
@@ -106,6 +109,7 @@ blog-project-nextjs
 
 ## 블로그 기록 사항 - 개발 및 유지 보수
 
+- 2024.03.06 : [ 블로그 프론트 프로젝트 구조 리팩토링 ](https://lsevina126.netlify.app/post/65dbdbfb2fc009c1bf9ddb27)
 - 2024.02.02 : [ NextJS 블로그 동적 SEO 구현 여정기 ](https://lsevina126.netlify.app/post/65bcd867390620f004440afe)
 - 2024.01.05 : [ 개인 블로그 사이트 성능 개선 및 트러블 슈팅 해결 여정기 ](https://lsevina126.netlify.app/post/65979ed57a920683806df985)
 - 2023.03.29 : [ NextJS, ReactJS - Pagination 구현 ( Feat. 라이브러리 없이 구현 ) ](https://lsevina126.netlify.app/post/642350ca059244411a587631)
