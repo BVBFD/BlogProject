@@ -43,6 +43,10 @@ img {
   width: fit-content !important;
 }
 
+.ql-snow .ql-editor pre {
+  margin: 0.8rem 0 !important;
+}
+
 @media (prefers-color-schema: white) {
   html {
     color-scheme: dark;
