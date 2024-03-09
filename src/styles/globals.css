@@ -44,7 +44,23 @@ img {
 }
 
 .ql-snow .ql-editor pre {
-  margin: 0.8rem 0 !important;
+  margin: 0.8rem 0 0.6rem 0 !important;
+}
+
+.ql-snow .ql-editor h1 {
+  margin: 1.2rem 0;
+}
+
+.ql-snow .ql-editor h2 {
+  margin: 1rem 0;
+}
+
+.ql-snow .ql-editor h3 {
+  margin: 0.8rem 0;
+}
+
+.ql-snow .ql-editor h4 {
+  margin: 0.6rem 0;
 }
 
 @media (prefers-color-schema: white) {
