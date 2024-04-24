@@ -89,7 +89,7 @@ const PostPage = ({ ps }: { ps: PostsType }) => {
             description: `${ps?.title}`,
             images: [
               {
-                url: ps?.imgUrl,
+                url: ps ? ps.imgUrl : 'something',
                 alt: ps?.title,
                 type: 'image/gif',
               },
@@ -112,7 +112,7 @@ const PostPage = ({ ps }: { ps: PostsType }) => {
                       loading="eager"
                       objectFit="contain"
                       quality={1}
-                      src={`${data.imgUrl}`}
+                      src={data.imgUrl ? `${data.imgUrl}` : 'something'}
                     />
                   </div>
                   <div className={styles.postTextBox}>
