@@ -4,14 +4,16 @@ import { mutate } from 'swr';
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 const TEST_BASE_URL = `${process.env.NEXT_PUBLIC_TEST_BASE_URL}`;
 const NEXT_API_BASE_URL = `${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}`;
-
+const DEFAULT_TIMEOUT = 30000;
 const Origin = 'http://localhost:3000' || 'https://lsevina126.netlify.app';
 
 export const publicRequest = axios.create({
   baseURL: BASE_URL || TEST_BASE_URL || NEXT_API_BASE_URL,
   withCredentials: true,
+  timeout: DEFAULT_TIMEOUT,
   headers: {
     Origin,
+    'Content-Type': 'application/json',
     'Content-Securitiy-Policy':
       'img-src *;media-src https://res.cloudinary.com https://www.youtube.com/embed/;child-src https://res.cloudinary.com https://www.youtube.com/embed/;frame-src https://www.youtube.com/embed/;',
   },
