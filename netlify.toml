@@ -4,4 +4,4 @@ publish = ".next"
 node_version = "18.17.0"
 
 [[plugins]]
-package = "@netlify/plugin-nextjs"
+package = "@netlify/plugin-nextjs:4.41.3"
