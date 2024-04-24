@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const usePost = (ps: PostsType) => {
-  const { user } = useSelector((state: RootState) => state);
+  const user = useSelector((state: RootState) => state.user);
   const router = useRouter();
   const dispatch = useDispatch();
 

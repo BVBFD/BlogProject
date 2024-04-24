@@ -49,7 +49,7 @@ const PostPage = ({ ps }: { ps: PostsType }) => {
   const swrUrl = getSwrUrl({ postId: router.query.id });
   const { data, isLoading, error: swrError } = useSWR(swrUrl, fetcher);
   const [editBtnIndex, setEditBtnIndex] = React.useState<boolean>(false);
-  const { openPostBol } = useSelector((state: RootState) => state);
+  const openPostBol = useSelector((state: RootState) => state.openPostBol);
   const dispatch = useDispatch();
 
   const { deletePost, handleBeforeUnloadOnload, handleBeforePopState } = usePost(ps);
@@ -78,82 +78,84 @@ const PostPage = ({ ps }: { ps: PostsType }) => {
   }
 
   return (
-    <>
-      <NextSeo
-        canonical={`https://lsevina126.netlify.app/ps?/${ps?.title}/${ps?._id}`}
-        description={ps?.title}
-        openGraph={{
-          url: `https://lsevina126.netlify.app/ps?/${ps?.title}/${ps?._id}`,
-          title: `${ps?.title}`,
-          description: `${ps?.title}`,
-          images: [
-            {
-              url: ps?.imgUrl,
-              alt: ps?.title,
-              type: 'image/gif',
-            },
-          ],
-          siteName: `${ps?.title}`,
-        }}
-        title={ps?.title}
-      />
-      {!editBtnIndex && (
-        <section className={styles.postPage}>
-          {!isLoading ? (
-            <div className={styles.postBox}>
-              <div className={styles.postImgTextBox}>
-                <div className={styles.postTitleImgBox} style={{ backgroundColor: '#e4e4e4' }}>
-                  <Image
-                    alt="postImg"
-                    crossOrigin="anonymous"
-                    fetchPriority="high"
-                    fill
-                    loading="eager"
-                    objectFit="contain"
-                    quality={1}
-                    src={`${data.imgUrl}`}
-                  />
-                </div>
-                <div className={styles.postTextBox}>
-                  <header className={styles.postHeader}>
-                    <p>
-                      Category: <span>{data.catName}</span>
-                    </p>
-                    <span className={styles.title}>{data.title}</span>
-                    <div>
-                      <EditFilled onClick={toggleEditBtnIndex} />
-                      <DeleteFilled onClick={deletePost} />
-                    </div>
-                  </header>
-                  <div className={styles.authorAndDate}>
-                    <p>
-                      Author: <span>{data.author}</span>
-                    </p>
-                    <span>{new Date(data.createdAt).toDateString()}</span>
+    ps && (
+      <>
+        <NextSeo
+          canonical={`https://lsevina126.netlify.app/ps?/${ps?.title}/${ps?._id}`}
+          description={ps?.title}
+          openGraph={{
+            url: `https://lsevina126.netlify.app/ps?/${ps?.title}/${ps?._id}`,
+            title: `${ps?.title}`,
+            description: `${ps?.title}`,
+            images: [
+              {
+                url: ps?.imgUrl,
+                alt: ps?.title,
+                type: 'image/gif',
+              },
+            ],
+            siteName: `${ps?.title}`,
+          }}
+          title={ps?.title}
+        />
+        {!editBtnIndex && (
+          <section className={styles.postPage}>
+            {!isLoading ? (
+              <div className={styles.postBox}>
+                <div className={styles.postImgTextBox}>
+                  <div className={styles.postTitleImgBox} style={{ backgroundColor: '#e4e4e4' }}>
+                    <Image
+                      alt="postImg"
+                      crossOrigin="anonymous"
+                      fetchPriority="high"
+                      fill
+                      loading="eager"
+                      objectFit="contain"
+                      quality={1}
+                      src={`${data.imgUrl}`}
+                    />
                   </div>
-                  <div className="ql-snow">
-                    <div className={`${styles.postContentText} ql-editor`} dangerouslySetInnerHTML={inputText()} />
+                  <div className={styles.postTextBox}>
+                    <header className={styles.postHeader}>
+                      <p>
+                        Category: <span>{data.catName}</span>
+                      </p>
+                      <span className={styles.title}>{data.title}</span>
+                      <div>
+                        <EditFilled onClick={toggleEditBtnIndex} />
+                        <DeleteFilled onClick={deletePost} />
+                      </div>
+                    </header>
+                    <div className={styles.authorAndDate}>
+                      <p>
+                        Author: <span>{data.author}</span>
+                      </p>
+                      <span>{new Date(data.createdAt).toDateString()}</span>
+                    </div>
+                    <div className="ql-snow">
+                      <div className={`${styles.postContentText} ql-editor`} dangerouslySetInnerHTML={inputText()} />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ) : (
+            ) : (
+              <div className={styles.circularBox}>
+                <Spin />
+              </div>
+            )}
+          </section>
+        )}
+        <React.Suspense
+          fallback={
             <div className={styles.circularBox}>
               <Spin />
             </div>
-          )}
-        </section>
-      )}
-      <React.Suspense
-        fallback={
-          <div className={styles.circularBox}>
-            <Spin />
-          </div>
-        }
-      >
-        {editBtnIndex && <Write editBtnIndex={editBtnIndex} post={data} setEditBtnIndex={setEditBtnIndex} />}
-      </React.Suspense>
-    </>
+          }
+        >
+          {editBtnIndex && <Write editBtnIndex={editBtnIndex} post={data} setEditBtnIndex={setEditBtnIndex} />}
+        </React.Suspense>
+      </>
+    )
   );
 };
 
