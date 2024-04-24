@@ -10,7 +10,7 @@ import DeleteFilled from '@ant-design/icons/DeleteFilled';
 import EditFilled from '@ant-design/icons/EditFilled';
 import { Spin } from 'antd';
 import { PostsType } from '@/models/postsModel';
-import { fetcher, getSwrUrl, publicRequest, runSwrMutate } from '../../api/config';
+import { deleteCookies, fetcher, getSwrUrl, publicRequest, runSwrMutate } from '../../api/config';
 import { RootState } from '../../redux/sliceStore';
 
 import styles from '../../styles/post/index.module.scss';
@@ -57,8 +57,12 @@ const PostPage = ({ ps }: { ps: PostsType }) => {
     return { __html: `${data.text}` };
   };
   const toggleEditBtnIndex = () => setEditBtnIndex((prevState) => !prevState);
+  const handleDeleteCookies = async () => {
+    await deleteCookies();
+  };
 
   useEffect(() => {
+    handleDeleteCookies();
     router.beforePopState(handleBeforePopState);
 
     runSwrMutate(swrUrl);

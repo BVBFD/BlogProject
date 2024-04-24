@@ -40,3 +40,12 @@ export const fetcher = (url: string) => publicRequest.get(url).then((res) => res
 export const runSwrMutate = (swrUrl: string) => {
   return mutate(swrUrl);
 };
+
+export const deleteCookies = async () => {
+  try {
+    await axios.post(`${BASE_URL || TEST_BASE_URL || NEXT_API_BASE_URL}/api/delete-cookies`);
+    console.log('Cookies deleted successfully');
+  } catch (error) {
+    console.error('Error deleting cookies:', error);
+  }
+};
