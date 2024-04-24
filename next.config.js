@@ -11,6 +11,7 @@ const nextConfig = {
     useDeploymentIdServerActions: true,
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
