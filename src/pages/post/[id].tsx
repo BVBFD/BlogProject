@@ -59,9 +59,6 @@ const PostPage = ({ ps }: { ps: PostsType }) => {
   const toggleEditBtnIndex = () => setEditBtnIndex((prevState) => !prevState);
 
   useEffect(() => {
-    document.cookie = 'WebsiteToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    document.cookie = 'AnotherCookieName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-
     router.beforePopState(handleBeforePopState);
 
     runSwrMutate(swrUrl);
